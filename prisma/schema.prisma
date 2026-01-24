@@ -1,0 +1,577 @@
+// Prisma Schema for Bamboo Instructor Dashboard
+// Authentication + Role-Based Access Control
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// AUTH.JS REQUIRED MODELS
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  password      String? // Hashed with bcrypt, nullable for OAuth users
+  image         String?
+  role          Role      @default(STUDENT)
+
+  // Relations
+  accounts              Account[]
+  sessions              Session[]
+  enrollments           Enrollment[]
+  instructorCourses     CourseInstructor[]
+  lessonProgress        LessonProgress[]
+  cohortInstructorships CohortInstructor[]
+  assessmentSignoffs    AssessmentSignoff[]  @relation("AssessmentSignoffs")
+  attendanceRecords     Attendance[]         @relation("AttendanceMarkedBy")
+  checklistCompletions  ChecklistProgress[]  @relation("ChecklistCompletedBy")
+
+  // Metadata
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastLoginAt DateTime?
+  isActive    Boolean   @default(true)
+
+  // Performance indexes
+  @@index([role, isActive])
+  @@index([createdAt(sort: Desc)])
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// APPLICATION MODELS
+// ============================================
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  INSTRUCTOR
+  STUDENT
+}
+
+enum EnrollmentStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  SUSPENDED
+}
+
+model Course {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  title       String
+  shortTitle  String?
+  description String? @db.Text
+  icon        String?
+  color       String  @default("green")
+  notionNavId String  @map("notion_nav_id")
+  enabled     Boolean @default(true)
+
+  // Relations
+  enrollments Enrollment[]
+  instructors CourseInstructor[]
+  progress    LessonProgress[]
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Performance indexes
+  @@index([enabled, createdAt(sort: Desc)])
+  @@map("courses")
+}
+
+model CourseInstructor {
+  id         String   @id @default(cuid())
+  courseId   String   @map("course_id")
+  userId     String   @map("user_id")
+  assignedAt DateTime @default(now())
+  isPrimary  Boolean  @default(false) @map("is_primary")
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, userId])
+  // Performance index for course lookups
+  @@index([courseId])
+  @@map("course_instructors")
+}
+
+model Enrollment {
+  id          String           @id @default(cuid())
+  userId      String           @map("user_id")
+  courseId    String           @map("course_id")
+  status      EnrollmentStatus @default(PENDING)
+  enrolledAt  DateTime         @default(now()) @map("enrolled_at")
+  completedAt DateTime?        @map("completed_at")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  // Performance indexes for filtering
+  @@index([courseId, status])
+  @@map("enrollments")
+}
+
+model LessonProgress {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  courseId    String   @map("course_id")
+  lessonId    String   @map("lesson_id") // Notion page ID
+  completedAt DateTime @default(now()) @map("completed_at")
+  notes       String?  @db.Text // Instructor notes
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  // Performance indexes for progress queries
+  @@index([userId, courseId])
+  @@index([courseId, completedAt(sort: Desc)])
+  @@map("lesson_progress")
+}
+
+// ============================================
+// AUDIT LOG (for security tracking)
+// ============================================
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?  @map("user_id")
+  action    String // LOGIN, LOGOUT, CREATE_USER, UPDATE_ROLE, etc.
+  entity    String // USER, COURSE, ENROLLMENT, etc.
+  entityId  String?  @map("entity_id")
+  details   Json? // Additional context
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ============================================
+// CURRICULUM LAYER (Synced from Notion)
+// ============================================
+
+enum BlockType {
+  PARAGRAPH
+  HEADING_1
+  HEADING_2
+  HEADING_3
+  CALLOUT
+  TABLE
+  IMAGE
+  VIDEO
+  CODE
+  DIVIDER
+  BULLETED_LIST
+  NUMBERED_LIST
+  TOGGLE
+  QUOTE
+  // Instructor-specific normalized types
+  SECTION_TIMER
+  CHECKLIST
+  MATERIALS_TABLE
+  ASSESSMENT_GRID
+  ACTIVITY
+  KEY_POINT
+  DISCUSSION_PROMPT
+}
+
+model CurriculumCourse {
+  id            String   @id @default(cuid())
+  notionPageId  String   @unique @map("notion_page_id")
+  slug          String   @unique
+  title         String
+  description   String?  @db.Text
+  durationWeeks Int      @default(6) @map("duration_weeks")
+  level         String?
+  accreditation String?
+  syncedAt      DateTime @default(now()) @map("synced_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  modules CurriculumModule[]
+  cohorts Cohort[]
+
+  @@index([slug])
+  @@index([notionPageId])
+  @@map("curriculum_courses")
+}
+
+model CurriculumModule {
+  id           String   @id @default(cuid())
+  notionPageId String   @unique @map("notion_page_id")
+  courseId     String   @map("course_id")
+  title        String
+  description  String?  @db.Text
+  sortOrder    Int      @map("sort_order")
+  weekNumber   Int?     @map("week_number")
+  syncedAt     DateTime @default(now()) @map("synced_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  course  CurriculumCourse   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons CurriculumLesson[]
+
+  @@index([courseId, sortOrder])
+  @@index([notionPageId])
+  @@map("curriculum_modules")
+}
+
+model CurriculumLesson {
+  id           String   @id @default(cuid())
+  notionPageId String   @unique @map("notion_page_id")
+  moduleId     String   @map("module_id")
+  title        String
+  description  String?  @db.Text
+  sortOrder    Int      @map("sort_order")
+  durationMins Int?     @map("duration_mins")
+  ocnCriteria  String[] @map("ocn_criteria")
+  syncedAt     DateTime @default(now()) @map("synced_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  module             CurriculumModule    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  blocks             CurriculumBlock[]
+  sessionDeliveries  SessionDelivery[]
+  assessmentSignoffs AssessmentSignoff[]
+
+  @@index([moduleId, sortOrder])
+  @@index([notionPageId])
+  @@map("curriculum_lessons")
+}
+
+model CurriculumBlock {
+  id            String    @id @default(cuid())
+  notionBlockId String    @unique @map("notion_block_id")
+  lessonId      String    @map("lesson_id")
+  sortOrder     Int       @map("sort_order")
+  blockType     BlockType @map("block_type")
+  content       Json
+  durationMins  Int?      @map("duration_mins")
+  isRequired    Boolean   @default(false) @map("is_required")
+  syncedAt      DateTime  @default(now()) @map("synced_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  lesson            CurriculumLesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  checklistProgress ChecklistProgress[]
+
+  @@index([lessonId, sortOrder])
+  @@index([notionBlockId])
+  @@index([blockType])
+  @@map("curriculum_blocks")
+}
+
+// ============================================
+// DELIVERY LAYER (Application Managed)
+// ============================================
+
+enum CohortStatus {
+  DRAFT
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum InstructorRole {
+  LEAD
+  ASSISTANT
+  OBSERVER
+}
+
+enum LearnerStatus {
+  ENROLLED
+  ACTIVE
+  DEFERRED
+  WITHDRAWN
+  COMPLETED
+  FAILED
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  LATE
+  ABSENT
+  EXCUSED
+  PARTIAL
+}
+
+enum TimerAction {
+  START
+  PAUSE
+  RESUME
+  RESET
+  COMPLETE
+}
+
+enum SignoffStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SUBMITTED
+  SIGNED_OFF
+  REQUIRES_REVISION
+  VERIFIED
+}
+
+enum IqaStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  ACTION_REQUIRED
+}
+
+model Cohort {
+  id          String       @id @default(cuid())
+  courseId    String       @map("course_id")
+  name        String
+  code        String       @unique
+  startDate   DateTime     @map("start_date")
+  endDate     DateTime?    @map("end_date")
+  status      CohortStatus @default(SCHEDULED)
+  maxLearners Int          @default(12) @map("max_learners")
+  location    String?
+  notes       String?      @db.Text
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  course      CurriculumCourse   @relation(fields: [courseId], references: [id])
+  instructors CohortInstructor[]
+  learners    Learner[]
+  sessions    SessionDelivery[]
+  iqaSamples  IqaSample[]
+
+  @@index([courseId])
+  @@index([status])
+  @@index([startDate])
+  @@map("cohorts")
+}
+
+model CohortInstructor {
+  id         String         @id @default(cuid())
+  cohortId   String         @map("cohort_id")
+  userId     String         @map("user_id")
+  role       InstructorRole @default(LEAD)
+  assignedAt DateTime       @default(now()) @map("assigned_at")
+
+  cohort Cohort @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([cohortId, userId])
+  @@index([userId])
+  @@map("cohort_instructors")
+}
+
+model Learner {
+  id           String        @id @default(cuid())
+  cohortId     String        @map("cohort_id")
+  firstName    String        @map("first_name")
+  lastName     String        @map("last_name")
+  email        String
+  phone        String?
+  ocnLearnerId String?       @map("ocn_learner_id")
+  status       LearnerStatus @default(ENROLLED)
+  enrolledAt   DateTime      @default(now()) @map("enrolled_at")
+  completedAt  DateTime?     @map("completed_at")
+  notes        String?       @db.Text
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  cohort      Cohort              @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  attendance  Attendance[]
+  assessments AssessmentSignoff[]
+
+  @@unique([cohortId, email])
+  @@index([cohortId])
+  @@index([status])
+  @@map("learners")
+}
+
+model SessionDelivery {
+  id              String        @id @default(cuid())
+  cohortId        String        @map("cohort_id")
+  lessonId        String        @map("lesson_id")
+  scheduledDate   DateTime      @map("scheduled_date")
+  scheduledTime   String?       @map("scheduled_time")
+  actualStart     DateTime?     @map("actual_start")
+  actualEnd       DateTime?     @map("actual_end")
+  status          SessionStatus @default(SCHEDULED)
+  instructorNotes String?       @map("instructor_notes") @db.Text
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  cohort            Cohort              @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  lesson            CurriculumLesson    @relation(fields: [lessonId], references: [id])
+  attendance        Attendance[]
+  checklistProgress ChecklistProgress[]
+  timerLogs         TimerLog[]
+
+  @@unique([cohortId, lessonId, scheduledDate])
+  @@index([cohortId, scheduledDate])
+  @@index([lessonId])
+  @@index([status])
+  @@map("session_deliveries")
+}
+
+model Attendance {
+  id        String           @id @default(cuid())
+  sessionId String           @map("session_id")
+  learnerId String           @map("learner_id")
+  status    AttendanceStatus @default(PRESENT)
+  arrivedAt DateTime?        @map("arrived_at")
+  leftAt    DateTime?        @map("left_at")
+  notes     String?
+  markedAt  DateTime         @default(now()) @map("marked_at")
+  markedBy  String           @map("marked_by")
+
+  session      SessionDelivery @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  learner      Learner         @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  markedByUser User            @relation("AttendanceMarkedBy", fields: [markedBy], references: [id])
+
+  @@unique([sessionId, learnerId])
+  @@index([learnerId])
+  @@index([status])
+  @@map("attendance")
+}
+
+model ChecklistProgress {
+  id          String    @id @default(cuid())
+  sessionId   String    @map("session_id")
+  blockId     String    @map("block_id")
+  itemIndex   Int       @map("item_index")
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at")
+  completedBy String?   @map("completed_by")
+
+  session         SessionDelivery @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  block           CurriculumBlock @relation(fields: [blockId], references: [id])
+  completedByUser User?           @relation("ChecklistCompletedBy", fields: [completedBy], references: [id])
+
+  @@unique([sessionId, blockId, itemIndex])
+  @@index([sessionId])
+  @@map("checklist_progress")
+}
+
+model TimerLog {
+  id             String      @id @default(cuid())
+  sessionId      String      @map("session_id")
+  blockId        String      @map("block_id")
+  action         TimerAction
+  elapsedSeconds Int?        @map("elapsed_seconds")
+  timestamp      DateTime    @default(now())
+  userId         String      @map("user_id")
+
+  session SessionDelivery @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, blockId])
+  @@map("timer_logs")
+}
+
+model AssessmentSignoff {
+  id            String        @id @default(cuid())
+  learnerId     String        @map("learner_id")
+  lessonId      String        @map("lesson_id")
+  criterionCode String        @map("criterion_code")
+  criterionText String        @map("criterion_text")
+  status        SignoffStatus @default(NOT_STARTED)
+  evidenceNotes String?       @map("evidence_notes") @db.Text
+  evidenceFiles String[]      @map("evidence_files")
+  signedOffAt   DateTime?     @map("signed_off_at")
+  signedOffBy   String?       @map("signed_off_by")
+  verifiedAt    DateTime?     @map("verified_at")
+  verifiedBy    String?       @map("verified_by")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  learner          Learner          @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  lesson           CurriculumLesson @relation(fields: [lessonId], references: [id])
+  signedOffByUser  User?            @relation("AssessmentSignoffs", fields: [signedOffBy], references: [id])
+
+  @@unique([learnerId, lessonId, criterionCode])
+  @@index([learnerId])
+  @@index([lessonId])
+  @@index([status])
+  @@index([signedOffBy])
+  @@map("assessment_signoffs")
+}
+
+model IqaSample {
+  id               String    @id @default(cuid())
+  cohortId         String    @map("cohort_id")
+  samplePeriod     String    @map("sample_period")
+  sampledBy        String    @map("sampled_by")
+  sampledAt        DateTime  @default(now()) @map("sampled_at")
+  learnersSelected String[]  @map("learners_selected")
+  criteriaSelected String[]  @map("criteria_selected")
+  findings         String?   @db.Text
+  actionPoints     String?   @map("action_points") @db.Text
+  status           IqaStatus @default(PLANNED)
+  completedAt      DateTime? @map("completed_at")
+
+  cohort Cohort @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+
+  @@index([cohortId])
+  @@index([status])
+  @@map("iqa_samples")
+}

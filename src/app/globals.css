@@ -1,8 +1,142 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand colors - Bamboo/Nature inspired */
+  --bamboo-50: #f0fdf4;
+  --bamboo-100: #dcfce7;
+  --bamboo-200: #bbf7d0;
+  --bamboo-300: #86efac;
+  --bamboo-400: #4ade80;
+  --bamboo-500: #22c55e;
+  --bamboo-600: #16a34a;
+  --bamboo-700: #15803d;
+  --bamboo-800: #166534;
+  --bamboo-900: #14532d;
+
+  /* Warm accent - for highlights and CTAs */
+  --amber-50: #fffbeb;
+  --amber-100: #fef3c7;
+  --amber-200: #fde68a;
+  --amber-300: #fcd34d;
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+  --amber-600: #d97706;
+
+  /* Neutral palette - Light mode */
+  --card-bg: #ffffff;
+  --border: oklch(0.922 0 0);
+  --muted: oklch(0.97 0 0);
+
+  /* Additional semantic colors for dark mode support */
+  --surface: #ffffff;
+  --surface-hover: #f9fafb;
+  --surface-active: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #6b7280;
+  --scrollbar-thumb: #d1d5db;
+  --scrollbar-thumb-hover: #9ca3af;
+  --selection-bg: var(--bamboo-200);
+  --selection-text: var(--bamboo-900);
+  --code-bg: #1e293b;
+  --code-text: #e2e8f0;
+  --inline-code-bg: #f1f5f9;
+  --inline-code-text: #0f172a;
+  --radius: 0.75rem;
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  /* Bamboo green primary color */
+  --primary: oklch(0.59 0.17 142);
+  --primary-foreground: oklch(1 0 0);
+  /* Amber secondary color */
+  --secondary: oklch(0.77 0.14 75);
+  --secondary-foreground: oklch(1 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.95 0.03 142);
+  --accent-foreground: oklch(0.35 0.1 142);
+  --destructive: oklch(0.577 0.245 27.325);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.65 0.17 142);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* Dark mode via system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+    --card-bg: #1e293b;
+    --border: #334155;
+    --muted: #94a3b8;
+
+    --surface: #1e293b;
+    --surface-hover: #334155;
+    --surface-active: #475569;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --scrollbar-thumb: #475569;
+    --scrollbar-thumb-hover: #64748b;
+    --selection-bg: var(--bamboo-800);
+    --selection-text: var(--bamboo-100);
+    --code-bg: #0f172a;
+    --code-text: #e2e8f0;
+    --inline-code-bg: #334155;
+    --inline-code-text: #e2e8f0;
+
+    /* Adjust bamboo colors for dark mode contrast */
+    --bamboo-50: #022c22;
+    --bamboo-100: #064e3b;
+    --bamboo-200: #065f46;
+  }
+}
+
+/* Manual dark mode override */
+[data-theme="dark"] {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card-bg: #1e293b;
+  --border: #334155;
+  --muted: #94a3b8;
+
+  --surface: #1e293b;
+  --surface-hover: #334155;
+  --surface-active: #475569;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --scrollbar-thumb: #475569;
+  --scrollbar-thumb-hover: #64748b;
+  --selection-bg: var(--bamboo-800);
+  --selection-text: var(--bamboo-100);
+  --code-bg: #0f172a;
+  --code-text: #e2e8f0;
+  --inline-code-bg: #334155;
+  --inline-code-text: #e2e8f0;
+
+  /* Adjust bamboo colors for dark mode contrast */
+  --bamboo-50: #022c22;
+  --bamboo-100: #064e3b;
+  --bamboo-200: #065f46;
 }
 
 @theme inline {
@@ -10,17 +144,1022 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global reset and base */
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--bamboo-500);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar - subtle and modern */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* ============================================
+   EDUCATION PLATFORM - CARD STYLES
+   ============================================ */
+
+/* Module/Lesson cards - Clean, scannable design */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--bamboo-300);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* Progress indicator styling */
+.progress-bar {
+  background: #e5e7eb;
+  border-radius: 100px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: var(--bamboo-500);
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+/* Status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-completed {
+  background: var(--bamboo-100);
+  color: var(--bamboo-700);
+}
+
+.badge-in-progress {
+  background: var(--amber-100);
+  color: var(--amber-700);
+}
+
+.badge-pending {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+
+.sidebar {
+  background: var(--card-bg);
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+}
+
+.sidebar-link:hover {
+  background: var(--bamboo-50);
+  color: var(--bamboo-700);
+}
+
+.sidebar-link.active {
+  background: var(--bamboo-100);
+  color: var(--bamboo-700);
+  font-weight: 500;
+}
+
+/* Module section in sidebar */
+.module-section {
+  margin-bottom: 8px;
+}
+
+.module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-weight: 600;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.module-header:hover {
+  background: var(--surface-hover);
+}
+
+/* ============================================
+   LESSON CONTENT AREA
+   ============================================ */
+
+.lesson-header {
+  padding: 32px 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lesson-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.lesson-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Action buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--bamboo-500);
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--bamboo-600);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: white;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* ============================================
+   NOTION CONTENT STYLING - Enhanced for Learning
+   Typographic Scale: 1.25 (Major Third)
+   Optimal readability, visual hierarchy, WCAG AA compliant
+   ============================================ */
+
+.notion-content {
+  /* Optimal line-height for long-form reading (1.6-1.8x) */
+  line-height: 1.75;
+  color: var(--text-secondary);
+  /* Optimal reading width: 50-75 characters */
+  max-width: 70ch;
+  /* Base font size: 17px for optimal web readability */
+  font-size: 1.0625rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   HEADER HIERARCHY (Scale 1.25)
+   H1: 2.25rem (36px) - Page sections
+   H2: 1.75rem (28px) - Major sections
+   H3: 1.375rem (22px) - Subsections
+   H4: 1.125rem (18px) - Minor headings
+   ============================================ */
+
+.notion-content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--bamboo-200);
+  scroll-margin-top: 5rem;
+}
+
+.notion-content h1:first-child {
+  margin-top: 0;
+}
+
+.notion-content h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.3;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  padding-top: 2rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--bamboo-500);
+  border-top: 1px solid #e5e7eb;
+  scroll-margin-top: 5rem;
+}
+
+/* First h2 doesn't need top border - cleaner start */
+.notion-content h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 2rem;
+}
+
+.notion-content h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 5rem;
+}
+
+.notion-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  scroll-margin-top: 5rem;
+}
+
+/* ============================================
+   PARAGRAPHS - Optimal reading experience
+   ============================================ */
+
+.notion-content p {
+  margin-bottom: 1.5em;
+  color: var(--text-secondary);
+}
+
+/* Lead paragraph - slightly larger for visual hierarchy */
+.notion-content > p:first-of-type {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   LISTS - Simplified for clarity
+   Removed gradient backgrounds - cleaner look
+   ============================================ */
+
+.notion-content ul,
+.notion-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--bamboo-200);
+}
+
+.notion-content ul {
+  list-style-type: disc;
+}
+
+.notion-content ol {
+  list-style-type: decimal;
+}
+
+.notion-content li {
+  margin-bottom: 0.5em;
+  padding-left: 0.5rem;
+  line-height: 1.7;
+}
+
+.notion-content li:last-child {
+  margin-bottom: 0;
+}
+
+.notion-content li::marker {
+  color: var(--bamboo-500);
+}
+
+.notion-content ol li::marker {
+  color: var(--bamboo-600);
+  font-weight: 600;
+}
+
+/* Nested lists - subtle hierarchy */
+.notion-content ul ul,
+.notion-content ol ol,
+.notion-content ul ol,
+.notion-content ol ul {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-left: 2px solid var(--bamboo-100);
+}
+
+/* Links */
+.notion-content a {
+  color: var(--bamboo-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.notion-content a:hover {
+  color: var(--bamboo-700);
+}
+
+/* ============================================
+   TABLES - Clean and readable
+   ============================================ */
+
+.notion-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9375rem;
+}
+
+.notion-content th {
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.notion-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: top;
+}
+
+.notion-content tr:last-child td {
+  border-bottom: none;
+}
+
+.notion-content tr:hover td {
+  background: #f9fafb;
+}
+
+/* ============================================
+   CALLOUTS - Semantic color coding
+   Info (blue), Warning (amber), Success (green), Danger (red)
+   ============================================ */
+
+.callout {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border-left: 4px solid;
+}
+
+.callout-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.125rem;
+}
+
+.callout-content {
+  flex: 1;
+  line-height: 1.65;
+  font-size: 0.9375rem;
+}
+
+.callout-content p {
+  margin-bottom: 0.5em;
+}
+
+.callout-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Info callout (blue) - Tips, notes, additional context */
+.callout-blue {
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+.callout-blue .callout-icon {
+  color: #2563eb;
+}
+
+/* Success callout (green) - Best practices, completed steps */
+.callout-green {
+  background: #f0fdf4;
+  border-color: #22c55e;
+}
+.callout-green .callout-icon {
+  color: #16a34a;
+}
+
+/* Warning callout (amber) - Cautions, important notices */
+.callout-yellow {
+  background: #fffbeb;
+  border-color: #f59e0b;
+}
+.callout-yellow .callout-icon {
+  color: #d97706;
+}
+
+/* Danger callout (red) - Errors, critical warnings */
+.callout-red {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+.callout-red .callout-icon {
+  color: #dc2626;
+}
+
+/* Important callout (purple) - Key concepts, highlights */
+.callout-purple {
+  background: #faf5ff;
+  border-color: #a855f7;
+}
+.callout-purple .callout-icon {
+  color: #9333ea;
+}
+
+/* Neutral callout (gray) - General notes */
+.callout-gray {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+.callout-gray .callout-icon {
+  color: #6b7280;
+}
+
+/* ============================================
+   BLOCKQUOTES - Citations and quotes
+   ============================================ */
+
+.notion-content blockquote {
+  border-left: 4px solid var(--bamboo-300);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: #f9fafb;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.notion-content blockquote p {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   DIVIDERS - Clean section breaks
+   ============================================ */
+
+.notion-content hr {
+  border: none;
+  margin: 3rem 0;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* Images */
+.notion-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 24px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   CODE BLOCKS - Clean dark theme
+   ============================================ */
+
+.notion-content pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  border: 1px solid #334155;
+}
+
+.notion-content code {
+  font-family: var(--font-mono), 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+/* Inline code */
+.notion-content :not(pre) > code {
+  background: #f1f5f9;
+  color: #be185d;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+/* Toggle/Accordion blocks - Great for FAQs and expandable content */
+details {
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+details summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 16px 20px;
+  font-weight: 500;
+  background: var(--surface-hover);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s ease;
+}
+
+details summary:hover {
+  background: var(--surface-active);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+details[open] summary svg {
+  transform: rotate(90deg);
+}
+
+details .toggle-content {
+  padding: 16px 20px;
+}
+
+/* ============================================
+   LOADING STATES - Skeleton animations
+   ============================================ */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: var(--surface-active);
+  animation: pulse 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+.skeleton-shimmer {
+  background: rgba(255, 255, 255, 0.2);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================
+   MEDIA OPTIMIZATIONS
+   ============================================ */
+
+/* Optimized image container */
+.media-container {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--surface-active);
+  border-radius: 12px;
+}
+
+/* Video play button animation */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+}
+
+.video-play-button {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* Image loading state */
+.image-loading {
+  background: var(--surface-active);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+/* Gallery lightbox backdrop */
+.lightbox-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Aspect ratio utilities */
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+/* ============================================
+   PRINT STYLES - Clean handouts
+   ============================================ */
+
+@media print {
+  /* Hide non-essential elements */
+  aside,
+  nav,
+  header,
+  [class*="print\:hidden"],
+  button,
+  .btn-primary,
+  .btn-secondary {
+    display: none !important;
+  }
+
+  /* Reset layout */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  body {
+    background: white !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  /* Good contrast */
+  * {
+    color: black !important;
+    background: white !important;
+  }
+
+  /* Handle page breaks */
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  table, figure, img {
+    page-break-inside: avoid;
+  }
+
+  /* Callouts for print */
+  .callout {
+    background: #f5f5f5 !important;
+    border-color: #999 !important;
+    page-break-inside: avoid;
+  }
+
+  /* Tables */
+  .notion-content th {
+    background: #eee !important;
+  }
+
+  /* Links */
+  .notion-content a {
+    color: black !important;
+    text-decoration: underline;
+  }
+
+  /* Show URLs after links */
+  .notion-content a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666 !important;
+  }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .notion-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    /* Full width on mobile */
+    max-width: 100%;
+  }
+
+  .notion-content h1 {
+    font-size: 1.5rem;
+    margin-top: 40px;
+    padding-top: 20px;
+    scroll-margin-top: 70px;
+  }
+
+  .notion-content h1::before {
+    width: 32px;
+    height: 3px;
+    margin-bottom: 12px;
+  }
+
+  .notion-content h2 {
+    font-size: 1.25rem;
+    margin-top: 32px;
+    padding-left: 12px;
+    scroll-margin-top: 70px;
+  }
+
+  .notion-content h3 {
+    font-size: 1.125rem;
+    margin-top: 28px;
+    scroll-margin-top: 70px;
+  }
+
+  .notion-content p {
+    margin-bottom: 1.5em;
+  }
+
+  /* Lists - simplified on mobile */
+  .notion-content ul,
+  .notion-content ol {
+    padding-left: 20px;
+    padding-right: 12px;
+    margin-bottom: 20px;
+  }
+
+  .notion-content table {
+    font-size: 0.875rem;
+  }
+
+  .notion-content th,
+  .notion-content td {
+    padding: 10px 12px;
+  }
+
+  .callout {
+    padding: 16px 18px;
+    margin: 24px 0;
+    gap: 12px;
+  }
+
+  .callout-icon {
+    font-size: 1.25rem;
+  }
+
+  /* Simplified divider on mobile */
+  .notion-content hr {
+    margin: 36px 0;
+  }
+
+  .notion-content hr::after {
+    font-size: 0.625rem;
+    padding: 0 8px;
+  }
+}
+
+/* ============================================
+   ANIMATION UTILITIES
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Smooth transitions for interactive elements */
+.transition-smooth {
+  transition: all 0.2s ease;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================
+   HANDBOOK STYLES - Urban Arrow Manual Style
+   Clean technical documentation with sidebar TOC
+   ============================================ */
+
+/* Handbook section scroll offset for sticky header */
+.handbook-section {
+  scroll-margin-top: 6rem;
+}
+
+/* Handbook image container */
+.handbook-image-container figure {
+  margin: 0;
+}
+
+.handbook-image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Handbook print styles */
+@media print {
+  /* Hide sidebar and mobile toggle */
+  .lg\:sticky,
+  .fixed {
+    display: none !important;
+  }
+
+  /* Full width content */
+  .flex-1 {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Section breaks */
+  .handbook-section {
+    page-break-inside: avoid;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Images */
+  .handbook-image-container img {
+    max-width: 80%;
+    margin: 1rem auto;
+  }
+
+  /* Hide header */
+  header {
+    display: none !important;
+  }
+
+  /* Show page title */
+  .handbook-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
 }

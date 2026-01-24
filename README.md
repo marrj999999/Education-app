@@ -1,8 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bamboo Instructor Dashboard
+
+A Next.js-powered instructor portal for Bamboo Bicycle Club courses, with Notion CMS integration.
+
+## Prerequisites
+
+- Node.js 20+ (see `.nvmrc`)
+- PostgreSQL database
+- Notion integration token
+
+## Environment Setup
+
+Copy `.env.example` to `.env.local` and configure:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables:
+- `NOTION_API_KEY` - Notion integration token
+- `NOTION_COURSE_NAV_ID` - Course navigation page ID
+- `NOTION_DATABASE_ID` - Main database ID
+- `DATABASE_URL` - PostgreSQL connection string
+- `AUTH_SECRET` - NextAuth secret (generate with `openssl rand -base64 32`)
+- `REVALIDATE_SECRET` - Webhook/health check secret
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies and set up the database:
+
+```bash
+npm install
+npm run db:generate
+npm run db:push
+npm run db:seed  # Optional: seed with test data
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
@@ -28,6 +61,43 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## API Endpoints
+
+### Health Check
+
+Check Notion API connectivity:
+
+```bash
+curl "http://localhost:3000/api/health/notion?secret=YOUR_REVALIDATE_SECRET"
+```
+
+Response:
+```json
+{
+  "ok": true,
+  "timestamp": "2026-01-20T00:00:00.000Z",
+  "notion": {
+    "connected": true,
+    "databaseAccessible": true
+  }
+}
+```
+
+### Cache Revalidation
+
+Trigger cache refresh (useful for Notion webhooks):
+
+```bash
+# Revalidate all caches
+curl "http://localhost:3000/api/revalidate?secret=YOUR_REVALIDATE_SECRET"
+
+# Revalidate specific tag
+curl "http://localhost:3000/api/revalidate?secret=YOUR_REVALIDATE_SECRET&tag=lesson"
+
+# Revalidate specific path
+curl "http://localhost:3000/api/revalidate?secret=YOUR_REVALIDATE_SECRET&path=/lessons/abc123"
+```
 
 ## Deploy on Vercel
 
