@@ -7,6 +7,7 @@ import NotionRenderer from '@/components/NotionRenderer';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import ReadingProgress from '@/components/ReadingProgress';
+import { LessonPresentationWrapper } from '@/components/LessonPresentationWrapper';
 import type { NotionBlock } from '@/lib/types';
 import {
   ChevronLeftIcon,
@@ -93,37 +94,35 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // Calculate reading time
   const readingTime = calculateReadingTime(blocks);
 
+  // Build the lesson progress indicator for the action slot
+  const lessonProgressSlot = siblingLessons.length > 1 ? (
+    <div className="flex items-center gap-2 text-sm text-gray-700">
+      <span className="font-medium text-gray-900">
+        {currentIndex + 1}
+      </span>
+      <span>/</span>
+      <span>{siblingLessons.length} lessons</span>
+    </div>
+  ) : null;
+
+  // Build the action buttons (PrintButton + MarkCompleteButton)
+  const actionButtonsSlot = (
+    <>
+      <PrintButton />
+      <MarkCompleteButton lessonId={lessonId} />
+    </>
+  );
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Reading Progress Bar */}
-      <ReadingProgress />
+    <LessonPresentationWrapper
+      actionSlot={lessonProgressSlot}
+      actionButtons={actionButtonsSlot}
+    >
+      <div className="min-h-screen bg-gray-50">
+        {/* Reading Progress Bar */}
+        <ReadingProgress />
 
-      {/* Lesson Actions Bar - minimal, actions only */}
-      <div className="sticky top-14 z-20 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-12">
-            {/* Lesson progress indicator */}
-            {siblingLessons.length > 1 && (
-              <div className="flex items-center gap-2 text-sm text-gray-700">
-                <span className="font-medium text-gray-900">
-                  {currentIndex + 1}
-                </span>
-                <span>/</span>
-                <span>{siblingLessons.length} lessons</span>
-              </div>
-            )}
-            {siblingLessons.length <= 1 && <div />}
-
-            {/* Action buttons */}
-            <div className="flex items-center gap-2">
-              <PrintButton />
-              <MarkCompleteButton lessonId={lessonId} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Cover Image - Full width hero */}
+        {/* Cover Image - Full width hero */}
       {page.cover && (
         <div className={`relative h-48 md:h-64 lg:h-72 w-full overflow-hidden ${colorTheme.bgGradient}`}>
           <Image
@@ -232,11 +231,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </nav>
       </div>
 
-      {/* Print only: show simplified footer */}
-      <div className="hidden print:block text-center text-sm text-gray-500 py-8 border-t">
-        <p>Bamboo Bicycle Club - {course.title}</p>
-        <p>Printed from: {page.title}</p>
+        {/* Print only: show simplified footer */}
+        <div className="hidden print:block text-center text-sm text-gray-500 py-8 border-t">
+          <p>Bamboo Bicycle Club - {course.title}</p>
+          <p>Printed from: {page.title}</p>
+        </div>
       </div>
-    </div>
+    </LessonPresentationWrapper>
   );
 }

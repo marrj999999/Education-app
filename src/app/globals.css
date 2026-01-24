@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../styles/print.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -180,6 +181,71 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* ============================================
+     CONTENT TYPE COLORS - Semantic Design Tokens
+     For safety callouts, activities, theory, assessments
+     ============================================ */
+
+  /* Safety colors - Critical (red) */
+  --color-safety-critical-bg: #FEE2E2;
+  --color-safety-critical-border: #991B1B;
+  --color-safety-critical-text: #7F1D1D;
+
+  /* Safety colors - Warning (amber) */
+  --color-safety-warning-bg: #FEF3C7;
+  --color-safety-warning-border: #B45309;
+  --color-safety-warning-text: #78350F;
+
+  /* Safety colors - Caution (yellow) */
+  --color-safety-caution-bg: #FEF9C3;
+  --color-safety-caution-border: #CA8A04;
+  --color-safety-caution-text: #713F12;
+
+  /* Activity colors (green) */
+  --color-activity-bg: #DCFCE7;
+  --color-activity-border: #15803D;
+  --color-activity-text: #14532D;
+
+  /* Theory colors (blue) */
+  --color-theory-bg: #DBEAFE;
+  --color-theory-border: #1D4ED8;
+  --color-theory-text: #1E3A8A;
+
+  /* Assessment colors (purple) */
+  --color-assessment-bg: #F3E8FF;
+  --color-assessment-border: #7C3AED;
+  --color-assessment-text: #581C87;
+
+  /* Surface colors */
+  --color-surface-default: #FFFFFF;
+  --color-surface-secondary: #F8FAFC;
+  --color-surface-tertiary: #F1F5F9;
+
+  /* Content text colors */
+  --color-content-primary: #0F172A;
+  --color-content-secondary: #334155;
+  --color-content-tertiary: #64748B;
+
+  /* ============================================
+     TEACHING MODE TYPOGRAPHY
+     Large, readable sizes for workshop delivery
+     ============================================ */
+
+  --font-size-teaching-body: 1.25rem;
+  --line-height-teaching-body: 1.75;
+  --font-size-teaching-heading: 1.75rem;
+  --font-size-teaching-step: 3rem;
+
+  /* ============================================
+     PRESENTATION MODE TYPOGRAPHY
+     Extra large for visibility at arm's length
+     ============================================ */
+
+  --font-size-present-body: 1.5rem;
+  --line-height-present-body: 1.75;
+  --font-size-present-heading: 2.25rem;
+  --font-size-present-step: 4rem;
 }
 
 /* Global reset and base */
@@ -192,6 +258,110 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TEACHING MODE TYPOGRAPHY UTILITIES
+   Used in Teaching Mode for optimal readability
+   ============================================ */
+
+.text-teaching-body {
+  font-size: var(--font-size-teaching-body);
+  line-height: var(--line-height-teaching-body);
+}
+
+.text-teaching-heading {
+  font-size: var(--font-size-teaching-heading);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.text-teaching-step {
+  font-size: var(--font-size-teaching-step);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ============================================
+   PRESENTATION MODE TYPOGRAPHY UTILITIES
+   Extra large for maximum visibility
+   ============================================ */
+
+.text-present-body {
+  font-size: var(--font-size-present-body);
+  line-height: var(--line-height-present-body);
+}
+
+.text-present-heading {
+  font-size: var(--font-size-present-heading);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.text-present-step {
+  font-size: var(--font-size-present-step);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ============================================
+   SAFETY CALLOUT UTILITIES
+   Semantic color classes for safety content
+   ============================================ */
+
+.safety-critical {
+  background-color: var(--color-safety-critical-bg);
+  border-color: var(--color-safety-critical-border);
+  color: var(--color-safety-critical-text);
+}
+
+.safety-warning {
+  background-color: var(--color-safety-warning-bg);
+  border-color: var(--color-safety-warning-border);
+  color: var(--color-safety-warning-text);
+}
+
+.safety-caution {
+  background-color: var(--color-safety-caution-bg);
+  border-color: var(--color-safety-caution-border);
+  color: var(--color-safety-caution-text);
+}
+
+/* Content type utilities */
+.content-activity {
+  background-color: var(--color-activity-bg);
+  border-color: var(--color-activity-border);
+  color: var(--color-activity-text);
+}
+
+.content-theory {
+  background-color: var(--color-theory-bg);
+  border-color: var(--color-theory-border);
+  color: var(--color-theory-text);
+}
+
+.content-assessment {
+  background-color: var(--color-assessment-bg);
+  border-color: var(--color-assessment-border);
+  color: var(--color-assessment-text);
+}
+
+/* ============================================
+   CHECKBOX ANIMATION
+   Satisfying check animation for checklists
+   ============================================ */
+
+.checkbox-animate {
+  transition: all 0.15s ease-out;
+}
+
+.checkbox-animate:checked {
+  transform: scale(1.1);
+}
+
+.checkbox-animate:checked + span {
+  text-decoration: line-through;
+  color: var(--color-content-tertiary);
 }
 
 /* Focus states for accessibility */
