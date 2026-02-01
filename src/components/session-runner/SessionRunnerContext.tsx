@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useReducer, useCallback, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useReducer, useCallback, useEffect, useRef, ReactNode } from 'react';
 
 // Types
 interface TimerState {
@@ -125,17 +125,27 @@ function sessionReducer(state: SessionState, action: SessionAction): SessionStat
         },
       };
 
-    case 'TICK_TIMERS':
-      const updatedTimers = { ...state.timers };
-      for (const blockId in updatedTimers) {
-        if (updatedTimers[blockId].running) {
+    case 'TICK_TIMERS': {
+      // Check if any timer is running - if not, return same state to prevent re-render
+      const hasRunningTimer = Object.values(state.timers).some(t => t.running);
+      if (!hasRunningTimer) {
+        return state; // No change, prevents unnecessary re-render
+      }
+
+      const updatedTimers: Record<string, TimerState> = {};
+      for (const blockId in state.timers) {
+        const timer = state.timers[blockId];
+        if (timer.running) {
           updatedTimers[blockId] = {
-            ...updatedTimers[blockId],
-            elapsed: updatedTimers[blockId].elapsed + 1,
+            ...timer,
+            elapsed: timer.elapsed + 1,
           };
+        } else {
+          updatedTimers[blockId] = timer;
         }
       }
       return { ...state, timers: updatedTimers };
+    }
 
     case 'INIT_CHECKLIST':
       return {
@@ -223,11 +233,20 @@ interface SessionRunnerProviderProps {
 
 export function SessionRunnerProvider({ children }: SessionRunnerProviderProps) {
   const [state, dispatch] = useReducer(sessionReducer, initialState);
+  const hasRunningTimersRef = useRef(false);
 
-  // Timer tick effect
+  // Track if any timers are running (for optimizing tick dispatch)
+  useEffect(() => {
+    hasRunningTimersRef.current = Object.values(state.timers).some(t => t.running);
+  }, [state.timers]);
+
+  // Timer tick effect - only dispatches when there are running timers
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch({ type: 'TICK_TIMERS' });
+      // Only dispatch if there are running timers to avoid unnecessary re-renders
+      if (hasRunningTimersRef.current) {
+        dispatch({ type: 'TICK_TIMERS' });
+      }
     }, 1000);
 
     return () => clearInterval(interval);

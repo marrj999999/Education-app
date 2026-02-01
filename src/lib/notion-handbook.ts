@@ -1,5 +1,6 @@
 import { unstable_cache } from 'next/cache';
-import type { HandbookSection, HandbookImage, Course, NotionBlock } from './types';
+import type { HandbookSection, HandbookImage, Course, NotionBlock, ChapterGroup, ChapterColorScheme } from './types';
+import { CHAPTER_COLORS } from './types';
 import { getNotionClient, getDefaultNotionClient } from './notion-client';
 
 // Cache tags
@@ -22,7 +23,22 @@ function parsePageRangeForOrder(pageRange: string): number {
 }
 
 /**
+ * Extract rich text value from Notion property
+ */
+function extractRichText(props: any, propertyName: string): string {
+  if (propertyName in props && props[propertyName].type === 'rich_text') {
+    const richTextArray = props[propertyName].rich_text;
+    if (richTextArray && richTextArray.length > 0) {
+      return richTextArray[0].plain_text;
+    }
+  }
+  return '';
+}
+
+/**
  * Fetch all sections from a handbook database
+ * Supports both old schema (Name, Page Range) and new Urban Arrow schema
+ * (Name, Order, Section, Chapter, Icon, Has Video, Status, Slug, Est. Time)
  */
 async function fetchHandbookSections(client: any, databaseId: string, apiKey?: string): Promise<HandbookSection[]> {
 
@@ -63,28 +79,65 @@ async function fetchHandbookSections(client: any, databaseId: string, apiKey?: s
       }
     }
 
-    // Extract Page Range (rich_text)
-    let pageRange = '';
-    if ('Page Range' in props && props['Page Range'].type === 'rich_text') {
-      const richTextArray = props['Page Range'].rich_text;
-      if (richTextArray && richTextArray.length > 0) {
-        pageRange = richTextArray[0].plain_text;
-      }
+    // Extract Page Range (rich_text) - legacy support
+    const pageRange = extractRichText(props, 'Page Range');
+
+    // Extract Order (number) - new schema
+    let order = 999;
+    if ('Order' in props && props.Order.type === 'number' && props.Order.number !== null) {
+      order = props.Order.number;
+    } else if ('Section Number' in props && props['Section Number'].type === 'number' && props['Section Number'].number !== null) {
+      // Fallback to "Section Number" property
+      order = props['Section Number'].number;
+    } else {
+      // Fallback to page range parsing for legacy databases
+      order = parsePageRangeForOrder(pageRange);
     }
 
-    // Calculate order from page range
-    const order = parsePageRangeForOrder(pageRange);
+    // Extract Section (rich_text) - e.g., "1.0", "1.1"
+    const section = extractRichText(props, 'Section');
+
+    // Extract Chapter (select) - e.g., "Introduction", "Getting Started"
+    let chapter = '';
+    if ('Chapter' in props && props.Chapter.type === 'select' && props.Chapter.select) {
+      chapter = props.Chapter.select.name;
+    }
+
+    // Extract Icon (rich_text) - emoji or icon
+    const icon = extractRichText(props, 'Icon');
+
+    // Extract Slug (rich_text) - URL-friendly identifier
+    let slug = extractRichText(props, 'Slug');
+    // Fallback: generate slug from name if not provided
+    if (!slug && name !== 'Untitled') {
+      slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    // Extract Has Video (checkbox)
+    let hasVideo = false;
+    if ('Has Video' in props && props['Has Video'].type === 'checkbox') {
+      hasVideo = props['Has Video'].checkbox;
+    }
+
+    // Extract Est. Time (rich_text) - e.g., "3 min"
+    const estTime = extractRichText(props, 'Est. Time');
 
     sections.push({
       id: page.id,
       name,
       pageRange,
       order,
+      section,
+      chapter,
+      icon,
+      slug,
+      hasVideo,
+      estTime,
       images: [], // Will be populated separately
     });
   }
 
-  // Sort by order (page range)
+  // Sort by order (should already be sorted by query, but ensure consistency)
   sections.sort((a, b) => a.order - b.order);
 
   return sections;
@@ -99,46 +152,73 @@ interface SectionContent {
 }
 
 /**
- * Fetch all content (blocks + images) from a handbook section page
+ * Recursively fetch block children up to a max depth
  */
-async function fetchSectionContent(client: any, pageId: string): Promise<SectionContent> {
-  const images: HandbookImage[] = [];
-  const blocks: NotionBlock[] = [];
+async function fetchBlockChildren(client: any, blockId: string, depth: number = 0, maxDepth: number = 3): Promise<NotionBlock[]> {
+  if (depth >= maxDepth) return [];
 
-  // Fetch all blocks from the page
   const response = await client.blocks.children.list({
-    block_id: pageId,
+    block_id: blockId,
     page_size: 100,
   });
+
+  const blocks: NotionBlock[] = [];
 
   for (const block of response.results) {
     if (!('type' in block)) continue;
 
-    // Store the raw block for NotionRenderer
-    blocks.push(block as NotionBlock);
+    const notionBlock = block as NotionBlock;
 
-    // Also extract images separately for backwards compatibility
-    if (block.type === 'image' && 'image' in block) {
-      const imageBlock = block.image;
-      let url = '';
-      let caption = '';
-
-      // Get image URL
-      if (imageBlock.type === 'external' && imageBlock.external) {
-        url = imageBlock.external.url;
-      } else if (imageBlock.type === 'file' && imageBlock.file) {
-        url = imageBlock.file.url;
-      }
-
-      // Get caption
-      if (imageBlock.caption && imageBlock.caption.length > 0) {
-        caption = imageBlock.caption.map((c: any) => c.plain_text).join('');
-      }
-
-      if (url) {
-        images.push({ url, caption });
+    // Recursively fetch children for blocks that have them
+    if (block.has_children) {
+      try {
+        notionBlock.children = await fetchBlockChildren(client, block.id, depth + 1, maxDepth);
+      } catch (error) {
+        console.error(`Failed to fetch children for block ${block.id}:`, error);
       }
     }
+
+    blocks.push(notionBlock);
+  }
+
+  return blocks;
+}
+
+/**
+ * Extract image from a block (for backwards compatibility)
+ */
+function extractImageFromBlock(block: any): HandbookImage | null {
+  if (block.type !== 'image' || !('image' in block)) return null;
+
+  const imageBlock = block.image;
+  let url = '';
+  let caption = '';
+
+  if (imageBlock.type === 'external' && imageBlock.external) {
+    url = imageBlock.external.url;
+  } else if (imageBlock.type === 'file' && imageBlock.file) {
+    url = imageBlock.file.url;
+  }
+
+  if (imageBlock.caption && imageBlock.caption.length > 0) {
+    caption = imageBlock.caption.map((c: any) => c.plain_text).join('');
+  }
+
+  return url ? { url, caption } : null;
+}
+
+/**
+ * Fetch all content (blocks + images) from a handbook section page
+ * Now fetches recursively to support toggles, columns, and nested content
+ */
+async function fetchSectionContent(client: any, pageId: string): Promise<SectionContent> {
+  const blocks = await fetchBlockChildren(client, pageId);
+
+  // Extract images from top-level blocks for backwards compatibility
+  const images: HandbookImage[] = [];
+  for (const block of blocks) {
+    const image = extractImageFromBlock(block);
+    if (image) images.push(image);
   }
 
   return { images, blocks };
@@ -233,6 +313,19 @@ export const getHandbookTOC = unstable_cache(
 );
 
 /**
+ * Extract rich text from page properties (for single section fetch)
+ */
+function extractRichTextFromPage(props: any, propertyName: string): string {
+  if (propertyName in props && props[propertyName].type === 'rich_text') {
+    const richTextArray = props[propertyName].rich_text;
+    if (richTextArray && richTextArray.length > 0) {
+      return richTextArray[0].plain_text;
+    }
+  }
+  return '';
+}
+
+/**
  * Get a single section with its content (images + blocks)
  */
 export const getHandbookSection = unstable_cache(
@@ -246,7 +339,7 @@ export const getHandbookSection = unstable_cache(
 
       const props = page.properties;
 
-      // Extract Name
+      // Extract Name (title)
       let name = 'Untitled';
       if ('Name' in props && props.Name.type === 'title') {
         const titleArray = props.Name.title;
@@ -255,14 +348,46 @@ export const getHandbookSection = unstable_cache(
         }
       }
 
-      // Extract Page Range
-      let pageRange = '';
-      if ('Page Range' in props && props['Page Range'].type === 'rich_text') {
-        const richTextArray = props['Page Range'].rich_text;
-        if (richTextArray && richTextArray.length > 0) {
-          pageRange = richTextArray[0].plain_text;
-        }
+      // Extract Page Range (legacy)
+      const pageRange = extractRichTextFromPage(props, 'Page Range');
+
+      // Extract Order (number) - new schema
+      let order = 999;
+      if ('Order' in props && props.Order.type === 'number' && props.Order.number !== null) {
+        order = props.Order.number;
+      } else if ('Section Number' in props && props['Section Number'].type === 'number' && props['Section Number'].number !== null) {
+        // Fallback to "Section Number" property
+        order = props['Section Number'].number;
+      } else {
+        order = parsePageRangeForOrder(pageRange);
       }
+
+      // Extract Section (rich_text)
+      const section = extractRichTextFromPage(props, 'Section');
+
+      // Extract Chapter (select)
+      let chapter = '';
+      if ('Chapter' in props && props.Chapter.type === 'select' && props.Chapter.select) {
+        chapter = props.Chapter.select.name;
+      }
+
+      // Extract Icon (rich_text)
+      const icon = extractRichTextFromPage(props, 'Icon');
+
+      // Extract Slug (rich_text)
+      let slug = extractRichTextFromPage(props, 'Slug');
+      if (!slug && name !== 'Untitled') {
+        slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      }
+
+      // Extract Has Video (checkbox)
+      let hasVideo = false;
+      if ('Has Video' in props && props['Has Video'].type === 'checkbox') {
+        hasVideo = props['Has Video'].checkbox;
+      }
+
+      // Extract Est. Time (rich_text)
+      const estTime = extractRichTextFromPage(props, 'Est. Time');
 
       // Fetch all content (images + blocks)
       const { images, blocks } = await fetchSectionContent(client, sectionId);
@@ -271,7 +396,13 @@ export const getHandbookSection = unstable_cache(
         id: sectionId,
         name,
         pageRange,
-        order: parsePageRangeForOrder(pageRange),
+        order,
+        section,
+        chapter,
+        icon,
+        slug,
+        hasVideo,
+        estTime,
         images,
         blocks,
       };
@@ -283,3 +414,60 @@ export const getHandbookSection = unstable_cache(
   ['notion-handbook-section'],
   { revalidate: 300, tags: [CACHE_TAGS.handbookSection] }
 );
+
+/**
+ * Default color scheme for chapters not in CHAPTER_COLORS
+ */
+const DEFAULT_CHAPTER_COLOR: ChapterColorScheme = {
+  bg: 'bg-gray-50',
+  border: 'border-gray-400',
+  text: 'text-gray-700',
+  solid: 'bg-gray-500',
+};
+
+/**
+ * Group sections by chapter for sidebar navigation
+ * Maintains section order within each chapter
+ */
+export function groupSectionsByChapter(sections: HandbookSection[]): ChapterGroup[] {
+  const chapterMap = new Map<string, HandbookSection[]>();
+  const chapterOrder: string[] = [];
+
+  // Group sections by chapter, preserving order
+  for (const section of sections) {
+    const chapterName = section.chapter || 'Uncategorized';
+
+    if (!chapterMap.has(chapterName)) {
+      chapterMap.set(chapterName, []);
+      chapterOrder.push(chapterName);
+    }
+
+    chapterMap.get(chapterName)!.push(section);
+  }
+
+  // Convert to ChapterGroup array
+  return chapterOrder.map(chapterName => ({
+    name: chapterName,
+    color: CHAPTER_COLORS[chapterName] || DEFAULT_CHAPTER_COLOR,
+    sections: chapterMap.get(chapterName)!,
+  }));
+}
+
+/**
+ * Find previous and next sections for navigation
+ */
+export function findAdjacentSections(
+  sections: HandbookSection[],
+  currentSlug: string
+): { prev: HandbookSection | null; next: HandbookSection | null } {
+  const currentIndex = sections.findIndex(s => s.slug === currentSlug);
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+
+  return {
+    prev: currentIndex > 0 ? sections[currentIndex - 1] : null,
+    next: currentIndex < sections.length - 1 ? sections[currentIndex + 1] : null,
+  };
+}

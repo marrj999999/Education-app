@@ -52,54 +52,34 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log('[AUTH] authorize called with:', {
-          hasEmail: !!credentials?.email,
-          hasPassword: !!credentials?.password,
-          email: credentials?.email
-        });
-
         if (!credentials?.email || !credentials?.password) {
-          console.log('[AUTH] Missing email or password');
           throw new Error('Email and password are required');
         }
 
         const email = credentials.email as string;
         const password = credentials.password as string;
 
-        console.log('[AUTH] Looking for user:', email.toLowerCase());
-
         // Find user by email
         const user = await prisma.user.findUnique({
           where: { email: email.toLowerCase() },
         });
 
-        console.log('[AUTH] User found:', !!user, user?.email);
-
         if (!user) {
-          console.log('[AUTH] User not found');
           throw new Error('Invalid email or password');
         }
 
         if (!user.password) {
-          console.log('[AUTH] User has no password');
           throw new Error('Please sign in with your social account');
         }
 
         if (!user.isActive) {
-          console.log('[AUTH] User not active');
           throw new Error('Your account has been suspended');
         }
 
         // Verify password
-        console.log('[AUTH] Comparing passwords...');
-        console.log('[AUTH] Password length:', password.length);
-        console.log('[AUTH] Password chars:', JSON.stringify(password));
-        console.log('[AUTH] Hash:', user.password.substring(0, 30) + '...');
         const isValidPassword = await bcrypt.compare(password, user.password);
-        console.log('[AUTH] Password valid:', isValidPassword);
 
         if (!isValidPassword) {
-          console.log('[AUTH] Password mismatch');
           throw new Error('Invalid email or password');
         }
 

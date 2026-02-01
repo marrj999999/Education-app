@@ -3,7 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
 import { getLessonContent, getModuleLessons } from '@/lib/notion';
-import NotionRenderer from '@/components/NotionRenderer';
+import { parseNotionBlocks } from '@/lib/notion/parser';
+import { SectionRenderer } from '@/components/sections';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import ReadingProgress from '@/components/ReadingProgress';
@@ -77,6 +78,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
   }
 
   const { page, blocks } = lessonData;
+
+  // Parse Notion blocks into structured sections
+  const sections = parseNotionBlocks(blocks);
 
   // Handle sibling lessons result
   let siblingLessons: { id: string; title: string }[] = [];
@@ -182,10 +186,34 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </div>
         </header>
 
+        {/* Mode Toggle */}
+        <div className="flex gap-4 mt-6 p-4 bg-slate-50 rounded-lg">
+          <Link
+            href={`/lessons/${lessonId}/prep`}
+            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors"
+          >
+            <span className="block font-semibold text-slate-900">Prep Mode</span>
+            <span className="text-sm text-slate-500">Checklists & materials</span>
+          </Link>
+          <Link
+            href={`/lessons/${lessonId}/teach`}
+            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+          >
+            <span className="block font-semibold text-slate-900">Teaching Mode</span>
+            <span className="text-sm text-slate-500">Step-by-step delivery</span>
+          </Link>
+        </div>
+
         {/* Lesson Content */}
         <article className="mt-6 mb-8 bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
-          <div className="notion-content prose prose-gray max-w-none">
-            <NotionRenderer blocks={blocks} courseSlug={courseSlug} />
+          <div className="space-y-6">
+            {sections.map(section => (
+              <SectionRenderer
+                key={section.id}
+                section={section}
+                lessonId={lessonId}
+              />
+            ))}
           </div>
         </article>
 

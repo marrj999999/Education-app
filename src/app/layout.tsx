@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ProgressProvider } from "@/context/ProgressContext";
 import SessionProvider from "@/components/auth/SessionProvider";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
+
+// BBC Brand Font - Plus Jakarta Sans
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,14 +52,14 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#15803D" />
+        <meta name="theme-color" content="#073e27" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="BB Handbook" />
         <link rel="apple-touch-icon" href="/icon-192.svg" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <OfflineIndicator />
         <SessionProvider>

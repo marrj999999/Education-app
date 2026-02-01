@@ -315,6 +315,22 @@ model CurriculumBlock {
   @@map("curriculum_blocks")
 }
 
+// Custom section ordering (overlay on top of Notion-synced content)
+// This allows admins to reorder sections without modifying Notion data
+model LessonSectionOrder {
+  id        String   @id @default(cuid())
+  lessonId  String   @map("lesson_id") // Notion page ID of the lesson
+  sectionId String   @map("section_id") // ContentSection.id from parser
+  sortOrder Int      @map("sort_order")
+  createdBy String?  @map("created_by")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([lessonId, sectionId])
+  @@index([lessonId, sortOrder])
+  @@map("lesson_section_orders")
+}
+
 // ============================================
 // DELIVERY LAYER (Application Managed)
 // ============================================

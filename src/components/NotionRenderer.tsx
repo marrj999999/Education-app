@@ -153,15 +153,6 @@ function renderRichText(richText: RichText[]): React.ReactNode {
         purple: 'text-purple-600',
         pink: 'text-pink-600',
         red: 'text-red-600',
-        gray_background: 'bg-gray-100',
-        brown_background: 'bg-amber-100',
-        orange_background: 'bg-orange-100',
-        yellow_background: 'bg-yellow-100',
-        green_background: 'bg-green-100',
-        blue_background: 'bg-blue-100',
-        purple_background: 'bg-purple-100',
-        pink_background: 'bg-pink-100',
-        red_background: 'bg-red-100',
       };
       const colorClass = colorClasses[text.annotations.color];
       if (colorClass) {
@@ -224,62 +215,44 @@ const BlockRenderer = memo(function BlockRenderer({ block }: { block: NotionBloc
   switch (block.type) {
     case 'paragraph':
       if (!block.paragraph?.rich_text.length) {
-        return <div className="h-4" />; // Empty paragraph spacer
+        return <div className="h-6" />; // Empty paragraph spacer
       }
       return (
-        <p className="text-gray-700 leading-relaxed mb-4">
+        <p className="text-gray-700 text-base leading-loose mb-5">
           {renderRichText(block.paragraph.rich_text)}
         </p>
       );
 
     case 'heading_1':
       return (
-        <h1 id={block.id} className="text-2xl font-bold text-gray-900 mt-8 mb-4 scroll-mt-20 flex items-center gap-2">
-          <a
-            href={`#${block.id}`}
-            className="text-gray-500 hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-600 rounded transition-colors flex-shrink-0"
-            aria-label="Link to this section"
-          >
-            <LinkIcon size={20} />
-          </a>
-          <span>{block.heading_1 && renderRichText(block.heading_1.rich_text)}</span>
+        <h1 id={block.id} className="group/heading font-mono text-2xl font-semibold text-gray-900 mt-10 mb-5 scroll-mt-20">
+          {block.heading_1 && renderRichText(block.heading_1.rich_text)}
+          <a href={`#${block.id}`} className="ml-2 text-gray-300 opacity-0 group-hover/heading:opacity-100 transition-opacity" aria-label="Link to section">#</a>
         </h1>
       );
 
     case 'heading_2':
       return (
-        <h2 id={block.id} className="text-xl font-bold text-gray-900 mt-6 mb-3 scroll-mt-20 flex items-center gap-2">
-          <a
-            href={`#${block.id}`}
-            className="text-gray-500 hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-600 rounded transition-colors flex-shrink-0"
-            aria-label="Link to this section"
-          >
-            <LinkIcon size={18} />
-          </a>
-          <span>{block.heading_2 && renderRichText(block.heading_2.rich_text)}</span>
+        <h2 id={block.id} className="group/heading font-mono text-xl font-semibold text-gray-900 mt-8 mb-4 scroll-mt-20">
+          {block.heading_2 && renderRichText(block.heading_2.rich_text)}
+          <a href={`#${block.id}`} className="ml-2 text-gray-300 opacity-0 group-hover/heading:opacity-100 transition-opacity" aria-label="Link to section">#</a>
         </h2>
       );
 
     case 'heading_3':
       return (
-        <h3 id={block.id} className="text-lg font-semibold text-gray-900 mt-4 mb-2 scroll-mt-20 flex items-center gap-2">
-          <a
-            href={`#${block.id}`}
-            className="text-gray-500 hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-600 rounded transition-colors flex-shrink-0"
-            aria-label="Link to this section"
-          >
-            <LinkIcon size={16} />
-          </a>
-          <span>{block.heading_3 && renderRichText(block.heading_3.rich_text)}</span>
+        <h3 id={block.id} className="group/heading font-mono text-lg font-medium text-gray-900 mt-6 mb-3 scroll-mt-20">
+          {block.heading_3 && renderRichText(block.heading_3.rich_text)}
+          <a href={`#${block.id}`} className="ml-2 text-gray-300 opacity-0 group-hover/heading:opacity-100 transition-opacity" aria-label="Link to section">#</a>
         </h3>
       );
 
     case 'bulleted_list_item':
       return (
-        <li className="text-gray-700 ml-4 mb-1">
+        <li className="text-gray-700 text-base leading-relaxed ml-2 mb-2 pl-2">
           {block.bulleted_list_item && renderRichText(block.bulleted_list_item.rich_text)}
           {block.children && (
-            <ul className="list-disc ml-6 mt-2">
+            <ul className="list-disc ml-6 mt-3 space-y-2">
               {block.children.map((child) => (
                 <BlockRenderer key={child.id} block={child} />
               ))}
@@ -290,10 +263,10 @@ const BlockRenderer = memo(function BlockRenderer({ block }: { block: NotionBloc
 
     case 'numbered_list_item':
       return (
-        <li className="text-gray-700 ml-4 mb-1">
+        <li className="text-gray-700 text-base leading-relaxed ml-2 mb-2 pl-2">
           {block.numbered_list_item && renderRichText(block.numbered_list_item.rich_text)}
           {block.children && (
-            <ol className="list-decimal ml-6 mt-2">
+            <ol className="list-decimal ml-6 mt-3 space-y-2">
               {block.children.map((child) => (
                 <BlockRenderer key={child.id} block={child} />
               ))}
@@ -313,16 +286,16 @@ const BlockRenderer = memo(function BlockRenderer({ block }: { block: NotionBloc
 
     case 'toggle':
       return (
-        <details className="mb-4 group bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
-          <summary className="cursor-pointer font-medium text-gray-900 hover:bg-gray-100 list-none flex items-center gap-2 p-3 transition-colors">
+        <details className="mb-4 group bg-gray-50 rounded-lg border border-gray-200 overflow-hidden transition-all duration-200">
+          <summary className="cursor-pointer font-medium text-gray-900 hover:bg-gray-100 list-none flex items-center gap-2 p-3 transition-colors select-none">
             <ChevronRightIcon
               size={16}
-              className="text-gray-400 transition-transform group-open:rotate-90"
+              className="text-gray-400 transition-transform duration-200 group-open:rotate-90 shrink-0"
             />
             {block.toggle && renderRichText(block.toggle.rich_text)}
           </summary>
           {block.children && (
-            <div className="px-4 pb-4 pt-2 border-t border-gray-200 bg-white">
+            <div className="px-4 pb-4 pt-2 border-t border-gray-200 bg-white animate-[fadeIn_150ms_ease-in]">
               {block.children.map((child) => (
                 <BlockRenderer key={child.id} block={child} />
               ))}
@@ -336,28 +309,38 @@ const BlockRenderer = memo(function BlockRenderer({ block }: { block: NotionBloc
 
     case 'quote':
       return (
-        <blockquote className="border-l-4 border-gray-300 pl-4 py-2 mb-4 italic text-gray-600">
+        <blockquote className="border-l-4 border-gray-400 pl-6 py-3 mb-6 text-gray-700 bg-gray-50 rounded-r-lg">
           {block.quote && renderRichText(block.quote.rich_text)}
         </blockquote>
       );
 
     case 'divider':
-      return <hr className="my-6 border-gray-200" />;
+      return <hr className="my-10 border-gray-300" />;
 
     case 'table':
       return <TableBlock block={block} />;
 
     case 'code':
       const language = block.code?.language || 'text';
+      const codeText = block.code ? block.code.rich_text.map((t) => t.plain_text).join('') : '';
       return (
-        <div className="relative mb-4">
-          <div className="absolute top-0 right-0 px-3 py-1 text-xs font-mono text-gray-400 bg-gray-800 rounded-bl-lg rounded-tr-lg">
-            {language}
+        <div className="relative mb-4 group/code">
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-3 py-1 bg-gray-800 rounded-t-lg">
+            <span className="text-xs font-mono text-gray-400">{language}</span>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(codeText);
+                const btn = document.getElementById(`copy-${block.id}`);
+                if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy'; }, 2000); }
+              }}
+              id={`copy-${block.id}`}
+              className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-0.5 rounded hover:bg-gray-700"
+            >
+              Copy
+            </button>
           </div>
-          <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 pt-8 overflow-x-auto text-sm">
-            <code>
-              {block.code && block.code.rich_text.map((t) => t.plain_text).join('')}
-            </code>
+          <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 pt-10 overflow-x-auto text-sm">
+            <code>{codeText}</code>
           </pre>
         </div>
       );
@@ -653,43 +636,6 @@ function detectSpecialContent(blocks: NotionBlock[], startIndex: number): Specia
   };
 }
 
-// Group list items together
-function groupBlocks(blocks: NotionBlock[]): NotionBlock[][] {
-  const groups: NotionBlock[][] = [];
-  let currentGroup: NotionBlock[] = [];
-  let currentType: string | null = null;
-
-  for (const block of blocks) {
-    if (
-      block.type === 'bulleted_list_item' ||
-      block.type === 'numbered_list_item'
-    ) {
-      if (currentType === block.type) {
-        currentGroup.push(block);
-      } else {
-        if (currentGroup.length > 0) {
-          groups.push(currentGroup);
-        }
-        currentGroup = [block];
-        currentType = block.type;
-      }
-    } else {
-      if (currentGroup.length > 0) {
-        groups.push(currentGroup);
-        currentGroup = [];
-        currentType = null;
-      }
-      groups.push([block]);
-    }
-  }
-
-  if (currentGroup.length > 0) {
-    groups.push(currentGroup);
-  }
-
-  return groups;
-}
-
 // Render special content components
 function SpecialContentRenderer({ content }: { content: SpecialContent }) {
   switch (content.type) {
@@ -725,8 +671,8 @@ function SpecialContentRenderer({ content }: { content: SpecialContent }) {
 }
 
 export default memo(function NotionRenderer({ blocks, courseSlug }: NotionRendererProps) {
-  // Detect special content patterns and memoize
-  const { groupedBlocks, specialContents, skipIndices } = useMemo(() => {
+  // Build render elements in a single pass
+  const renderElements = useMemo(() => {
     // First pass: detect special content patterns
     const specialContents: Map<number, SpecialContent> = new Map();
     const skipIndices: Set<number> = new Set();
@@ -744,83 +690,73 @@ export default memo(function NotionRenderer({ blocks, courseSlug }: NotionRender
       }
     }
 
-    // Second pass: group remaining blocks
-    const filteredBlocks = blocks.filter((_, i) => !skipIndices.has(i));
-    const grouped = groupBlocks(filteredBlocks);
-
-    return { groupedBlocks: grouped, specialContents, skipIndices };
-  }, [blocks]);
-
-  // Build render order - interleave special content at correct positions
-  const renderElements = useMemo(() => {
+    // Second pass: render blocks in order, grouping lists on-the-fly
     const elements: React.ReactNode[] = [];
-    let groupIndex = 0;
-    let blockIndex = 0;
+    let i = 0;
 
-    for (let i = 0; i < blocks.length; i++) {
-      // Check if there's special content starting at this index
+    while (i < blocks.length) {
+      // Check for special content starting at this index
       const specialContent = specialContents.get(i);
       if (specialContent) {
         elements.push(
           <SpecialContentRenderer key={`special-${i}`} content={specialContent} />
         );
-        // Skip to end of special content
-        i = specialContent.listEndIndex;
+        // Skip to after the special content
+        i = specialContent.listEndIndex + 1;
         continue;
       }
 
-      // Skip if this block was part of special content
-      if (skipIndices.has(i)) continue;
-
-      // Find the corresponding group for this block
-      while (groupIndex < groupedBlocks.length) {
-        const group = groupedBlocks[groupIndex];
-
-        // Check if this is a list group
-        if (group.length > 0 && group[0].type === 'bulleted_list_item') {
-          elements.push(
-            <ul key={`group-${groupIndex}`} className="list-disc ml-4 mb-4">
-              {group.map((block) => (
-                <BlockRenderer key={block.id} block={block} />
-              ))}
-            </ul>
-          );
-          blockIndex += group.length;
-          groupIndex++;
-          // Skip the blocks we just rendered
-          i += group.length - 1;
-          break;
-        }
-
-        if (group.length > 0 && group[0].type === 'numbered_list_item') {
-          elements.push(
-            <ol key={`group-${groupIndex}`} className="list-decimal ml-4 mb-4">
-              {group.map((block) => (
-                <BlockRenderer key={block.id} block={block} />
-              ))}
-            </ol>
-          );
-          blockIndex += group.length;
-          groupIndex++;
-          // Skip the blocks we just rendered
-          i += group.length - 1;
-          break;
-        }
-
-        // Regular blocks - render one at a time
-        if (group.length > 0) {
-          const block = group[0];
-          elements.push(<BlockRenderer key={block.id} block={block} />);
-          groupIndex++;
-          break;
-        }
-
-        groupIndex++;
+      // Skip if this block was part of special content (shouldn't happen, but safety check)
+      if (skipIndices.has(i)) {
+        i++;
+        continue;
       }
+
+      const block = blocks[i];
+
+      // Group consecutive bulleted list items
+      if (block.type === 'bulleted_list_item') {
+        const listItems: NotionBlock[] = [];
+        const startIndex = i;
+        while (i < blocks.length && blocks[i].type === 'bulleted_list_item' && !skipIndices.has(i)) {
+          listItems.push(blocks[i]);
+          i++;
+        }
+        elements.push(
+          <ul key={`ul-${startIndex}`} className="list-disc ml-6 mb-6 space-y-1">
+            {listItems.map((listBlock) => (
+              <BlockRenderer key={listBlock.id} block={listBlock} />
+            ))}
+          </ul>
+        );
+        continue;
+      }
+
+      // Group consecutive numbered list items
+      if (block.type === 'numbered_list_item') {
+        const listItems: NotionBlock[] = [];
+        const startIndex = i;
+        while (i < blocks.length && blocks[i].type === 'numbered_list_item' && !skipIndices.has(i)) {
+          listItems.push(blocks[i]);
+          i++;
+        }
+        elements.push(
+          <ol key={`ol-${startIndex}`} className="list-decimal ml-6 mb-6 space-y-1">
+            {listItems.map((listBlock) => (
+              <BlockRenderer key={listBlock.id} block={listBlock} />
+            ))}
+          </ol>
+        );
+        continue;
+      }
+
+      // Render single block
+      elements.push(<BlockRenderer key={block.id} block={block} />);
+      i++;
     }
 
     return elements;
-  }, [blocks, groupedBlocks, specialContents, skipIndices]);
+  }, [blocks]);
 
   return (
     <CourseContext.Provider value={courseSlug}>

@@ -174,7 +174,38 @@ export interface HandbookSection {
   order: number;
   images: HandbookImage[];
   blocks?: NotionBlock[];  // All content blocks from Notion for full rendering
+  // Urban Arrow style properties
+  section?: string;      // e.g., "1.0", "1.1", "2.0"
+  chapter?: string;      // e.g., "Introduction", "Getting Started"
+  slug?: string;         // URL-friendly identifier
+  icon?: string;         // Emoji or icon
+  hasVideo?: boolean;    // Whether section has video content
+  estTime?: string;      // Estimated reading time e.g., "3 min"
 }
+
+// Chapter grouping for sidebar navigation
+export interface ChapterGroup {
+  name: string;
+  color: ChapterColorScheme;
+  sections: HandbookSection[];
+}
+
+// Color scheme for chapter styling
+export interface ChapterColorScheme {
+  bg: string;      // Background color class
+  border: string;  // Border color class
+  text: string;    // Text color class
+  solid: string;   // Solid background for active states
+}
+
+// Predefined chapter colors
+export const CHAPTER_COLORS: Record<string, ChapterColorScheme> = {
+  'Introduction': { bg: 'bg-blue-50', border: 'border-blue-500', text: 'text-blue-700', solid: 'bg-blue-600' },
+  'Getting Started': { bg: 'bg-green-50', border: 'border-green-500', text: 'text-green-700', solid: 'bg-green-600' },
+  'Frame Building': { bg: 'bg-orange-50', border: 'border-orange-500', text: 'text-orange-700', solid: 'bg-orange-600' },
+  'Finishing': { bg: 'bg-purple-50', border: 'border-purple-500', text: 'text-purple-700', solid: 'bg-purple-600' },
+  'Reference': { bg: 'bg-gray-50', border: 'border-gray-500', text: 'text-gray-700', solid: 'bg-gray-600' },
+};
 
 export interface HandbookImage {
   url: string;

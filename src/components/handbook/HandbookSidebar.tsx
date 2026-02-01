@@ -1,40 +1,45 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronLeft } from 'lucide-react';
+import { Menu, X, ChevronLeft, Search } from 'lucide-react';
 import Link from 'next/link';
-import type { HandbookSection } from '@/lib/types';
+import type { HandbookSection, ChapterGroup } from '@/lib/types';
+
+type TocSection = Omit<HandbookSection, 'images' | 'blocks'>;
 
 interface HandbookSidebarProps {
-  sections: Omit<HandbookSection, 'images'>[];
+  sections: TocSection[];
+  chapters?: ChapterGroup[];
   activeSection?: string;
+  activeSectionSlug?: string;
   title: string;
-  color?: string;
+  courseSlug: string;
+  onSearchClick?: () => void;
 }
 
 export function HandbookSidebar({
   sections,
-  activeSection,
   title,
-  color = 'amber',
+  courseSlug,
+  onSearchClick,
 }: HandbookSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentSection, setCurrentSection] = useState<string | undefined>(activeSection);
+  const [currentSection, setCurrentSection] = useState<string>('');
+  const [readProgress, setReadProgress] = useState(0);
 
-  // Track scroll position to update active section
+  // Track scroll position for active section + progress
   useEffect(() => {
     const handleScroll = () => {
-      const sectionElements = sections.map((section) => ({
-        id: section.id,
-        element: document.getElementById(`section-${section.id}`),
-      }));
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setReadProgress(docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0);
 
-      // Find the section that is currently in view
-      for (const { id, element } of sectionElements) {
-        if (element) {
-          const rect = element.getBoundingClientRect();
+      for (const section of sections) {
+        const el = document.getElementById(`section-${section.id}`);
+        if (el) {
+          const rect = el.getBoundingClientRect();
           if (rect.top <= 120 && rect.bottom > 120) {
-            setCurrentSection(id);
+            setCurrentSection(section.id);
             break;
           }
         }
@@ -53,17 +58,9 @@ export function HandbookSidebar({
     }
   };
 
-  // Urban Arrow style: clean light theme
-  const theme = {
-    active: 'border-gray-900 bg-gray-100 text-gray-900',
-    hover: 'hover:bg-gray-50 hover:text-gray-900',
-    accent: 'text-gray-900',
-    header: 'bg-white border-b border-gray-200',
-  };
-
   return (
     <>
-      {/* Mobile Toggle Button */}
+      {/* Mobile Toggle */}
       <button
         onClick={() => setIsOpen(true)}
         className="lg:hidden fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gray-900 text-white shadow-lg flex items-center justify-center hover:bg-gray-800 transition-colors"
@@ -83,46 +80,64 @@ export function HandbookSidebar({
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 lg:top-20 left-0 z-50 lg:z-auto
-          w-80 lg:w-72 h-screen lg:h-[calc(100vh-5rem)]
-          bg-white lg:bg-gray-50 border-r border-gray-200
+          fixed lg:sticky top-0 lg:top-16 left-0 z-50 lg:z-auto
+          w-72 h-screen lg:h-[calc(100vh-4rem)]
+          bg-white border-r border-gray-100
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           overflow-hidden flex flex-col
+          print:hidden
         `}
       >
-        {/* Header */}
-        <div className={`${theme.header} p-4 flex items-center justify-between lg:hidden`}>
+        {/* Progress bar */}
+        <div className="h-0.5 bg-gray-50 shrink-0">
+          <div
+            className="h-full bg-gray-900 transition-all duration-150 ease-out"
+            style={{ width: `${readProgress}%` }}
+          />
+        </div>
+
+        {/* Mobile header */}
+        <div className="bg-white border-b border-gray-100 p-4 flex items-center justify-between lg:hidden">
           <span className="font-semibold text-gray-900">Contents</span>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 hover:bg-gray-100 rounded text-gray-600"
+            className="p-1 hover:bg-gray-50 rounded text-gray-500"
             aria-label="Close menu"
           >
             <X size={20} />
           </button>
         </div>
 
-        {/* Back Link (Desktop) */}
-        <div className="hidden lg:block p-4 border-b border-gray-200">
+        {/* Back link */}
+        <div className="hidden lg:block px-5 pt-5 pb-3">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-900 transition-colors"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={14} />
             <span>All Courses</span>
           </Link>
         </div>
 
-        {/* Title */}
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="font-bold text-gray-900 text-lg">{title}</h2>
-          <p className="text-sm text-gray-500 mt-1">{sections.length} sections</p>
+        {/* Title + Search */}
+        <div className="px-5 pb-4 border-b border-gray-100">
+          <h2 className="font-semibold text-gray-900">{title}</h2>
+          {onSearchClick && (
+            <button
+              onClick={onSearchClick}
+              className="mt-3 w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-400 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <Search size={14} />
+              <span>Search...</span>
+              <kbd className="ml-auto text-xs text-gray-300 px-1.5 py-0.5">⌘K</kbd>
+            </button>
+          )}
         </div>
 
-        {/* TOC List */}
-        <nav className="flex-1 overflow-y-auto p-2">
-          <ul className="space-y-1">
+        {/* Flat section list */}
+        <nav className="flex-1 overflow-y-auto py-2">
+          <ul>
             {sections.map((section, index) => {
               const isActive = currentSection === section.id;
               return (
@@ -130,20 +145,17 @@ export function HandbookSidebar({
                   <button
                     onClick={() => handleSectionClick(section.id)}
                     className={`
-                      w-full text-left px-3 py-2.5 rounded-lg text-sm
-                      border-l-2 transition-all duration-150
+                      w-full text-left px-5 py-2 text-sm transition-colors
                       ${isActive
-                        ? theme.active
-                        : `border-transparent text-gray-600 ${theme.hover}`
+                        ? 'text-gray-900 font-medium bg-gray-50'
+                        : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
                       }
                     `}
                   >
-                    <span className="block truncate">
-                      <span className={`font-semibold ${isActive ? theme.accent : 'text-gray-400'}`}>
-                        {index + 1}.
-                      </span>
-                      {' '}{section.name}
+                    <span className={`inline-block w-8 ${isActive ? 'text-gray-900' : 'text-gray-300'}`}>
+                      {section.section || `${index + 1}.`}
                     </span>
+                    {section.name}
                   </button>
                 </li>
               );
@@ -152,12 +164,13 @@ export function HandbookSidebar({
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200 text-xs text-gray-500">
+        <div className="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 flex items-center justify-between">
+          <span>{Math.round(readProgress)}%</span>
           <button
             onClick={() => window.print()}
-            className="hover:text-gray-700 transition-colors"
+            className="hover:text-gray-600 transition-colors"
           >
-            Print this handbook
+            Print
           </button>
         </div>
       </aside>

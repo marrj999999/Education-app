@@ -11,6 +11,7 @@ import {
   CogIcon,
   ClipboardIcon,
   ChevronRightIcon,
+  PlayIcon,
 } from '@/components/Icons';
 import InstructorNote from './InstructorNote';
 
@@ -22,6 +23,20 @@ interface IconProps {
 interface CalloutBlockProps {
   block: NotionBlock;
 }
+
+// PDF manual-style callout types (Video Tutorial, Important Step, Builder Tip)
+const MANUAL_CALLOUT_TYPES: Record<string, { type: 'video' | 'important' | 'builder_tip'; label: string }> = {
+  '▶️': { type: 'video', label: 'Video Tutorial' },
+  '▶': { type: 'video', label: 'Video Tutorial' },
+  '🎬': { type: 'video', label: 'Video Tutorial' },
+  '📹': { type: 'video', label: 'Video Tutorial' },
+  '🎥': { type: 'video', label: 'Video Tutorial' },
+  '⚠️': { type: 'important', label: 'Important step' },
+  '❗': { type: 'important', label: 'Important step' },
+  '‼️': { type: 'important', label: 'Important step' },
+  '💡': { type: 'builder_tip', label: 'Builder Tip' },
+  '⚡': { type: 'builder_tip', label: 'Builder Tip' },
+};
 
 // Emoji to instructor note type mapping
 const INSTRUCTOR_EMOJI_MAP: Record<string, 'tip' | 'warning' | 'issue' | 'info'> = {
@@ -96,6 +111,53 @@ export default function CalloutBlock({ block }: CalloutBlockProps) {
 
   // Check if this should be rendered as an InstructorNote based on emoji
   const emoji = icon?.type === 'emoji' ? icon.emoji : null;
+
+  // Check for PDF manual-style callouts first (Video Tutorial, Important Step, Builder Tip)
+  const manualCallout = emoji ? MANUAL_CALLOUT_TYPES[emoji] : null;
+
+  if (manualCallout) {
+    // Render as PDF manual-style callout (gray box with icon and label)
+    const IconComponent = manualCallout.type === 'video'
+      ? PlayIcon
+      : manualCallout.type === 'important'
+        ? WarningIcon
+        : LightbulbIcon;
+
+    return (
+      <div className="flex items-start gap-3 p-4 rounded-lg bg-gray-100 border border-gray-200 mb-4">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center">
+          <IconComponent size={16} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="font-mono text-sm font-semibold text-gray-900 mb-1">
+            {manualCallout.label}
+          </div>
+          <div className="text-gray-700 leading-relaxed">
+            {renderRichText(rich_text)}
+          </div>
+          {/* Render children if any */}
+          {block.children && block.children.length > 0 && (
+            <div className="mt-2 space-y-1">
+              {block.children.map((child) => (
+                <div key={child.id}>
+                  {child.paragraph && (
+                    <p className="text-gray-700">{child.paragraph.rich_text.map(t => t.plain_text).join('')}</p>
+                  )}
+                  {child.bulleted_list_item && (
+                    <p className="flex items-start gap-2 text-gray-700">
+                      <span>•</span>
+                      <span>{child.bulleted_list_item.rich_text.map(t => t.plain_text).join('')}</span>
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   const instructorNoteType = emoji ? INSTRUCTOR_EMOJI_MAP[emoji] : null;
 
   if (instructorNoteType) {

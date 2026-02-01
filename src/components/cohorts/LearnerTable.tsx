@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export interface EnrichedLearner {
   id: string;
@@ -92,40 +92,42 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
     }
   };
 
-  const filteredAndSortedLearners = learners
-    .filter((learner) => {
-      const matchesSearch =
-        searchQuery === '' ||
-        `${learner.firstName} ${learner.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        learner.email.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredAndSortedLearners = useMemo(() => {
+    return learners
+      .filter((learner) => {
+        const matchesSearch =
+          searchQuery === '' ||
+          `${learner.firstName} ${learner.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          learner.email.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesStatus = statusFilter === 'all' || learner.status === statusFilter;
+        const matchesStatus = statusFilter === 'all' || learner.status === statusFilter;
 
-      return matchesSearch && matchesStatus;
-    })
-    .sort((a, b) => {
-      let comparison = 0;
+        return matchesSearch && matchesStatus;
+      })
+      .sort((a, b) => {
+        let comparison = 0;
 
-      switch (sortField) {
-        case 'name':
-          comparison = `${a.lastName} ${a.firstName}`.localeCompare(`${b.lastName} ${b.firstName}`);
-          break;
-        case 'email':
-          comparison = a.email.localeCompare(b.email);
-          break;
-        case 'status':
-          comparison = a.status.localeCompare(b.status);
-          break;
-        case 'attendance':
-          comparison = (a.attendanceRate ?? -1) - (b.attendanceRate ?? -1);
-          break;
-        case 'progress':
-          comparison = (a.assessmentProgress ?? -1) - (b.assessmentProgress ?? -1);
-          break;
-      }
+        switch (sortField) {
+          case 'name':
+            comparison = `${a.lastName} ${a.firstName}`.localeCompare(`${b.lastName} ${b.firstName}`);
+            break;
+          case 'email':
+            comparison = a.email.localeCompare(b.email);
+            break;
+          case 'status':
+            comparison = a.status.localeCompare(b.status);
+            break;
+          case 'attendance':
+            comparison = (a.attendanceRate ?? -1) - (b.attendanceRate ?? -1);
+            break;
+          case 'progress':
+            comparison = (a.assessmentProgress ?? -1) - (b.assessmentProgress ?? -1);
+            break;
+        }
 
-      return sortDirection === 'asc' ? comparison : -comparison;
-    });
+        return sortDirection === 'asc' ? comparison : -comparison;
+      });
+  }, [learners, searchQuery, statusFilter, sortField, sortDirection]);
 
   return (
     <div className="space-y-4">
