@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 // Enable ISR - revalidate every 60 seconds
 export const revalidate = 60;
+// Force dynamic rendering - skip static generation at build time (requires database)
+export const dynamic = 'force-dynamic';
 
 async function getCourses() {
   return prisma.course.findMany({
