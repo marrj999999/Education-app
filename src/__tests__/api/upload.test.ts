@@ -39,7 +39,8 @@ import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { uploadEvidenceFile, deleteEvidenceFile } from '@/lib/storage';
 
-const mockAuth = auth as jest.MockedFunction<typeof auth>;
+// Cast auth as jest.Mock to avoid strict typing issues with Session
+const mockAuth = auth as jest.Mock;
 const mockUpload = uploadEvidenceFile as jest.MockedFunction<typeof uploadEvidenceFile>;
 const mockDelete = deleteEvidenceFile as jest.MockedFunction<typeof deleteEvidenceFile>;
 

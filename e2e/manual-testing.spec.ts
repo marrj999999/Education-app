@@ -62,8 +62,11 @@ async function captureApiTimes(page: Page): Promise<Map<string, number>> {
   page.on('response', async (response) => {
     const url = response.url();
     if (url.includes('/api/')) {
-      const timing = response.timing();
-      apiTimes.set(url, timing.responseEnd - timing.requestStart);
+      // Use request timing from performance API instead
+      const startTime = Date.now();
+      await response.finished();
+      const endTime = Date.now();
+      apiTimes.set(url, endTime - startTime);
     }
   });
 

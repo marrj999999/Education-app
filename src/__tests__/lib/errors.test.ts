@@ -65,7 +65,8 @@ describe("AppError", () => {
 
     it("should exclude context in production", () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = "production";
+      // Use Object.defineProperty to avoid read-only property error
+      Object.defineProperty(process.env, 'NODE_ENV', { value: 'production', writable: true });
 
       const error = new AppError("Test", ErrorCodes.NOT_FOUND, 404, {
         secret: "data",
@@ -74,12 +75,13 @@ describe("AppError", () => {
 
       expect(json).not.toHaveProperty("context");
 
-      process.env.NODE_ENV = originalEnv;
+      Object.defineProperty(process.env, 'NODE_ENV', { value: originalEnv, writable: true });
     });
 
     it("should include context in development", () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = "development";
+      // Use Object.defineProperty to avoid read-only property error
+      Object.defineProperty(process.env, 'NODE_ENV', { value: 'development', writable: true });
 
       const error = new AppError("Test", ErrorCodes.NOT_FOUND, 404, {
         field: "id",
@@ -89,7 +91,7 @@ describe("AppError", () => {
       expect(json).toHaveProperty("context");
       expect(json.context).toEqual({ field: "id" });
 
-      process.env.NODE_ENV = originalEnv;
+      Object.defineProperty(process.env, 'NODE_ENV', { value: originalEnv, writable: true });
     });
   });
 });

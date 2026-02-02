@@ -28,7 +28,8 @@ jest.mock('@/lib/db', () => ({
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
-const mockAuth = auth as jest.MockedFunction<typeof auth>;
+// Cast auth as jest.Mock to avoid strict typing issues with Session
+const mockAuth = auth as jest.Mock;
 
 describe('Progress API', () => {
   beforeEach(() => {

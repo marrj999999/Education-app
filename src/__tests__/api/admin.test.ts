@@ -3,6 +3,8 @@
  * Tests for /api/admin/stats and /api/admin/users endpoints
  */
 
+import { NextRequest } from 'next/server';
+
 // Mock auth before importing
 const mockAuth = jest.fn();
 jest.mock('@/lib/auth', () => ({
@@ -254,7 +256,7 @@ describe('GET /api/admin/users', () => {
     it('should return 401 if not authenticated', async () => {
       mockAuth.mockResolvedValue(null);
 
-      const response = await getUsers(new Request('http://localhost:3000/api/admin/users'));
+      const response = await getUsers(new NextRequest('http://localhost:3000/api/admin/users'));
 
       expect(response.status).toBe(401);
     });
@@ -265,7 +267,7 @@ describe('GET /api/admin/users', () => {
       });
       mockHasPermission.mockReturnValue(false);
 
-      const response = await getUsers(new Request('http://localhost:3000/api/admin/users'));
+      const response = await getUsers(new NextRequest('http://localhost:3000/api/admin/users'));
 
       expect(response.status).toBe(403);
     });
@@ -286,7 +288,7 @@ describe('GET /api/admin/users', () => {
       ]);
       mockPrismaUser.count.mockResolvedValue(2);
 
-      const response = await getUsers(new Request('http://localhost:3000/api/admin/users'));
+      const response = await getUsers(new NextRequest('http://localhost:3000/api/admin/users'));
 
       expect(response.status).toBe(200);
       const body = await response.json();
@@ -299,7 +301,7 @@ describe('GET /api/admin/users', () => {
       ]);
       mockPrismaUser.count.mockResolvedValue(1);
 
-      const response = await getUsers(new Request('http://localhost:3000/api/admin/users?role=INSTRUCTOR'));
+      const response = await getUsers(new NextRequest('http://localhost:3000/api/admin/users?role=INSTRUCTOR'));
 
       expect(mockPrismaUser.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -314,7 +316,7 @@ describe('GET /api/admin/users', () => {
       mockPrismaUser.findMany.mockResolvedValue([]);
       mockPrismaUser.count.mockResolvedValue(0);
 
-      await getUsers(new Request('http://localhost:3000/api/admin/users?search=john'));
+      await getUsers(new NextRequest('http://localhost:3000/api/admin/users?search=john'));
 
       expect(mockPrismaUser.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -332,7 +334,7 @@ describe('GET /api/admin/users', () => {
       mockPrismaUser.findMany.mockResolvedValue([]);
       mockPrismaUser.count.mockResolvedValue(50);
 
-      await getUsers(new Request('http://localhost:3000/api/admin/users?page=2&limit=10'));
+      await getUsers(new NextRequest('http://localhost:3000/api/admin/users?page=2&limit=10'));
 
       expect(mockPrismaUser.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -361,7 +363,7 @@ describe('POST /api/admin/users', () => {
     it('should return 401 if not authenticated', async () => {
       mockAuth.mockResolvedValue(null);
 
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify(validUserData),
         headers: { 'Content-Type': 'application/json' },
@@ -377,7 +379,7 @@ describe('POST /api/admin/users', () => {
       });
       mockHasPermission.mockReturnValue(false);
 
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify(validUserData),
         headers: { 'Content-Type': 'application/json' },
@@ -397,7 +399,7 @@ describe('POST /api/admin/users', () => {
     });
 
     it('should reject invalid email', async () => {
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify({ ...validUserData, email: 'not-an-email' }),
         headers: { 'Content-Type': 'application/json' },
@@ -408,7 +410,7 @@ describe('POST /api/admin/users', () => {
     });
 
     it('should reject invalid role', async () => {
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify({ ...validUserData, role: 'INVALID_ROLE' }),
         headers: { 'Content-Type': 'application/json' },
@@ -439,7 +441,7 @@ describe('POST /api/admin/users', () => {
     });
 
     it('should create user with valid data', async () => {
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify(validUserData),
         headers: { 'Content-Type': 'application/json' },
@@ -450,7 +452,7 @@ describe('POST /api/admin/users', () => {
     });
 
     it('should create audit log on user creation', async () => {
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify(validUserData),
         headers: { 'Content-Type': 'application/json' },
@@ -484,7 +486,7 @@ describe('POST /api/admin/users', () => {
         email: validUserData.email,
       });
 
-      const request = new Request('http://localhost:3000/api/admin/users', {
+      const request = new NextRequest('http://localhost:3000/api/admin/users', {
         method: 'POST',
         body: JSON.stringify(validUserData),
         headers: { 'Content-Type': 'application/json' },
