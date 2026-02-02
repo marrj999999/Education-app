@@ -118,14 +118,20 @@ test.describe('Course Navigation', () => {
   test('should require authentication for course pages', async ({ page }) => {
     await page.goto('/courses/bamboo-building');
 
-    // Should redirect to login
-    await page.waitForURL('**/auth/login**', { timeout: 10000 });
+    // Wait for any redirects to complete
+    await page.waitForLoadState('networkidle');
+
+    // Should redirect to login (with callback URL)
+    await expect(page).toHaveURL(/\/auth\/login/, { timeout: 15000 });
   });
 
   test('should require authentication for lesson pages', async ({ page }) => {
     await page.goto('/courses/bamboo-building/lessons/lesson-1');
 
-    // Should redirect to login
-    await page.waitForURL('**/auth/login**', { timeout: 10000 });
+    // Wait for any redirects to complete
+    await page.waitForLoadState('networkidle');
+
+    // Should redirect to login (with callback URL)
+    await expect(page).toHaveURL(/\/auth\/login/, { timeout: 15000 });
   });
 });

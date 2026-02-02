@@ -47,8 +47,11 @@ test.describe('Authentication', () => {
     test('should have forgot password link', async ({ page }) => {
       await page.goto('/auth/login');
 
+      // Wait for page to fully load
+      await page.waitForLoadState('networkidle');
+
       const forgotLink = page.locator('a[href="/auth/reset-password"]');
-      await expect(forgotLink).toBeVisible();
+      await expect(forgotLink).toBeVisible({ timeout: 10000 });
       await expect(forgotLink).toContainText('Forgot password');
     });
 

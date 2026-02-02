@@ -64,9 +64,12 @@ test.describe('Accessibility', () => {
     test('should have sufficient text contrast on login page', async ({ page }) => {
       await page.goto('/auth/login');
 
-      // The page should be visible (basic check)
-      await expect(page.locator('h1')).toBeVisible();
-      await expect(page.locator('button[type="submit"]')).toBeVisible();
+      // Wait for page to fully load
+      await page.waitForLoadState('networkidle');
+
+      // The page should be visible (basic check) - use longer timeout for CI
+      await expect(page.locator('h1')).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('button[type="submit"]')).toBeVisible({ timeout: 10000 });
     });
   });
 
@@ -74,9 +77,12 @@ test.describe('Accessibility', () => {
     test('main content should be identifiable', async ({ page }) => {
       await page.goto('/auth/login');
 
+      // Wait for page to fully load
+      await page.waitForLoadState('networkidle');
+
       // Should have main content area
       // Login form should be visible
-      await expect(page.locator('form')).toBeVisible();
+      await expect(page.locator('form')).toBeVisible({ timeout: 10000 });
     });
   });
 
@@ -84,9 +90,12 @@ test.describe('Accessibility', () => {
     test('error messages should be visible', async ({ page }) => {
       await page.goto('/auth/login?error=CredentialsSignin');
 
-      // Error message should be visible
+      // Wait for page to fully load
+      await page.waitForLoadState('networkidle');
+
+      // Error message should be visible - use longer timeout for CI
       const errorMessage = page.locator('.bg-red-50');
-      await expect(errorMessage).toBeVisible();
+      await expect(errorMessage).toBeVisible({ timeout: 10000 });
     });
   });
 

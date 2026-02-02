@@ -13,7 +13,7 @@ const publicRoutes = [
   '/auth/error',
   '/auth/verify',
   '/auth/reset-password',
-  '/courses',
+  '/demo',
 ];
 
 // Routes that require admin access
