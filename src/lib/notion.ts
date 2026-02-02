@@ -27,6 +27,11 @@ const CACHE_TAGS = {
   page: 'page',
 };
 
+// Helper to create lesson-specific cache tags
+function getLessonCacheTags(lessonId: string): string[] {
+  return [CACHE_TAGS.lesson, `lesson-${lessonId}`];
+}
+
 // Retry configuration
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 second

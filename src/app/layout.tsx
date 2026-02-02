@@ -4,6 +4,7 @@ import "./globals.css";
 import { ProgressProvider } from "@/context/ProgressContext";
 import SessionProvider from "@/components/auth/SessionProvider";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
+import { Toaster } from "sonner";
 
 // BBC Brand Font - Plus Jakarta Sans
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -67,6 +68,14 @@ export default function RootLayout({
             {children}
           </ProgressProvider>
         </SessionProvider>
+        <Toaster
+          position="bottom-right"
+          richColors
+          closeButton
+          toastOptions={{
+            duration: 4000,
+          }}
+        />
       </body>
     </html>
   );

@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Debug and utility scripts (dev-only, not production code)
+scripts/
+
+# Test coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
