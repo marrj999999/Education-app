@@ -60,12 +60,15 @@ export default auth((req) => {
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
+  // Skip rate limiting in CI/test environment
+  const isCI = process.env.CI === 'true' || process.env.NODE_ENV === 'test';
+
   // Check rate limiting for specific endpoints
   const rateLimitConfig = rateLimitedEndpoints.find(
     (endpoint) => pathname === endpoint.path || pathname.startsWith(`${endpoint.path}/`)
   );
 
-  if (rateLimitConfig) {
+  if (rateLimitConfig && !isCI) {
     const result = checkRateLimit(`${clientIP}:${rateLimitConfig.path}`, rateLimitConfig.config);
 
     if (!result.success) {
