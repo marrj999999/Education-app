@@ -347,7 +347,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                   Course Progress
                 </CardTitle>
                 <CardDescription>
-                  Track your cohort's journey through the curriculum
+                  Track your cohort&apos;s journey through the curriculum
                 </CardDescription>
               </CardHeader>
               <CardContent>

@@ -55,9 +55,9 @@ function transformModules(
 function countLessons(modules: NavigationModule[], standaloneLessons: NavigationLesson[]): number {
   let count = standaloneLessons.length;
 
-  for (const module of modules) {
-    count += module.standaloneLessons.length;
-    for (const unit of module.units) {
+  for (const mod of modules) {
+    count += mod.standaloneLessons.length;
+    for (const unit of mod.units) {
       count += unit.lessons.length;
     }
   }

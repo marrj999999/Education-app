@@ -54,14 +54,13 @@ function getPlainText(richText: RichText[]): string {
 }
 
 export default function TableBlock({ block }: TableBlockProps) {
-  if (!block.table || !block.children) return null;
+  const table = block.table;
+  const children = block.children;
+  const has_column_header = table?.has_column_header ?? false;
+  const has_row_header = table?.has_row_header ?? false;
+  const rows = children?.filter((child) => child.type === 'table_row') ?? [];
 
-  const { has_column_header, has_row_header } = block.table;
-  const rows = block.children.filter((child) => child.type === 'table_row');
-
-  if (rows.length === 0) return null;
-
-  // Generate header IDs for accessibility
+  // Generate header IDs for accessibility - must be called unconditionally
   const headerIds = useMemo(() => {
     if (!has_column_header || rows.length === 0) return [];
     const firstRow = rows[0];
@@ -69,12 +68,16 @@ export default function TableBlock({ block }: TableBlockProps) {
     return cells.map((_, index) => generateHeaderId(block.id, index));
   }, [block.id, has_column_header, rows]);
 
-  // Get caption from first cell if it looks like a title
+  // Get caption from first cell if it looks like a title - must be called unconditionally
   const tableCaption = useMemo(() => {
     if (rows.length === 0) return undefined;
     // Use the table ID as a simple description
     return `Data table with ${rows.length} rows`;
   }, [rows.length]);
+
+  // Early returns after all hooks
+  if (!table || !children) return null;
+  if (rows.length === 0) return null;
 
   return (
     <div className="overflow-x-auto mb-4" role="region" aria-label="Table content">

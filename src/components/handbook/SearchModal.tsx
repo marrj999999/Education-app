@@ -139,7 +139,7 @@ export function SearchModal({
             // No results
             <div className="p-8 text-center">
               <FileText size={32} className="mx-auto text-gray-300 mb-3" />
-              <p className="text-gray-500">No sections found for "{query}"</p>
+              <p className="text-gray-500">No sections found for &quot;{query}&quot;</p>
               <p className="text-xs text-gray-400 mt-1">Try a different search term</p>
             </div>
           ) : (

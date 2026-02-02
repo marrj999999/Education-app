@@ -144,12 +144,12 @@ export function flattenLessons(structure: CourseStructure): NavigationLesson[] {
   lessons.push(...structure.standaloneLessons);
 
   // Add lessons from modules
-  for (const module of structure.modules) {
+  for (const mod of structure.modules) {
     // Add standalone lessons in module
-    lessons.push(...module.standaloneLessons);
+    lessons.push(...mod.standaloneLessons);
 
     // Add lessons from units
-    for (const unit of module.units) {
+    for (const unit of mod.units) {
       lessons.push(...unit.lessons);
     }
   }
@@ -208,11 +208,11 @@ export function buildBreadcrumbs(
 
   // Add module if present
   if (lesson.module) {
-    const module = structure.modules.find((m) => m.name === lesson.module);
-    if (module) {
+    const foundModule = structure.modules.find((m) => m.name === lesson.module);
+    if (foundModule) {
       crumbs.push({
-        label: module.name,
-        href: `/courses/${structure.courseSlug}#${module.id}`,
+        label: foundModule.name,
+        href: `/courses/${structure.courseSlug}#${foundModule.id}`,
       });
     }
   }

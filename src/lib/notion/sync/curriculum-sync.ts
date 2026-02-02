@@ -278,7 +278,7 @@ async function syncModule(
       syncedAt: new Date()
     };
 
-    const module = await prisma.curriculumModule.upsert({
+    const curriculumModule = await prisma.curriculumModule.upsert({
       where: { notionPageId: moduleData.id },
       update: moduleDbData,
       create: {
@@ -299,7 +299,7 @@ async function syncModule(
       for (let lessonIndex = 0; lessonIndex < moduleData.lessons.length; lessonIndex++) {
         const lessonData = moduleData.lessons[lessonIndex];
         try {
-          await syncLesson(module.id, lessonData, lessonIndex, options, result);
+          await syncLesson(curriculumModule.id, lessonData, lessonIndex, options, result);
           result.lessonsProcessed++;
         } catch (error) {
           result.errors.push({
@@ -316,7 +316,7 @@ async function syncModule(
         const lessonNotionIds = moduleData.lessons.map(l => l.id);
         const deletedLessons = await prisma.curriculumLesson.deleteMany({
           where: {
-            moduleId: module.id,
+            moduleId: curriculumModule.id,
             notionPageId: { notIn: lessonNotionIds }
           }
         });
