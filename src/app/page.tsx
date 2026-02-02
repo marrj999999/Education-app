@@ -29,7 +29,7 @@ export default async function Home() {
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-6">
+        <nav className="max-w-6xl mx-auto px-6" aria-label="Main navigation">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center">
@@ -74,11 +74,12 @@ export default async function Home() {
               )}
             </div>
           </div>
-        </div>
+        </nav>
       </header>
 
-      {/* Hero Section */}
-      <div className="bg-green-700 text-white">
+      <main>
+        {/* Hero Section */}
+        <div className="bg-green-700 text-white">
         <div className="max-w-6xl mx-auto px-6 py-12 lg:py-16">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
@@ -275,6 +276,7 @@ export default async function Home() {
           </section>
         )}
       </div>
+      </main>
 
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white mt-12">
