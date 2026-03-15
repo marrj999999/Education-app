@@ -373,11 +373,11 @@ export default function SectionOrderPage() {
       {/* Help text */}
       <div className="text-sm text-gray-500 space-y-2">
         <p>
-          <strong>Note:</strong> Custom ordering is stored separately from Notion content.
-          Syncing from Notion will not affect your custom order.
+          <strong>Note:</strong> Custom ordering is stored separately from CMS content.
+          Editing content in the CMS will not affect your custom order.
         </p>
         <p>
-          New sections added in Notion will appear at the end of the list.
+          New sections added in the CMS will appear at the end of the list.
         </p>
       </div>
     </div>

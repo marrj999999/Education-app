@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/components/auth/SessionProvider';
 import { usePathname } from 'next/navigation';
 import CourseSidebar from './CourseSidebar';
 import TopNav from './TopNav';

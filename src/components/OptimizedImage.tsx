@@ -47,8 +47,8 @@ const OptimizedImage = memo(function OptimizedImage({
     setIsLoading(false);
   };
 
-  // Check if it's a Notion file URL (temporary, expires)
-  const isNotionFileUrl = src.includes('prod-files-secure.s3') || src.includes('s3.us-west-2.amazonaws.com');
+  // Check if it's a temporary file URL (e.g. S3 presigned URLs that expire)
+  const isTempFileUrl = src.includes('prod-files-secure.s3') || src.includes('s3.us-west-2.amazonaws.com');
 
   // For error state, show placeholder
   if (hasError) {
@@ -70,8 +70,8 @@ const OptimizedImage = memo(function OptimizedImage({
               />
             </svg>
             <p className="text-gray-500 text-sm">Image unavailable</p>
-            {isNotionFileUrl && (
-              <p className="text-gray-400 text-xs mt-1">Notion image may have expired</p>
+            {isTempFileUrl && (
+              <p className="text-gray-400 text-xs mt-1">Image URL may have expired</p>
             )}
           </div>
         </div>
@@ -114,7 +114,7 @@ const OptimizedImage = memo(function OptimizedImage({
           }}
           onError={handleError}
           placeholder="empty"
-          unoptimized={isNotionFileUrl} // Notion URLs are temporary, can't be cached
+          unoptimized={isTempFileUrl} // Temporary URLs can't be cached
         />
       </div>
 

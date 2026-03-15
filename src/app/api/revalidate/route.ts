@@ -4,19 +4,19 @@ import { NextRequest, NextResponse } from 'next/server';
 // Secret token for webhook verification (set in .env.local)
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 
-// Cache tag constants - must match src/lib/notion.ts
+// Cache tag constants for ISR revalidation
 const CACHE_TAGS = {
   courseStructure: 'course-structure',
   lesson: 'lesson',
   page: 'page',
 } as const;
 
-// Type for Notion webhook payload
-interface NotionWebhookBody {
+// Type for webhook payload (CMS or manual trigger)
+interface WebhookBody {
   verification_token?: string;
   page_id?: string;
   event_type?: string;
-  // Extended payload for granular invalidation
+  // Granular invalidation
   lesson_id?: string;
   module_id?: string;
   course_id?: string;
@@ -30,17 +30,16 @@ function invalidateTag(tag: string) {
 /**
  * POST /api/revalidate
  *
- * Endpoint for Notion webhooks to trigger cache revalidation.
- * Can also be called manually to refresh content.
+ * Endpoint for CMS webhooks or manual cache revalidation.
  *
  * Query params:
  * - secret: Required authentication token
  * - tag: Cache tag to revalidate (course-structure, lesson, page)
  * - path: Specific path to revalidate (e.g., /lessons/abc123)
  *
- * Body (from Notion webhook):
- * - page_id: The Notion page that was updated
- * - event_type: Type of change (page.content_updated, etc.)
+ * Body (from CMS webhook):
+ * - page_id: The page that was updated
+ * - event_type: Type of change (created, updated, deleted, etc.)
  */
 export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -57,19 +56,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    // Parse Notion webhook payload if present
-    let body: NotionWebhookBody = {};
+    // Parse webhook payload if present
+    let body: WebhookBody = {};
     try {
-      body = await request.json() as NotionWebhookBody;
+      body = await request.json() as WebhookBody;
     } catch {
       // No body or invalid JSON - that's okay for manual revalidation
     }
 
     const revalidated: string[] = [];
 
-    // Handle Notion webhook verification
+    // Handle webhook verification
     if (body.verification_token) {
-      // Notion is verifying the webhook endpoint
       return NextResponse.json({
         success: true,
         message: 'Webhook verified',
@@ -112,7 +110,7 @@ export async function POST(request: NextRequest) {
       revalidated.push(`tag:${courseTag}`, `path:/courses/${body.course_id}`);
     }
 
-    // Handle Notion webhook event (legacy page_id support)
+    // Handle legacy page_id support
     if (body.page_id) {
       // Revalidate the specific lesson page
       revalidatePath(`/lessons/${body.page_id}`);

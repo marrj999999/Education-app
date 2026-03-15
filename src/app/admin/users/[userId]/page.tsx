@@ -3,7 +3,7 @@
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/components/auth/SessionProvider';
 import { canAssignRole } from '@/lib/permissions';
 import RoleBadge from '@/components/admin/RoleBadge';
 import type { Role } from '@prisma/client';

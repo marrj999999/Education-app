@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/components/auth/SessionProvider';
 import { canAssignRole } from '@/lib/permissions';
 import type { Role } from '@prisma/client';
 

@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getLessonContent } from '@/lib/notion';
-import { parseNotionBlocks } from '@/lib/notion/parser';
+import { getPayloadLessonContent } from '@/lib/payload/queries';
 import {
   isChecklistSection,
   isTimelineSection,
@@ -32,7 +31,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
   let lessonData;
 
   try {
-    lessonData = await getLessonContent(lessonId);
+    lessonData = await getPayloadLessonContent(lessonId);
   } catch (error) {
     console.error('Failed to fetch lesson:', error);
     notFound();
@@ -42,10 +41,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
     notFound();
   }
 
-  const { page, blocks } = lessonData;
-
-  // Parse blocks to content sections
-  const sections = parseNotionBlocks(blocks);
+  const { page, sections } = lessonData;
 
   // Filter by section type
   const checklists = sections.filter(isChecklistSection);

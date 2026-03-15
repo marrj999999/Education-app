@@ -1,194 +1,55 @@
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import Credentials from 'next-auth/providers/credentials';
-import Google from 'next-auth/providers/google';
-import bcrypt from 'bcryptjs';
+import { createServerSupabaseClient } from './supabase/server';
 import { prisma } from './db';
 import type { Role } from '@prisma/client';
 
-// Extend the session types
-declare module 'next-auth' {
-  interface Session {
-    user: {
-      id: string;
-      email: string;
-      name?: string | null;
-      image?: string | null;
-      role: Role;
-    };
-  }
-
-  interface User {
-    role: Role;
-  }
-}
-
-declare module '@auth/core/jwt' {
-  interface JWT {
+// Session type matching the interface used throughout the app
+export interface AuthSession {
+  user: {
     id: string;
+    email: string;
+    name?: string | null;
+    image?: string | null;
     role: Role;
-  }
+  };
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  // @ts-expect-error - PrismaAdapter type mismatch due to @auth/core version differences
-  adapter: PrismaAdapter(prisma),
-  trustHost: true, // Trust the host header for local development
-  session: {
-    strategy: 'jwt', // Use JWT for Edge compatibility
-    maxAge: 24 * 60 * 60, // 24 hours
-  },
-  pages: {
-    signIn: '/auth/login',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify',
-  },
-  providers: [
-    // Email/Password authentication
-    Credentials({
-      name: 'credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
+/**
+ * Get the current authenticated session.
+ * Uses Supabase for authentication and Prisma User table for role/authorization.
+ * Returns null if not authenticated or user not found/inactive.
+ */
+export async function auth(): Promise<AuthSession | null> {
+  // If Supabase isn't configured, return null (blocks all authenticated routes)
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return null;
+  }
+
+  try {
+    const supabase = await createServerSupabaseClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user?.email) return null;
+
+    // Look up the Prisma User for role and app-level data
+    const prismaUser = await prisma.user.findUnique({
+      where: { email: user.email.toLowerCase() },
+    });
+
+    if (!prismaUser || !prismaUser.isActive) return null;
+
+    return {
+      user: {
+        id: prismaUser.id,
+        email: prismaUser.email,
+        name: prismaUser.name,
+        image: prismaUser.image,
+        role: prismaUser.role,
       },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Email and password are required');
-        }
-
-        const email = credentials.email as string;
-        const password = credentials.password as string;
-
-        // Find user by email
-        const user = await prisma.user.findUnique({
-          where: { email: email.toLowerCase() },
-        });
-
-        if (!user) {
-          throw new Error('Invalid email or password');
-        }
-
-        if (!user.password) {
-          throw new Error('Please sign in with your social account');
-        }
-
-        if (!user.isActive) {
-          throw new Error('Your account has been suspended');
-        }
-
-        // Verify password
-        const isValidPassword = await bcrypt.compare(password, user.password);
-
-        if (!isValidPassword) {
-          throw new Error('Invalid email or password');
-        }
-
-        // Update last login
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { lastLoginAt: new Date() },
-        });
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          image: user.image,
-          role: user.role,
-        };
-      },
-    }),
-
-    // Google OAuth (optional - configure in .env)
-    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
-      ? [
-          Google({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            // SECURITY: Disabled to prevent account takeover via OAuth
-            // If an attacker gains access to a user's Google account, they could
-            // link it to an existing account and take over that account
-            allowDangerousEmailAccountLinking: false,
-          }),
-        ]
-      : []),
-  ],
-  callbacks: {
-    async jwt({ token, user, trigger, session }) {
-      // Initial sign in
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
-      }
-
-      // Handle session updates (e.g., role change)
-      if (trigger === 'update' && session?.role) {
-        token.role = session.role;
-      }
-
-      return token;
-    },
-
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as Role;
-      }
-      return session;
-    },
-
-    async signIn({ user, account }) {
-      // For OAuth providers, check if user is active
-      if (account?.provider !== 'credentials') {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email! },
-        });
-
-        if (existingUser && !existingUser.isActive) {
-          return false; // Block suspended users
-        }
-
-        // Update last login for OAuth users
-        if (existingUser) {
-          await prisma.user.update({
-            where: { id: existingUser.id },
-            data: { lastLoginAt: new Date() },
-          });
-        }
-      }
-
-      return true;
-    },
-  },
-  events: {
-    async signIn({ user }) {
-      // Log successful sign in
-      await prisma.auditLog.create({
-        data: {
-          userId: user.id,
-          action: 'LOGIN',
-          entity: 'USER',
-          entityId: user.id,
-        },
-      });
-    },
-
-    async signOut(message) {
-      // Log sign out - handle both session and JWT strategies
-      const token = 'token' in message ? message.token : null;
-      if (token?.id) {
-        await prisma.auditLog.create({
-          data: {
-            userId: token.id as string,
-            action: 'LOGOUT',
-            entity: 'USER',
-            entityId: token.id as string,
-          },
-        });
-      }
-    },
-  },
-});
+    };
+  } catch {
+    return null;
+  }
+}
 
 // Helper to check if user has required role
 export function hasRole(userRole: Role, requiredRoles: Role[]): boolean {

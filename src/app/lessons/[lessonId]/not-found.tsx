@@ -12,7 +12,7 @@ export default function LessonNotFound() {
           Lesson Not Found
         </h1>
         <p className="text-gray-600 mb-6 max-w-md">
-          We couldn&apos;t find the lesson you&apos;re looking for. It may have been moved or deleted from Notion.
+          We couldn&apos;t find the lesson you&apos;re looking for. It may have been moved or deleted.
         </p>
         <Link
           href="/"

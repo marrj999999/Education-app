@@ -272,17 +272,17 @@ export default async function AdminDashboard() {
           </Link>
 
           <Link
-            href="/dashboard"
+            href="/cms"
             className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-amber-300 hover:bg-amber-50 transition-colors"
           >
             <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
               <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             </div>
             <div>
-              <p className="font-medium text-gray-900">Dashboard</p>
-              <p className="text-sm text-gray-500">View as user</p>
+              <p className="font-medium text-gray-900">CMS Admin</p>
+              <p className="text-sm text-gray-500">Edit course content</p>
             </div>
           </Link>
         </div>

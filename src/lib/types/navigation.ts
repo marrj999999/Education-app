@@ -108,9 +108,9 @@ export function adaptLessonToNavigation(
     id: lesson.id,
     title: lesson.title,
     module: moduleName,
-    unit: null, // Units are extracted from Notion properties if available
+    unit: null, // Units can be populated from CMS properties
     order: lesson.order,
-    status: 'ready', // Default to ready, can be enhanced with Notion status
+    status: 'ready', // Default to ready, can be enhanced with CMS status
     url: `/courses/${courseSlug}/lessons/${lesson.id}`,
     icon: lesson.icon,
   };
@@ -127,7 +127,7 @@ export function adaptModulesToNavigation(
     id: module.id,
     name: module.title,
     icon: module.icon,
-    units: [], // Units can be populated from Notion properties
+    units: [], // Units can be populated from CMS properties
     standaloneLessons: module.lessons.map((lesson) =>
       adaptLessonToNavigation(lesson, module.title, courseSlug)
     ),

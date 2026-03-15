@@ -1,7 +1,7 @@
 /**
- * Content Section Types for Parsed Notion Blocks
+ * Content Section Types
  *
- * These types represent structured content parsed from raw Notion blocks
+ * These types represent structured content sections from the CMS
  * for use in different view modes (Prep Mode, Teaching Mode).
  */
 

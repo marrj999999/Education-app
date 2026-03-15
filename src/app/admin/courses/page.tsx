@@ -143,7 +143,7 @@ export default async function CoursesAdminPage() {
               </Link>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-400">
-                  Notion: {course.notionNavId.slice(0, 8)}...
+                  ID: {course.id}
                 </span>
               </div>
             </div>
@@ -175,11 +175,11 @@ export default async function CoursesAdminPage() {
         </div>
       )}
 
-      {/* Info Card */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+      {/* CMS Link Card */}
+      <div className="bg-green-50 border border-green-200 rounded-xl p-6">
         <div className="flex items-start gap-3">
           <svg
-            className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"
+            className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -188,18 +188,26 @@ export default async function CoursesAdminPage() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
             />
           </svg>
           <div>
-            <h4 className="font-medium text-blue-900">
-              Course Content from Notion
+            <h4 className="font-medium text-green-900">
+              Content Management System
             </h4>
-            <p className="text-sm text-blue-700 mt-1">
-              Course content is managed in Notion and synced automatically. To add
-              or modify lessons, edit the content in your Notion workspace. The
-              dashboard will reflect changes within a few minutes.
+            <p className="text-sm text-green-700 mt-1">
+              Create and edit course content using the CMS admin panel. Content
+              changes appear automatically on lesson pages.
             </p>
+            <Link
+              href="/cms"
+              className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-green-700 hover:text-green-800"
+            >
+              Open CMS Admin
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>

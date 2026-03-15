@@ -2,12 +2,12 @@
  * Section Ordering Helper
  *
  * Applies custom section ordering (stored in database) as an overlay
- * on top of the default Notion-parsed section order.
+ * on top of the default CMS section order.
  *
  * This approach:
- * - Does NOT modify Notion data
+ * - Does NOT modify CMS data
  * - Stores custom orders in a separate table (lesson_section_orders)
- * - Gracefully handles new sections from Notion (appended at end)
+ * - Gracefully handles new sections from the CMS (appended at end)
  * - Gracefully ignores deleted sections (removed from order)
  */
 
@@ -17,7 +17,7 @@ import type { ContentSection } from '@/lib/types/content';
 /**
  * Apply custom section ordering to parsed sections if a custom order exists.
  *
- * @param lessonId - The Notion page ID of the lesson
+ * @param lessonId - The lesson ID
  * @param sections - The parsed sections in default order
  * @returns Sections reordered according to custom order, or default order if none exists
  */
@@ -46,7 +46,7 @@ export async function applyCustomSectionOrder(
 
   // Separate sections into:
   // 1. Sections with custom order
-  // 2. New sections (not in custom order, from recent Notion updates)
+  // 2. New sections (not in custom order, from recent CMS updates)
   const orderedSections: ContentSection[] = [];
   const newSections: ContentSection[] = [];
 
@@ -84,7 +84,7 @@ export async function getCustomSectionOrder(lessonId: string) {
  * Save a new custom section order for a lesson.
  * This replaces any existing custom order.
  *
- * @param lessonId - The Notion page ID of the lesson
+ * @param lessonId - The lesson ID
  * @param sectionIds - Array of section IDs in the desired order
  * @param createdBy - Optional user ID who created this order
  */
@@ -112,7 +112,7 @@ export async function saveCustomSectionOrder(
 }
 
 /**
- * Reset section order to default (Notion order) by deleting custom order
+ * Reset section order to default (CMS order) by deleting custom order
  */
 export async function resetSectionOrder(lessonId: string): Promise<void> {
   await prisma.lessonSectionOrder.deleteMany({

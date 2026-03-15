@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
-import { getCourseStructure, getFullCourseStructure } from '@/lib/notion';
-import { getHandbookDataForCourse } from '@/lib/notion-handbook';
+import { getPayloadCourseStructure, getPayloadHandbookSections } from '@/lib/payload/queries';
 import { HandbookPage } from '@/components/handbook';
 import type { HandbookSection } from '@/lib/types';
 import {
@@ -40,25 +39,37 @@ export default async function CoursePage({ params }: CoursePageProps) {
   }
 
   // If this is a handbook-style course, render the handbook layout
-  if (course.isHandbook && course.notionDatabaseId) {
+  if (course.isHandbook) {
     let sections: HandbookSection[] = [];
     try {
-      sections = await getHandbookDataForCourse(course);
+      const handbookDocs = await getPayloadHandbookSections();
+      // Map Payload handbook docs to HandbookSection type
+      sections = handbookDocs.map((doc: any) => ({
+        id: doc.id,
+        name: doc.title || 'Untitled',
+        pageRange: doc.pageRange || '',
+        order: doc.order ?? 0,
+        images: (doc.images || []).map((img: any) => ({
+          url: typeof img.image === 'object' ? img.image?.url || '' : '',
+          caption: img.caption || '',
+        })),
+        section: doc.section || '',
+        chapter: doc.chapter || '',
+        icon: doc.icon || '',
+        slug: doc.slug || '',
+        hasVideo: doc.hasVideo || false,
+        estTime: doc.estTime || '',
+      }));
     } catch (error) {
       console.error('Failed to fetch handbook data:', error);
     }
     return <HandbookPage course={course} sections={sections} />;
   }
 
-  // Fetch course data from Notion (for regular courses)
+  // Fetch course data from Payload CMS (for regular courses)
   let courseData;
   try {
-    // Use the course-specific structure if notionNavId is provided, otherwise use default
-    if (course.notionNavId) {
-      courseData = await getCourseStructure(course);
-    } else {
-      courseData = await getFullCourseStructure();
-    }
+    courseData = await getPayloadCourseStructure(courseSlug);
   } catch (error) {
     console.error('Failed to fetch course data:', error);
   }
@@ -189,7 +200,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <div>
                   <h3 className="font-semibold text-amber-800">Unable to load course content</h3>
                   <p className="text-amber-700 text-sm mt-1">
-                    Please check that your Notion API key is configured correctly.
+                    Please check that the CMS has content for this course.
                   </p>
                 </div>
               </div>

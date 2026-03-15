@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { HandbookSection as HandbookSectionType, ChapterColorScheme } from '@/lib/types';
-import NotionRenderer from '@/components/NotionRenderer';
 
 interface HandbookSectionProps {
   section: HandbookSectionType;
@@ -23,7 +22,6 @@ export function HandbookSection({
   prevSection,
   nextSection,
 }: HandbookSectionProps) {
-  const hasBlocks = section.blocks && section.blocks.length > 0;
   const hasImages = section.images && section.images.length > 0;
   const hasPrevNext = courseSlug && (prevSection || nextSection);
 
@@ -45,11 +43,7 @@ export function HandbookSection({
       </div>
 
       {/* Content */}
-      {hasBlocks ? (
-        <div className="prose prose-gray max-w-none">
-          <NotionRenderer blocks={section.blocks!} />
-        </div>
-      ) : hasImages ? (
+      {hasImages ? (
         <div className={`
           ${section.images!.length === 1
             ? 'max-w-2xl'

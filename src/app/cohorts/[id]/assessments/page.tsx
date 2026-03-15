@@ -282,7 +282,7 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <p className="text-gray-500">No OCN criteria defined for this course yet.</p>
-            <p className="text-sm text-gray-400 mt-1">Criteria are extracted from lessons during Notion sync.</p>
+            <p className="text-sm text-gray-400 mt-1">Criteria are defined in the CMS lesson content.</p>
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">

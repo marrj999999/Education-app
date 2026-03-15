@@ -2,14 +2,13 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
-import { getLessonContent, getModuleLessons } from '@/lib/notion';
-import { parseNotionBlocks } from '@/lib/notion/parser';
+import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import ReadingProgress from '@/components/ReadingProgress';
 import { LessonPresentationWrapper } from '@/components/LessonPresentationWrapper';
-import type { NotionBlock } from '@/lib/types';
+import type { ContentSection } from '@/lib/types/content';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -19,23 +18,24 @@ import {
   BookIcon,
 } from '@/components/Icons';
 
-// Calculate reading time based on content word count
-function calculateReadingTime(blocks: NotionBlock[]): number {
-  const getText = (blocks: NotionBlock[]): string => {
-    return blocks.map(b => {
-      const blockType = b.type as keyof NotionBlock;
-      const content = b[blockType];
-      const richText = content && typeof content === 'object' && 'rich_text' in content
-        ? (content as { rich_text: Array<{ plain_text: string }> }).rich_text?.map(t => t.plain_text).join('') || ''
-        : '';
-      const children = b.children ? getText(b.children) : '';
-      return richText + ' ' + children;
-    }).join(' ');
-  };
-
-  const text = getText(blocks);
-  const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
-  return Math.max(1, Math.ceil(words / 200)); // 200 WPM average reading speed
+// Calculate reading time based on content sections
+function calculateReadingTime(sections: ContentSection[]): number {
+  let wordCount = 0;
+  for (const section of sections) {
+    if (section.type === 'prose' && section.content) {
+      wordCount += section.content.trim().split(/\s+/).filter(w => w.length > 0).length;
+    } else if (section.type === 'teaching-step') {
+      wordCount += (section.instruction || '').split(/\s+/).length;
+      if (section.paragraphs) {
+        for (const p of section.paragraphs) {
+          wordCount += p.split(/\s+/).length;
+        }
+      }
+    } else if (section.type === 'heading') {
+      wordCount += (section.text || '').split(/\s+/).length;
+    }
+  }
+  return Math.max(1, Math.ceil(wordCount / 200)); // 200 WPM average reading speed
 }
 
 interface LessonPageProps {
@@ -58,10 +58,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound();
   }
 
-  // Fetch lesson content and sibling lessons in parallel for better performance
+  // Fetch lesson content and siblings from Payload CMS
   const [lessonResult, siblingsResult] = await Promise.allSettled([
-    getLessonContent(lessonId),
-    getModuleLessons(lessonId),
+    getPayloadLessonContent(lessonId),
+    getPayloadSiblingLessons(lessonId),
   ]);
 
   // Handle lesson content result
@@ -77,10 +77,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound();
   }
 
-  const { page, blocks } = lessonData;
-
-  // Parse Notion blocks into structured sections
-  const sections = parseNotionBlocks(blocks);
+  const { page, sections } = lessonData;
 
   // Handle sibling lessons result
   let siblingLessons: { id: string; title: string }[] = [];
@@ -96,7 +93,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const colorTheme = COURSE_COLOR_THEMES[course.color] || COURSE_COLOR_THEMES.green;
 
   // Calculate reading time
-  const readingTime = calculateReadingTime(blocks);
+  const readingTime = calculateReadingTime(sections);
 
   // Build the lesson progress indicator for the action slot
   const lessonProgressSlot = siblingLessons.length > 1 ? (

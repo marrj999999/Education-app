@@ -22,7 +22,6 @@ import {
   GraduationCap,
   ArrowRight,
 } from 'lucide-react';
-import { NotionStatusCard } from '@/components/NotionStatusCard';
 
 // Enable ISR - revalidate every 5 minutes for cached page shell
 export const revalidate = 300;
@@ -99,13 +98,6 @@ export default async function DashboardPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Notion Status (Admin only) */}
-        {isAdmin && (
-          <div className="mb-6">
-            <NotionStatusCard />
-          </div>
-        )}
-
         {/* Quick Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card>

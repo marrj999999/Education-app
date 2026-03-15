@@ -3,7 +3,10 @@ import type { Course } from './types';
 /**
  * Course Configuration
  *
- * Add new courses here. Each course needs:
+ * All course content is managed via Payload CMS at /cms.
+ * This config defines the static course metadata.
+ *
+ * Each course needs:
  * - id: Unique identifier
  * - slug: URL-friendly name (used in /courses/[slug])
  * - title: Full course name
@@ -11,7 +14,6 @@ import type { Course } from './types';
  * - description: Course description
  * - icon: Icon name from Icons.tsx
  * - color: Tailwind color theme (green, blue, purple, amber, etc.)
- * - notionNavId: The Notion page ID containing the course navigation
  * - duration: Course duration string
  * - level: OCN level or equivalent
  * - accreditation: Accreditation body (optional)
@@ -26,8 +28,6 @@ export const COURSES: Course[] = [
     description: 'Master essential bamboo bicycle building techniques through hands-on workshop sessions. Learn frame construction, jointing, and finishing skills.',
     icon: 'wrench',
     color: 'green',
-    notionNavId: process.env.NOTION_COURSE_NAV_ID || '19f4c6153ed980429bb7dc3d65091e39',
-    notionDatabaseId: process.env.NOTION_DATABASE_ID || '1c84c6153ed980209372d89b6724ce6e',
     duration: '6 weeks',
     level: 'Level 1-3',
     accreditation: 'OCN',
@@ -41,11 +41,10 @@ export const COURSES: Course[] = [
     description: 'Learn sustainable manufacturing principles applied to bamboo bicycle production. Covers materials sourcing, eco-friendly processes, and lifecycle assessment.',
     icon: 'bicycle',
     color: 'emerald',
-    notionNavId: process.env.NOTION_SUSTAINABLE_MFG_ID || '', // Add this env var when you have the Notion page
     duration: '8 weeks',
     level: 'Level 2-3',
     accreditation: 'OCN',
-    enabled: false, // Enable when Notion content is ready
+    enabled: false, // Enable when CMS content is ready
   },
   {
     id: 'flax-manual-handbook',
@@ -55,30 +54,12 @@ export const COURSES: Course[] = [
     description: 'Complete assembly and build guide for the Flax bamboo bicycle frame kit with detailed illustrations.',
     icon: 'book',
     color: 'teal',
-    notionNavId: process.env.NOTION_FLAX_HANDBOOK_ID || 'acdb1b65919a418d9384d7c1d771c9c1',
-    notionDatabaseId: process.env.NOTION_FLAX_HANDBOOK_ID || 'acdb1b65919a418d9384d7c1d771c9c1',
-    notionApiKey: process.env.NOTION_MANUALS_API_KEY,
     duration: 'Reference',
     level: 'All Levels',
     accreditation: undefined,
     enabled: true,
     isHandbook: true,
   },
-  // Add more courses here as needed
-  // Example:
-  // {
-  //   id: 'advanced-frame-design',
-  //   slug: 'advanced-frame-design',
-  //   title: 'Advanced Frame Design',
-  //   shortTitle: 'Frame Design',
-  //   description: 'Advanced course covering custom frame geometry and design principles.',
-  //   icon: 'clipboard',
-  //   color: 'purple',
-  //   notionNavId: process.env.NOTION_FRAME_DESIGN_ID || '',
-  //   duration: '4 weeks',
-  //   level: 'Level 3',
-  //   enabled: false,
-  // },
 ];
 
 /**

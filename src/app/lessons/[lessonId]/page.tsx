@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getLessonContent, getModuleLessons } from '@/lib/notion';
-import NotionRenderer from '@/components/NotionRenderer';
+import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
+import { SectionRenderer } from '@/components/sections';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import {
@@ -28,7 +28,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   let lessonData;
 
   try {
-    lessonData = await getLessonContent(lessonId);
+    lessonData = await getPayloadLessonContent(lessonId);
   } catch (error) {
     console.error('Failed to fetch lesson:', error);
     notFound();
@@ -38,12 +38,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound();
   }
 
-  const { page, blocks } = lessonData;
+  const { page, sections } = lessonData;
 
   // Try to get sibling lessons for navigation
   let siblingLessons: { id: string; title: string }[] = [];
   try {
-    siblingLessons = await getModuleLessons(lessonId);
+    siblingLessons = await getPayloadSiblingLessons(lessonId);
   } catch (e) {
     // Ignore - we just won't show sibling navigation
   }
@@ -139,8 +139,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {/* Lesson Content */}
         <article className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 mt-6 mb-8">
-          <div className="notion-content prose prose-gray max-w-none">
-            <NotionRenderer blocks={blocks} />
+          <div className="space-y-6">
+            {sections.map(section => (
+              <SectionRenderer
+                key={section.id}
+                section={section}
+                lessonId={lessonId}
+              />
+            ))}
           </div>
         </article>
 

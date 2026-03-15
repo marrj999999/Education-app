@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getLessonContent } from '@/lib/notion';
-import { parseNotionBlocks } from '@/lib/notion/parser';
+import { getPayloadLessonContent } from '@/lib/payload/queries';
 import { applyCustomSectionOrder } from '@/lib/section-ordering';
 
 interface RouteParams {
@@ -13,7 +12,7 @@ export async function GET(request: Request, { params }: RouteParams) {
   const { lessonId } = await params;
 
   try {
-    const lessonData = await getLessonContent(lessonId);
+    const lessonData = await getPayloadLessonContent(lessonId);
 
     if (!lessonData) {
       return NextResponse.json(
@@ -22,10 +21,9 @@ export async function GET(request: Request, { params }: RouteParams) {
       );
     }
 
-    const { page, blocks } = lessonData;
-    const sections = parseNotionBlocks(blocks);
+    const { page, sections } = lessonData;
 
-    // Apply custom section order if one exists (overlay on Notion order)
+    // Apply custom section order if one exists
     const orderedSections = await applyCustomSectionOrder(lessonId, sections);
 
     return NextResponse.json({
