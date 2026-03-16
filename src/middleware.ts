@@ -8,7 +8,6 @@ export const runtime = 'nodejs';
 
 // Routes that don't require authentication
 const publicRoutes = [
-  '/',
   '/auth/login',
   '/auth/confirm',
   '/auth/error',

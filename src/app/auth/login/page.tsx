@@ -9,6 +9,7 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 export default function LoginPage() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
+  const callbackUrl = searchParams.get('callbackUrl');
 
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/confirm`,
+          emailRedirectTo: `${window.location.origin}/auth/confirm${callbackUrl ? `?next=${encodeURIComponent(callbackUrl)}` : ''}`,
         },
       });
 
