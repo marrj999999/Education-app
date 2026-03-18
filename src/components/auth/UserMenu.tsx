@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import type { Role } from '@prisma/client';
 import { roleDisplayNames } from '@/lib/permissions';
@@ -18,7 +16,6 @@ interface UserMenuProps {
 }
 
 export default function UserMenu({ user }: UserMenuProps) {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -35,10 +32,8 @@ export default function UserMenu({ user }: UserMenuProps) {
   }, []);
 
   const handleSignOut = async () => {
-    const supabase = createBrowserSupabaseClient();
-    await supabase.auth.signOut();
-    router.push('/auth/login');
-    router.refresh();
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/auth/login';
   };
 
   const initials = user.name

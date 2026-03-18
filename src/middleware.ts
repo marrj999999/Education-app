@@ -1,23 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from '@/lib/supabase/middleware';
+import { getSessionFromRequest } from '@/lib/auth-cookie';
 import { checkRateLimit, getClientIP, RATE_LIMITS } from '@/lib/rate-limit';
-import { prisma } from '@/lib/db';
-
-// Force Node.js runtime for Prisma compatibility (Edge Runtime doesn't support Prisma)
-export const runtime = 'nodejs';
 
 // Routes that don't require authentication
-const publicRoutes = [
-  '/auth/login',
-  '/auth/confirm',
-  '/auth/error',
-  '/demo',
-];
+const publicRoutes = ['/auth/login', '/auth/error'];
 
 // Routes that require admin access
 const adminRoutes = ['/admin'];
 
-// API routes that should be excluded from middleware auth redirect
+// API routes that handle their own auth
 const apiRoutes = ['/api/auth', '/api/progress', '/api/payload'];
 
 // Payload CMS routes (handled by Payload's own auth)
@@ -26,6 +17,7 @@ const payloadRoutes = ['/cms', '/api/payload'];
 // Rate-limited endpoints
 const rateLimitedEndpoints = [
   { path: '/auth/login', config: RATE_LIMITS.login },
+  { path: '/api/auth/login', config: RATE_LIMITS.login },
 ];
 
 /**
@@ -49,11 +41,6 @@ export default async function middleware(req: NextRequest) {
 
   // Let Payload CMS routes through (Payload handles its own auth)
   if (payloadRoutes.some((route) => pathname.startsWith(route))) {
-    // Still refresh Supabase session cookies if configured
-    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      const { supabaseResponse } = await updateSession(req);
-      return supabaseResponse;
-    }
     return NextResponse.next();
   }
 
@@ -71,11 +58,15 @@ export default async function middleware(req: NextRequest) {
 
   // Check rate limiting
   const rateLimitConfig = rateLimitedEndpoints.find(
-    (endpoint) => pathname === endpoint.path || pathname.startsWith(`${endpoint.path}/`)
+    (endpoint) =>
+      pathname === endpoint.path || pathname.startsWith(`${endpoint.path}/`)
   );
 
   if (rateLimitConfig && !isCI) {
-    const result = checkRateLimit(`${clientIP}:${rateLimitConfig.path}`, rateLimitConfig.config);
+    const result = checkRateLimit(
+      `${clientIP}:${rateLimitConfig.path}`,
+      rateLimitConfig.config
+    );
     if (!result.success) {
       return new NextResponse(
         JSON.stringify({
@@ -86,7 +77,9 @@ export default async function middleware(req: NextRequest) {
           status: 429,
           headers: {
             'Content-Type': 'application/json',
-            'Retry-After': String(Math.ceil((result.resetTime - Date.now()) / 1000)),
+            'Retry-After': String(
+              Math.ceil((result.resetTime - Date.now()) / 1000)
+            ),
           },
         }
       );
@@ -95,22 +88,11 @@ export default async function middleware(req: NextRequest) {
 
   // Skip auth for API routes (they handle their own auth)
   if (apiRoutes.some((route) => pathname.startsWith(route))) {
-    // Still refresh Supabase session
-    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      const { supabaseResponse } = await updateSession(req);
-      return addSecurityHeaders(supabaseResponse);
-    }
     return addSecurityHeaders(NextResponse.next());
   }
 
-  // If Supabase isn't configured, allow all routes (development fallback)
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    return addSecurityHeaders(NextResponse.next());
-  }
-
-  // Refresh Supabase session and get user
-  const { user, supabaseResponse } = await updateSession(req);
-  const response = addSecurityHeaders(supabaseResponse);
+  // Read the session from the signed cookie
+  const session = getSessionFromRequest(req);
 
   // Check if it's a public route
   const isPublicRoute = publicRoutes.some(
@@ -119,41 +101,33 @@ export default async function middleware(req: NextRequest) {
 
   if (isPublicRoute) {
     // If user is logged in and trying to access auth pages, redirect to dashboard
-    if (user && pathname.startsWith('/auth/')) {
+    if (session && pathname.startsWith('/auth/')) {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
-    return response;
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // Require authentication for all other routes
-  if (!user) {
+  if (!session) {
     const loginUrl = new URL('/auth/login', req.url);
+    const fullPath = pathname + req.nextUrl.search;
     if (isValidCallbackUrl(pathname, req.nextUrl)) {
-      loginUrl.searchParams.set('callbackUrl', pathname);
+      loginUrl.searchParams.set('callbackUrl', fullPath);
     } else {
       loginUrl.searchParams.set('callbackUrl', '/dashboard');
     }
     return NextResponse.redirect(loginUrl);
   }
 
-  // Check admin routes - look up user role from Prisma
+  // Check admin routes — role is embedded in the signed cookie, no DB query needed
   const isAdminRoute = adminRoutes.some((route) => pathname.startsWith(route));
-  if (isAdminRoute && user.email) {
-    try {
-      const prismaUser = await prisma.user.findUnique({
-        where: { email: user.email },
-        select: { role: true },
-      });
-      if (prismaUser?.role !== 'SUPER_ADMIN' && prismaUser?.role !== 'ADMIN') {
-        return NextResponse.redirect(new URL('/dashboard', req.url));
-      }
-    } catch {
-      // If Prisma fails, redirect to dashboard for safety
+  if (isAdminRoute) {
+    if (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN') {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
   }
 
-  return response;
+  return addSecurityHeaders(NextResponse.next());
 }
 
 export const config = {

@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth';
 /**
  * GET /api/auth/session
  *
- * Returns the current user's session data (Supabase user + Prisma role).
+ * Returns the current user's session data from the signed session cookie.
  * Used by the client-side SessionProvider.
  */
 export async function GET() {

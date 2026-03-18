@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user already exists
+    // Check if user already exists in Prisma
     const existingUser = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
     });
@@ -153,10 +153,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Hash password
+    // Hash password for login
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create user
+    // Create user in Prisma
     const user = await prisma.user.create({
       data: {
         email: email.toLowerCase(),

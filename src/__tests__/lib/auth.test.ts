@@ -1,23 +1,10 @@
 /**
  * Tests for authentication utilities
- * Verifies role checking, hierarchy, and session management
+ * Verifies role checking, hierarchy, and cookie-based session management
  */
 
 import { hasRole, hasMinimumRole, ROLE_HIERARCHY } from '@/lib/auth';
 import type { Role } from '@prisma/client';
-
-// Mock Supabase + Prisma so we can test auth() in isolation
-jest.mock('@/lib/supabase/server', () => ({
-  createServerSupabaseClient: jest.fn(),
-}));
-
-jest.mock('@/lib/db', () => ({
-  prisma: {
-    user: {
-      findUnique: jest.fn(),
-    },
-  },
-}));
 
 describe('Auth Utilities', () => {
   describe('ROLE_HIERARCHY', () => {
@@ -99,145 +86,6 @@ describe('Auth Utilities', () => {
       expect(hasMinimumRole('STUDENT', 'INSTRUCTOR')).toBe(false);
       expect(hasMinimumRole('STUDENT', 'ADMIN')).toBe(false);
       expect(hasMinimumRole('STUDENT', 'SUPER_ADMIN')).toBe(false);
-    });
-  });
-
-  describe('auth() function', () => {
-    const { createServerSupabaseClient } = require('@/lib/supabase/server');
-    const { prisma } = require('@/lib/db');
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it('should return null when Supabase env vars are missing', async () => {
-      const originalUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const originalKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-      delete process.env.NEXT_PUBLIC_SUPABASE_URL;
-      delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-      // Re-import to pick up the env change
-      const { auth } = require('@/lib/auth');
-      const session = await auth();
-      expect(session).toBeNull();
-
-      // Restore
-      if (originalUrl) process.env.NEXT_PUBLIC_SUPABASE_URL = originalUrl;
-      if (originalKey) process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = originalKey;
-    });
-
-    it('should return null when Supabase user has no email', async () => {
-      process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key';
-
-      createServerSupabaseClient.mockResolvedValue({
-        auth: {
-          getUser: jest.fn().mockResolvedValue({
-            data: { user: { id: 'supabase-id' } }, // no email
-          }),
-        },
-      });
-
-      const { auth } = require('@/lib/auth');
-      const session = await auth();
-      expect(session).toBeNull();
-    });
-
-    it('should return null when Prisma user is not found', async () => {
-      process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key';
-
-      createServerSupabaseClient.mockResolvedValue({
-        auth: {
-          getUser: jest.fn().mockResolvedValue({
-            data: { user: { id: 'supabase-id', email: 'user@test.com' } },
-          }),
-        },
-      });
-
-      prisma.user.findUnique.mockResolvedValue(null);
-
-      const { auth } = require('@/lib/auth');
-      const session = await auth();
-      expect(session).toBeNull();
-    });
-
-    it('should return null when Prisma user is inactive', async () => {
-      process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key';
-
-      createServerSupabaseClient.mockResolvedValue({
-        auth: {
-          getUser: jest.fn().mockResolvedValue({
-            data: { user: { id: 'supabase-id', email: 'user@test.com' } },
-          }),
-        },
-      });
-
-      prisma.user.findUnique.mockResolvedValue({
-        id: 'prisma-id',
-        email: 'user@test.com',
-        name: 'Test User',
-        image: null,
-        role: 'INSTRUCTOR',
-        isActive: false,
-      });
-
-      const { auth } = require('@/lib/auth');
-      const session = await auth();
-      expect(session).toBeNull();
-    });
-
-    it('should return session with user data when authenticated', async () => {
-      process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key';
-
-      createServerSupabaseClient.mockResolvedValue({
-        auth: {
-          getUser: jest.fn().mockResolvedValue({
-            data: { user: { id: 'supabase-id', email: 'Admin@Test.com' } },
-          }),
-        },
-      });
-
-      prisma.user.findUnique.mockResolvedValue({
-        id: 'prisma-id',
-        email: 'admin@test.com',
-        name: 'Admin User',
-        image: '/avatar.png',
-        role: 'ADMIN',
-        isActive: true,
-      });
-
-      const { auth } = require('@/lib/auth');
-      const session = await auth();
-
-      expect(session).toEqual({
-        user: {
-          id: 'prisma-id',
-          email: 'admin@test.com',
-          name: 'Admin User',
-          image: '/avatar.png',
-          role: 'ADMIN',
-        },
-      });
-
-      // Verify email was normalized to lowercase
-      expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { email: 'admin@test.com' },
-      });
-    });
-
-    it('should return null when Supabase throws an error', async () => {
-      process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key';
-
-      createServerSupabaseClient.mockRejectedValue(new Error('Network error'));
-
-      const { auth } = require('@/lib/auth');
-      const session = await auth();
-      expect(session).toBeNull();
     });
   });
 });

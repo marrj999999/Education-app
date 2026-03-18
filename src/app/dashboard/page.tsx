@@ -12,19 +12,20 @@ import UserMenu from '@/components/auth/UserMenu';
 import { roleDisplayNames } from '@/lib/permissions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import { prisma } from '@/lib/db';
+
 import {
   Users,
   BookOpen,
   Settings,
-  TrendingUp,
+  ArrowRight,
+  Calendar,
   Clock,
   GraduationCap,
-  ArrowRight,
 } from 'lucide-react';
 
-// Enable ISR - revalidate every 5 minutes for cached page shell
-export const revalidate = 300;
+// Auth-gated pages must never be cached — always run fresh with current cookies
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -38,6 +39,28 @@ export default async function DashboardPage() {
   const isAdmin = user.role === 'SUPER_ADMIN' || user.role === 'ADMIN';
   const isInstructor = user.role === 'INSTRUCTOR' || isAdmin;
 
+  // Fetch cohort and session data for instructors
+  let cohorts: Awaited<ReturnType<typeof fetchInstructorCohorts>> = [];
+  let upcomingSessions: Awaited<ReturnType<typeof fetchUpcomingSessions>> = [];
+  let totalLearners = 0;
+
+  if (isInstructor) {
+    try {
+      [cohorts, upcomingSessions] = await Promise.all([
+        fetchInstructorCohorts(user.id, isAdmin),
+        fetchUpcomingSessions(user.id, isAdmin),
+      ]);
+      totalLearners = cohorts.reduce((sum, c) => sum + c._count.learners, 0);
+    } catch (error) {
+      // Gracefully degrade if DB is unavailable
+      console.error('Dashboard data fetch error:', error);
+    }
+  }
+
+  const activeCohorts = cohorts.filter(
+    (c) => c.status === 'IN_PROGRESS' || c.status === 'SCHEDULED'
+  );
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -45,7 +68,7 @@ export default async function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/dashboard" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[var(--forest)] flex items-center justify-center">
                 <BambooIcon size={24} className="text-white" />
               </div>
               <div className="hidden sm:block">
@@ -70,15 +93,15 @@ export default async function DashboardPage() {
       </header>
 
       {/* Hero Section */}
-      <div className="bg-green-700 text-white">
+      <div className="bg-[var(--forest)] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <p className="text-green-100 text-sm mb-1">{roleDisplayNames[user.role]}</p>
+              <p className="text-white/70 text-sm mb-1">{roleDisplayNames[user.role]}</p>
               <h1 className="text-2xl sm:text-3xl font-bold">
                 Welcome back, {user.name?.split(' ')[0] || 'there'}!
               </h1>
-              <p className="text-green-100 mt-2">
+              <p className="text-white/70 mt-2">
                 {isInstructor
                   ? 'Ready to inspire your learners today?'
                   : 'Continue your learning journey'}
@@ -103,8 +126,8 @@ export default async function DashboardPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-[var(--teal)]" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-gray-900">{courses.length}</p>
@@ -116,48 +139,174 @@ export default async function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                  <GraduationCap className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">0</p>
-                  <p className="text-sm text-muted-foreground">Completed</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {isInstructor && (
+            <>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
+                      <Users className="w-5 h-5 text-[var(--teal)]" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-gray-900">{activeCohorts.length}</p>
+                      <p className="text-sm text-muted-foreground">Active Cohorts</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">0%</p>
-                  <p className="text-sm text-muted-foreground">Progress</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
+                      <GraduationCap className="w-5 h-5 text-[var(--teal)]" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-gray-900">{totalLearners}</p>
+                      <p className="text-sm text-muted-foreground">Total Learners</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                  <Clock className="w-5 h-5 text-purple-600" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">-</p>
-                  <p className="text-sm text-muted-foreground">Last Activity</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-[var(--teal)]" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-gray-900">{upcomingSessions.length}</p>
+                      <p className="text-sm text-muted-foreground">Upcoming Sessions</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
         </div>
+
+        {/* Your Cohorts + Upcoming Sessions */}
+        {isInstructor && activeCohorts.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* Your Cohorts */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Your Cohorts</h2>
+                <Link
+                  href="/cohorts"
+                  className="text-sm text-[var(--teal)] hover:underline font-medium"
+                >
+                  View all
+                </Link>
+              </div>
+              <div className="space-y-3">
+                {activeCohorts.slice(0, 4).map((cohort) => (
+                  <Link key={cohort.id} href={`/cohorts/${cohort.id}`} className="block group">
+                    <Card className="hover:shadow-md hover:border-[var(--teal)] transition-all">
+                      <CardContent className="py-4 px-5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="font-medium text-gray-900 truncate">{cohort.name}</h3>
+                              <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${
+                                cohort.status === 'IN_PROGRESS'
+                                  ? 'bg-[var(--bamboo-100)] text-[var(--forest)]'
+                                  : 'bg-blue-50 text-blue-700'
+                              }`}>
+                                {cohort.status === 'IN_PROGRESS' ? 'Active' : 'Scheduled'}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Users className="w-3.5 h-3.5" />
+                                {cohort._count.learners} learner{cohort._count.learners !== 1 ? 's' : ''}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-3.5 h-3.5" />
+                                {new Date(cohort.startDate).toLocaleDateString('en-GB', {
+                                  day: 'numeric',
+                                  month: 'short',
+                                  year: 'numeric',
+                                })}
+                              </span>
+                              {cohort.course && (
+                                <span className="truncate">{cohort.course.title}</span>
+                              )}
+                            </div>
+                          </div>
+                          <ChevronRightIcon
+                            size={18}
+                            className="text-gray-400 group-hover:text-[var(--teal)] group-hover:translate-x-0.5 transition-all flex-shrink-0 ml-2"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            {/* Upcoming Sessions */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Upcoming Sessions</h2>
+              </div>
+              {upcomingSessions.length > 0 ? (
+                <div className="space-y-3">
+                  {upcomingSessions.slice(0, 4).map((sess) => (
+                    <Link
+                      key={sess.id}
+                      href={`/cohorts/${sess.cohortId}`}
+                      className="block group"
+                    >
+                      <Card className="hover:shadow-md hover:border-[var(--teal)] transition-all">
+                        <CardContent className="py-4 px-5">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-medium text-gray-900 truncate mb-1">
+                                {sess.lesson?.title || 'Session'}
+                              </h3>
+                              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="w-3.5 h-3.5" />
+                                  {new Date(sess.scheduledDate).toLocaleDateString('en-GB', {
+                                    weekday: 'short',
+                                    day: 'numeric',
+                                    month: 'short',
+                                  })}
+                                </span>
+                                {sess.scheduledTime && (
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3.5 h-3.5" />
+                                    {sess.scheduledTime}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-muted-foreground mt-1 truncate">
+                                {sess.cohort?.name}
+                              </p>
+                            </div>
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium flex-shrink-0 ml-2">
+                              {formatRelativeDate(new Date(sess.scheduledDate))}
+                            </span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <Card className="text-center py-8">
+                  <CardContent>
+                    <Calendar className="w-8 h-8 text-gray-300 mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">No upcoming sessions scheduled</p>
+                  </CardContent>
+                </Card>
+              )}
+            </section>
+          </div>
+        )}
 
         {/* Quick Actions for Instructors */}
         {isInstructor && (
@@ -165,11 +314,11 @@ export default async function DashboardPage() {
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link href="/cohorts" className="block">
-                <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-green-100 hover:border-green-200">
+                <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-[var(--bamboo-100)] hover:border-[var(--teal)]">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                        <Users className="w-5 h-5 text-green-600" />
+                      <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center flex-shrink-0">
+                        <Users className="w-5 h-5 text-[var(--teal)]" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-medium text-gray-900 mb-1">Manage Cohorts</h3>
@@ -244,7 +393,7 @@ export default async function DashboardPage() {
                   href={`/courses/${course.slug}`}
                   className="group"
                 >
-                  <Card className="h-full overflow-hidden hover:shadow-lg hover:border-green-300 transition-all">
+                  <Card className="h-full overflow-hidden hover:shadow-lg hover:border-[var(--teal)] transition-all">
                     {/* Course Header */}
                     <div className={`h-24 ${colorTheme.bgGradient} p-5 flex items-end`}>
                       <div className="flex items-center gap-3">
@@ -277,18 +426,10 @@ export default async function DashboardPage() {
                         </div>
                         <ChevronRightIcon
                           size={20}
-                          className="text-gray-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all"
+                          className="text-gray-400 group-hover:text-[var(--teal)] group-hover:translate-x-1 transition-all"
                         />
                       </div>
 
-                      {/* Progress Bar */}
-                      <div>
-                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-                          <span>Progress</span>
-                          <span>0%</span>
-                        </div>
-                        <Progress value={0} className="h-2" />
-                      </div>
                     </CardContent>
                   </Card>
                 </Link>
@@ -317,4 +458,60 @@ export default async function DashboardPage() {
       </main>
     </div>
   );
+}
+
+// --- Data fetching helpers ---
+
+async function fetchInstructorCohorts(userId: string, isAdmin: boolean) {
+  const where: Record<string, unknown> = {};
+
+  if (!isAdmin) {
+    where.instructors = { some: { userId } };
+  }
+
+  return prisma.cohort.findMany({
+    where,
+    include: {
+      course: { select: { title: true, slug: true } },
+      _count: { select: { learners: true, sessions: true } },
+    },
+    orderBy: { startDate: 'desc' },
+  });
+}
+
+async function fetchUpcomingSessions(userId: string, isAdmin: boolean) {
+  const now = new Date();
+
+  const where: Record<string, unknown> = {
+    scheduledDate: { gte: now },
+    status: 'SCHEDULED',
+  };
+
+  if (!isAdmin) {
+    where.cohort = {
+      instructors: { some: { userId } },
+    };
+  }
+
+  return prisma.sessionDelivery.findMany({
+    where,
+    include: {
+      lesson: { select: { title: true } },
+      cohort: { select: { name: true, id: true } },
+    },
+    orderBy: { scheduledDate: 'asc' },
+    take: 5,
+  });
+}
+
+function formatRelativeDate(date: Date): string {
+  const now = new Date();
+  const diffMs = date.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return 'Tomorrow';
+  if (diffDays <= 7) return `In ${diffDays} days`;
+  if (diffDays <= 14) return 'Next week';
+  return `In ${Math.ceil(diffDays / 7)} weeks`;
 }

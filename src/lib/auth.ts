@@ -1,5 +1,5 @@
-import { createServerSupabaseClient } from './supabase/server';
 import { prisma } from './db';
+import { getSessionFromCookies } from './auth-cookie';
 import type { Role } from '@prisma/client';
 
 // Session type matching the interface used throughout the app
@@ -15,24 +15,26 @@ export interface AuthSession {
 
 /**
  * Get the current authenticated session.
- * Uses Supabase for authentication and Prisma User table for role/authorization.
+ * Reads the signed session cookie and looks up the user in Prisma
+ * for a fresh isActive check.
  * Returns null if not authenticated or user not found/inactive.
  */
 export async function auth(): Promise<AuthSession | null> {
-  // If Supabase isn't configured, return null (blocks all authenticated routes)
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    return null;
-  }
-
   try {
-    const supabase = await createServerSupabaseClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const session = await getSessionFromCookies();
+    if (!session) return null;
 
-    if (!user?.email) return null;
-
-    // Look up the Prisma User for role and app-level data
+    // Look up the Prisma user for fresh data (isActive could change)
     const prismaUser = await prisma.user.findUnique({
-      where: { email: user.email.toLowerCase() },
+      where: { id: session.userId },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        image: true,
+        role: true,
+        isActive: true,
+      },
     });
 
     if (!prismaUser || !prismaUser.isActive) return null;
