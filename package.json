@@ -21,7 +21,6 @@
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.7.4",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -40,15 +39,12 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@sentry/nextjs": "^10.43.0",
-    "@supabase/ssr": "^0.8.0",
-    "@supabase/supabase-js": "^2.99.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "graphql": "^16.13.1",
     "lucide-react": "^0.563.0",
     "next": "^16.1.6",
-    "next-auth": "^5.0.0-beta.25",
     "payload": "^3.73.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
