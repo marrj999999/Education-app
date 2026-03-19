@@ -1,0 +1,9 @@
+node_modules
+.next
+.next-old
+.git
+e2e
+src/__tests__
+*.test.ts
+*.spec.ts
+.claude
