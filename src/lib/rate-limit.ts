@@ -115,7 +115,7 @@ export function getClientIP(request: Request): string {
 // Preset configurations for different endpoints
 export const RATE_LIMITS = {
   // Auth endpoints - stricter limits to prevent brute force
-  login: { limit: 5, windowSeconds: 60 },      // 5 attempts per minute
+  login: { limit: 20, windowSeconds: 60 },     // 20 attempts per minute
   register: { limit: 3, windowSeconds: 60 },   // 3 registrations per minute
 
   // API endpoints - more generous limits

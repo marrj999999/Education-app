@@ -191,7 +191,7 @@ describe('Rate Limiting', () => {
 
   describe('RATE_LIMITS presets', () => {
     it('should have strict limits for login', () => {
-      expect(RATE_LIMITS.login.limit).toBe(5);
+      expect(RATE_LIMITS.login.limit).toBe(20);
       expect(RATE_LIMITS.login.windowSeconds).toBe(60);
     });
 
@@ -224,16 +224,16 @@ describe('Rate Limiting', () => {
       const attackerIP = getUniqueId();
       const results: RateLimitResult[] = [];
 
-      // Simulate 10 rapid login attempts
-      for (let i = 0; i < 10; i++) {
+      // Simulate 25 rapid login attempts
+      for (let i = 0; i < 25; i++) {
         results.push(checkRateLimit(attackerIP, RATE_LIMITS.login));
       }
 
-      // First 5 should succeed
-      expect(results.slice(0, 5).every((r) => r.success)).toBe(true);
+      // First 20 should succeed
+      expect(results.slice(0, 20).every((r) => r.success)).toBe(true);
 
       // Remaining should be blocked
-      expect(results.slice(5).every((r) => !r.success)).toBe(true);
+      expect(results.slice(20).every((r) => !r.success)).toBe(true);
     });
 
     it('should protect against registration spam', () => {

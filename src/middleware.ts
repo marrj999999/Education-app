@@ -14,9 +14,8 @@ const apiRoutes = ['/api/auth', '/api/progress', '/api/payload'];
 // Payload CMS routes (handled by Payload's own auth)
 const payloadRoutes = ['/cms', '/api/payload'];
 
-// Rate-limited endpoints
+// Rate-limited endpoints (only the API, not the page itself)
 const rateLimitedEndpoints = [
-  { path: '/auth/login', config: RATE_LIMITS.login },
   { path: '/api/auth/login', config: RATE_LIMITS.login },
 ];
 

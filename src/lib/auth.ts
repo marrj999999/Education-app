@@ -48,7 +48,8 @@ export async function auth(): Promise<AuthSession | null> {
         role: prismaUser.role,
       },
     };
-  } catch {
+  } catch (error) {
+    console.error('[auth] Session verification failed:', error);
     return null;
   }
 }
