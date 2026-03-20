@@ -43,7 +43,7 @@ model User {
   // Performance indexes
   @@index([role, isActive])
   @@index([createdAt(sort: Desc)])
-  @@map("users")
+  @@map("app_users")
 }
 
 model Account {
