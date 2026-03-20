@@ -129,6 +129,8 @@ export default async function middleware(req: NextRequest) {
   return addSecurityHeaders(NextResponse.next());
 }
 
+export const runtime = 'nodejs';
+
 export const config = {
   matcher: [
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
