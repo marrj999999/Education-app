@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
@@ -76,6 +76,18 @@ const statusLabels: Record<string, string> = {
 };
 
 export default function CohortsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600" />
+      </div>
+    }>
+      <CohortsContent />
+    </Suspense>
+  );
+}
+
+function CohortsContent() {
   const searchParams = useSearchParams();
 
   const [cohorts, setCohorts] = useState<Cohort[]>([]);
@@ -287,11 +299,11 @@ export default function CohortsPage() {
                         <div className="flex -space-x-2">
                           {cohort.instructors.slice(0, 3).map((instructor) => (
                             <div
-                              key={instructor.user.id}
+                              key={instructor.user?.id ?? 'unknown'}
                               className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white text-xs font-medium border-2 border-white"
-                              title={instructor.user.name || instructor.user.email}
+                              title={instructor.user?.name || instructor.user?.email || 'Unknown'}
                             >
-                              {(instructor.user.name || instructor.user.email)[0].toUpperCase()}
+                              {(instructor.user?.name || instructor.user?.email || '?')[0].toUpperCase()}
                             </div>
                           ))}
                           {cohort.instructors.length > 3 && (

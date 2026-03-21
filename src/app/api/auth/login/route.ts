@@ -4,7 +4,9 @@ import { prisma } from '@/lib/db';
 import { setSessionCookie } from '@/lib/auth-cookie';
 
 export async function POST(request: NextRequest) {
+  let step = 'init';
   try {
+    step = 'parse-body';
     const body = await request.json();
     const { email, password } = body;
 
@@ -15,7 +17,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Look up the user in Prisma
+    step = 'db-lookup';
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
       select: {
@@ -43,7 +45,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify password
+    step = 'bcrypt-compare';
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
       return NextResponse.json(
@@ -52,16 +54,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Update lastLoginAt
+    // Update lastLoginAt (non-critical)
+    step = 'update-login-time';
     await prisma.user.update({
       where: { id: user.id },
       data: { lastLoginAt: new Date() },
     }).catch((err) => {
-      // Non-critical — don't fail the login
       console.error('[login] Failed to update lastLoginAt:', err);
     });
 
-    // Create session cookie
+    step = 'create-response';
     const response = NextResponse.json({
       success: true,
       user: {
@@ -73,6 +75,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    step = 'set-cookie';
     setSessionCookie(response, {
       userId: user.id,
       email: user.email,
@@ -81,9 +84,10 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error('[login] Unexpected error:', error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`[login] Failed at step "${step}":`, message);
     return NextResponse.json(
-      { error: 'An unexpected error occurred' },
+      { error: 'An unexpected error occurred', step, detail: message },
       { status: 500 }
     );
   }
