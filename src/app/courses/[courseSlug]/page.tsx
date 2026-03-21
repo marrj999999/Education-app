@@ -210,66 +210,62 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {courseData.modules.map((module, index) => (
                 <div
                   key={module.id}
-                  className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-green-300 hover:shadow-md transition-all group"
+                  className="bg-white rounded-xl border border-gray-200 overflow-hidden transition-all"
                 >
-                  <Link href={`/courses/${courseSlug}/lessons/${module.id}`} className="block">
-                    <div className="p-5 flex items-center gap-5">
-                      {/* Module Number */}
-                      <div className={`w-12 h-12 rounded-xl ${colorTheme.bgGradient} flex items-center justify-center text-white font-bold text-lg flex-shrink-0`}>
-                        {index + 1}
+                  {/* Module Header */}
+                  <div className="p-5 flex items-center gap-5">
+                    {/* Module Number */}
+                    <div className={`w-12 h-12 rounded-xl ${colorTheme.bgGradient} flex items-center justify-center text-white font-bold text-lg flex-shrink-0`}>
+                      {index + 1}
+                    </div>
+
+                    {/* Module Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <ModuleIcon size={20} className="text-gray-400" />
+                        <h3 className="font-semibold text-gray-900 truncate">
+                          {module.title}
+                        </h3>
                       </div>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <DocumentIcon size={16} />
+                          {module.lessons.length} lessons
+                        </span>
+                      </div>
+                    </div>
+                  </div>
 
-                      {/* Module Info */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <ModuleIcon size={20} className="text-gray-400 group-hover:text-green-600 transition-colors" />
-                          <h3 className="font-semibold text-gray-900 group-hover:text-green-600 transition-colors truncate">
-                            {module.title}
-                          </h3>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          <span className="flex items-center gap-1">
-                            <DocumentIcon size={16} />
-                            {module.lessons.length} lessons
-                          </span>
-                        </div>
-
-                        {/* Lesson Preview Tags */}
-                        {module.lessons.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            {module.lessons.slice(0, 3).map((lesson) => (
-                              <span
-                                key={lesson.id}
-                                className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full"
-                              >
-                                {lesson.title.length > 30 ? lesson.title.slice(0, 30) + '...' : lesson.title}
-                              </span>
-                            ))}
-                            {module.lessons.length > 3 && (
-                              <span className="text-xs text-gray-400 px-2 py-1">
-                                +{module.lessons.length - 3} more
-                              </span>
-                            )}
+                  {/* Lesson Links */}
+                  {module.lessons.length > 0 && (
+                    <div className="border-t border-gray-100">
+                      {module.lessons.map((lesson, lessonIndex) => (
+                        <Link
+                          key={lesson.id}
+                          href={`/courses/${courseSlug}/lessons/${lesson.id}`}
+                          className="flex items-center gap-4 px-5 py-3 hover:bg-gray-50 transition-colors group border-b border-gray-50 last:border-b-0"
+                        >
+                          <div className="w-7 h-7 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center text-xs font-bold text-gray-500 group-hover:text-green-700 flex-shrink-0 transition-colors">
+                            {lessonIndex + 1}
                           </div>
-                        )}
-                      </div>
-
-                      {/* Arrow */}
-                      <div className="flex-shrink-0">
-                        <ChevronRightIcon
-                          size={20}
-                          className="text-gray-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all"
-                        />
-                      </div>
+                          <span className="flex-1 text-sm font-medium text-gray-700 group-hover:text-green-700 truncate transition-colors">
+                            {lesson.title}
+                          </span>
+                          <ChevronRightIcon
+                            size={16}
+                            className="text-gray-300 group-hover:text-green-600 group-hover:translate-x-0.5 transition-all flex-shrink-0"
+                          />
+                        </Link>
+                      ))}
                     </div>
+                  )}
 
-                    {/* Progress Bar */}
-                    <div className="px-5 pb-4">
-                      <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                        <div className={`h-full ${colorTheme.bgGradient} rounded-full w-0 transition-all`} />
-                      </div>
+                  {/* Progress Bar */}
+                  <div className="px-5 pb-4 pt-2">
+                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className={`h-full ${colorTheme.bgGradient} rounded-full w-0 transition-all`} />
                     </div>
-                  </Link>
+                  </div>
                 </div>
               ))}
             </div>

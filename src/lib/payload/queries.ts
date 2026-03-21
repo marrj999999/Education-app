@@ -31,7 +31,8 @@ export async function getPayloadLesson(slug: string) {
     });
     if (result.docs.length === 0) return null;
     return result.docs[0];
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadLesson failed for slug:', slug, error);
     return null;
   }
 }
@@ -48,7 +49,8 @@ export async function getPayloadLessonById(id: string) {
       depth: 1,
     });
     return result;
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadLessonById failed for id:', id, error);
     return null;
   }
 }
@@ -66,7 +68,8 @@ export async function getPayloadCourses() {
       limit: 100,
     });
     return result.docs;
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadCourses failed:', error);
     return [];
   }
 }
@@ -85,7 +88,8 @@ export async function getPayloadCourseBySlug(slug: string) {
     });
     if (result.docs.length === 0) return null;
     return result.docs[0];
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadCourseBySlug failed for slug:', slug, error);
     return null;
   }
 }
@@ -111,7 +115,8 @@ export async function getPayloadModules(courseId: string) {
       })
     );
     return modules;
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadModules failed for courseId:', courseId, error);
     return [];
   }
 }
@@ -251,7 +256,8 @@ export async function getPayloadLessonSections(lessonId: string): Promise<Conten
       if (section) sections.push(section);
     }
     return sections;
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadLessonSections failed for lessonId:', lessonId, error);
     return [];
   }
 }
@@ -279,9 +285,19 @@ export async function getPayloadLessonContent(lessonId: string) {
       last_edited_time: (lesson as any).updatedAt || new Date().toISOString(),
     };
 
-    const sections = await getPayloadLessonSections(lessonId);
+    // Extract sections directly from the already-fetched lesson (avoids redundant DB query)
+    const blocks = (lesson as any).sections;
+    const sections: ContentSection[] = [];
+    if (blocks && Array.isArray(blocks)) {
+      for (const block of blocks) {
+        const section = payloadBlockToContentSection(block);
+        if (section) sections.push(section);
+      }
+    }
+
     return { page, sections };
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadLessonContent failed for lessonId:', lessonId, error);
     return null;
   }
 }
@@ -321,7 +337,8 @@ export async function getPayloadSiblingLessons(
       .filter((l: any) => typeof l === 'object' && l.id)
       .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
       .map((l: any) => ({ id: l.id, title: l.title }));
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadSiblingLessons failed for lessonId:', lessonId, error);
     return [];
   }
 }
@@ -343,7 +360,8 @@ export async function getPayloadHandbookSections() {
       depth: 1,
     });
     return result.docs;
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadHandbookSections failed:', error);
     return [];
   }
 }
@@ -362,7 +380,8 @@ export async function getPayloadHandbookBySlug(slug: string) {
     });
     if (result.docs.length === 0) return null;
     return result.docs[0];
-  } catch {
+  } catch (error) {
+    console.error('[Payload] getPayloadHandbookBySlug failed for slug:', slug, error);
     return null;
   }
 }
