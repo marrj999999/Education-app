@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(`[login] Failed at step "${step}":`, message);
     return NextResponse.json(
-      { error: 'An unexpected error occurred', step, detail: message },
+      { error: 'An unexpected error occurred' },
       { status: 500 }
     );
   }
