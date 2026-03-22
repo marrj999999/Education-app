@@ -4,10 +4,13 @@ import Image from 'next/image';
 import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
+import { SectionZoneHeader } from '@/components/sections/SectionZoneHeader';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import ReadingProgress from '@/components/ReadingProgress';
 import { LessonPresentationWrapper } from '@/components/LessonPresentationWrapper';
+import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
+import type { LayoutVersion } from '@/lib/lesson-layout';
 import type { ContentSection } from '@/lib/types/content';
 import {
   ChevronLeftIcon,
@@ -77,7 +80,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound();
   }
 
-  const { page, sections } = lessonData;
+  const { page, sections: rawSections, layoutVersion } = lessonData;
+  const sections = orderSections(rawSections, (layoutVersion || 'standard-v1') as LayoutVersion);
 
   // Handle sibling lessons result
   let siblingLessons: { id: string; title: string }[] = [];
@@ -204,13 +208,18 @@ export default async function LessonPage({ params }: LessonPageProps) {
         {/* Lesson Content */}
         <article className="mt-6 mb-8 bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8">
           <div className="space-y-6">
-            {sections.map(section => (
-              <SectionRenderer
-                key={section.id}
-                section={section}
-                lessonId={lessonId}
-              />
-            ))}
+            {sections.map((section, index) => {
+              const zoneLabel = getZoneLabel(sections, index, (layoutVersion || 'standard-v1') as LayoutVersion);
+              return (
+                <div key={section.id}>
+                  {zoneLabel && <SectionZoneHeader label={zoneLabel} />}
+                  <SectionRenderer
+                    section={section}
+                    lessonId={lessonId}
+                  />
+                </div>
+              );
+            })}
           </div>
         </article>
 

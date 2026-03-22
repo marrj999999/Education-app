@@ -275,18 +275,24 @@ export async function getPayloadLessonContent(lessonId: string) {
     });
     if (!lesson) return null;
 
+    const lessonData = lesson as any;
     const page = {
       id: lesson.id,
-      title: (lesson as any).title,
-      icon: (lesson as any).icon || undefined,
-      cover: (lesson as any).coverImage?.url || undefined,
+      title: lessonData.title,
+      icon: lessonData.icon || undefined,
+      cover: lessonData.coverImage?.url || undefined,
       url: '',
-      created_time: (lesson as any).createdAt || new Date().toISOString(),
-      last_edited_time: (lesson as any).updatedAt || new Date().toISOString(),
+      created_time: lessonData.createdAt || new Date().toISOString(),
+      last_edited_time: lessonData.updatedAt || new Date().toISOString(),
     };
 
+    const layoutVersion = lessonData.layoutVersion || 'standard-v1';
+    const ocnUnitRef = lessonData.ocnUnitRef || undefined;
+    const ocnLevel = lessonData.ocnLevel || undefined;
+    const guidedLearningHours = lessonData.guidedLearningHours || undefined;
+
     // Extract sections directly from the already-fetched lesson (avoids redundant DB query)
-    const blocks = (lesson as any).sections;
+    const blocks = lessonData.sections;
     const sections: ContentSection[] = [];
     if (blocks && Array.isArray(blocks)) {
       for (const block of blocks) {
@@ -295,7 +301,7 @@ export async function getPayloadLessonContent(lessonId: string) {
       }
     }
 
-    return { page, sections };
+    return { page, sections, layoutVersion, ocnUnitRef, ocnLevel, guidedLearningHours };
   } catch (error) {
     console.error('[Payload] getPayloadLessonContent failed for lessonId:', lessonId, error);
     return null;

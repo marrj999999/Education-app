@@ -24,6 +24,40 @@ export const Lessons: CollectionConfig = {
       admin: { description: 'Emoji icon for the lesson (e.g. 🔧)' },
     },
     {
+      name: 'layoutVersion',
+      type: 'select',
+      defaultValue: 'standard-v1',
+      options: [
+        { label: 'Standard Instructor', value: 'standard-v1' },
+        { label: 'Multi-Day Practical', value: 'multi-day-v1' },
+        { label: 'Legacy (original order)', value: 'legacy' },
+      ],
+      admin: {
+        description: 'Layout template — controls section ordering on frontend. Does not change content.',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'ocnUnitRef',
+      type: 'text',
+      admin: { description: 'OCN unit reference (e.g. QUF546)', position: 'sidebar' },
+    },
+    {
+      name: 'ocnLevel',
+      type: 'select',
+      options: [
+        { label: 'Level 1', value: '1' },
+        { label: 'Level 2', value: '2' },
+        { label: 'Level 3', value: '3' },
+      ],
+      admin: { description: 'OCN qualification level', position: 'sidebar' },
+    },
+    {
+      name: 'guidedLearningHours',
+      type: 'number',
+      admin: { description: 'Guided Learning Hours for this lesson', position: 'sidebar' },
+    },
+    {
       name: 'duration',
       type: 'text',
       admin: { description: 'Estimated lesson duration (e.g. "45 min")' },
