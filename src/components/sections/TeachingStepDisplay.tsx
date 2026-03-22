@@ -37,7 +37,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
           {/* Step Number Circle - Green for sections */}
           <div
             className={cn(
-              'flex-shrink-0 bg-success text-white rounded-full',
+              'flex-shrink-0 bg-teal text-white rounded-full',
               'flex items-center justify-center font-bold',
               isPresentation
                 ? 'w-24 h-24 text-present-step'
@@ -74,7 +74,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               {section.duration && (
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1.5 bg-success-light text-success-darker rounded-full font-medium',
+                    'inline-flex items-center gap-1.5 bg-forest text-white rounded-full font-medium',
                     isPresentation
                       ? 'px-4 py-2 text-lg'
                       : isLarge

@@ -132,6 +132,15 @@ function convertBlocks(blocks) {
         i++; continue;
       }
 
+      // Info/detail table detection: 2-column table with headers like "Item|Information" or "Detail|Info"
+      if (headerLower.length === 2 &&
+          (headerLower[0] === 'item' || headerLower[0] === 'detail' || headerLower[0] === 'element') &&
+          (headerLower[1] === 'information' || headerLower[1] === 'info')) {
+        const text = dataRows.filter(row => row[0]?.trim()).map(row => `**${row[0]}:** ${row[1] || ''}`).join('\n');
+        sections.push({ blockType: 'prose', content: createLexical(text) });
+        i++; continue;
+      }
+
       // Checklist/materials detection: has item + quantity columns
       if (headerLower.includes('item') || headerLower.includes('items') ||
           headerLower.some(h => h.includes('material')) ||

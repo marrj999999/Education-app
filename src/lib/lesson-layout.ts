@@ -162,7 +162,7 @@ export function getZoneLabel(
   index: number,
   layout: LayoutVersion,
 ): string | null {
-  if (layout === 'legacy' || index < 0 || index >= sections.length) {
+  if (layout === 'legacy' || index <= 0 || index >= sections.length) {
     return null;
   }
 

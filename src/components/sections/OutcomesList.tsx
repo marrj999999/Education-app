@@ -12,7 +12,7 @@ export function OutcomesList({ section, variant = 'compact' }: OutcomesListProps
   const isLarge = variant === 'large';
 
   return (
-    <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-success-medium rounded-lg overflow-hidden">
+    <div className="bg-success-light border border-success-medium rounded-lg overflow-hidden">
       {/* Header */}
       <div className={`border-b border-success-medium ${isLarge ? 'p-5' : 'p-4'}`}>
         <div className="flex items-center gap-3">
