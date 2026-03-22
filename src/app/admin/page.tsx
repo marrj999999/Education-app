@@ -13,7 +13,7 @@ async function getStats() {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-  // Run all queries in parallel for better performance
+  // Use Promise.allSettled so individual query failures don't crash the page
   const [
     usersByRole,
     activeUsers,
@@ -21,7 +21,7 @@ async function getStats() {
     recentUsers,
     totalCourses,
     enabledCourses,
-  ] = await Promise.all([
+  ] = await Promise.allSettled([
     prisma.user.groupBy({ by: ['role'], _count: { id: true } }),
     prisma.user.count({ where: { isActive: true } }),
     prisma.user.count({ where: { createdAt: { gte: sevenDaysAgo } } }),
@@ -40,7 +40,15 @@ async function getStats() {
     prisma.course.count({ where: { enabled: true } }),
   ]);
 
-  // Process role counts after parallel fetch
+  // Log any failures for debugging
+  const results = { usersByRole, activeUsers, recentSignups, recentUsers, totalCourses, enabledCourses };
+  for (const [key, result] of Object.entries(results)) {
+    if (result.status === 'rejected') {
+      console.error(`[admin] ${key} query failed:`, result.reason);
+    }
+  }
+
+  // Process role counts with fallback
   const roleCounts = {
     SUPER_ADMIN: 0,
     ADMIN: 0,
@@ -48,20 +56,22 @@ async function getStats() {
     STUDENT: 0,
   };
 
-  usersByRole.forEach((item) => {
-    roleCounts[item.role] = item._count.id;
-  });
+  if (usersByRole.status === 'fulfilled') {
+    usersByRole.value.forEach((item) => {
+      roleCounts[item.role] = item._count.id;
+    });
+  }
 
   const totalUsers = Object.values(roleCounts).reduce((a, b) => a + b, 0);
 
   return {
     totalUsers,
-    activeUsers,
-    recentSignups,
+    activeUsers: activeUsers.status === 'fulfilled' ? activeUsers.value : 0,
+    recentSignups: recentSignups.status === 'fulfilled' ? recentSignups.value : 0,
     roleCounts,
-    recentUsers,
-    totalCourses,
-    enabledCourses,
+    recentUsers: recentUsers.status === 'fulfilled' ? recentUsers.value : [],
+    totalCourses: totalCourses.status === 'fulfilled' ? totalCourses.value : 0,
+    enabledCourses: enabledCourses.status === 'fulfilled' ? enabledCourses.value : 0,
   };
 }
 

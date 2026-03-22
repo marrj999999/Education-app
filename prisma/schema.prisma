@@ -111,7 +111,7 @@ model Course {
   description String? @db.Text
   icon        String?
   color       String  @default("green")
-  notionNavId String  @map("notion_nav_id")
+  notionNavId String? @map("notion_nav_id")
   enabled     Boolean @default(true)
 
   // Relations
