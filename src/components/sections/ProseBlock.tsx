@@ -10,7 +10,7 @@ interface ProseBlockProps {
 export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
   const isLarge = variant === 'large';
 
-  // If HTML content is provided, render it
+  // If HTML content is provided, render it (content is from trusted CMS source only)
   if (section.htmlContent) {
     return (
       <div
@@ -23,94 +23,73 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
     );
   }
 
-  // Render plain text content with paragraph breaks
-  const paragraphs = section.content.split('\n\n').filter(Boolean);
+  // Pre-process: split pipe-concatenated bullets into separate lines
+  let content = section.content;
+  if (content.includes(' | • ')) {
+    content = content.replace(/ \| • /g, '\n• ');
+  }
+  if (content.includes(' | ☐ ') || content.includes(' | ☑ ')) {
+    content = content.replace(/ \| (☐|☑) /g, '\n$1 ');
+  }
+
+  const lines = content.split('\n').filter(Boolean);
 
   return (
-    <div className="space-y-4">
-      {paragraphs.map((paragraph, index) => {
-        // Check for special formatting
-        const isBlockquote = paragraph.startsWith('> ');
-        const isBullet = paragraph.startsWith('• ');
-        const isCodeBlock = paragraph.startsWith('```');
-        const isCheckbox = paragraph.startsWith('☐ ') || paragraph.startsWith('☑ ');
+    <div className="space-y-3">
+      {lines.map((line, index) => {
+        const trimmed = line.trim();
 
         // Blockquote
-        if (isBlockquote) {
+        if (trimmed.startsWith('> ')) {
           return (
             <blockquote
               key={index}
-              className={`
-                border-l-4 border-gray-300 pl-4 italic text-gray-600
-                ${isLarge ? 'text-lg' : 'text-base'}
-              `}
+              className={`border-l-4 border-[var(--border)] pl-4 italic text-[var(--text-secondary)] ${isLarge ? 'text-lg' : 'text-base'}`}
             >
-              {paragraph.substring(2)}
+              {trimmed.substring(2)}
             </blockquote>
           );
         }
 
         // Bullet point
-        if (isBullet) {
+        if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
           return (
             <div key={index} className="flex items-start gap-2">
-              <span className="text-gray-400 mt-1">•</span>
-              <span className={`text-gray-700 ${isLarge ? 'text-lg' : 'text-base'}`}>
-                {paragraph.substring(2)}
+              <span className="text-[var(--text-tertiary)] mt-1 flex-shrink-0">•</span>
+              <span className={`text-[var(--text-secondary)] ${isLarge ? 'text-lg' : 'text-base'}`}>
+                {trimmed.substring(2)}
               </span>
             </div>
-          );
-        }
-
-        // Code block
-        if (isCodeBlock) {
-          const lines = paragraph.split('\n');
-          const language = lines[0].substring(3);
-          const code = lines.slice(1, -1).join('\n');
-
-          return (
-            <pre
-              key={index}
-              className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto"
-            >
-              {language && (
-                <div className="text-xs text-gray-500 mb-2">{language}</div>
-              )}
-              <code className={isLarge ? 'text-base' : 'text-sm'}>{code}</code>
-            </pre>
           );
         }
 
         // Checkbox item
-        if (isCheckbox) {
-          const isChecked = paragraph.startsWith('☑');
+        if (trimmed.startsWith('☐ ') || trimmed.startsWith('☑ ')) {
+          const isChecked = trimmed.startsWith('☑');
           return (
             <div key={index} className="flex items-start gap-2">
-              <span className={`mt-1 ${isChecked ? 'text-green-500' : 'text-gray-400'}`}>
+              <span className={`mt-1 flex-shrink-0 ${isChecked ? 'text-[var(--teal)]' : 'text-[var(--text-tertiary)]'}`}>
                 {isChecked ? '☑' : '☐'}
               </span>
-              <span
-                className={`
-                  ${isLarge ? 'text-lg' : 'text-base'}
-                  ${isChecked ? 'text-gray-500 line-through' : 'text-gray-700'}
-                `}
-              >
-                {paragraph.substring(2)}
+              <span className={`${isLarge ? 'text-lg' : 'text-base'} ${isChecked ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-secondary)]'}`}>
+                {trimmed.substring(2)}
               </span>
             </div>
           );
+        }
+
+        // Code block start
+        if (trimmed.startsWith('```')) {
+          return null; // Code blocks handled elsewhere
         }
 
         // Regular paragraph
         return (
           <p
             key={index}
-            className={`
-              text-gray-700 leading-relaxed
-              ${isLarge ? 'text-lg lg:text-xl' : 'text-base'}
-            `}
+            className={`text-[var(--text-secondary)] leading-relaxed ${isLarge ? 'text-lg lg:text-xl' : 'text-base'}`}
           >
-            {paragraph}
+            {trimmed}
           </p>
         );
       })}
