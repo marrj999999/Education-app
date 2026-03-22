@@ -101,13 +101,13 @@ export function IqaSampleForm({
       <div className="flex min-h-full items-center justify-center p-4">
         <div className="fixed inset-0 bg-black/50 transition-opacity" onClick={onClose} />
 
-        <div className="relative bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="relative bg-[var(--surface)] rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-lg font-semibold text-gray-900">Create IQA Sample</h2>
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">Create IQA Sample</h2>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -125,7 +125,7 @@ export function IqaSampleForm({
 
             {/* Sample Period */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">
                 Sample Period <span className="text-red-500">*</span>
               </label>
               <input
@@ -133,7 +133,7 @@ export function IqaSampleForm({
                 required
                 value={samplePeriod}
                 onChange={(e) => setSamplePeriod(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
                 placeholder="e.g., Week 3-4, January 2025"
               />
             </div>
@@ -141,9 +141,9 @@ export function IqaSampleForm({
             {/* Learner Selection */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-[var(--text-secondary)]">
                   Select Learners <span className="text-red-500">*</span>
-                  <span className="ml-2 text-gray-400">({selectedLearners.length} selected)</span>
+                  <span className="ml-2 text-[var(--text-tertiary)]">({selectedLearners.length} selected)</span>
                 </label>
                 <div className="flex gap-2">
                   <button
@@ -156,24 +156,24 @@ export function IqaSampleForm({
                   <button
                     type="button"
                     onClick={() => setSelectedLearners(learners.map((l) => l.id))}
-                    className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                    className="text-xs px-2 py-1 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded hover:bg-[var(--surface-active)] transition-colors"
                   >
                     Select All
                   </button>
                   <button
                     type="button"
                     onClick={() => setSelectedLearners([])}
-                    className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                    className="text-xs px-2 py-1 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded hover:bg-[var(--surface-active)] transition-colors"
                   >
                     Clear
                   </button>
                 </div>
               </div>
-              <div className="border border-gray-200 rounded-lg max-h-40 overflow-y-auto">
+              <div className="border border-[var(--border)] rounded-lg max-h-40 overflow-y-auto">
                 {learners.map((learner) => (
                   <label
                     key={learner.id}
-                    className="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-[var(--surface-hover)] cursor-pointer"
                   >
                     <input
                       type="checkbox"
@@ -181,7 +181,7 @@ export function IqaSampleForm({
                       onChange={() => toggleLearner(learner.id)}
                       className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
                     />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-[var(--text-secondary)]">
                       {learner.firstName} {learner.lastName}
                     </span>
                   </label>
@@ -192,9 +192,9 @@ export function IqaSampleForm({
             {/* Criteria Selection */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-[var(--text-secondary)]">
                   Select Criteria <span className="text-red-500">*</span>
-                  <span className="ml-2 text-gray-400">({selectedCriteria.length} selected)</span>
+                  <span className="ml-2 text-[var(--text-tertiary)]">({selectedCriteria.length} selected)</span>
                 </label>
                 <div className="flex gap-2">
                   <button
@@ -207,24 +207,24 @@ export function IqaSampleForm({
                   <button
                     type="button"
                     onClick={() => setSelectedCriteria(criteria.map((c) => c.code))}
-                    className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                    className="text-xs px-2 py-1 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded hover:bg-[var(--surface-active)] transition-colors"
                   >
                     Select All
                   </button>
                   <button
                     type="button"
                     onClick={() => setSelectedCriteria([])}
-                    className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                    className="text-xs px-2 py-1 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded hover:bg-[var(--surface-active)] transition-colors"
                   >
                     Clear
                   </button>
                 </div>
               </div>
-              <div className="border border-gray-200 rounded-lg max-h-48 overflow-y-auto">
+              <div className="border border-[var(--border)] rounded-lg max-h-48 overflow-y-auto">
                 {criteria.map((criterion) => (
                   <label
                     key={criterion.code}
-                    className="flex items-start gap-3 px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                    className="flex items-start gap-3 px-3 py-2 hover:bg-[var(--surface-hover)] cursor-pointer"
                   >
                     <input
                       type="checkbox"
@@ -234,7 +234,7 @@ export function IqaSampleForm({
                     />
                     <div>
                       <span className="text-sm font-mono text-purple-700">{criterion.code}</span>
-                      <p className="text-xs text-gray-500">{criterion.lessonTitle}</p>
+                      <p className="text-xs text-[var(--text-tertiary)]">{criterion.lessonTitle}</p>
                     </div>
                   </label>
                 ))}
@@ -243,11 +243,11 @@ export function IqaSampleForm({
           </form>
 
           {/* Footer */}
-          <div className="flex justify-end gap-3 p-6 border-t bg-gray-50">
+          <div className="flex justify-end gap-3 p-6 border-t bg-[var(--surface-hover)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-[var(--text-secondary)] bg-[var(--surface)] border border-[var(--border)] rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
             >
               Cancel
             </button>

@@ -36,7 +36,7 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
   };
 
   return (
-    <div className="bg-white border-b border-gray-200 py-3 px-4 overflow-x-auto">
+    <div className="bg-[var(--surface)] border-b border-[var(--border)] py-3 px-4 overflow-x-auto">
       <div className="flex items-center justify-center gap-2 min-w-max">
         {sections.map((section, index) => {
           const Icon = typeIcons[section.type] || Type;
@@ -55,8 +55,8 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
                 ${isActive
                   ? 'bg-blue-500 text-white scale-110 shadow-lg'
                   : isPast
-                    ? 'bg-green-100 text-green-600 hover:bg-green-200'
-                    : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600'
+                    ? 'bg-[var(--bamboo-100)] text-[var(--teal)] hover:bg-[var(--bamboo-100)]'
+                    : 'bg-[var(--surface-hover)] text-[var(--text-tertiary)] hover:bg-[var(--surface-active)] hover:text-[var(--text-secondary)]'
                 }
               `}
               aria-label={`Go to section ${index + 1}: ${section.type}`}
@@ -68,7 +68,7 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
               <span
                 className={`
                   absolute -bottom-5 text-xs font-medium
-                  ${isActive ? 'text-blue-600' : 'text-gray-400'}
+                  ${isActive ? 'text-blue-600' : 'text-[var(--text-tertiary)]'}
                 `}
               >
                 {index + 1}
@@ -80,7 +80,7 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
 
       {/* Progress bar */}
       <div className="mt-6 mb-1">
-        <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+        <div className="h-1 bg-[var(--surface-active)] rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-500 transition-all duration-300"
             style={{
@@ -91,7 +91,7 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
       </div>
 
       {/* Current section indicator */}
-      <div className="text-center text-sm text-gray-500 mt-2">
+      <div className="text-center text-sm text-[var(--text-tertiary)] mt-2">
         Section {currentIndex + 1} of {sections.length}
       </div>
     </div>

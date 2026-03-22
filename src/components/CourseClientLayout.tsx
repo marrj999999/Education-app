@@ -26,7 +26,7 @@ function CourseLayoutContent({
   const { toggleSidebar, sidebarOpen } = useNavigation();
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-[var(--background)]">
       {/* Fixed TopNav */}
       <TopNav
         onMenuToggle={toggleSidebar}
@@ -89,7 +89,7 @@ export default function CourseClientLayout({
         <CourseLayoutContent course={course}>
           {/* Breadcrumbs - show on lesson pages */}
           {currentLessonId && (
-            <div className="border-b bg-white px-4 py-2">
+            <div className="border-b border-[var(--border)] bg-[var(--surface)] px-4 py-2">
               <Breadcrumbs />
             </div>
           )}
@@ -101,7 +101,7 @@ export default function CourseClientLayout({
 
   // Fallback to original layout (for backwards compatibility)
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-[var(--background)]">
       {/* Fixed TopNav - always visible */}
       <TopNav
         onMenuToggle={() => setSidebarOpen(!sidebarOpen)}

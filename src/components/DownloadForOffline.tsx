@@ -89,16 +89,16 @@ export function DownloadForOffline({ lessonId, lessonTitle }: DownloadForOffline
       className={cn(
         'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium',
         'transition-all duration-200',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--teal)]',
         state === 'success'
-          ? 'bg-green-100 text-green-800'
+          ? 'bg-[var(--bamboo-100)] text-[var(--forest)]'
           : state === 'error'
             ? 'bg-red-100 text-red-800'
             : state === 'downloading'
-              ? 'bg-gray-100 text-gray-500 cursor-wait'
+              ? 'bg-[var(--surface-hover)] text-[var(--text-tertiary)] cursor-wait'
               : cached
-                ? 'bg-green-50 text-green-700 hover:bg-green-100'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-[var(--bamboo-50)] text-[var(--teal)] hover:bg-[var(--bamboo-100)]'
+                : 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--surface-active)]'
       )}
       title={cached ? 'Already saved for offline' : `Save "${lessonTitle}" for offline use`}
     >

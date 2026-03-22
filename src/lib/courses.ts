@@ -109,12 +109,12 @@ export const COURSE_COLOR_THEMES: Record<string, {
   light: string;
 }> = {
   green: {
-    bg: 'bg-green-600',
-    bgGradient: 'bg-green-700',
-    text: 'text-green-600',
-    border: 'border-green-300',
-    accent: 'bg-green-500',
-    light: 'bg-green-100',
+    bg: 'bg-[var(--teal)]',
+    bgGradient: 'bg-[var(--forest)]',
+    text: 'text-[var(--teal)]',
+    border: 'border-[var(--bamboo-200)]',
+    accent: 'bg-[var(--gold)]',
+    light: 'bg-[var(--bamboo-50)]',
   },
   emerald: {
     bg: 'bg-emerald-600',

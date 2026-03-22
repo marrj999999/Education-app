@@ -54,10 +54,10 @@ const OptimizedImage = memo(function OptimizedImage({
   if (hasError) {
     return (
       <figure className={`mb-6 ${className}`}>
-        <div className="relative w-full bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center min-h-[200px]">
+        <div className="relative w-full bg-[var(--surface-hover)] rounded-xl overflow-hidden flex items-center justify-center min-h-[200px]">
           <div className="text-center p-8">
             <svg
-              className="w-12 h-12 mx-auto text-gray-400 mb-3"
+              className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -69,14 +69,14 @@ const OptimizedImage = memo(function OptimizedImage({
                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            <p className="text-gray-500 text-sm">Image unavailable</p>
+            <p className="text-[var(--text-tertiary)] text-sm">Image unavailable</p>
             {isTempFileUrl && (
-              <p className="text-gray-400 text-xs mt-1">Image URL may have expired</p>
+              <p className="text-[var(--text-tertiary)] text-xs mt-1">Image URL may have expired</p>
             )}
           </div>
         </div>
         {caption && (
-          <figcaption className="text-sm text-gray-500 mt-3 text-center italic">
+          <figcaption className="text-sm text-[var(--text-tertiary)] mt-3 text-center italic">
             {caption}
           </figcaption>
         )}
@@ -86,10 +86,10 @@ const OptimizedImage = memo(function OptimizedImage({
 
   return (
     <figure className={`mb-6 ${className}`}>
-      <div className="relative w-full overflow-hidden rounded-xl shadow-sm bg-gray-50">
+      <div className="relative w-full overflow-hidden rounded-xl shadow-sm bg-[var(--surface-hover)]">
         {/* Loading skeleton */}
         {isLoading && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+          <div className="absolute inset-0 bg-[var(--surface-active)] animate-pulse" />
         )}
 
         <Image
@@ -119,7 +119,7 @@ const OptimizedImage = memo(function OptimizedImage({
       </div>
 
       {caption && (
-        <figcaption className="text-sm text-gray-500 mt-3 text-center italic">
+        <figcaption className="text-sm text-[var(--text-tertiary)] mt-3 text-center italic">
           {caption}
         </figcaption>
       )}

@@ -473,6 +473,73 @@ html {
 }
 
 /* ============================================
+   BAMBOO STRIPE — Brand Graphic Device
+   Vertical stripe with horizontal node break
+   ============================================ */
+
+.bamboo-stripe {
+  position: relative;
+}
+
+.bamboo-stripe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--teal) 0%,
+    var(--teal) 47%,
+    transparent 47%,
+    transparent 53%,
+    var(--teal) 53%,
+    var(--teal) 100%
+  );
+  z-index: 1;
+}
+
+/* Wider variant for decorative use */
+.bamboo-stripe-wide::before {
+  width: 6px;
+}
+
+/* Gold accent variant */
+.bamboo-stripe-gold::before {
+  background: linear-gradient(
+    to bottom,
+    var(--gold) 0%,
+    var(--gold) 47%,
+    transparent 47%,
+    transparent 53%,
+    var(--gold) 53%,
+    var(--gold) 100%
+  );
+}
+
+/* ============================================
+   BRAND HIGHLIGHT UTILITIES
+   LIME for instructional content, SKY for info
+   ============================================ */
+
+.highlight-lime {
+  background-color: color-mix(in srgb, var(--lime) 15%, transparent);
+  border-color: var(--lime);
+}
+
+.highlight-sky {
+  background-color: color-mix(in srgb, var(--sky) 15%, transparent);
+  border-color: var(--sky);
+}
+
+/* Teaching mode active step highlight */
+.teaching-active-step {
+  border-left: 3px solid var(--lime);
+  background: color-mix(in srgb, var(--lime) 8%, transparent);
+}
+
+/* ============================================
    SIDEBAR NAVIGATION
    ============================================ */
 
@@ -603,8 +670,8 @@ html {
   color: var(--text-secondary);
   /* Optimal reading width: 50-75 characters */
   max-width: 70ch;
-  /* Base font size: 17px for optimal web readability */
-  font-size: 1.0625rem;
+  /* Brand spec: 18pt (1.125rem) body text with 22pt (1.375rem) line spacing */
+  font-size: 1.125rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }

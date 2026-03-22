@@ -35,7 +35,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="p-2 rounded-lg bg-gray-100 text-gray-600"
+        className="p-2 rounded-lg bg-[var(--surface-hover)] text-[var(--text-secondary)]"
         aria-label="Toggle theme"
         disabled
       >
@@ -118,7 +118,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={cycleTheme}
-      className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors"
+      className="p-2 rounded-lg bg-[var(--surface-hover)] hover:bg-[var(--border)] text-[var(--text-secondary)] transition-colors"
       aria-label={getLabel()}
       title={getLabel()}
     >

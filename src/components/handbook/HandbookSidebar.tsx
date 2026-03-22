@@ -82,7 +82,7 @@ export function HandbookSidebar({
         className={`
           fixed lg:sticky top-0 lg:top-16 left-0 z-50 lg:z-auto
           w-72 h-screen lg:h-[calc(100vh-4rem)]
-          bg-white border-r border-gray-100
+          bg-[var(--surface)] border-r border-[var(--border)]
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           overflow-hidden flex flex-col
@@ -90,7 +90,7 @@ export function HandbookSidebar({
         `}
       >
         {/* Progress bar */}
-        <div className="h-0.5 bg-gray-50 shrink-0">
+        <div className="h-0.5 bg-[var(--surface-hover)] shrink-0">
           <div
             className="h-full bg-gray-900 transition-all duration-150 ease-out"
             style={{ width: `${readProgress}%` }}
@@ -98,11 +98,11 @@ export function HandbookSidebar({
         </div>
 
         {/* Mobile header */}
-        <div className="bg-white border-b border-gray-100 p-4 flex items-center justify-between lg:hidden">
-          <span className="font-semibold text-gray-900">Contents</span>
+        <div className="bg-white border-b border-[var(--border)] p-4 flex items-center justify-between lg:hidden">
+          <span className="font-semibold text-[var(--text-primary)]">Contents</span>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 hover:bg-gray-50 rounded text-gray-500"
+            className="p-1 hover:bg-[var(--surface-hover)] rounded text-[var(--text-tertiary)]"
             aria-label="Close menu"
           >
             <X size={20} />
@@ -113,7 +113,7 @@ export function HandbookSidebar({
         <div className="hidden lg:block px-5 pt-5 pb-3">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors"
           >
             <ChevronLeft size={14} />
             <span>All Courses</span>
@@ -121,16 +121,16 @@ export function HandbookSidebar({
         </div>
 
         {/* Title + Search */}
-        <div className="px-5 pb-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">{title}</h2>
+        <div className="px-5 pb-4 border-b border-[var(--border)]">
+          <h2 className="font-semibold text-[var(--text-primary)]">{title}</h2>
           {onSearchClick && (
             <button
               onClick={onSearchClick}
-              className="mt-3 w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-400 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              className="mt-3 w-full flex items-center gap-2 px-3 py-2 text-sm text-[var(--text-tertiary)] bg-[var(--surface-hover)] rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
             >
               <Search size={14} />
               <span>Search...</span>
-              <kbd className="ml-auto text-xs text-gray-300 px-1.5 py-0.5">⌘K</kbd>
+              <kbd className="ml-auto text-xs text-[var(--text-tertiary)] px-1.5 py-0.5">⌘K</kbd>
             </button>
           )}
         </div>
@@ -147,12 +147,12 @@ export function HandbookSidebar({
                     className={`
                       w-full text-left px-5 py-2 text-sm transition-colors
                       ${isActive
-                        ? 'text-gray-900 font-medium bg-gray-50'
-                        : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+                        ? 'text-[var(--text-primary)] font-medium bg-[var(--surface-hover)]'
+                        : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)]'
                       }
                     `}
                   >
-                    <span className={`inline-block w-8 ${isActive ? 'text-gray-900' : 'text-gray-300'}`}>
+                    <span className={`inline-block w-8 ${isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-tertiary)]'}`}>
                       {section.section || `${index + 1}.`}
                     </span>
                     {section.name}
@@ -164,11 +164,11 @@ export function HandbookSidebar({
         </nav>
 
         {/* Footer */}
-        <div className="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 flex items-center justify-between">
+        <div className="px-5 py-3 border-t border-[var(--border)] text-xs text-[var(--text-tertiary)] flex items-center justify-between">
           <span>{Math.round(readProgress)}%</span>
           <button
             onClick={() => window.print()}
-            className="hover:text-gray-600 transition-colors"
+            className="hover:text-[var(--text-secondary)] transition-colors"
           >
             Print
           </button>

@@ -37,8 +37,8 @@ export default async function CoursesAdminPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Courses</h1>
-        <p className="text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Courses</h1>
+        <p className="text-[var(--text-tertiary)] mt-1">
           Manage courses and instructor assignments
         </p>
       </div>
@@ -48,24 +48,24 @@ export default async function CoursesAdminPage() {
         {courses.map((course) => (
           <div
             key={course.id}
-            className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+            className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] overflow-hidden"
           >
             {/* Course Header */}
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-[var(--border)]">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-[var(--text-primary)]">
                     {course.title}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-[var(--text-tertiary)] mt-1">
                     {course.description}
                   </p>
                 </div>
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     course.enabled
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-gray-100 text-gray-800'
+                      ? 'bg-[var(--bamboo-100)] text-[var(--forest)]'
+                      : 'bg-[var(--surface-hover)] text-[var(--text-primary)]'
                   }`}
                 >
                   {course.enabled ? 'Enabled' : 'Disabled'}
@@ -74,30 +74,30 @@ export default async function CoursesAdminPage() {
             </div>
 
             {/* Course Stats */}
-            <div className="px-6 py-4 bg-gray-50 grid grid-cols-3 gap-4 text-center">
+            <div className="px-6 py-4 bg-[var(--surface-hover)] grid grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-[var(--text-primary)]">
                   {course.instructors.length}
                 </p>
-                <p className="text-xs text-gray-500">Instructors</p>
+                <p className="text-xs text-[var(--text-tertiary)]">Instructors</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-[var(--text-primary)]">
                   {course._count.enrollments}
                 </p>
-                <p className="text-xs text-gray-500">Enrollments</p>
+                <p className="text-xs text-[var(--text-tertiary)]">Enrollments</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-[var(--text-primary)]">
                   {course.color}
                 </p>
-                <p className="text-xs text-gray-500">Theme</p>
+                <p className="text-xs text-[var(--text-tertiary)]">Theme</p>
               </div>
             </div>
 
             {/* Instructors */}
             <div className="p-6">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">
+              <h4 className="text-sm font-medium text-[var(--text-secondary)] mb-3">
                 Assigned Instructors
               </h4>
               {course.instructors.length > 0 ? (
@@ -108,20 +108,20 @@ export default async function CoursesAdminPage() {
                       className="flex items-center justify-between text-sm"
                     >
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-8 h-8 rounded-full bg-[var(--teal)] flex items-center justify-center text-white text-xs font-medium">
                           {(assignment.user.name || assignment.user.email)[0].toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-[var(--text-primary)]">
                             {assignment.user.name || 'No name'}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-[var(--text-tertiary)]">
                             {assignment.user.email}
                           </p>
                         </div>
                       </div>
                       {assignment.isPrimary && (
-                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                        <span className="px-2 py-0.5 bg-[var(--bamboo-100)] text-[var(--teal)] text-xs font-medium rounded-full">
                           Primary
                         </span>
                       )}
@@ -129,20 +129,20 @@ export default async function CoursesAdminPage() {
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-gray-500">No instructors assigned</p>
+                <p className="text-sm text-[var(--text-tertiary)]">No instructors assigned</p>
               )}
             </div>
 
             {/* Actions */}
-            <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="px-6 py-4 border-t border-[var(--border)] flex items-center justify-between">
               <Link
                 href={`/courses/${course.slug}`}
-                className="text-sm text-green-600 hover:text-green-700 font-medium"
+                className="text-sm text-[var(--teal)] hover:text-[var(--teal)] font-medium"
               >
                 View Course
               </Link>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-[var(--text-tertiary)]">
                   ID: {course.id}
                 </span>
               </div>
@@ -152,9 +152,9 @@ export default async function CoursesAdminPage() {
       </div>
 
       {courses.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+        <div className="text-center py-12 bg-[var(--surface)] rounded-xl border border-[var(--border)]">
           <svg
-            className="w-12 h-12 mx-auto text-gray-400 mb-4"
+            className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -166,20 +166,20 @@ export default async function CoursesAdminPage() {
               d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
             />
           </svg>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">
             No courses found
           </h3>
-          <p className="text-gray-500">
+          <p className="text-[var(--text-tertiary)]">
             Courses are created through the database seed or migration.
           </p>
         </div>
       )}
 
       {/* CMS Link Card */}
-      <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+      <div className="bg-[var(--bamboo-50)] border border-[var(--bamboo-200)] rounded-xl p-6">
         <div className="flex items-start gap-3">
           <svg
-            className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5"
+            className="w-6 h-6 text-[var(--teal)] flex-shrink-0 mt-0.5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -192,16 +192,16 @@ export default async function CoursesAdminPage() {
             />
           </svg>
           <div>
-            <h4 className="font-medium text-green-900">
+            <h4 className="font-medium text-[var(--forest)]">
               Content Management System
             </h4>
-            <p className="text-sm text-green-700 mt-1">
+            <p className="text-sm text-[var(--teal)] mt-1">
               Create and edit course content using the CMS admin panel. Content
               changes appear automatically on lesson pages.
             </p>
             <Link
               href="/cms"
-              className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-green-700 hover:text-green-800"
+              className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-[var(--teal)] hover:text-[var(--forest)]"
             >
               Open CMS Admin
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

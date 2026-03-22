@@ -38,16 +38,16 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-gray-900 min-h-screen flex flex-col">
+    <aside className="w-64 bg-[var(--forest)] min-h-screen flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-gray-800">
+      <div className="p-4 border-b border-white/10">
         <Link href="/admin" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center">
-            <BambooIcon size={24} className="text-white" />
+          <div className="w-10 h-10 rounded-xl bg-[var(--gold)] flex items-center justify-center">
+            <BambooIcon size={24} className="text-[var(--forest)]" />
           </div>
           <div>
             <p className="font-bold text-white">Admin Panel</p>
-            <p className="text-xs text-gray-400">Bamboo Bicycle Club</p>
+            <p className="text-xs text-white/50">Bamboo Bicycle Club</p>
           </div>
         </Link>
       </div>
@@ -65,8 +65,8 @@ export default function AdminSidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-green-600 text-white'
-                      : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                      ? 'bg-[var(--teal)] text-white'
+                      : 'text-white/70 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   {item.icon}
@@ -79,10 +79,10 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Back to Dashboard */}
-      <div className="p-4 border-t border-gray-800">
+      <div className="p-4 border-t border-white/10">
         <Link
           href="/dashboard"
-          className="flex items-center gap-3 px-4 py-2.5 text-gray-400 hover:text-white transition-colors"
+          className="flex items-center gap-3 px-4 py-2.5 text-white/50 hover:text-white transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />

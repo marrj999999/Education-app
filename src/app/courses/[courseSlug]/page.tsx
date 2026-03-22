@@ -82,7 +82,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   const colorTheme = COURSE_COLOR_THEMES[course.color] || COURSE_COLOR_THEMES.green;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--surface-hover)]">
       {/* Hero Section */}
       <div className={`${colorTheme.bgGradient} text-white`}>
         <div className="max-w-6xl mx-auto px-6 py-12 lg:py-16">
@@ -117,7 +117,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             <div className="flex gap-3">
               <Link
                 href="#modules"
-                className="inline-flex items-center gap-2 px-5 py-3 bg-white text-gray-900 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-white text-[var(--text-primary)] rounded-lg font-semibold hover:bg-[var(--surface-hover)] transition-colors"
               >
                 <BookIcon size={20} />
                 Start Learning
@@ -130,50 +130,50 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Stats Section */}
       <div className="max-w-6xl mx-auto px-6 -mt-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-lg ${colorTheme.light} flex items-center justify-center`}>
                 <ModuleIcon size={20} className={colorTheme.text} />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{courseData?.modules.length ?? 0}</p>
-                <p className="text-sm text-gray-500">Modules</p>
+                <p className="text-2xl font-bold text-[var(--text-primary)]">{courseData?.modules.length ?? 0}</p>
+                <p className="text-sm text-[var(--text-tertiary)]">Modules</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
                 <BookIcon size={20} className="text-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{totalLessons}</p>
-                <p className="text-sm text-gray-500">Lessons</p>
+                <p className="text-2xl font-bold text-[var(--text-primary)]">{totalLessons}</p>
+                <p className="text-sm text-[var(--text-tertiary)]">Lessons</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
                 <CertificateIcon size={20} className="text-amber-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{course.accreditation || 'N/A'}</p>
-                <p className="text-sm text-gray-500">Accredited</p>
+                <p className="text-2xl font-bold text-[var(--text-primary)]">{course.accreditation || 'N/A'}</p>
+                <p className="text-sm text-[var(--text-tertiary)]">Accredited</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
                 <LevelIcon size={20} className="text-purple-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{course.level}</p>
-                <p className="text-sm text-gray-500">Qualification</p>
+                <p className="text-2xl font-bold text-[var(--text-primary)]">{course.level}</p>
+                <p className="text-sm text-[var(--text-tertiary)]">Qualification</p>
               </div>
             </div>
           </div>
@@ -186,8 +186,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <section id="modules" className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Course Curriculum</h2>
-              <p className="text-gray-500 mt-1">Master bamboo bicycle building step by step</p>
+              <h2 className="text-2xl font-bold text-[var(--text-primary)]">Course Curriculum</h2>
+              <p className="text-[var(--text-tertiary)] mt-1">Master bamboo bicycle building step by step</p>
             </div>
           </div>
 
@@ -210,7 +210,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {courseData.modules.map((module, index) => (
                 <div
                   key={module.id}
-                  className="bg-white rounded-xl border border-gray-200 overflow-hidden transition-all"
+                  className="bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden transition-all"
                 >
                   {/* Module Header */}
                   <div className="p-5 flex items-center gap-5">
@@ -222,12 +222,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     {/* Module Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <ModuleIcon size={20} className="text-gray-400" />
-                        <h3 className="font-semibold text-gray-900 truncate">
+                        <ModuleIcon size={20} className="text-[var(--text-tertiary)]" />
+                        <h3 className="font-semibold text-[var(--text-primary)] truncate">
                           {module.title}
                         </h3>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-[var(--text-tertiary)]">
                         <span className="flex items-center gap-1">
                           <DocumentIcon size={16} />
                           {module.lessons.length} lessons
@@ -238,22 +238,22 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
                   {/* Lesson Links */}
                   {module.lessons.length > 0 && (
-                    <div className="border-t border-gray-100">
+                    <div className="border-t border-[var(--border)]">
                       {module.lessons.map((lesson, lessonIndex) => (
                         <Link
                           key={lesson.id}
                           href={`/courses/${courseSlug}/lessons/${lesson.id}`}
-                          className="flex items-center gap-4 px-5 py-3 hover:bg-gray-50 transition-colors group border-b border-gray-50 last:border-b-0"
+                          className="flex items-center gap-4 px-5 py-3 hover:bg-[var(--surface-hover)] transition-colors group border-b border-[var(--surface-hover)] last:border-b-0"
                         >
-                          <div className="w-7 h-7 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center text-xs font-bold text-gray-500 group-hover:text-green-700 flex-shrink-0 transition-colors">
+                          <div className="w-7 h-7 rounded-lg bg-[var(--surface-hover)] group-hover:bg-[var(--bamboo-100)] flex items-center justify-center text-xs font-bold text-[var(--text-tertiary)] group-hover:text-[var(--teal)] flex-shrink-0 transition-colors">
                             {lessonIndex + 1}
                           </div>
-                          <span className="flex-1 text-sm font-medium text-gray-700 group-hover:text-green-700 truncate transition-colors">
+                          <span className="flex-1 text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--teal)] truncate transition-colors">
                             {lesson.title}
                           </span>
                           <ChevronRightIcon
                             size={16}
-                            className="text-gray-300 group-hover:text-green-600 group-hover:translate-x-0.5 transition-all flex-shrink-0"
+                            className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)] group-hover:translate-x-0.5 transition-all flex-shrink-0"
                           />
                         </Link>
                       ))}
@@ -262,7 +262,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
                   {/* Progress Bar */}
                   <div className="px-5 pb-4 pt-2">
-                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[var(--surface-hover)] rounded-full overflow-hidden">
                       <div className={`h-full ${colorTheme.bgGradient} rounded-full w-0 transition-all`} />
                     </div>
                   </div>
@@ -277,8 +277,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
           <section>
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Resources & Materials</h2>
-                <p className="text-gray-500 mt-1">Supplementary materials for your teaching</p>
+                <h2 className="text-2xl font-bold text-[var(--text-primary)]">Resources & Materials</h2>
+                <p className="text-[var(--text-tertiary)] mt-1">Supplementary materials for your teaching</p>
               </div>
             </div>
 
@@ -287,19 +287,19 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <Link
                   key={item.id}
                   href={item.url}
-                  className="bg-white rounded-xl p-5 border border-gray-200 hover:border-green-300 hover:shadow-md transition-all group"
+                  className="bg-[var(--surface)] rounded-xl p-5 border border-[var(--border)] hover:border-[var(--teal)] hover:shadow-md transition-all group"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center transition-colors">
-                      <DocumentIcon size={20} className="text-gray-500 group-hover:text-green-600" />
+                    <div className="w-10 h-10 rounded-lg bg-[var(--surface-hover)] group-hover:bg-[var(--bamboo-100)] flex items-center justify-center transition-colors">
+                      <DocumentIcon size={20} className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)]" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-gray-900 group-hover:text-green-600 transition-colors truncate">
+                      <h3 className="font-medium text-[var(--text-primary)] group-hover:text-[var(--teal)] transition-colors truncate">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-gray-500 mt-1">View resource</p>
+                      <p className="text-sm text-[var(--text-tertiary)] mt-1">View resource</p>
                     </div>
-                    <ExternalLinkIcon size={20} className="text-gray-400 group-hover:text-green-600 flex-shrink-0" />
+                    <ExternalLinkIcon size={20} className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)] flex-shrink-0" />
                   </div>
                 </Link>
               ))}
@@ -309,7 +309,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white mt-12">
+      <footer className="border-t border-[var(--border)] bg-[var(--surface)] mt-12">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -317,11 +317,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <BambooIcon size={16} className="text-white" />
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Bamboo Bicycle Club</p>
-                <p className="text-sm text-gray-500">{course.title}</p>
+                <p className="font-semibold text-[var(--text-primary)]">Bamboo Bicycle Club</p>
+                <p className="text-sm text-[var(--text-tertiary)]">{course.title}</p>
               </div>
             </div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[var(--text-tertiary)]">
               &copy; {new Date().getFullYear()} All rights reserved
             </p>
           </div>

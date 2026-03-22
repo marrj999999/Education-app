@@ -41,7 +41,7 @@ const statusConfig: Record<EnrichedLearner['status'], { bg: string; text: string
   DEFERRED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Deferred' },
   WITHDRAWN: { bg: 'bg-red-100', text: 'text-red-700', label: 'Withdrawn' },
   COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Completed' },
-  FAILED: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Failed' },
+  FAILED: { bg: 'bg-[var(--surface-hover)]', text: 'text-[var(--text-secondary)]', label: 'Failed' },
 };
 
 type SortField = 'name' | 'email' | 'status' | 'attendance' | 'progress';
@@ -69,7 +69,7 @@ function SortIcon({
           </svg>
         )
       ) : (
-        <svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-4 h-4 text-[var(--text-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
         </svg>
       )}
@@ -136,7 +136,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
         <div className="flex-1">
           <div className="relative">
             <svg
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-tertiary)]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -153,14 +153,14 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
               placeholder="Search by name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full pl-10 pr-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
             />
           </div>
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
         >
           <option value="all">All Statuses</option>
           {Object.entries(statusConfig).map(([value, config]) => (
@@ -172,12 +172,12 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
+      <div className="overflow-x-auto rounded-lg border border-[var(--border)]">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-[var(--surface-hover)]">
             <tr>
               <th
-                className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100"
+                className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase cursor-pointer hover:bg-[var(--surface-hover)]"
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center">
@@ -186,7 +186,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                 </div>
               </th>
               <th
-                className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100"
+                className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase cursor-pointer hover:bg-[var(--surface-hover)]"
                 onClick={() => handleSort('status')}
               >
                 <div className="flex items-center">
@@ -195,7 +195,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                 </div>
               </th>
               <th
-                className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100"
+                className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase cursor-pointer hover:bg-[var(--surface-hover)]"
                 onClick={() => handleSort('attendance')}
               >
                 <div className="flex items-center">
@@ -204,7 +204,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                 </div>
               </th>
               <th
-                className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100"
+                className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase cursor-pointer hover:bg-[var(--surface-hover)]"
                 onClick={() => handleSort('progress')}
               >
                 <div className="flex items-center">
@@ -212,19 +212,19 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                   <SortIcon field="progress" currentField={sortField} direction={sortDirection} />
                 </div>
               </th>
-              <th className="text-right py-3 px-4 text-xs font-medium text-gray-500 uppercase">Actions</th>
+              <th className="text-right py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 bg-white">
+          <tbody className="divide-y divide-[var(--border)] bg-[var(--surface)]">
             {filteredAndSortedLearners.length === 0 ? (
               <tr>
-                <td colSpan={5} className="py-8 text-center text-gray-500">
+                <td colSpan={5} className="py-8 text-center text-[var(--text-tertiary)]">
                   {searchQuery || statusFilter !== 'all' ? 'No learners match your filters' : 'No learners enrolled yet'}
                 </td>
               </tr>
             ) : (
               filteredAndSortedLearners.map((learner) => (
-                <tr key={learner.id} className="hover:bg-gray-50">
+                <tr key={learner.id} className="hover:bg-[var(--surface-hover)]">
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium shrink-0">
@@ -232,12 +232,12 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                         {learner.lastName[0]}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-[var(--text-primary)]">
                           {learner.firstName} {learner.lastName}
                         </p>
-                        <p className="text-sm text-gray-500">{learner.email}</p>
+                        <p className="text-sm text-[var(--text-tertiary)]">{learner.email}</p>
                         {learner.ocnLearnerId && (
-                          <p className="text-xs text-gray-400">OCN: {learner.ocnLearnerId}</p>
+                          <p className="text-xs text-[var(--text-tertiary)]">OCN: {learner.ocnLearnerId}</p>
                         )}
                       </div>
                     </div>
@@ -258,7 +258,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                   <td className="py-4 px-4">
                     {learner.attendanceRate !== null ? (
                       <div className="flex items-center gap-2">
-                        <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="w-16 h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
                           <div
                             className={`h-full transition-all ${
                               learner.attendanceRate >= 80
@@ -270,12 +270,12 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                             style={{ width: `${learner.attendanceRate}%` }}
                           />
                         </div>
-                        <span className="text-sm text-gray-600">{learner.attendanceRate}%</span>
+                        <span className="text-sm text-[var(--text-secondary)]">{learner.attendanceRate}%</span>
                       </div>
                     ) : (
-                      <span className="text-sm text-gray-400">-</span>
+                      <span className="text-sm text-[var(--text-tertiary)]">-</span>
                     )}
-                    <div className="text-xs text-gray-400 mt-1">
+                    <div className="text-xs text-[var(--text-tertiary)] mt-1">
                       P:{learner.attendanceCount.present} L:{learner.attendanceCount.late} A:
                       {learner.attendanceCount.absent}
                     </div>
@@ -283,18 +283,18 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                   <td className="py-4 px-4">
                     {learner.assessmentProgress !== null ? (
                       <div className="flex items-center gap-2">
-                        <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="w-16 h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
                           <div
                             className="h-full bg-purple-500 transition-all"
                             style={{ width: `${learner.assessmentProgress}%` }}
                           />
                         </div>
-                        <span className="text-sm text-gray-600">{learner.assessmentProgress}%</span>
+                        <span className="text-sm text-[var(--text-secondary)]">{learner.assessmentProgress}%</span>
                       </div>
                     ) : (
-                      <span className="text-sm text-gray-400">-</span>
+                      <span className="text-sm text-[var(--text-tertiary)]">-</span>
                     )}
-                    <div className="text-xs text-gray-400 mt-1">
+                    <div className="text-xs text-[var(--text-tertiary)] mt-1">
                       {learner.assessmentCount.signedOff}/{learner.assessmentCount.total} signed off
                     </div>
                   </td>
@@ -302,7 +302,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                     <div className="flex justify-end gap-1">
                       <button
                         onClick={() => onEdit(learner)}
-                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-[var(--text-tertiary)] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                         title="Edit learner"
                       >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -316,7 +316,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                       </button>
                       <button
                         onClick={() => onDelete(learner)}
-                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-[var(--text-tertiary)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         title="Delete learner"
                       >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -338,7 +338,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
       </div>
 
       {/* Summary */}
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-[var(--text-tertiary)]">
         Showing {filteredAndSortedLearners.length} of {learners.length} learners
       </div>
     </div>

@@ -9,12 +9,12 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[var(--background)] flex items-center justify-center p-4">
           <div className="w-full max-w-md text-center">
             <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg mx-auto mb-4">
               <BambooIcon size={28} className="text-white" />
             </div>
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-[var(--text-tertiary)]">Loading...</p>
           </div>
         </div>
       }
@@ -183,7 +183,7 @@ function LoginForm() {
 
 function LoginShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[var(--background)] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-6">

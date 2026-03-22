@@ -35,7 +35,7 @@ interface AssessmentMatrixProps {
 }
 
 const statusConfig: Record<Assessment['status'], { bg: string; text: string; label: string; icon: string }> = {
-  NOT_STARTED: { bg: 'bg-gray-100', text: 'text-gray-500', label: 'Not Started', icon: '○' },
+  NOT_STARTED: { bg: 'bg-[var(--surface-hover)]', text: 'text-[var(--text-tertiary)]', label: 'Not Started', icon: '○' },
   IN_PROGRESS: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'In Progress', icon: '◐' },
   SUBMITTED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Submitted', icon: '◑' },
   SIGNED_OFF: { bg: 'bg-green-100', text: 'text-green-700', label: 'Signed Off', icon: '●' },
@@ -89,11 +89,11 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
       {/* Filters */}
       <div className="flex flex-wrap gap-4">
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Filter by Lesson</label>
+          <label className="block text-xs font-medium text-[var(--text-tertiary)] mb-1">Filter by Lesson</label>
           <select
             value={filterLesson}
             onChange={(e) => setFilterLesson(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
+            className="px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
           >
             <option value="all">All Lessons</option>
             {uniqueLessons.map((lesson) => (
@@ -105,11 +105,11 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Filter by Learner</label>
+          <label className="block text-xs font-medium text-[var(--text-tertiary)] mb-1">Filter by Learner</label>
           <select
             value={filterLearner}
             onChange={(e) => setFilterLearner(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
+            className="px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
           >
             <option value="all">All Learners</option>
             {learners.map((learner) => (
@@ -121,11 +121,11 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Filter by Status</label>
+          <label className="block text-xs font-medium text-[var(--text-tertiary)] mb-1">Filter by Status</label>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
+            className="px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
           >
             <option value="all">All Statuses</option>
             {Object.entries(statusConfig).map(([status, config]) => (
@@ -144,48 +144,48 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
             <span className={`w-5 h-5 flex items-center justify-center rounded ${config.bg} ${config.text}`}>
               {config.icon}
             </span>
-            <span className="text-gray-600">{config.label}</span>
+            <span className="text-[var(--text-secondary)]">{config.label}</span>
           </div>
         ))}
       </div>
 
       {/* Matrix */}
-      <div className="overflow-x-auto border border-gray-200 rounded-lg">
+      <div className="overflow-x-auto border border-[var(--border)] rounded-lg">
         <table className="w-full min-w-max">
           <thead>
-            <tr className="bg-gray-50">
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase sticky left-0 bg-gray-50 z-10 min-w-[200px]">
+            <tr className="bg-[var(--surface-hover)]">
+              <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase sticky left-0 bg-[var(--surface-hover)] z-10 min-w-[200px]">
                 Learner
               </th>
               {filteredCriteria.map((criterion) => (
                 <th
                   key={criterion.code}
-                  className="py-3 px-2 text-center text-xs font-medium text-gray-500"
+                  className="py-3 px-2 text-center text-xs font-medium text-[var(--text-tertiary)]"
                   title={`${criterion.text}\n\nLesson: ${criterion.lessonTitle}`}
                 >
                   <div className="w-16">
                     <span className="block truncate">{criterion.code}</span>
-                    <span className="block text-[10px] text-gray-400 font-normal">{calculateCriterionProgress(criterion.code)}%</span>
+                    <span className="block text-[10px] text-[var(--text-tertiary)] font-normal">{calculateCriterionProgress(criterion.code)}%</span>
                   </div>
                 </th>
               ))}
-              <th className="py-3 px-4 text-center text-xs font-medium text-gray-500 uppercase bg-gray-100">
+              <th className="py-3 px-4 text-center text-xs font-medium text-[var(--text-tertiary)] uppercase bg-gray-100">
                 Progress
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 bg-white">
+          <tbody className="divide-y divide-[var(--border)] bg-[var(--surface)]">
             {filteredLearners.map((learner) => {
               const progress = calculateLearnerProgress(learner.id);
               return (
-                <tr key={learner.id} className="hover:bg-gray-50">
-                  <td className="py-3 px-4 sticky left-0 bg-white z-10">
+                <tr key={learner.id} className="hover:bg-[var(--surface-hover)]">
+                  <td className="py-3 px-4 sticky left-0 bg-[var(--surface)] z-10">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium shrink-0">
                         {learner.firstName[0]}
                         {learner.lastName[0]}
                       </div>
-                      <span className="font-medium text-gray-900 text-sm">
+                      <span className="font-medium text-[var(--text-primary)] text-sm">
                         {learner.firstName} {learner.lastName}
                       </span>
                     </div>
@@ -212,15 +212,15 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
                       </td>
                     );
                   })}
-                  <td className="py-3 px-4 text-center bg-gray-50">
+                  <td className="py-3 px-4 text-center bg-[var(--surface-hover)]">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="w-12 h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
                         <div
                           className="h-full bg-purple-500 transition-all"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
-                      <span className="text-xs text-gray-600 w-8">{progress}%</span>
+                      <span className="text-xs text-[var(--text-secondary)] w-8">{progress}%</span>
                     </div>
                   </td>
                 </tr>
@@ -231,7 +231,7 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
       </div>
 
       {/* Summary */}
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-[var(--text-tertiary)]">
         {filteredLearners.length} learners × {filteredCriteria.length} criteria
       </div>
     </div>

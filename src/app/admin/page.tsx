@@ -74,16 +74,16 @@ export default async function AdminDashboard() {
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-[var(--text-primary)]">
             Welcome back, {session?.user.name?.split(' ')[0] || 'Admin'}
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-[var(--text-tertiary)] mt-1">
             Here&apos;s what&apos;s happening with your platform today.
           </p>
         </div>
         <Link
           href="/admin/users/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--teal)] text-white font-medium rounded-lg hover:bg-[var(--forest)] transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -151,8 +151,8 @@ export default async function AdminDashboard() {
       {/* Role Breakdown & Recent Users */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Role Breakdown */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="bg-[var(--surface)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
             Users by Role
           </h2>
           <div className="space-y-4">
@@ -161,21 +161,21 @@ export default async function AdminDashboard() {
                 <div className="flex items-center gap-3">
                   <RoleBadge role={role as keyof typeof stats.roleCounts} size="md" />
                 </div>
-                <span className="text-lg font-semibold text-gray-900">{count}</span>
+                <span className="text-lg font-semibold text-[var(--text-primary)]">{count}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Recent Users */}
-        <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="lg:col-span-2 bg-[var(--surface)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">
               Recent Users
             </h2>
             <Link
               href="/admin/users"
-              className="text-sm text-green-600 hover:text-green-700 font-medium"
+              className="text-sm text-[var(--teal)] hover:text-[var(--teal)] font-medium"
             >
               View all
             </Link>
@@ -183,33 +183,33 @@ export default async function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-100">
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                <tr className="border-b border-[var(--border)]">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     User
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Role
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Joined
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {stats.recentUsers.map((user) => (
-                  <tr key={user.id} className="border-b border-gray-50 hover:bg-gray-50">
+                  <tr key={user.id} className="border-b border-[var(--border)] hover:bg-[var(--surface-hover)]">
                     <td className="py-3 px-4">
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-[var(--text-primary)]">
                           {user.name || 'No name'}
                         </p>
-                        <p className="text-sm text-gray-500">{user.email}</p>
+                        <p className="text-sm text-[var(--text-tertiary)]">{user.email}</p>
                       </div>
                     </td>
                     <td className="py-3 px-4">
                       <RoleBadge role={user.role} />
                     </td>
-                    <td className="py-3 px-4 text-sm text-gray-500">
+                    <td className="py-3 px-4 text-sm text-[var(--text-tertiary)]">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>
                   </tr>
@@ -221,29 +221,29 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-[var(--surface)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
           Quick Actions
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             href="/admin/users/new"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-green-300 hover:bg-green-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-[var(--teal)] hover:bg-[var(--bamboo-50)] transition-colors"
           >
-            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-              <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
+              <svg className="w-5 h-5 text-[var(--teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
             </div>
             <div>
-              <p className="font-medium text-gray-900">Add User</p>
-              <p className="text-sm text-gray-500">Create new account</p>
+              <p className="font-medium text-[var(--text-primary)]">Add User</p>
+              <p className="text-sm text-[var(--text-tertiary)]">Create new account</p>
             </div>
           </Link>
 
           <Link
             href="/admin/users"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-blue-300 hover:bg-blue-50 transition-colors"
           >
             <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
               <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -251,14 +251,14 @@ export default async function AdminDashboard() {
               </svg>
             </div>
             <div>
-              <p className="font-medium text-gray-900">Manage Users</p>
-              <p className="text-sm text-gray-500">View all users</p>
+              <p className="font-medium text-[var(--text-primary)]">Manage Users</p>
+              <p className="text-sm text-[var(--text-tertiary)]">View all users</p>
             </div>
           </Link>
 
           <Link
             href="/admin/courses"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-purple-300 hover:bg-purple-50 transition-colors"
           >
             <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
               <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -266,14 +266,14 @@ export default async function AdminDashboard() {
               </svg>
             </div>
             <div>
-              <p className="font-medium text-gray-900">Courses</p>
-              <p className="text-sm text-gray-500">Manage courses</p>
+              <p className="font-medium text-[var(--text-primary)]">Courses</p>
+              <p className="text-sm text-[var(--text-tertiary)]">Manage courses</p>
             </div>
           </Link>
 
           <Link
             href="/cms"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-amber-300 hover:bg-amber-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-amber-300 hover:bg-amber-50 transition-colors"
           >
             <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
               <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -281,8 +281,8 @@ export default async function AdminDashboard() {
               </svg>
             </div>
             <div>
-              <p className="font-medium text-gray-900">CMS Admin</p>
-              <p className="text-sm text-gray-500">Edit course content</p>
+              <p className="font-medium text-[var(--text-primary)]">CMS Admin</p>
+              <p className="text-sm text-[var(--text-tertiary)]">Edit course content</p>
             </div>
           </Link>
         </div>

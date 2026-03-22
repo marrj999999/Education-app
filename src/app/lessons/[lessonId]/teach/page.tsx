@@ -150,10 +150,10 @@ export default function TeachModePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading lesson...</p>
+          <div className="w-8 h-8 border-4 border-[var(--teal)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-[var(--text-secondary)]">Loading lesson...</p>
         </div>
       </div>
     );
@@ -161,12 +161,12 @@ export default function TeachModePage() {
 
   if (error || !lessonData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error || 'Lesson not found'}</p>
           <Link
             href={`/lessons/${lessonId}`}
-            className="text-green-600 hover:underline"
+            className="text-[var(--teal)] hover:underline"
           >
             Back to lesson
           </Link>
@@ -199,19 +199,19 @@ export default function TeachModePage() {
       "min-h-screen flex flex-col transition-colors duration-300",
       isPresentationMode && isDarkMode
         ? "bg-slate-900 text-slate-100"
-        : "bg-gray-50"
+        : "bg-[var(--surface-hover)]"
     )}>
       {/* Safety Bar - Fixed at top */}
       {criticalSafety.length > 0 && <SafetyBar criticalSafety={criticalSafety} />}
 
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-white border-b border-gray-200">
+      <header className="sticky top-0 z-20 bg-[var(--surface)] border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-center justify-between h-14">
             {/* Back/Exit button */}
             <Link
               href={`/lessons/${lessonId}`}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
             >
               <X size={20} />
               <span className="text-sm font-medium hidden sm:inline">Exit</span>
@@ -220,7 +220,7 @@ export default function TeachModePage() {
             {/* Title */}
             <div className="flex items-center gap-2">
               {page.icon && <span className="text-lg">{page.icon}</span>}
-              <h1 className="text-sm sm:text-base font-medium text-gray-900 truncate max-w-[150px] sm:max-w-[300px]">
+              <h1 className="text-sm sm:text-base font-medium text-[var(--text-primary)] truncate max-w-[150px] sm:max-w-[300px]">
                 {page.title}
               </h1>
             </div>
@@ -235,7 +235,7 @@ export default function TeachModePage() {
               />
               <button
                 onClick={() => setShowHelp(true)}
-                className="flex items-center gap-1 text-gray-500 hover:text-gray-700 transition-colors p-1.5 rounded hover:bg-gray-100"
+                className="flex items-center gap-1 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] transition-colors p-1.5 rounded hover:bg-[var(--surface-hover)]"
                 title="Keyboard shortcuts (?)"
               >
                 <Keyboard size={18} />
@@ -243,7 +243,7 @@ export default function TeachModePage() {
               {!isPresentationMode && (
                 <Link
                   href={`/lessons/${lessonId}/prep`}
-                  className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                 >
                   <ClipboardList size={20} />
                   <span className="text-sm font-medium hidden sm:inline">Prep</span>
@@ -293,11 +293,11 @@ export default function TeachModePage() {
       {/* Lesson Navigation Confirmation Dialog */}
       {showLessonConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <div className="bg-[var(--surface)] rounded-lg shadow-xl p-6 max-w-sm mx-4">
+            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">
               {showLessonConfirm === 'next' ? 'Go to Next Lesson?' : 'Go to Previous Lesson?'}
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-[var(--text-secondary)] mb-4">
               {showLessonConfirm === 'next'
                 ? `Continue to "${navigation?.nextLesson?.title}"`
                 : `Go back to "${navigation?.previousLesson?.title}"`}
@@ -305,7 +305,7 @@ export default function TeachModePage() {
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setShowLessonConfirm(null)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="px-4 py-2 text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -318,7 +318,7 @@ export default function TeachModePage() {
                   }
                   setShowLessonConfirm(null);
                 }}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="px-4 py-2 bg-[var(--teal)] text-white rounded-lg hover:bg-[var(--forest)] transition-colors"
               >
                 {showLessonConfirm === 'next' ? 'Next Lesson' : 'Previous Lesson'}
               </button>

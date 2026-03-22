@@ -42,7 +42,7 @@ export default function AssessmentCriteria({
             key={criterion.id}
             className={`flex items-start gap-3 p-3 rounded-lg border transition-colors ${
               checked[criterion.id]
-                ? 'bg-green-50 border-green-200'
+                ? 'bg-[var(--bamboo-50)] border-[var(--bamboo-200)]'
                 : 'bg-white border-amber-100'
             } ${editable ? 'cursor-pointer hover:border-amber-300' : ''}`}
             onClick={() => handleToggle(criterion.id)}
@@ -50,8 +50,8 @@ export default function AssessmentCriteria({
             <div
               className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
                 checked[criterion.id]
-                  ? 'bg-green-500 border-green-500 text-white'
-                  : 'border-gray-300 bg-white'
+                  ? 'bg-[var(--teal)] border-[var(--teal)] text-white'
+                  : 'border-[var(--border)] bg-[var(--surface)]'
               }`}
             >
               {checked[criterion.id] && (
@@ -64,7 +64,7 @@ export default function AssessmentCriteria({
                 </svg>
               )}
             </div>
-            <span className={`text-gray-700 ${checked[criterion.id] ? 'line-through opacity-60' : ''}`}>
+            <span className={`text-[var(--text-secondary)] ${checked[criterion.id] ? 'line-through opacity-60' : ''}`}>
               {criterion.text}
               {criterion.required && (
                 <span className="text-red-500 ml-1">*</span>

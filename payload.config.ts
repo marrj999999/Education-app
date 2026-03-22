@@ -36,7 +36,9 @@ export default buildConfig({
     },
     schemaName: 'payload',
   }),
-  secret: process.env.PAYLOAD_SECRET || 'default-dev-secret-change-in-production',
+  secret: process.env.PAYLOAD_SECRET || (process.env.NODE_ENV === 'production'
+    ? (() => { throw new Error('PAYLOAD_SECRET environment variable is required in production'); })()
+    : 'default-dev-secret-change-in-production'),
   typescript: {
     outputFile: process.env.NODE_ENV === 'production'
       ? undefined

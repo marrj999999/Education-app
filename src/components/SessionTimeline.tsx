@@ -28,9 +28,9 @@ interface SessionTimelineProps {
 const typeColors: Record<Activity['type'], string> = {
   intro: 'bg-blue-100 text-blue-700 border-blue-300',
   demo: 'bg-purple-100 text-purple-700 border-purple-300',
-  practice: 'bg-green-100 text-green-700 border-green-300',
+  practice: 'bg-[var(--bamboo-100)] text-[var(--teal)] border-[var(--bamboo-200)]',
   assessment: 'bg-amber-100 text-amber-700 border-amber-300',
-  break: 'bg-gray-100 text-gray-600 border-gray-300',
+  break: 'bg-[var(--surface-hover)] text-[var(--text-secondary)] border-[var(--border)]',
   discussion: 'bg-cyan-100 text-cyan-700 border-cyan-300',
 };
 
@@ -49,12 +49,12 @@ export default function SessionTimeline({ activities }: SessionTimelineProps) {
   const totalMinutes = activities.reduce((sum, a) => sum + a.duration, 0);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 mb-6 print:break-inside-avoid">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 mb-6 print:break-inside-avoid">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-          <ClockIcon size={20} className="text-gray-600" /> Session Timeline
+        <h3 className="font-semibold text-[var(--text-primary)] flex items-center gap-2">
+          <ClockIcon size={20} className="text-[var(--text-secondary)]" /> Session Timeline
         </h3>
-        <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+        <span className="text-sm text-[var(--text-tertiary)] bg-[var(--surface-hover)] px-3 py-1 rounded-full">
           {totalMinutes} min total
         </span>
       </div>

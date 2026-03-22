@@ -25,7 +25,7 @@ import type { ContentSection } from '@/lib/types/content';
 
 // Section type icons for visual identification
 const sectionTypeLabels: Record<string, { label: string; color: string }> = {
-  'teaching-step': { label: 'Teaching Step', color: 'bg-green-100 text-green-800' },
+  'teaching-step': { label: 'Teaching Step', color: 'bg-[var(--bamboo-100)] text-[var(--forest)]' },
   'safety': { label: 'Safety', color: 'bg-red-100 text-red-800' },
   'checklist': { label: 'Checklist', color: 'bg-blue-100 text-blue-800' },
   'timeline': { label: 'Timeline', color: 'bg-purple-100 text-purple-800' },
@@ -33,7 +33,7 @@ const sectionTypeLabels: Record<string, { label: string; color: string }> = {
   'outcomes': { label: 'Outcomes', color: 'bg-teal-100 text-teal-800' },
   'vocabulary': { label: 'Vocabulary', color: 'bg-indigo-100 text-indigo-800' },
   'resource': { label: 'Resource', color: 'bg-pink-100 text-pink-800' },
-  'prose': { label: 'Content', color: 'bg-gray-100 text-gray-800' },
+  'prose': { label: 'Content', color: 'bg-[var(--surface-hover)] text-[var(--text-primary)]' },
   'heading': { label: 'Heading', color: 'bg-slate-100 text-slate-800' },
 };
 
@@ -82,21 +82,21 @@ function SortableSection({ section, index }: SortableSectionProps) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-lg ${
-        isDragging ? 'shadow-lg ring-2 ring-green-500 opacity-90' : 'hover:border-gray-300'
+      className={`flex items-center gap-3 p-4 bg-[var(--surface)] border border-[var(--border)] rounded-lg ${
+        isDragging ? 'shadow-lg ring-2 ring-[var(--teal)] opacity-90' : 'hover:border-[var(--border)]'
       }`}
     >
       {/* Drag handle */}
       <button
         {...attributes}
         {...listeners}
-        className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
+        className="flex-shrink-0 p-1 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] cursor-grab active:cursor-grabbing"
       >
         <GripVertical size={20} />
       </button>
 
       {/* Order number */}
-      <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 text-sm font-medium rounded-full">
+      <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-[var(--surface-hover)] text-[var(--text-secondary)] text-sm font-medium rounded-full">
         {index + 1}
       </span>
 
@@ -106,7 +106,7 @@ function SortableSection({ section, index }: SortableSectionProps) {
       </span>
 
       {/* Section title */}
-      <span className="flex-1 text-sm text-gray-900 truncate">
+      <span className="flex-1 text-sm text-[var(--text-primary)] truncate">
         {getSectionTitle(section)}
       </span>
     </div>
@@ -244,7 +244,7 @@ export default function SectionOrderPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-green-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-[var(--teal)]" />
       </div>
     );
   }
@@ -269,7 +269,7 @@ export default function SectionOrderPage() {
       <div>
         <Link
           href="/admin/courses"
-          className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 mb-4"
+          className="flex items-center gap-1 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] mb-4"
         >
           <ChevronLeft size={16} />
           Back to Courses
@@ -279,10 +279,10 @@ export default function SectionOrderPage() {
             <span className="text-2xl">{lessonData.page.icon}</span>
           )}
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">
               Section Order
             </h1>
-            <p className="text-gray-500 mt-1">
+            <p className="text-[var(--text-tertiary)] mt-1">
               {lessonData?.page.title}
             </p>
           </div>
@@ -292,7 +292,7 @@ export default function SectionOrderPage() {
       {/* Status badges */}
       <div className="flex items-center gap-3">
         {hasCustomOrder && (
-          <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded">
+          <span className="px-2 py-1 text-xs font-medium bg-[var(--bamboo-100)] text-[var(--forest)] rounded">
             Custom Order
           </span>
         )}
@@ -315,7 +315,7 @@ export default function SectionOrderPage() {
         <button
           onClick={handleSave}
           disabled={saving || !hasChanges}
-          className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--teal)] text-white rounded-lg hover:bg-[var(--forest)] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {saving ? (
             <Loader2 size={16} className="animate-spin" />
@@ -328,7 +328,7 @@ export default function SectionOrderPage() {
           <button
             onClick={handleReset}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 border border-[var(--border)] text-[var(--text-secondary)] rounded-lg hover:bg-[var(--surface-hover)] disabled:opacity-50"
           >
             <RotateCcw size={16} />
             Reset to Default
@@ -337,8 +337,8 @@ export default function SectionOrderPage() {
       </div>
 
       {/* Sortable sections list */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <p className="text-sm text-gray-500 mb-4">
+      <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
+        <p className="text-sm text-[var(--text-tertiary)] mb-4">
           Drag sections to reorder. Changes apply to all viewing modes (teach, prep, presentation).
         </p>
 
@@ -364,14 +364,14 @@ export default function SectionOrderPage() {
         </DndContext>
 
         {sections.length === 0 && (
-          <p className="text-center text-gray-400 py-8">
+          <p className="text-center text-[var(--text-tertiary)] py-8">
             No sections found in this lesson.
           </p>
         )}
       </div>
 
       {/* Help text */}
-      <div className="text-sm text-gray-500 space-y-2">
+      <div className="text-sm text-[var(--text-tertiary)] space-y-2">
         <p>
           <strong>Note:</strong> Custom ordering is stored separately from CMS content.
           Editing content in the CMS will not affect your custom order.

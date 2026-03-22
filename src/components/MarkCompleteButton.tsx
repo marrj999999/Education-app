@@ -18,8 +18,8 @@ export default function MarkCompleteButton({ lessonId }: MarkCompleteButtonProps
       className={`
         flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all
         ${completed
-          ? 'bg-green-100 text-green-700 hover:bg-green-200'
-          : 'bg-amber-500 text-white hover:bg-amber-600'
+          ? 'bg-[var(--bamboo-100)] text-[var(--forest)] hover:bg-[var(--bamboo-200)]'
+          : 'bg-[var(--gold)] text-[var(--forest)] hover:brightness-110'
         }
       `}
     >

@@ -121,14 +121,14 @@ export default function UsersPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Users</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-[var(--text-primary)]">Users</h1>
+          <p className="text-[var(--text-tertiary)] mt-1">
             Manage user accounts and permissions
           </p>
         </div>
         <Link
           href="/admin/users/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--teal)] text-white font-medium rounded-lg hover:bg-[var(--forest)] transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -138,13 +138,13 @@ export default function UsersPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <div className="bg-[var(--surface)] rounded-xl p-4 shadow-sm border border-[var(--border)]">
         <form onSubmit={handleSearch} className="flex flex-wrap gap-4">
           {/* Search */}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-tertiary)]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -156,7 +156,7 @@ export default function UsersPage() {
                 placeholder="Search by name or email..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
               />
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function UsersPage() {
               setRoleFilter(e.target.value);
               setPagination((prev) => ({ ...prev, page: 1 }));
             }}
-            className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+            className="px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
           >
             <option value="">All Roles</option>
             <option value="SUPER_ADMIN">Super Admin</option>
@@ -184,7 +184,7 @@ export default function UsersPage() {
               setStatusFilter(e.target.value);
               setPagination((prev) => ({ ...prev, page: 1 }));
             }}
-            className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+            className="px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
           >
             <option value="">All Status</option>
             <option value="active">Active</option>
@@ -193,7 +193,7 @@ export default function UsersPage() {
 
           <button
             type="submit"
-            className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 bg-[var(--surface-hover)] text-[var(--text-secondary)] font-medium rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
           >
             Search
           </button>
@@ -201,47 +201,47 @@ export default function UsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] overflow-hidden">
         {isLoading ? (
           <div className="p-8 text-center">
-            <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
-            <p className="mt-2 text-gray-500">Loading users...</p>
+            <div className="inline-block w-8 h-8 border-4 border-[var(--teal)] border-t-transparent rounded-full animate-spin" />
+            <p className="mt-2 text-[var(--text-tertiary)]">Loading users...</p>
           </div>
         ) : users.length === 0 ? (
           <div className="p-8 text-center">
-            <svg className="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
-            <p className="text-gray-500">No users found</p>
+            <p className="text-[var(--text-tertiary)]">No users found</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-[var(--surface-hover)]">
                 <tr>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     User
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Role
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Status
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Last Login
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Joined
                   </th>
-                  <th className="text-right py-3 px-4 text-xs font-medium text-gray-500 uppercase">
+                  <th className="text-right py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-[var(--border)]">
                 {users.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
+                  <tr key={user.id} className="hover:bg-[var(--surface-hover)]">
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-3">
                         {user.image ? (
@@ -251,15 +251,15 @@ export default function UsersPage() {
                             className="w-10 h-10 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-medium">
+                          <div className="w-10 h-10 rounded-full bg-[var(--teal)] flex items-center justify-center text-white font-medium">
                             {(user.name || user.email)[0].toUpperCase()}
                           </div>
                         )}
                         <div>
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-[var(--text-primary)]">
                             {user.name || 'No name'}
                           </p>
-                          <p className="text-sm text-gray-500">{user.email}</p>
+                          <p className="text-sm text-[var(--text-tertiary)]">{user.email}</p>
                         </div>
                       </div>
                     </td>
@@ -270,26 +270,26 @@ export default function UsersPage() {
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           user.isActive
-                            ? 'bg-green-100 text-green-800'
+                            ? 'bg-[var(--bamboo-100)] text-[var(--forest)]'
                             : 'bg-red-100 text-red-800'
                         }`}
                       >
                         {user.isActive ? 'Active' : 'Suspended'}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-sm text-gray-500">
+                    <td className="py-4 px-4 text-sm text-[var(--text-tertiary)]">
                       {user.lastLoginAt
                         ? new Date(user.lastLoginAt).toLocaleDateString()
                         : 'Never'}
                     </td>
-                    <td className="py-4 px-4 text-sm text-gray-500">
+                    <td className="py-4 px-4 text-sm text-[var(--text-tertiary)]">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           href={`/admin/users/${user.id}`}
-                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-[var(--text-tertiary)] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           title="Edit"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -300,8 +300,8 @@ export default function UsersPage() {
                           onClick={() => handleSuspendToggle(user.id, user.isActive)}
                           className={`p-2 rounded-lg transition-colors ${
                             user.isActive
-                              ? 'text-gray-400 hover:text-amber-600 hover:bg-amber-50'
-                              : 'text-gray-400 hover:text-green-600 hover:bg-green-50'
+                              ? 'text-[var(--text-tertiary)] hover:text-amber-600 hover:bg-amber-50'
+                              : 'text-[var(--text-tertiary)] hover:text-[var(--teal)] hover:bg-[var(--bamboo-50)]'
                           }`}
                           title={user.isActive ? 'Suspend' : 'Activate'}
                         >
@@ -317,7 +317,7 @@ export default function UsersPage() {
                         </button>
                         <button
                           onClick={() => handleDelete(user.id, user.email)}
-                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-[var(--text-tertiary)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -335,8 +335,8 @@ export default function UsersPage() {
 
         {/* Pagination */}
         {pagination.totalPages > 1 && (
-          <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between">
-            <p className="text-sm text-gray-500">
+          <div className="px-4 py-3 border-t border-[var(--border)] flex items-center justify-between">
+            <p className="text-sm text-[var(--text-tertiary)]">
               Showing {(pagination.page - 1) * pagination.limit + 1} to{' '}
               {Math.min(pagination.page * pagination.limit, pagination.total)} of{' '}
               {pagination.total} users
@@ -345,17 +345,17 @@ export default function UsersPage() {
               <button
                 onClick={() => setPagination((prev) => ({ ...prev, page: prev.page - 1 }))}
                 disabled={pagination.page === 1}
-                className="px-3 py-1 border border-gray-200 rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-3 py-1 border border-[var(--border)] rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--surface-hover)]"
               >
                 Previous
               </button>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-[var(--text-tertiary)]">
                 Page {pagination.page} of {pagination.totalPages}
               </span>
               <button
                 onClick={() => setPagination((prev) => ({ ...prev, page: prev.page + 1 }))}
                 disabled={pagination.page === pagination.totalPages}
-                className="px-3 py-1 border border-gray-200 rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-3 py-1 border border-[var(--border)] rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--surface-hover)]"
               >
                 Next
               </button>

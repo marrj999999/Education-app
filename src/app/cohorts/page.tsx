@@ -78,8 +78,8 @@ const statusLabels: Record<string, string> = {
 export default function CohortsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600" />
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--teal)]" />
       </div>
     }>
       <CohortsContent />
@@ -133,19 +133,19 @@ function CohortsContent() {
   const completedCount = cohorts.filter(c => c.status === 'COMPLETED').length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--surface-hover)]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
               <Link href="/dashboard" className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-green-700 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[var(--forest)] flex items-center justify-center">
                   <Layers className="w-5 h-5 text-white" />
                 </div>
                 <div className="hidden sm:block">
-                  <p className="font-bold text-gray-900">Cohorts</p>
-                  <p className="text-xs text-gray-500">Manage course deliveries</p>
+                  <p className="font-bold text-[var(--text-primary)]">Cohorts</p>
+                  <p className="text-xs text-[var(--text-tertiary)]">Manage course deliveries</p>
                 </div>
               </Link>
             </div>
@@ -161,7 +161,7 @@ function CohortsContent() {
       </header>
 
       {/* Hero Section */}
-      <div className="bg-green-700 text-white">
+      <div className="bg-[var(--forest)] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Breadcrumb className="mb-4">
             <BreadcrumbList>
@@ -178,22 +178,22 @@ function CohortsContent() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold">Cohorts</h1>
-              <p className="text-green-100 mt-2">
+              <p className="text-white/80 mt-2">
                 View and manage your course cohorts
               </p>
             </div>
             <div className="flex gap-6 text-center">
               <div>
                 <p className="text-2xl font-bold">{activeCount}</p>
-                <p className="text-green-100 text-sm">Active</p>
+                <p className="text-white/80 text-sm">Active</p>
               </div>
               <div>
                 <p className="text-2xl font-bold">{scheduledCount}</p>
-                <p className="text-green-100 text-sm">Scheduled</p>
+                <p className="text-white/80 text-sm">Scheduled</p>
               </div>
               <div>
                 <p className="text-2xl font-bold">{completedCount}</p>
-                <p className="text-green-100 text-sm">Completed</p>
+                <p className="text-white/80 text-sm">Completed</p>
               </div>
             </div>
           </div>
@@ -228,14 +228,14 @@ function CohortsContent() {
         {isLoading ? (
           <Card className="p-8 text-center">
             <CardContent className="pt-6">
-              <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+              <div className="inline-block w-8 h-8 border-4 border-[var(--teal)] border-t-transparent rounded-full animate-spin" />
               <p className="mt-2 text-muted-foreground">Loading cohorts...</p>
             </CardContent>
           </Card>
         ) : cohorts.length === 0 ? (
           <Card className="p-8 text-center">
             <CardContent className="pt-6">
-              <Users className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+              <Users className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4" />
               <p className="text-muted-foreground mb-4">No cohorts found</p>
               <Button onClick={() => setShowCreateModal(true)}>
                 Create your first cohort
@@ -250,7 +250,7 @@ function CohortsContent() {
                 href={`/cohorts/${cohort.id}`}
                 className="group"
               >
-                <Card className="h-full overflow-hidden hover:shadow-lg hover:border-green-300 transition-all">
+                <Card className="h-full overflow-hidden hover:shadow-lg hover:border-[var(--teal)] transition-all">
                   {/* Cohort Header */}
                   <div className={`h-20 ${statusColors[cohort.status].solid} p-4 flex items-end`}>
                     <div className="flex items-center justify-between w-full">
@@ -294,20 +294,20 @@ function CohortsContent() {
 
                     {/* Instructors */}
                     {cohort.instructors.length > 0 && (
-                      <div className="mt-4 pt-3 border-t border-gray-100">
+                      <div className="mt-4 pt-3 border-t border-[var(--border)]">
                         <p className="text-xs text-muted-foreground mb-2">Instructors</p>
                         <div className="flex -space-x-2">
                           {cohort.instructors.slice(0, 3).map((instructor) => (
                             <div
                               key={instructor.user?.id ?? 'unknown'}
-                              className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white text-xs font-medium border-2 border-white"
+                              className="w-8 h-8 rounded-full bg-[var(--teal)] flex items-center justify-center text-white text-xs font-medium border-2 border-white"
                               title={instructor.user?.name || instructor.user?.email || 'Unknown'}
                             >
                               {(instructor.user?.name || instructor.user?.email || '?')[0].toUpperCase()}
                             </div>
                           ))}
                           {cohort.instructors.length > 3 && (
-                            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xs font-medium border-2 border-white">
+                            <div className="w-8 h-8 rounded-full bg-[var(--surface-hover)] flex items-center justify-center text-[var(--text-secondary)] text-xs font-medium border-2 border-white">
                               +{cohort.instructors.length - 3}
                             </div>
                           )}
@@ -325,7 +325,7 @@ function CohortsContent() {
                     </div>
 
                     {/* View Link */}
-                    <div className="mt-4 flex items-center justify-end text-sm text-green-600 font-medium group-hover:text-green-700">
+                    <div className="mt-4 flex items-center justify-end text-sm text-[var(--teal)] font-medium group-hover:text-[var(--teal)]">
                       <span>View Details</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>

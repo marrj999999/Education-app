@@ -89,7 +89,7 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
 
       {/* Expanded view */}
       {isExpanded && (
-        <div className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+        <div className="bg-[var(--surface)] rounded-xl shadow-2xl border border-[var(--border)] overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-purple-600 text-white">
             <div className="flex items-center gap-2">
@@ -122,8 +122,8 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
                     w-full flex items-start gap-3 p-3 rounded-lg text-left
                     transition-colors min-h-[44px]
                     ${isChecked
-                      ? 'bg-green-50 text-green-800'
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                      ? 'bg-[var(--bamboo-50)] text-[var(--forest)]'
+                      : 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--surface-hover)]'
                     }
                   `}
                 >
@@ -131,8 +131,8 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
                     className={`
                       flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center mt-0.5
                       ${isChecked
-                        ? 'bg-green-500 border-green-500'
-                        : 'border-gray-300'
+                        ? 'bg-[var(--teal)] border-[var(--teal)]'
+                        : 'border-[var(--border)]'
                       }
                     `}
                   >
@@ -148,7 +148,7 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
 
           {/* Progress bar */}
           <div className="px-3 pb-3">
-            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
               <div
                 className="h-full bg-purple-500 transition-all duration-300"
                 style={{ width: `${totalItems > 0 ? (completedItems / totalItems) * 100 : 0}%` }}

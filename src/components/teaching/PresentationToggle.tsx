@@ -24,10 +24,10 @@ export function PresentationToggle({
         className={cn(
           'flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm',
           'transition-all duration-200',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--teal)]',
           isPresentation
-            ? 'bg-green-600 text-white hover:bg-green-700'
-            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ? 'bg-[var(--teal)] text-white hover:bg-[var(--forest)]'
+            : 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--surface-active)]'
         )}
         aria-pressed={isPresentation}
         title={isPresentation ? 'Exit presentation mode (Esc)' : 'Enter presentation mode'}
@@ -52,10 +52,10 @@ export function PresentationToggle({
           className={cn(
             'flex items-center justify-center w-10 h-10 rounded-lg',
             'transition-all duration-200',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--teal)]',
             isDarkMode
               ? 'bg-slate-700 text-yellow-400 hover:bg-slate-600'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--surface-active)]'
           )}
           aria-pressed={isDarkMode}
           title={isDarkMode ? 'Light mode' : 'Dark mode'}

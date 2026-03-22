@@ -1,26 +1,37 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { BambooIcon, WarningIcon } from '@/components/Icons';
 
 const errorMessages: Record<string, string> = {
-  Configuration: 'There is a problem with the server configuration.',
+  InvalidLink: 'The login link is invalid or has expired. Please try again.',
   AccessDenied: 'You do not have permission to sign in.',
-  Verification: 'The verification link may have expired or already been used.',
-  OAuthSignin: 'Error in constructing an authorization URL.',
-  OAuthCallback: 'Error in handling the response from the OAuth provider.',
-  OAuthCreateAccount: 'Could not create OAuth provider user in the database.',
-  EmailCreateAccount: 'Could not create email provider user in the database.',
-  Callback: 'Error in the OAuth callback handler.',
-  OAuthAccountNotLinked:
-    'This email is already associated with another account. Please sign in with your original method.',
-  CredentialsSignin: 'The email or password you entered is incorrect.',
   SessionRequired: 'Please sign in to access this page.',
   Default: 'An unexpected error occurred. Please try again.',
 };
 
 export default function AuthErrorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[var(--background)] flex items-center justify-center p-4">
+          <div className="w-full max-w-md text-center">
+            <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg mx-auto mb-4">
+              <BambooIcon size={28} className="text-white" />
+            </div>
+            <p className="text-gray-500">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <AuthErrorContent />
+    </Suspense>
+  );
+}
+
+function AuthErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error') || 'Default';
 
@@ -28,11 +39,11 @@ export default function AuthErrorPage() {
     errorMessages[error] || errorMessages.Default;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[var(--background)] flex items-center justify-center p-4">
       <div className="w-full max-w-md text-center">
         {/* Logo */}
         <Link href="/" className="inline-flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 rounded-xl bg-green-700 flex items-center justify-center shadow-lg">
+          <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg">
             <BambooIcon size={28} className="text-white" />
           </div>
           <span className="text-xl font-bold text-gray-900">
@@ -55,7 +66,7 @@ export default function AuthErrorPage() {
           <div className="space-y-3">
             <Link
               href="/auth/login"
-              className="block w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-all"
+              className="block w-full py-3 px-4 bg-[var(--gold)] text-[var(--forest)] font-semibold rounded-xl hover:brightness-110 transition-all"
             >
               Try again
             </Link>
@@ -74,7 +85,7 @@ export default function AuthErrorPage() {
           Need help?{' '}
           <a
             href="mailto:support@bamboobicycleclub.org"
-            className="text-green-600 hover:underline"
+            className="text-[var(--teal)] hover:underline"
           >
             Contact support
           </a>

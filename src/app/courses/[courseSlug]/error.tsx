@@ -44,7 +44,7 @@ export default function CourseError({ error, reset }: ErrorProps) {
         <div className="space-y-3">
           <button
             onClick={reset}
-            className="w-full px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="w-full px-6 py-3 bg-[var(--gold)] text-[var(--forest)] font-medium rounded-lg hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--steel)] focus:ring-offset-2"
           >
             Try Again
           </button>

@@ -1,3 +1,43 @@
+// Notion API types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type NotionBlock = Record<string, any> & {
+  id: string;
+  type: string;
+  has_children?: boolean;
+  children?: NotionBlock[];
+};
+
+export interface RichText {
+  type: string;
+  plain_text: string;
+  href?: string | null;
+  annotations: {
+    bold: boolean;
+    italic: boolean;
+    strikethrough: boolean;
+    underline: boolean;
+    code: boolean;
+    color: string;
+  };
+  text?: {
+    content: string;
+    link?: { url: string } | null;
+  };
+}
+
+// Notion page metadata
+export interface NotionPage {
+  id: string;
+  title: string;
+  icon?: string;
+  cover?: string;
+  url?: string;
+  created_time?: string;
+  last_edited_time?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  properties?: Record<string, any>;
+}
+
 // Course-specific types
 export interface Module {
   id: string;
@@ -45,6 +85,9 @@ export interface Course {
   image?: string;
   enabled: boolean;
   isHandbook?: boolean; // Flag for handbook-style rendering (sidebar TOC + sections)
+  notionApiKey?: string; // Per-course Notion API key (falls back to env)
+  notionDatabaseId?: string; // Per-course Notion database ID
+  notionNavId?: string; // Per-course Notion navigation page ID
 }
 
 // Handbook types for manual-style courses
@@ -61,6 +104,7 @@ export interface HandbookSection {
   icon?: string;         // Emoji or icon
   hasVideo?: boolean;    // Whether section has video content
   estTime?: string;      // Estimated reading time e.g., "3 min"
+  blocks?: NotionBlock[]; // Notion content blocks for this section
 }
 
 // Chapter grouping for sidebar navigation

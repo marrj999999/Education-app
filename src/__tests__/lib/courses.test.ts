@@ -168,11 +168,11 @@ describe('Course Configuration', () => {
       });
     });
 
-    it('should use Tailwind class naming conventions', () => {
+    it('should use Tailwind class naming conventions (including CSS variable syntax)', () => {
       Object.values(COURSE_COLOR_THEMES).forEach((theme) => {
-        expect(theme.bg).toMatch(/^bg-\w+-\d+$/);
-        expect(theme.text).toMatch(/^text-\w+-\d+$/);
-        expect(theme.border).toMatch(/^border-\w+-\d+$/);
+        expect(theme.bg).toMatch(/^bg-/);
+        expect(theme.text).toMatch(/^text-/);
+        expect(theme.border).toMatch(/^border-/);
       });
     });
 

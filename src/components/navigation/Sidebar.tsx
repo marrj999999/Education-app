@@ -67,7 +67,7 @@ const LessonItem = memo(function LessonItem({
             ? `${colorTheme.light} ${colorTheme.text}`
             : isComplete
               ? `${colorTheme.bg} text-white`
-              : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+              : 'bg-[var(--surface-hover)] text-[var(--text-tertiary)] hover:bg-[var(--surface-active)]'
         )}
       >
         {isComplete ? (
@@ -75,7 +75,7 @@ const LessonItem = memo(function LessonItem({
         ) : isActive ? (
           <div className={`w-2 h-2 ${colorTheme.bg} rounded-full`} />
         ) : (
-          <div className="w-2 h-2 bg-gray-300 rounded-full" />
+          <div className="w-2 h-2 bg-[var(--text-tertiary)] rounded-full" />
         )}
       </Link>
     );
@@ -90,8 +90,8 @@ const LessonItem = memo(function LessonItem({
         isActive
           ? `${colorTheme.light} ${colorTheme.text} font-medium`
           : isComplete
-            ? 'text-gray-500 hover:bg-gray-50'
-            : 'text-gray-600 hover:bg-gray-50'
+            ? 'text-[var(--text-tertiary)] hover:bg-[var(--surface-hover)]'
+            : 'text-[var(--text-secondary)] hover:bg-[var(--surface-hover)]'
       )}
     >
       {/* Completion indicator */}
@@ -102,7 +102,7 @@ const LessonItem = memo(function LessonItem({
             ? `${colorTheme.bg} text-white`
             : isActive
               ? `border-2 ${colorTheme.border} ${colorTheme.light}`
-              : 'border-2 border-gray-300'
+              : 'border-2 border-[var(--border)]'
         )}
       >
         {isComplete ? (
@@ -237,9 +237,10 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
       <aside
         ref={sidebarRef}
         className={cn(
-          'fixed top-14 left-0 h-[calc(100vh-3.5rem)] bg-white border-r border-gray-200 z-50',
+          'fixed top-14 left-0 h-[calc(100vh-3.5rem)] bg-[var(--surface)] border-r border-[var(--border)] z-50',
           'transform transition-all duration-300 ease-in-out',
           'flex flex-col shadow-lg lg:shadow-none',
+          'bamboo-stripe',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
           'lg:translate-x-0 lg:static lg:h-auto',
           sidebarCollapsed ? 'w-16' : 'w-72',
@@ -248,7 +249,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
         aria-label="Course navigation"
       >
         {/* Header */}
-        <div className={cn('border-b border-gray-100', sidebarCollapsed ? 'p-2' : 'p-5')}>
+        <div className={cn('border-b border-[var(--border)]', sidebarCollapsed ? 'p-2' : 'p-5')}>
           <div className="flex items-center justify-between">
             <Link
               href={`/courses/${course.slug}`}
@@ -268,8 +269,8 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
               </div>
               {!sidebarCollapsed && (
                 <div>
-                  <h1 className="font-bold text-gray-900">{course.shortTitle}</h1>
-                  <p className="text-xs text-gray-500">Instructor Dashboard</p>
+                  <h1 className="font-bold text-[var(--text-primary)]">{course.shortTitle}</h1>
+                  <p className="text-xs text-[var(--text-tertiary)]">Instructor Dashboard</p>
                 </div>
               )}
             </Link>
@@ -277,7 +278,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
             {/* Collapse toggle (desktop only) */}
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-colors"
+              className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
               title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
@@ -287,7 +288,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
             {/* Close button (mobile only) */}
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-colors"
+              className="lg:hidden flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
               aria-label="Close sidebar"
             >
               <X size={18} />
@@ -297,10 +298,10 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
 
         {/* Back to courses (not in collapsed mode) */}
         {!sidebarCollapsed && (
-          <div className="px-5 py-3 border-b border-gray-100">
+          <div className="px-5 py-3 border-b border-[var(--border)]">
             <Link
               href="/"
-              className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-2 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors"
             >
               <ChevronLeft size={16} />
               All Courses
@@ -310,9 +311,9 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
 
         {/* Progress (not in collapsed mode) */}
         {!sidebarCollapsed && (
-          <div className={cn('px-5 py-4 border-b border-gray-100', colorTheme.light)}>
+          <div className={cn('px-5 py-4 border-b border-[var(--border)]', colorTheme.light)}>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Course Progress</span>
+              <span className="text-sm font-medium text-[var(--text-secondary)]">Course Progress</span>
               <span className={cn('text-sm font-bold', colorTheme.text)}>{progress.percentage}%</span>
             </div>
             <div className="h-2 bg-white rounded-full overflow-hidden shadow-inner">
@@ -321,7 +322,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                 style={{ width: `${progress.percentage}%` }}
               />
             </div>
-            <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
+            <p className="text-xs text-[var(--text-tertiary)] mt-2 flex items-center gap-1">
               <Check size={14} className={colorTheme.text} />
               {progress.completed} of {progress.total} lessons completed
             </p>
@@ -332,7 +333,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
         <nav className="flex-1 overflow-y-auto py-3" aria-label="Curriculum">
           {!sidebarCollapsed && (
             <div className="px-3 mb-2">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2">
+              <p className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-2">
                 Curriculum
               </p>
             </div>
@@ -361,7 +362,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                         ? `${colorTheme.bg} text-white`
                         : isModuleActive
                           ? `${colorTheme.light} ${colorTheme.text}`
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          : 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--surface-active)]'
                     )}
                   >
                     {moduleProgress === 100 ? <Check size={20} /> : <span className="font-bold">{index + 1}</span>}
@@ -380,7 +381,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                     'transition-all duration-200 min-h-[48px]',
                     isModuleActive
                       ? `${colorTheme.light} border ${colorTheme.border}`
-                      : 'hover:bg-gray-50 border border-transparent'
+                      : 'hover:bg-[var(--surface-hover)] border border-transparent'
                   )}
                   aria-expanded={isExpanded}
                   aria-controls={`module-${module.id}-lessons`}
@@ -393,7 +394,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                         ? `${colorTheme.bg} text-white`
                         : isModuleActive
                           ? `${colorTheme.light} ${colorTheme.text}`
-                          : 'bg-gray-100 text-gray-600'
+                          : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
                     )}
                   >
                     {moduleProgress === 100 ? <Check size={16} /> : index + 1}
@@ -405,7 +406,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                       <span
                         className={cn(
                           'text-sm font-medium truncate',
-                          isModuleActive ? colorTheme.text : 'text-gray-700'
+                          isModuleActive ? colorTheme.text : 'text-[var(--text-secondary)]'
                         )}
                       >
                         {module.name}
@@ -413,13 +414,13 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                     </div>
                     {allLessons.length > 0 && (
                       <div className="flex items-center gap-2 mt-1">
-                        <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="flex-1 h-1 bg-[var(--surface-active)] rounded-full overflow-hidden">
                           <div
                             className={cn('h-full rounded-full transition-all duration-300', colorTheme.bg)}
                             style={{ width: `${moduleProgress}%` }}
                           />
                         </div>
-                        <span className="text-xs text-gray-500 flex-shrink-0">{moduleProgress}%</span>
+                        <span className="text-xs text-[var(--text-tertiary)] flex-shrink-0">{moduleProgress}%</span>
                       </div>
                     )}
                   </div>
@@ -428,7 +429,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                   <ChevronRight
                     size={16}
                     className={cn(
-                      'text-gray-400 transition-transform duration-200 flex-shrink-0',
+                      'text-[var(--text-tertiary)] transition-transform duration-200 flex-shrink-0',
                       isExpanded && 'rotate-90'
                     )}
                   />
@@ -438,12 +439,12 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
                 {isExpanded && allLessons.length > 0 && (
                   <div
                     id={`module-${module.id}-lessons`}
-                    className="ml-5 pl-6 border-l-2 border-gray-100 mt-1 mb-2 space-y-0.5"
+                    className="ml-5 pl-6 border-l-2 border-[var(--border)] mt-1 mb-2 space-y-0.5"
                   >
                     {/* Units */}
                     {module.units.map((unit) => (
                       <div key={unit.name} className="mb-2">
-                        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide px-3 py-1">
+                        <p className="text-xs font-medium text-[var(--text-tertiary)] uppercase tracking-wide px-3 py-1">
                           {unit.name}
                         </p>
                         {unit.lessons.map((lesson) => (
@@ -480,8 +481,8 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
           {structure.standaloneLessons.length > 0 && (
             <>
               {!sidebarCollapsed && (
-                <div className="px-3 mt-4 mb-2 border-t border-gray-100 pt-4">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2">
+                <div className="px-3 mt-4 mb-2 border-t border-[var(--border)] pt-4">
+                  <p className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider px-2">
                     Resources
                   </p>
                 </div>
@@ -504,15 +505,15 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
 
         {/* Footer */}
         {!sidebarCollapsed && (
-          <div className="p-4 border-t border-gray-100 bg-gray-50">
+          <div className="p-4 border-t border-[var(--border)] bg-[var(--surface-hover)]">
             <Link
               href={`/courses/${course.slug}`}
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm min-h-[44px]',
                 'transition-colors',
                 pathname === `/courses/${course.slug}`
-                  ? `bg-white ${colorTheme.text} font-medium shadow-sm`
-                  : 'text-gray-600 hover:bg-white hover:text-gray-900'
+                  ? `bg-[var(--surface)] ${colorTheme.text} font-medium shadow-sm`
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)]'
               )}
             >
               <Home size={20} />
@@ -523,7 +524,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
               href="https://www.bamboobicycleclub.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-white hover:text-gray-900 transition-colors mt-1 min-h-[44px]"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)] transition-colors mt-1 min-h-[44px]"
             >
               <HelpCircle size={20} />
               Help & Support

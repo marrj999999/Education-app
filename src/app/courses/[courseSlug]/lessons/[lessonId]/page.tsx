@@ -97,8 +97,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
   // Build the lesson progress indicator for the action slot
   const lessonProgressSlot = siblingLessons.length > 1 ? (
-    <div className="flex items-center gap-2 text-sm text-gray-700">
-      <span className="font-medium text-gray-900">
+    <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+      <span className="font-medium text-[var(--text-primary)]">
         {currentIndex + 1}
       </span>
       <span>/</span>
@@ -119,7 +119,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       actionSlot={lessonProgressSlot}
       actionButtons={actionButtonsSlot}
     >
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[var(--surface-hover)]">
         {/* Reading Progress Bar */}
         <ReadingProgress />
 
@@ -142,7 +142,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Lesson Header - Overlapping card style */}
         <header className={`
-          bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8
+          bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8
           ${page.cover ? '-mt-16 relative z-10' : 'mt-8'}
         `}>
           <div className="flex items-start gap-4">
@@ -156,10 +156,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-2">
                 {page.title}
               </h1>
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-700">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-secondary)]">
                 <span className="flex items-center gap-1.5">
                   <BookIcon size={16} />
                   {readingTime} min read
@@ -187,7 +187,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <div className="flex gap-4 mt-6 p-4 bg-slate-50 rounded-lg">
           <Link
             href={`/lessons/${lessonId}/prep`}
-            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors"
+            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-[var(--teal)] hover:bg-[var(--bamboo-50)] transition-colors"
           >
             <span className="block font-semibold text-slate-900">Prep Mode</span>
             <span className="text-sm text-slate-500">Checklists & materials</span>
@@ -202,7 +202,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </div>
 
         {/* Lesson Content */}
-        <article className="mt-6 mb-8 bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
+        <article className="mt-6 mb-8 bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8">
           <div className="space-y-6">
             {sections.map(section => (
               <SectionRenderer
@@ -219,14 +219,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
           {prevLesson ? (
             <Link
               href={`/courses/${courseSlug}/lessons/${prevLesson.id}`}
-              className="flex-1 max-w-sm flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-green-300 hover:shadow-md transition-all group"
+              className="flex-1 max-w-sm flex items-center gap-3 p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)] hover:border-[var(--teal)] hover:shadow-md transition-all group"
             >
-              <div className="w-10 h-10 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center transition-colors">
-                <ChevronLeftIcon size={20} className="text-gray-600 group-hover:text-green-700" />
+              <div className="w-10 h-10 rounded-lg bg-[var(--surface-hover)] group-hover:bg-[var(--bamboo-100)] flex items-center justify-center transition-colors">
+                <ChevronLeftIcon size={20} className="text-[var(--text-secondary)] group-hover:text-[var(--teal)]" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-gray-600 mb-0.5">Previous</p>
-                <p className="text-sm font-medium text-gray-900 truncate group-hover:text-green-700">
+                <p className="text-xs text-[var(--text-secondary)] mb-0.5">Previous</p>
+                <p className="text-sm font-medium text-[var(--text-primary)] truncate group-hover:text-[var(--teal)]">
                   {prevLesson.title}
                 </p>
               </div>
@@ -238,16 +238,16 @@ export default async function LessonPage({ params }: LessonPageProps) {
           {nextLesson ? (
             <Link
               href={`/courses/${courseSlug}/lessons/${nextLesson.id}`}
-              className="flex-1 max-w-sm flex items-center justify-end gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-green-300 hover:shadow-md transition-all group"
+              className="flex-1 max-w-sm flex items-center justify-end gap-3 p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)] hover:border-[var(--teal)] hover:shadow-md transition-all group"
             >
               <div className="flex-1 min-w-0 text-right">
-                <p className="text-xs text-gray-600 mb-0.5">Next</p>
-                <p className="text-sm font-medium text-gray-900 truncate group-hover:text-green-700">
+                <p className="text-xs text-[var(--text-secondary)] mb-0.5">Next</p>
+                <p className="text-sm font-medium text-[var(--text-primary)] truncate group-hover:text-[var(--teal)]">
                   {nextLesson.title}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-lg bg-gray-100 group-hover:bg-green-100 flex items-center justify-center transition-colors">
-                <ChevronRightIcon size={20} className="text-gray-600 group-hover:text-green-700" />
+              <div className="w-10 h-10 rounded-lg bg-[var(--surface-hover)] group-hover:bg-[var(--bamboo-100)] flex items-center justify-center transition-colors">
+                <ChevronRightIcon size={20} className="text-[var(--text-secondary)] group-hover:text-[var(--teal)]" />
               </div>
             </Link>
           ) : (
@@ -257,7 +257,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       </div>
 
         {/* Print only: show simplified footer */}
-        <div className="hidden print:block text-center text-sm text-gray-500 py-8 border-t">
+        <div className="hidden print:block text-center text-sm text-[var(--text-tertiary)] py-8 border-t">
           <p>Bamboo Bicycle Club - {course.title}</p>
           <p>Printed from: {page.title}</p>
         </div>
