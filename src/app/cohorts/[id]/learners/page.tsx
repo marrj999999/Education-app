@@ -222,7 +222,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-muted-foreground">Loading learners...</p>
@@ -233,7 +233,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
 
   if (error || !cohort) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="w-12 h-12 mx-auto text-red-400 mb-4" />
           <p className="text-muted-foreground">{error || 'Failed to load'}</p>
@@ -248,9 +248,9 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--surface-hover)]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
@@ -260,7 +260,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
                 </Button>
               </Link>
               <div>
-                <h1 className="font-bold text-gray-900">Learners</h1>
+                <h1 className="font-bold text-[var(--text-primary)]">Learners</h1>
                 <p className="text-xs text-muted-foreground">{cohort.name} ({cohort.code})</p>
               </div>
             </div>

@@ -73,9 +73,9 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
 
   if (timelineItems.length === 0) {
     return (
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-        <Clock className="mx-auto text-gray-400 mb-3" size={32} />
-        <p className="text-gray-500">No timeline available</p>
+      <div className="bg-[var(--surface-hover)] border border-[var(--border)] rounded-lg p-8 text-center">
+        <Clock className="mx-auto text-[var(--text-tertiary)] mb-3" size={32} />
+        <p className="text-[var(--text-tertiary)]">No timeline available</p>
       </div>
     );
   }
@@ -83,13 +83,13 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <Clock className="text-gray-600" size={20} />
-            <h2 className="text-lg font-semibold text-gray-900">Day Schedule</h2>
+            <Clock className="text-[var(--text-secondary)]" size={20} />
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">Day Schedule</h2>
           </div>
-          <div className="flex items-center gap-4 text-sm text-gray-500">
+          <div className="flex items-center gap-4 text-sm text-[var(--text-tertiary)]">
             <span>{timelineItems.length} activities</span>
             <span className="flex items-center gap-1">
               <Timer size={16} />
@@ -102,7 +102,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
       {/* Timeline */}
       <div className="relative">
         {/* Vertical line */}
-        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
+        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-[var(--surface-active)]" />
 
         {/* Timeline Items */}
         <div className="space-y-4">
@@ -131,7 +131,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                       ? 'bg-green-500 border-green-500 text-white'
                       : isCurrent
                         ? 'bg-blue-500 border-blue-500 text-white animate-pulse'
-                        : 'bg-white border-gray-300'
+                        : 'bg-[var(--surface)] border-[var(--border)]'
                     }
                   `}
                 >
@@ -145,7 +145,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                     flex-1 bg-white border rounded-lg overflow-hidden
                     ${isCurrent
                       ? 'border-blue-300 ring-2 ring-blue-100'
-                      : 'border-gray-200'
+                      : 'border-[var(--border)]'
                     }
                   `}
                 >
@@ -158,7 +158,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                             font-mono font-semibold px-2 py-1 rounded
                             ${isCurrent
                               ? 'bg-blue-100 text-blue-800'
-                              : 'bg-gray-100 text-gray-700'
+                              : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
                             }
                           `}
                         >
@@ -167,7 +167,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                         <span
                           className={`
                             font-medium
-                            ${isPast ? 'text-gray-500' : 'text-gray-900'}
+                            ${isPast ? 'text-[var(--text-tertiary)]' : 'text-[var(--text-primary)]'}
                           `}
                         >
                           {item.activity}
@@ -180,7 +180,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                           flex-shrink-0 text-sm px-2 py-0.5 rounded-full
                           ${isCurrent
                             ? 'bg-blue-100 text-blue-700'
-                            : 'bg-gray-100 text-gray-600'
+                            : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
                           }
                         `}
                       >
@@ -193,7 +193,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                       <p
                         className={`
                           mt-2 text-sm
-                          ${isPast ? 'text-gray-400' : 'text-gray-600'}
+                          ${isPast ? 'text-[var(--text-tertiary)]' : 'text-[var(--text-secondary)]'}
                         `}
                       >
                         {item.notes}
@@ -209,7 +209,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
 
       {/* Current Time Indicator */}
       {currentTime && (
-        <div className="text-center text-sm text-gray-500 pt-4">
+        <div className="text-center text-sm text-[var(--text-tertiary)] pt-4">
           Current time: {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </div>
       )}

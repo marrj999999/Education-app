@@ -151,7 +151,7 @@ export default memo(function CourseSidebar({ modules, course, isOpen, onToggle }
         <div className="px-5 py-3 border-b border-[var(--border)]">
           <Link
             href="/"
-            className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+            className="flex items-center gap-2 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors"
           >
             <ChevronLeftIcon size={16} />
             All Courses
@@ -226,7 +226,7 @@ export default memo(function CourseSidebar({ modules, course, isOpen, onToggle }
                       <ModuleIcon size={18} className={isModuleActive ? colorTheme.text : 'text-[var(--text-tertiary)]'} />
                       <span className={`
                         text-sm font-medium truncate
-                        ${isModuleActive ? colorTheme.text : 'text-gray-700'}
+                        ${isModuleActive ? colorTheme.text : 'text-[var(--text-secondary)]'}
                       `}>
                         {module.title}
                       </span>
@@ -284,7 +284,7 @@ export default memo(function CourseSidebar({ modules, course, isOpen, onToggle }
               transition-colors
               ${pathname === `/courses/${course.slug}`
                 ? `bg-[var(--surface)] ${colorTheme.text} font-medium shadow-sm`
-                : 'text-gray-600 hover:bg-[var(--surface)] hover:text-[var(--text-primary)]'
+                : 'text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)]'
               }
             `}
           >
@@ -297,7 +297,7 @@ export default memo(function CourseSidebar({ modules, course, isOpen, onToggle }
             href="https://www.bamboobicycleclub.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-[var(--surface)] hover:text-[var(--text-primary)] transition-colors mt-1"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)] transition-colors mt-1"
           >
             <HelpIcon size={20} />
             Help & Support

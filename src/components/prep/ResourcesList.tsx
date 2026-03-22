@@ -75,14 +75,14 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
     pdf: 'bg-red-50 text-red-600 border-red-200',
     video: 'bg-purple-50 text-purple-600 border-purple-200',
     image: 'bg-blue-50 text-blue-600 border-blue-200',
-    file: 'bg-gray-50 text-gray-600 border-gray-200',
+    file: 'bg-[var(--surface-hover)] text-[var(--text-secondary)] border-[var(--border)]',
   };
 
   if (sections.length === 0) {
     return (
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-        <File className="mx-auto text-gray-400 mb-3" size={32} />
-        <p className="text-gray-500">No resources for this session</p>
+      <div className="bg-[var(--surface-hover)] border border-[var(--border)] rounded-lg p-8 text-center">
+        <File className="mx-auto text-[var(--text-tertiary)] mb-3" size={32} />
+        <p className="text-[var(--text-tertiary)]">No resources for this session</p>
       </div>
     );
   }
@@ -93,13 +93,13 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
     <div className="space-y-6">
       {/* Printable Resources */}
       {printableResources.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg overflow-hidden">
           {/* Header */}
-          <div className="border-b border-gray-100 p-4">
+          <div className="border-b border-[var(--border)] p-4">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-3">
-                <Printer className="text-gray-600" size={20} />
-                <h2 className="text-lg font-semibold text-gray-900">
+                <Printer className="text-[var(--text-secondary)]" size={20} />
+                <h2 className="text-lg font-semibold text-[var(--text-primary)]">
                   Documents to Print
                 </h2>
               </div>
@@ -108,7 +108,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                   text-sm font-medium px-3 py-1 rounded-full
                   ${printedCount === printableResources.length
                     ? 'bg-green-100 text-green-800'
-                    : 'bg-gray-100 text-gray-600'
+                    : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
                   }
                 `}
               >
@@ -118,7 +118,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
           </div>
 
           {/* List */}
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-[var(--border)]">
             {printableResources.map((resource) => {
               const Icon = resourceIcon[resource.resourceType];
               const isPrinted = printed.has(resource.id);
@@ -147,13 +147,13 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                     <h3
                       className={`
                         font-medium truncate
-                        ${isPrinted ? 'text-gray-500' : 'text-gray-900'}
+                        ${isPrinted ? 'text-[var(--text-tertiary)]' : 'text-[var(--text-primary)]'}
                       `}
                     >
                       {resource.title || 'Untitled Document'}
                     </h3>
                     {resource.caption && (
-                      <p className="text-sm text-gray-500 truncate">{resource.caption}</p>
+                      <p className="text-sm text-[var(--text-tertiary)] truncate">{resource.caption}</p>
                     )}
                   </div>
 
@@ -163,7 +163,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                       href={resource.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] bg-[var(--surface-hover)] rounded-lg hover:bg-[var(--surface-active)] transition-colors"
                     >
                       <ExternalLink size={14} />
                       Open
@@ -176,7 +176,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                         transition-colors min-h-[36px]
                         ${isPrinted
                           ? 'bg-green-500 text-white hover:bg-green-600'
-                          : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                          : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--surface-hover)]'
                         }
                       `}
                     >
@@ -202,22 +202,22 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
 
       {/* Media Resources */}
       {mediaResources.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg overflow-hidden">
           {/* Header */}
-          <div className="border-b border-gray-100 p-4">
+          <div className="border-b border-[var(--border)] p-4">
             <div className="flex items-center gap-3">
-              <Video className="text-gray-600" size={20} />
-              <h2 className="text-lg font-semibold text-gray-900">
+              <Video className="text-[var(--text-secondary)]" size={20} />
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">
                 Media Resources
               </h2>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-[var(--text-tertiary)]">
                 {mediaResources.length} item{mediaResources.length !== 1 ? 's' : ''}
               </span>
             </div>
           </div>
 
           {/* List */}
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-[var(--border)]">
             {mediaResources.map((resource) => {
               const Icon = resourceIcon[resource.resourceType];
 
@@ -236,11 +236,11 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-gray-900 truncate">
+                    <h3 className="font-medium text-[var(--text-primary)] truncate">
                       {resource.title || `${resource.resourceType.charAt(0).toUpperCase() + resource.resourceType.slice(1)} Resource`}
                     </h3>
                     {resource.caption && (
-                      <p className="text-sm text-gray-500 truncate">{resource.caption}</p>
+                      <p className="text-sm text-[var(--text-tertiary)] truncate">{resource.caption}</p>
                     )}
                   </div>
 
@@ -249,7 +249,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                     href={resource.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] bg-[var(--surface-hover)] rounded-lg hover:bg-[var(--surface-active)] transition-colors"
                   >
                     <ExternalLink size={14} />
                     View

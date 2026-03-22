@@ -35,7 +35,7 @@ interface CohortData {
 }
 
 const statusConfig = {
-  NOT_STARTED: { bg: 'bg-gray-100', text: 'text-gray-500', label: 'Not Started' },
+  NOT_STARTED: { bg: 'bg-[var(--surface-hover)]', text: 'text-[var(--text-tertiary)]', label: 'Not Started' },
   IN_PROGRESS: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'In Progress' },
   SUBMITTED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Submitted' },
   SIGNED_OFF: { bg: 'bg-green-100', text: 'text-green-700', label: 'Signed Off' },
@@ -189,10 +189,10 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-          <p className="mt-2 text-gray-500">Loading assessments...</p>
+          <p className="mt-2 text-[var(--text-tertiary)]">Loading assessments...</p>
         </div>
       </div>
     );
@@ -200,15 +200,15 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
 
   if (error || !cohort) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <svg className="w-12 h-12 mx-auto text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          <p className="text-gray-500">{error || 'Failed to load'}</p>
+          <p className="text-[var(--text-tertiary)]">{error || 'Failed to load'}</p>
           <Link
             href={`/cohorts/${id}`}
-            className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors"
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-[var(--surface-hover)] text-[var(--text-secondary)] font-medium rounded-lg hover:bg-[var(--surface-active)] transition-colors"
           >
             Back to Cohort
           </Link>
@@ -224,26 +224,26 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
   }));
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--surface-hover)]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
-              <Link href={`/cohorts/${id}`} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <Link href={`/cohorts/${id}`} className="p-2 hover:bg-[var(--surface-hover)] rounded-lg transition-colors">
+                <svg className="w-5 h-5 text-[var(--text-secondary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
               </Link>
               <div>
-                <h1 className="font-bold text-gray-900">Assessments</h1>
-                <p className="text-xs text-gray-500">{cohort.name} ({cohort.code})</p>
+                <h1 className="font-bold text-[var(--text-primary)]">Assessments</h1>
+                <p className="text-xs text-[var(--text-tertiary)]">{cohort.name} ({cohort.code})</p>
               </div>
             </div>
 
             <button
               onClick={handleExportCSV}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--surface)] border border-[var(--border)] text-[var(--text-secondary)] text-sm font-medium rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -277,15 +277,15 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
         </Breadcrumb>
 
         {criteria.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center">
-            <svg className="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-8 text-center">
+            <svg className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p className="text-gray-500">No OCN criteria defined for this course yet.</p>
-            <p className="text-sm text-gray-400 mt-1">Criteria are defined in the CMS lesson content.</p>
+            <p className="text-[var(--text-tertiary)]">No OCN criteria defined for this course yet.</p>
+            <p className="text-sm text-[var(--text-tertiary)] mt-1">Criteria are defined in the CMS lesson content.</p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
             <AssessmentMatrix
               learners={learners}
               criteria={criteria}
@@ -301,12 +301,12 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <div className="fixed inset-0 bg-black/50 transition-opacity" onClick={() => setSelectedCell(null)} />
-            <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <div className="relative bg-[var(--surface)] rounded-xl shadow-xl w-full max-w-md p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">Update Assessment</h2>
+                <h2 className="text-lg font-semibold text-[var(--text-primary)]">Update Assessment</h2>
                 <button
                   onClick={() => setSelectedCell(null)}
-                  className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="p-2 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -316,21 +316,21 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
 
               <div className="space-y-4">
                 {/* Learner & Criterion Info */}
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-sm text-gray-600">
+                <div className="bg-[var(--surface-hover)] rounded-lg p-3">
+                  <p className="text-sm text-[var(--text-secondary)]">
                     <span className="font-medium">Learner:</span>{' '}
                     {cohort.learners.find((l) => l.id === selectedCell.learnerId)?.firstName}{' '}
                     {cohort.learners.find((l) => l.id === selectedCell.learnerId)?.lastName}
                   </p>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-[var(--text-secondary)] mt-1">
                     <span className="font-medium">Criterion:</span> {selectedCell.criterion.code}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">{selectedCell.criterion.lessonTitle}</p>
+                  <p className="text-xs text-[var(--text-tertiary)] mt-1">{selectedCell.criterion.lessonTitle}</p>
                 </div>
 
                 {/* Status Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Status</label>
                   <div className="grid grid-cols-2 gap-2">
                     {(Object.entries(statusConfig) as [Assessment['status'], typeof statusConfig.NOT_STARTED][]).map(
                       ([status, config]) => (
@@ -340,7 +340,7 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
                           className={`px-3 py-2 text-xs rounded-lg border transition-all ${
                             modalStatus === status
                               ? `${config.bg} ${config.text} border-current font-medium`
-                              : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                              : 'bg-[var(--surface)] border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--surface-hover)]'
                           }`}
                         >
                           {config.label}
@@ -352,12 +352,12 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
 
                 {/* Evidence Notes */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Evidence Notes</label>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Evidence Notes</label>
                   <textarea
                     value={modalNotes}
                     onChange={(e) => setModalNotes(e.target.value)}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none"
+                    className="w-full px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none"
                     placeholder="Add notes about the evidence..."
                   />
                 </div>
@@ -366,7 +366,7 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
                 <div className="flex justify-end gap-3 pt-2">
                   <button
                     onClick={() => setSelectedCell(null)}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-[var(--text-secondary)] bg-[var(--surface-hover)] rounded-lg hover:bg-[var(--surface-active)] transition-colors"
                   >
                     Cancel
                   </button>

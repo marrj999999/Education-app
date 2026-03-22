@@ -74,13 +74,13 @@ export function SafetySummary({ sections }: SafetySummaryProps) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <ShieldAlert className="text-gray-600" size={24} />
+            <ShieldAlert className="text-[var(--text-secondary)]" size={24} />
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Safety Briefing</h2>
-              <p className="text-sm text-gray-500">
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">Safety Briefing</h2>
+              <p className="text-sm text-[var(--text-tertiary)]">
                 Read aloud at the start of the session
               </p>
             </div>
@@ -174,7 +174,7 @@ export function SafetySummary({ sections }: SafetySummaryProps) {
       })}
 
       {/* Print Instructions */}
-      <div className="text-center text-sm text-gray-500 print:hidden">
+      <div className="text-center text-sm text-[var(--text-tertiary)] print:hidden">
         <p>Review all safety points before beginning the workshop</p>
       </div>
     </div>

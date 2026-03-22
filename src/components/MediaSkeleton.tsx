@@ -116,7 +116,7 @@ export function LessonContentSkeleton() {
       <div className="space-y-3 mb-8 ml-4">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-gray-300 rounded-full" />
+            <div className="w-2 h-2 bg-[var(--text-tertiary)] rounded-full" />
             <div className={`h-4 bg-[var(--surface-hover)] rounded skeleton-shimmer`} style={{ width: `${60 + i * 10}%` }} />
           </div>
         ))}

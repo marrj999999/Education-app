@@ -15,8 +15,8 @@ export default function CourseError({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 text-center">
+    <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-[var(--surface)] rounded-2xl shadow-lg p-8 text-center">
         <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 flex items-center justify-center">
           <svg
             className="w-8 h-8 text-red-600"
@@ -33,10 +33,10 @@ export default function CourseError({ error, reset }: ErrorProps) {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">
           Unable to Load Course
         </h1>
-        <p className="text-gray-600 mb-6">
+        <p className="text-[var(--text-secondary)] mb-6">
           We encountered an issue loading this course. This could be a temporary
           problem with our content system.
         </p>
@@ -51,7 +51,7 @@ export default function CourseError({ error, reset }: ErrorProps) {
 
           <Link
             href="/dashboard"
-            className="block w-full px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors"
+            className="block w-full px-6 py-3 bg-[var(--surface-hover)] text-[var(--text-secondary)] font-medium rounded-lg hover:bg-[var(--surface-active)] transition-colors"
           >
             Return to Dashboard
           </Link>
@@ -59,10 +59,10 @@ export default function CourseError({ error, reset }: ErrorProps) {
 
         {process.env.NODE_ENV === 'development' && error.message && (
           <details className="mt-6 text-left">
-            <summary className="text-sm text-gray-500 cursor-pointer hover:text-gray-700">
+            <summary className="text-sm text-[var(--text-tertiary)] cursor-pointer hover:text-[var(--text-secondary)]">
               Technical Details
             </summary>
-            <pre className="mt-2 p-3 bg-gray-100 rounded text-xs text-gray-700 overflow-auto max-h-40">
+            <pre className="mt-2 p-3 bg-[var(--surface-hover)] rounded text-xs text-[var(--text-secondary)] overflow-auto max-h-40">
               {error.message}
               {error.stack && `\n\n${error.stack}`}
             </pre>

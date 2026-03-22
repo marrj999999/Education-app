@@ -98,7 +98,7 @@ export function HandbookSidebar({
         </div>
 
         {/* Mobile header */}
-        <div className="bg-white border-b border-[var(--border)] p-4 flex items-center justify-between lg:hidden">
+        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4 flex items-center justify-between lg:hidden">
           <span className="font-semibold text-[var(--text-primary)]">Contents</span>
           <button
             onClick={() => setIsOpen(false)}

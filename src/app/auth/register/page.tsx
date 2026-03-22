@@ -102,20 +102,20 @@ export default function RegisterPage() {
             <div className="w-12 h-12 rounded-xl bg-green-700 flex items-center justify-center shadow-lg">
               <BambooIcon size={28} className="text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">
+            <span className="text-xl font-bold text-[var(--text-primary)]">
               Bamboo Bicycle Club
             </span>
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">
             Create your account
           </h1>
-          <p className="text-gray-500">
+          <p className="text-[var(--text-tertiary)]">
             Join the Bamboo Bicycle Club instructor community
           </p>
         </div>
 
         {/* Register Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+        <div className="bg-[var(--surface)] rounded-2xl shadow-xl border border-[var(--border)] p-8">
           {/* Error Message */}
           {errorMessage && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -135,7 +135,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
               >
                 Full name
               </label>
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                 value={formData.name}
                 onChange={handleChange}
                 autoComplete="name"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                 placeholder="John Doe"
               />
             </div>
@@ -154,7 +154,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
               >
                 Email address
               </label>
@@ -166,7 +166,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 required
                 autoComplete="email"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                 placeholder="you@example.com"
               />
             </div>
@@ -174,7 +174,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
               >
                 Password
               </label>
@@ -186,10 +186,10 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 required
                 autoComplete="new-password"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                 placeholder="Create a strong password"
               />
-              <p className="mt-1.5 text-xs text-gray-500">
+              <p className="mt-1.5 text-xs text-[var(--text-tertiary)]">
                 At least 8 characters with uppercase, lowercase, and number
               </p>
             </div>
@@ -197,7 +197,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
               >
                 Confirm password
               </label>
@@ -209,7 +209,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 required
                 autoComplete="new-password"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                 placeholder="Confirm your password"
               />
             </div>
@@ -249,7 +249,7 @@ export default function RegisterPage() {
           </form>
 
           {/* Terms */}
-          <p className="mt-6 text-xs text-center text-gray-500">
+          <p className="mt-6 text-xs text-center text-[var(--text-tertiary)]">
             By creating an account, you agree to our{' '}
             <Link href="/terms" className="text-green-600 hover:underline">
               Terms of Service
@@ -262,7 +262,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Login Link */}
-        <p className="text-center text-gray-600 mt-6">
+        <p className="text-center text-[var(--text-secondary)] mt-6">
           Already have an account?{' '}
           <Link
             href="/auth/login"

@@ -21,7 +21,7 @@ export default function AuthErrorPage() {
             <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg mx-auto mb-4">
               <BambooIcon size={28} className="text-white" />
             </div>
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-[var(--text-tertiary)]">Loading...</p>
           </div>
         </div>
       }
@@ -46,22 +46,22 @@ function AuthErrorContent() {
           <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg">
             <BambooIcon size={28} className="text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900">
+          <span className="text-xl font-bold text-[var(--text-primary)]">
             Bamboo Bicycle Club
           </span>
         </Link>
 
         {/* Error Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+        <div className="bg-[var(--surface)] rounded-2xl shadow-xl border border-[var(--border)] p-8">
           <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 flex items-center justify-center">
             <WarningIcon size={32} className="text-red-600" />
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">
+          <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-3">
             Authentication Error
           </h1>
 
-          <p className="text-gray-600 mb-6">{errorMessage}</p>
+          <p className="text-[var(--text-secondary)] mb-6">{errorMessage}</p>
 
           <div className="space-y-3">
             <Link
@@ -73,7 +73,7 @@ function AuthErrorContent() {
 
             <Link
               href="/"
-              className="block w-full py-3 px-4 border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-all"
+              className="block w-full py-3 px-4 border border-[var(--border)] text-[var(--text-secondary)] font-medium rounded-xl hover:bg-[var(--surface-hover)] transition-all"
             >
               Go to homepage
             </Link>
@@ -81,7 +81,7 @@ function AuthErrorContent() {
         </div>
 
         {/* Help Link */}
-        <p className="mt-6 text-sm text-gray-500">
+        <p className="mt-6 text-sm text-[var(--text-tertiary)]">
           Need help?{' '}
           <a
             href="mailto:support@bamboobicycleclub.org"

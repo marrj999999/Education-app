@@ -31,7 +31,7 @@ interface OCNEvidencePanelProps {
 }
 
 const statusConfig = {
-  NOT_STARTED: { label: 'Not Started', bg: 'bg-gray-100', text: 'text-gray-600', icon: '○' },
+  NOT_STARTED: { label: 'Not Started', bg: 'bg-[var(--surface-hover)]', text: 'text-[var(--text-secondary)]', icon: '○' },
   IN_PROGRESS: { label: 'In Progress', bg: 'bg-blue-100', text: 'text-blue-700', icon: '◐' },
   SUBMITTED: { label: 'Submitted', bg: 'bg-amber-100', text: 'text-amber-700', icon: '◑' },
   SIGNED_OFF: { label: 'Signed Off', bg: 'bg-green-100', text: 'text-green-700', icon: '●' },
@@ -122,17 +122,17 @@ export function OCNEvidencePanel({
   const progressPercent = criteria.length > 0 ? Math.round((completedCount / criteria.length) * 100) : 0;
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-gray-100 bg-purple-50">
-        <h3 className="font-semibold text-gray-900 mb-3">OCN Evidence Sign-off</h3>
+      <div className="p-4 border-b border-[var(--border)] bg-purple-50">
+        <h3 className="font-semibold text-[var(--text-primary)] mb-3">OCN Evidence Sign-off</h3>
 
         {/* Learner Selector */}
         <div className="flex items-center gap-3">
           <select
             value={selectedLearner || ''}
             onChange={(e) => setSelectedLearner(e.target.value)}
-            className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+            className="flex-1 px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
           >
             {learners.map((learner) => (
               <option key={learner.id} value={learner.id}>
@@ -143,20 +143,20 @@ export function OCNEvidencePanel({
 
           {/* Progress */}
           <div className="flex items-center gap-2">
-            <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="w-16 h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
               <div
                 className="h-full bg-purple-500 transition-all"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
-            <span className="text-sm text-gray-500">{progressPercent}%</span>
+            <span className="text-sm text-[var(--text-tertiary)]">{progressPercent}%</span>
           </div>
         </div>
       </div>
 
       {/* Criteria List */}
       {selectedLearnerData && (
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-[var(--border)]">
           {criteria.map((criterion) => {
             const currentSignoff = getSignoff(selectedLearner!, criterion.code);
             const currentStatus = currentSignoff?.status || 'NOT_STARTED';
@@ -172,7 +172,7 @@ export function OCNEvidencePanel({
 
                   {/* Criterion Text */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-700">{criterion.text}</p>
+                    <p className="text-sm text-[var(--text-secondary)]">{criterion.text}</p>
 
                     {/* Status Buttons */}
                     <div className="flex flex-wrap gap-1 mt-2">
@@ -188,7 +188,7 @@ export function OCNEvidencePanel({
                             className={`px-2 py-1 text-xs rounded transition-all ${
                               isActive
                                 ? `${btnConfig.bg} ${btnConfig.text} font-medium`
-                                : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
+                                : 'bg-[var(--surface-hover)] text-[var(--text-tertiary)] hover:bg-[var(--surface-hover)]'
                             }`}
                           >
                             {btnConfig.icon} {btnConfig.label}
@@ -204,7 +204,7 @@ export function OCNEvidencePanel({
                           value={noteText}
                           onChange={(e) => setNoteText(e.target.value)}
                           placeholder="Add evidence notes..."
-                          className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none"
+                          className="w-full px-3 py-2 text-sm border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none"
                           rows={2}
                         />
                         <div className="flex gap-2 mt-2">
@@ -213,7 +213,7 @@ export function OCNEvidencePanel({
                               setShowNotes(null);
                               setNoteText('');
                             }}
-                            className="px-3 py-1 text-xs text-gray-600 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+                            className="px-3 py-1 text-xs text-[var(--text-secondary)] bg-[var(--surface-hover)] rounded hover:bg-[var(--surface-active)] transition-colors"
                           >
                             Cancel
                           </button>
@@ -239,7 +239,7 @@ export function OCNEvidencePanel({
 
                     {/* Show existing notes */}
                     {currentSignoff?.evidenceNotes && showNotes !== criterion.code && (
-                      <p className="mt-1 text-xs text-gray-500 italic">
+                      <p className="mt-1 text-xs text-[var(--text-tertiary)] italic">
                         Notes: {currentSignoff.evidenceNotes}
                       </p>
                     )}
@@ -259,10 +259,10 @@ export function OCNEvidencePanel({
       {/* Empty State */}
       {criteria.length === 0 && (
         <div className="p-8 text-center">
-          <svg className="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="text-gray-500">No OCN criteria for this lesson</p>
+          <p className="text-[var(--text-tertiary)]">No OCN criteria for this lesson</p>
         </div>
       )}
     </div>

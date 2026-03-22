@@ -51,20 +51,20 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
   const totalCount = section.items.length;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden border-l-4 border-l-purple-500">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg overflow-hidden border-l-4 border-l-purple-500">
       {/* Header */}
-      <div className={`border-b border-gray-100 ${isLarge ? 'p-5' : 'p-4'}`}>
+      <div className={`border-b border-[var(--border)] ${isLarge ? 'p-5' : 'p-4'}`}>
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-3">
             <ClipboardCheck className="text-purple-600" size={isLarge ? 24 : 20} />
-            <h3 className={`font-semibold text-gray-900 ${isLarge ? 'text-lg' : 'text-base'}`}>
+            <h3 className={`font-semibold text-[var(--text-primary)] ${isLarge ? 'text-lg' : 'text-base'}`}>
               {section.title}
             </h3>
           </div>
           <span
             className={`
               text-sm font-medium
-              ${completedCount === totalCount ? 'text-green-600' : 'text-gray-500'}
+              ${completedCount === totalCount ? 'text-green-600' : 'text-[var(--text-tertiary)]'}
             `}
           >
             {completedCount} of {totalCount} verified
@@ -86,7 +86,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                     w-full flex items-start gap-3 text-left rounded-lg
                     transition-all duration-150
                     ${isLarge ? 'p-3 min-h-[52px]' : 'p-2 min-h-[44px]'}
-                    ${isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-gray-50'}
+                    ${isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-[var(--surface-hover)]'}
                   `}
                   aria-pressed={isChecked}
                 >
@@ -98,7 +98,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                       ${isLarge ? 'w-6 h-6' : 'w-5 h-5'}
                       ${isChecked
                         ? 'bg-green-500 text-white scale-110'
-                        : 'border-2 border-gray-300 text-transparent'
+                        : 'border-2 border-[var(--border)] text-transparent'
                       }
                     `}
                   >
@@ -111,7 +111,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                       className={`
                         block font-medium
                         ${isLarge ? 'text-base' : 'text-sm'}
-                        ${isChecked ? 'text-gray-500 line-through' : 'text-gray-900'}
+                        ${isChecked ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-primary)]'}
                       `}
                     >
                       {item.criterion}
@@ -119,7 +119,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                     {item.description && (
                       <span
                         className={`
-                          block text-gray-500 mt-0.5
+                          block text-[var(--text-tertiary)] mt-0.5
                           ${isLarge ? 'text-sm' : 'text-xs'}
                           ${isChecked ? 'line-through' : ''}
                         `}

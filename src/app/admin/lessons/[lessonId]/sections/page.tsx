@@ -75,7 +75,7 @@ function SortableSection({ section, index }: SortableSectionProps) {
 
   const typeInfo = sectionTypeLabels[section.type] || {
     label: section.type,
-    color: 'bg-gray-100 text-gray-800',
+    color: 'bg-[var(--surface-hover)] text-[var(--text-primary)]',
   };
 
   return (

@@ -147,7 +147,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-muted-foreground">Loading sessions...</p>
@@ -158,7 +158,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
 
   if (error || !cohort) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="w-12 h-12 mx-auto text-red-400 mb-4" />
           <p className="text-muted-foreground">{error || 'Failed to load'}</p>
@@ -204,9 +204,9 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
   const progressPercentage = totalLessons > 0 ? Math.round((sessions.length / totalLessons) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--surface-hover)]">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
@@ -216,7 +216,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
                 </Button>
               </Link>
               <div>
-                <h1 className="font-bold text-gray-900">Sessions</h1>
+                <h1 className="font-bold text-[var(--text-primary)]">Sessions</h1>
                 <p className="text-xs text-muted-foreground">{cohort.name} ({cohort.code})</p>
               </div>
             </div>
@@ -298,7 +298,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
         {sessions.length === 0 ? (
           <Card className="text-center py-12">
             <CardContent>
-              <Calendar className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+              <Calendar className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4" />
               <p className="text-muted-foreground mb-4">No sessions scheduled yet.</p>
               <Button onClick={() => setIsCreateModalOpen(true)}>
                 Schedule First Session
@@ -319,7 +319,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-[var(--text-primary)]">
                       {new Date(dateKey + 'T00:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}
                     </p>
                     <p className="text-sm text-muted-foreground">
@@ -344,7 +344,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <h4 className="font-medium text-gray-900">{session.lesson.title}</h4>
+                                  <h4 className="font-medium text-[var(--text-primary)]">{session.lesson.title}</h4>
                                   <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ${config.bg} ${config.text}`}>
                                     <StatusIcon className="w-3 h-3" />
                                     {config.label}
@@ -370,7 +370,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
                                   </span>
                                 </div>
                               </div>
-                              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all" />
+                              <ChevronRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)] group-hover:translate-x-1 transition-all" />
                             </div>
                           </CardContent>
                         </Card>

@@ -70,12 +70,12 @@ function LoginForm() {
 
   return (
     <LoginShell>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h1>
-      <p className="text-gray-500 mb-8">
+      <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Welcome back</h1>
+      <p className="text-[var(--text-tertiary)] mb-8">
         Sign in to access your instructor dashboard
       </p>
 
-      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 bamboo-stripe overflow-hidden">
+      <div className="bg-[var(--surface)] rounded-2xl shadow-xl border border-[var(--border)] p-8 bamboo-stripe overflow-hidden">
         {errorMessage && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
             {errorMessage}
@@ -86,7 +86,7 @@ function LoginForm() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1.5"
+              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
             >
               Email address
             </label>
@@ -97,14 +97,14 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[var(--steel)] focus:border-transparent transition-all outline-none"
+              className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--steel)] focus:border-transparent transition-all outline-none"
               placeholder="you@example.com"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1.5"
+              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
             >
               Password
             </label>
@@ -116,13 +116,13 @@ function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[var(--steel)] focus:border-transparent transition-all outline-none pr-12"
+                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--steel)] focus:border-transparent transition-all outline-none pr-12"
                 placeholder="Enter your password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] transition-colors"
                 tabIndex={-1}
               >
                 {showPassword ? (
@@ -173,7 +173,7 @@ function LoginForm() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-400 text-xs">
+        <p className="mt-6 text-center text-[var(--text-tertiary)] text-xs">
           Need an account? Contact your administrator.
         </p>
       </div>
@@ -190,7 +190,7 @@ function LoginShell({ children }: { children: React.ReactNode }) {
             <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg">
               <BambooIcon size={28} className="text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">
+            <span className="text-xl font-bold text-[var(--text-primary)]">
               Bamboo Bicycle Club
             </span>
           </Link>

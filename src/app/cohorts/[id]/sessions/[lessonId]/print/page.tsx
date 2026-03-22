@@ -127,7 +127,7 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
-          <p className="mt-2 text-gray-500">Loading print pack...</p>
+          <p className="mt-2 text-[var(--text-tertiary)]">Loading print pack...</p>
         </div>
       </div>
     );
@@ -178,11 +178,11 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
   return (
     <div className="min-h-screen bg-white">
       {/* Print Controls - Hidden when printing */}
-      <div className="print:hidden bg-gray-100 border-b sticky top-0 z-10">
+      <div className="print:hidden bg-[var(--surface-hover)] border-b sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link
             href={`/cohorts/${id}/sessions/${lessonId}`}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900"
+            className="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -206,7 +206,7 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
         {/* Header - Shows on each printed page */}
         <div className="text-center print:text-left print:mb-4">
           <h1 className="text-2xl font-bold print:text-lg">{lesson.title}</h1>
-          <p className="text-gray-600 print:text-sm">
+          <p className="text-[var(--text-secondary)] print:text-sm">
             {cohort.name} ({cohort.code}) | {sessionDate}
           </p>
         </div>

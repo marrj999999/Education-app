@@ -169,7 +169,7 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
                   </div>
                 </th>
               ))}
-              <th className="py-3 px-4 text-center text-xs font-medium text-[var(--text-tertiary)] uppercase bg-gray-100">
+              <th className="py-3 px-4 text-center text-xs font-medium text-[var(--text-tertiary)] uppercase bg-[var(--surface-hover)]">
                 Progress
               </th>
             </tr>

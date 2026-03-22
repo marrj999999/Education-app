@@ -129,15 +129,15 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
   return (
     <div className="space-y-6">
       {/* Overall Progress */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-gray-900">Preparation Checklist</h2>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)]">Preparation Checklist</h2>
           <span
             className={`
               text-sm font-medium px-3 py-1 rounded-full
               ${checkedCount === totalItems
                 ? 'bg-green-100 text-green-800'
-                : 'bg-gray-100 text-gray-600'
+                : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
               }
             `}
           >
@@ -146,7 +146,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
         </div>
 
         {/* Progress bar */}
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-[var(--surface-active)] rounded-full h-2">
           <div
             className="bg-green-500 h-2 rounded-full transition-all duration-300"
             style={{ width: `${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%` }}
@@ -174,12 +174,12 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
             `}
           >
             {/* Category Header */}
-            <div className="bg-white border-b border-gray-100 p-4">
+            <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Icon className="text-gray-600" size={20} />
-                  <h3 className="font-semibold text-gray-900">{categoryTitles[category]}</h3>
-                  <span className="text-sm text-gray-500">
+                  <Icon className="text-[var(--text-secondary)]" size={20} />
+                  <h3 className="font-semibold text-[var(--text-primary)]">{categoryTitles[category]}</h3>
+                  <span className="text-sm text-[var(--text-tertiary)]">
                     {categoryChecked} of {items.length}
                   </span>
                 </div>
@@ -188,13 +188,13 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => checkAll(category)}
-                    className="text-sm text-gray-600 hover:text-gray-900 px-2 py-1 rounded hover:bg-gray-100"
+                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1 rounded hover:bg-[var(--surface-hover)]"
                   >
                     Check All
                   </button>
                   <button
                     onClick={() => uncheckAll(category)}
-                    className="text-sm text-gray-600 hover:text-gray-900 px-2 py-1 rounded hover:bg-gray-100"
+                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-2 py-1 rounded hover:bg-[var(--surface-hover)]"
                   >
                     Uncheck All
                   </button>
@@ -203,7 +203,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
             </div>
 
             {/* Items */}
-            <div className="bg-white p-4">
+            <div className="bg-[var(--surface)] p-4">
               <ul className="space-y-2">
                 {items.map((item, index) => {
                   const key = `${item.sectionId}-${item.text}`;
@@ -216,7 +216,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
                         className={`
                           w-full flex items-center gap-3 text-left p-3 rounded-lg
                           min-h-[44px] transition-all duration-150
-                          ${isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-gray-50'}
+                          ${isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-[var(--surface-hover)]'}
                         `}
                         aria-pressed={isChecked}
                       >
@@ -227,7 +227,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
                             transition-all duration-200
                             ${isChecked
                               ? 'bg-green-500 text-white scale-110'
-                              : 'border-2 border-gray-300 text-transparent'
+                              : 'border-2 border-[var(--border)] text-transparent'
                             }
                           `}
                         >
@@ -238,7 +238,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
                         <span
                           className={`
                             flex-1 text-base
-                            ${isChecked ? 'text-gray-500 line-through' : 'text-gray-900'}
+                            ${isChecked ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-primary)]'}
                           `}
                         >
                           {item.text}
@@ -246,7 +246,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
 
                         {/* Quantity */}
                         {item.quantity && (
-                          <span className="flex-shrink-0 bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-sm font-medium">
+                          <span className="flex-shrink-0 bg-[var(--surface-hover)] text-[var(--text-secondary)] px-2 py-0.5 rounded-full text-sm font-medium">
                             x{item.quantity}
                           </span>
                         )}

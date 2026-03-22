@@ -39,7 +39,7 @@ export function LessonPresentationWrapper({
         "sticky top-14 z-20 backdrop-blur-sm border-b",
         isPresentation && isDarkMode
           ? "bg-slate-800/95 border-slate-700"
-          : "bg-white/95 border-gray-100"
+          : "bg-white/95 border-[var(--border)]"
       )}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12">

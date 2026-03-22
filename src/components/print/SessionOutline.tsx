@@ -38,21 +38,21 @@ export function SessionOutline({
   return (
     <div className="print-section">
       <h2 className="text-xl font-bold mb-2">{lessonTitle}</h2>
-      <p className="text-sm text-gray-600 mb-1">{moduleTitle}</p>
+      <p className="text-sm text-[var(--text-secondary)] mb-1">{moduleTitle}</p>
       {totalDurationMins && (
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-[var(--text-secondary)] mb-4">
           Total Duration: {totalDurationMins} minutes
         </p>
       )}
 
-      <table className="w-full border-collapse border border-gray-300 text-sm">
+      <table className="w-full border-collapse border border-[var(--border)] text-sm">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-3 py-2 text-left w-20">Time</th>
-            <th className="border border-gray-300 px-3 py-2 text-left w-20">Duration</th>
-            <th className="border border-gray-300 px-3 py-2 text-left">Section</th>
-            <th className="border border-gray-300 px-3 py-2 text-left w-24">Type</th>
-            <th className="border border-gray-300 px-3 py-2 text-center w-16">Done</th>
+          <tr className="bg-[var(--surface-hover)]">
+            <th className="border border-[var(--border)] px-3 py-2 text-left w-20">Time</th>
+            <th className="border border-[var(--border)] px-3 py-2 text-left w-20">Duration</th>
+            <th className="border border-[var(--border)] px-3 py-2 text-left">Section</th>
+            <th className="border border-[var(--border)] px-3 py-2 text-left w-24">Type</th>
+            <th className="border border-[var(--border)] px-3 py-2 text-center w-16">Done</th>
           </tr>
         </thead>
         <tbody>
@@ -67,19 +67,19 @@ export function SessionOutline({
 
             return (
               <tr key={index}>
-                <td className="border border-gray-300 px-3 py-2">
+                <td className="border border-[var(--border)] px-3 py-2">
                   +{formatTime(startTime)}
                 </td>
-                <td className="border border-gray-300 px-3 py-2">
+                <td className="border border-[var(--border)] px-3 py-2">
                   {section.durationMins ? `${section.durationMins} min` : '-'}
                 </td>
-                <td className="border border-gray-300 px-3 py-2">
+                <td className="border border-[var(--border)] px-3 py-2">
                   <p className="font-medium">{section.title}</p>
                   {section.content && (
-                    <p className="text-xs text-gray-500 mt-1">{section.content}</p>
+                    <p className="text-xs text-[var(--text-tertiary)] mt-1">{section.content}</p>
                   )}
                 </td>
-                <td className="border border-gray-300 px-3 py-2">
+                <td className="border border-[var(--border)] px-3 py-2">
                   <span
                     className={`text-xs px-2 py-0.5 rounded ${
                       section.type === 'SECTION_TIMER'
@@ -88,14 +88,14 @@ export function SessionOutline({
                         ? 'bg-green-100 text-green-700'
                         : section.type === 'KEY_POINT'
                         ? 'bg-amber-100 text-amber-700'
-                        : 'bg-gray-100 text-gray-700'
+                        : 'bg-[var(--surface-hover)] text-[var(--text-secondary)]'
                     }`}
                   >
                     {section.type.replace(/_/g, ' ')}
                   </span>
                 </td>
-                <td className="border border-gray-300 px-3 py-2 text-center">
-                  <div className="w-5 h-5 border border-gray-400 mx-auto" />
+                <td className="border border-[var(--border)] px-3 py-2 text-center">
+                  <div className="w-5 h-5 border border-[var(--border)] mx-auto" />
                 </td>
               </tr>
             );
@@ -105,7 +105,7 @@ export function SessionOutline({
 
       <div className="mt-4 text-sm">
         <p><strong>Instructor Notes:</strong></p>
-        <div className="border border-gray-300 h-24 mt-1" />
+        <div className="border border-[var(--border)] h-24 mt-1" />
       </div>
     </div>
   );
