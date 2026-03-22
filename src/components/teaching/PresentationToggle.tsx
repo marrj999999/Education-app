@@ -54,7 +54,7 @@ export function PresentationToggle({
             'transition-all duration-200',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal',
             isDarkMode
-              ? 'bg-slate-700 text-yellow-400 hover:bg-slate-600'
+              ? 'bg-slate-700 text-caution hover:bg-slate-600'
               : 'bg-surface-hover text-text-secondary hover:bg-surface-active'
           )}
           aria-pressed={isDarkMode}

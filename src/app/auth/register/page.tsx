@@ -94,12 +94,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-success-light flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo & Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-green-700 flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-success-dark flex items-center justify-center shadow-lg">
               <BambooIcon size={28} className="text-white" />
             </div>
             <span className="text-xl font-bold text-text-primary">
@@ -118,14 +118,14 @@ export default function RegisterPage() {
         <div className="bg-surface rounded-2xl shadow-xl border border-border p-8">
           {/* Error Message */}
           {errorMessage && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-6 p-4 bg-danger-light border border-danger-medium rounded-lg text-danger-dark text-sm">
               {errorMessage}
             </div>
           )}
 
           {/* Success Message */}
           {successMessage && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+            <div className="mb-6 p-4 bg-success-light border border-success-medium rounded-lg text-success-dark text-sm">
               {successMessage}
             </div>
           )}
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                 value={formData.name}
                 onChange={handleChange}
                 autoComplete="name"
-                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-success focus:border-transparent transition-all outline-none"
                 placeholder="John Doe"
               />
             </div>
@@ -166,7 +166,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 required
                 autoComplete="email"
-                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-success focus:border-transparent transition-all outline-none"
                 placeholder="you@example.com"
               />
             </div>
@@ -186,7 +186,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 required
                 autoComplete="new-password"
-                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-success focus:border-transparent transition-all outline-none"
                 placeholder="Create a strong password"
               />
               <p className="mt-1.5 text-xs text-text-tertiary">
@@ -209,7 +209,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 required
                 autoComplete="new-password"
-                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
+                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-success focus:border-transparent transition-all outline-none"
                 placeholder="Confirm your password"
               />
             </div>
@@ -217,7 +217,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-success text-white font-semibold rounded-xl hover:bg-success-dark focus:ring-2 focus:ring-success focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -251,11 +251,11 @@ export default function RegisterPage() {
           {/* Terms */}
           <p className="mt-6 text-xs text-center text-text-tertiary">
             By creating an account, you agree to our{' '}
-            <Link href="/terms" className="text-green-600 hover:underline">
+            <Link href="/terms" className="text-success hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link href="/privacy" className="text-green-600 hover:underline">
+            <Link href="/privacy" className="text-success hover:underline">
               Privacy Policy
             </Link>
           </p>
@@ -266,7 +266,7 @@ export default function RegisterPage() {
           Already have an account?{' '}
           <Link
             href="/auth/login"
-            className="text-green-600 hover:text-green-700 font-medium"
+            className="text-success hover:text-success-dark font-medium"
           >
             Sign in
           </Link>

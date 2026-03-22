@@ -271,7 +271,7 @@ export default function UsersPage() {
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           user.isActive
                             ? 'bg-bamboo-100 text-forest'
-                            : 'bg-red-100 text-red-800'
+                            : 'bg-danger-light text-danger-darker'
                         }`}
                       >
                         {user.isActive ? 'Active' : 'Suspended'}
@@ -289,7 +289,7 @@ export default function UsersPage() {
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           href={`/admin/users/${user.id}`}
-                          className="p-2 text-text-tertiary hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-text-tertiary hover:text-info hover:bg-info-light rounded-lg transition-colors"
                           title="Edit"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -300,7 +300,7 @@ export default function UsersPage() {
                           onClick={() => handleSuspendToggle(user.id, user.isActive)}
                           className={`p-2 rounded-lg transition-colors ${
                             user.isActive
-                              ? 'text-text-tertiary hover:text-amber-600 hover:bg-amber-50'
+                              ? 'text-text-tertiary hover:text-warning hover:bg-warning-light'
                               : 'text-text-tertiary hover:text-teal hover:bg-bamboo-50'
                           }`}
                           title={user.isActive ? 'Suspend' : 'Activate'}
@@ -317,7 +317,7 @@ export default function UsersPage() {
                         </button>
                         <button
                           onClick={() => handleDelete(user.id, user.email)}
-                          className="p-2 text-text-tertiary hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-text-tertiary hover:text-danger hover:bg-danger-light rounded-lg transition-colors"
                           title="Delete"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

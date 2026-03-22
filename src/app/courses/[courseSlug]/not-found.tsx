@@ -16,7 +16,7 @@ export default function CourseNotFound() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-success text-white rounded-lg hover:bg-success-dark transition-colors"
         >
           <HomeIcon size={20} />
           Back to All Courses

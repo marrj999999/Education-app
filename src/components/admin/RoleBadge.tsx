@@ -2,13 +2,13 @@ import type { Role } from '@prisma/client';
 
 const roleStyles: Record<Role, { bg: string; text: string; label: string }> = {
   SUPER_ADMIN: {
-    bg: 'bg-purple-100',
-    text: 'text-purple-800',
+    bg: 'bg-assess-light',
+    text: 'text-assess-darker',
     label: 'Super Admin',
   },
   ADMIN: {
-    bg: 'bg-blue-100',
-    text: 'text-blue-800',
+    bg: 'bg-info-light',
+    text: 'text-info-darker',
     label: 'Admin',
   },
   INSTRUCTOR: {

@@ -109,10 +109,10 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
   };
 
   const categoryColors: Record<Category, string> = {
-    materials: 'border-blue-500 bg-blue-50',
+    materials: 'border-info bg-info-light',
     tools: 'border-orange-500 bg-orange-50',
-    equipment: 'border-purple-500 bg-purple-50',
-    preparation: 'border-green-500 bg-green-50',
+    equipment: 'border-assess bg-assess-light',
+    preparation: 'border-success bg-success-light',
   };
 
   const categoryTitles: Record<Category, string> = {
@@ -136,7 +136,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
             className={`
               text-sm font-medium px-3 py-1 rounded-full
               ${checkedCount === totalItems
-                ? 'bg-green-100 text-green-800'
+                ? 'bg-success-light text-success-darker'
                 : 'bg-surface-hover text-text-secondary'
               }
             `}
@@ -148,7 +148,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
         {/* Progress bar */}
         <div className="w-full bg-surface-active rounded-full h-2">
           <div
-            className="bg-green-500 h-2 rounded-full transition-all duration-300"
+            className="bg-success h-2 rounded-full transition-all duration-300"
             style={{ width: `${totalItems > 0 ? (checkedCount / totalItems) * 100 : 0}%` }}
           />
         </div>
@@ -216,7 +216,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
                         className={`
                           w-full flex items-center gap-3 text-left p-3 rounded-lg
                           min-h-[44px] transition-all duration-150
-                          ${isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-surface-hover'}
+                          ${isChecked ? 'bg-success-light hover:bg-success-light' : 'hover:bg-surface-hover'}
                         `}
                         aria-pressed={isChecked}
                       >
@@ -226,7 +226,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
                             flex-shrink-0 w-6 h-6 rounded flex items-center justify-center
                             transition-all duration-200
                             ${isChecked
-                              ? 'bg-green-500 text-white scale-110'
+                              ? 'bg-success text-white scale-110'
                               : 'border-2 border-border text-transparent'
                             }
                           `}

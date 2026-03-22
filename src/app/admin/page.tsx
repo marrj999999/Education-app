@@ -243,10 +243,10 @@ export default async function AdminDashboard() {
 
           <Link
             href="/admin/users"
-            className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-blue-300 hover:bg-blue-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-info-medium hover:bg-info-light transition-colors"
           >
-            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-              <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 rounded-lg bg-info-light flex items-center justify-center">
+              <svg className="w-5 h-5 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
             </div>
@@ -258,10 +258,10 @@ export default async function AdminDashboard() {
 
           <Link
             href="/admin/courses"
-            className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-purple-300 hover:bg-purple-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-assess-medium hover:bg-assess-light transition-colors"
           >
-            <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-              <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 rounded-lg bg-assess-light flex items-center justify-center">
+              <svg className="w-5 h-5 text-assess" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
@@ -273,10 +273,10 @@ export default async function AdminDashboard() {
 
           <Link
             href="/cms"
-            className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-amber-300 hover:bg-amber-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-warning-medium hover:bg-warning-light transition-colors"
           >
-            <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-              <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center">
+              <svg className="w-5 h-5 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             </div>

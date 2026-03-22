@@ -23,25 +23,25 @@ interface InstructorNoteProps {
 
 const noteStyles: Record<NoteType, { bg: string; border: string; Icon: React.FC<IconProps>; title: string; text: string }> = {
   tip: {
-    bg: 'bg-blue-50',
-    border: 'border-blue-300',
+    bg: 'bg-info-light',
+    border: 'border-info-medium',
     Icon: LightbulbIcon,
     title: 'Instructor Tip',
-    text: 'text-blue-800',
+    text: 'text-info-darker',
   },
   warning: {
-    bg: 'bg-amber-50',
-    border: 'border-amber-300',
+    bg: 'bg-warning-light',
+    border: 'border-warning-medium',
     Icon: WarningIcon,
     title: 'Safety Warning',
-    text: 'text-amber-800',
+    text: 'text-warning-darker',
   },
   issue: {
-    bg: 'bg-red-50',
-    border: 'border-red-300',
+    bg: 'bg-danger-light',
+    border: 'border-danger-medium',
     Icon: WrenchIcon,
     title: 'Common Issue',
-    text: 'text-red-800',
+    text: 'text-danger-darker',
   },
   info: {
     bg: 'bg-surface-hover',

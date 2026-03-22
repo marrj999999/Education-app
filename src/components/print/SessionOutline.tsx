@@ -83,11 +83,11 @@ export function SessionOutline({
                   <span
                     className={`text-xs px-2 py-0.5 rounded ${
                       section.type === 'SECTION_TIMER'
-                        ? 'bg-blue-100 text-blue-700'
+                        ? 'bg-info-light text-info-dark'
                         : section.type === 'ACTIVITY'
-                        ? 'bg-green-100 text-green-700'
+                        ? 'bg-success-light text-success-dark'
                         : section.type === 'KEY_POINT'
-                        ? 'bg-amber-100 text-amber-700'
+                        ? 'bg-warning-light text-warning-dark'
                         : 'bg-surface-hover text-text-secondary'
                     }`}
                   >

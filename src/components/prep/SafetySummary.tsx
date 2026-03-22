@@ -29,34 +29,34 @@ export function SafetySummary({ sections }: SafetySummaryProps) {
       icon: AlertOctagon,
       title: 'Critical Safety Points',
       description: 'Must be addressed before starting',
-      bg: 'bg-red-50',
-      border: 'border-red-200',
-      iconColor: 'text-red-600',
-      titleColor: 'text-red-900',
-      textColor: 'text-red-800',
-      badge: 'bg-red-100 text-red-800',
+      bg: 'bg-danger-light',
+      border: 'border-danger-medium',
+      iconColor: 'text-danger',
+      titleColor: 'text-danger-darker',
+      textColor: 'text-danger-darker',
+      badge: 'bg-danger-light text-danger-darker',
     },
     warning: {
       icon: AlertTriangle,
       title: 'Warnings',
       description: 'Important precautions to observe',
-      bg: 'bg-amber-50',
-      border: 'border-amber-200',
-      iconColor: 'text-amber-600',
-      titleColor: 'text-amber-900',
-      textColor: 'text-amber-800',
-      badge: 'bg-amber-100 text-amber-800',
+      bg: 'bg-warning-light',
+      border: 'border-warning-medium',
+      iconColor: 'text-warning',
+      titleColor: 'text-warning-darker',
+      textColor: 'text-warning-darker',
+      badge: 'bg-warning-light text-warning-darker',
     },
     caution: {
       icon: AlertCircle,
       title: 'Cautions',
       description: 'General safety reminders',
-      bg: 'bg-yellow-50',
-      border: 'border-yellow-200',
-      iconColor: 'text-yellow-600',
-      titleColor: 'text-yellow-900',
-      textColor: 'text-yellow-800',
-      badge: 'bg-yellow-100 text-yellow-800',
+      bg: 'bg-caution-light',
+      border: 'border-caution',
+      iconColor: 'text-caution',
+      titleColor: 'text-caution-darker',
+      textColor: 'text-caution-darker',
+      badge: 'bg-caution-light text-caution-darker',
     },
   };
 
@@ -64,9 +64,9 @@ export function SafetySummary({ sections }: SafetySummaryProps) {
 
   if (totalCount === 0) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-        <ShieldAlert className="mx-auto text-green-500 mb-3" size={32} />
-        <p className="text-green-800 font-medium">No safety points for this session</p>
+      <div className="bg-success-light border border-success-medium rounded-lg p-6 text-center">
+        <ShieldAlert className="mx-auto text-success mb-3" size={32} />
+        <p className="text-success-darker font-medium">No safety points for this session</p>
       </div>
     );
   }
@@ -87,17 +87,17 @@ export function SafetySummary({ sections }: SafetySummaryProps) {
           </div>
           <div className="flex items-center gap-2">
             {grouped.critical.length > 0 && (
-              <span className="px-2 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+              <span className="px-2 py-1 rounded-full text-xs font-semibold bg-danger-light text-danger-darker">
                 {grouped.critical.length} Critical
               </span>
             )}
             {grouped.warning.length > 0 && (
-              <span className="px-2 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+              <span className="px-2 py-1 rounded-full text-xs font-semibold bg-warning-light text-warning-darker">
                 {grouped.warning.length} Warning{grouped.warning.length > 1 ? 's' : ''}
               </span>
             )}
             {grouped.caution.length > 0 && (
-              <span className="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
+              <span className="px-2 py-1 rounded-full text-xs font-semibold bg-caution-light text-caution-darker">
                 {grouped.caution.length} Caution{grouped.caution.length > 1 ? 's' : ''}
               </span>
             )}

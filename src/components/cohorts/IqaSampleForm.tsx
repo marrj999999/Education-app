@@ -118,7 +118,7 @@ export function IqaSampleForm({
           {/* Body */}
           <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+              <div className="p-3 bg-danger-light border border-danger-medium rounded-lg text-sm text-danger-dark">
                 {error}
               </div>
             )}
@@ -126,7 +126,7 @@ export function IqaSampleForm({
             {/* Sample Period */}
             <div>
               <label className="block text-sm font-medium text-text-secondary mb-1">
-                Sample Period <span className="text-red-500">*</span>
+                Sample Period <span className="text-danger">*</span>
               </label>
               <input
                 type="text"
@@ -142,14 +142,14 @@ export function IqaSampleForm({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm font-medium text-text-secondary">
-                  Select Learners <span className="text-red-500">*</span>
+                  Select Learners <span className="text-danger">*</span>
                   <span className="ml-2 text-text-tertiary">({selectedLearners.length} selected)</span>
                 </label>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => selectRandomLearners(3)}
-                    className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors"
+                    className="text-xs px-2 py-1 bg-assess-light text-assess-dark rounded hover:bg-assess-medium transition-colors"
                   >
                     Random 3
                   </button>
@@ -179,7 +179,7 @@ export function IqaSampleForm({
                       type="checkbox"
                       checked={selectedLearners.includes(learner.id)}
                       onChange={() => toggleLearner(learner.id)}
-                      className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
+                      className="w-4 h-4 text-assess rounded focus:ring-purple-500"
                     />
                     <span className="text-sm text-text-secondary">
                       {learner.firstName} {learner.lastName}
@@ -193,14 +193,14 @@ export function IqaSampleForm({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm font-medium text-text-secondary">
-                  Select Criteria <span className="text-red-500">*</span>
+                  Select Criteria <span className="text-danger">*</span>
                   <span className="ml-2 text-text-tertiary">({selectedCriteria.length} selected)</span>
                 </label>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => selectRandomCriteria(5)}
-                    className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors"
+                    className="text-xs px-2 py-1 bg-assess-light text-assess-dark rounded hover:bg-assess-medium transition-colors"
                   >
                     Random 5
                   </button>
@@ -230,10 +230,10 @@ export function IqaSampleForm({
                       type="checkbox"
                       checked={selectedCriteria.includes(criterion.code)}
                       onChange={() => toggleCriterion(criterion.code)}
-                      className="w-4 h-4 mt-0.5 text-purple-600 rounded focus:ring-purple-500"
+                      className="w-4 h-4 mt-0.5 text-assess rounded focus:ring-purple-500"
                     />
                     <div>
-                      <span className="text-sm font-mono text-purple-700">{criterion.code}</span>
+                      <span className="text-sm font-mono text-assess-dark">{criterion.code}</span>
                       <p className="text-xs text-text-tertiary">{criterion.lessonTitle}</p>
                     </div>
                   </label>
@@ -254,7 +254,7 @@ export function IqaSampleForm({
             <button
               onClick={handleSubmit}
               disabled={isSubmitting || !samplePeriod || selectedLearners.length === 0 || selectedCriteria.length === 0}
-              className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 text-sm font-medium text-white bg-assess rounded-lg hover:bg-assess-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Creating...' : 'Create Sample'}
             </button>

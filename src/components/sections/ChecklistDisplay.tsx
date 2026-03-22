@@ -27,15 +27,15 @@ export function ChecklistDisplay({
   const categoryColors: Record<string, string> = {
     materials: 'border-l-blue-500',
     tools: 'border-l-orange-500',
-    equipment: 'border-l-purple-500',
+    equipment: 'border-l-assess',
     preparation: 'border-l-green-500',
   };
 
   const categoryBadgeColors: Record<string, string> = {
-    materials: 'bg-blue-100 text-blue-800',
+    materials: 'bg-info-light text-info-darker',
     tools: 'bg-orange-100 text-orange-800',
-    equipment: 'bg-purple-100 text-purple-800',
-    preparation: 'bg-green-100 text-green-800',
+    equipment: 'bg-assess-light text-assess-darker',
+    preparation: 'bg-success-light text-success-darker',
   };
 
   return (
@@ -85,7 +85,7 @@ export function ChecklistDisplay({
               className={cn(
                 'font-medium',
                 isPresentation ? 'text-lg' : 'text-sm',
-                allChecked ? 'text-green-600' : 'text-text-tertiary'
+                allChecked ? 'text-success' : 'text-text-tertiary'
               )}
             >
               {completedCount} of {totalCount} complete
@@ -93,7 +93,7 @@ export function ChecklistDisplay({
             {allChecked && (
               <span
                 className={cn(
-                  'flex items-center justify-center bg-green-500 text-white rounded-full',
+                  'flex items-center justify-center bg-success text-white rounded-full',
                   isPresentation ? 'w-7 h-7' : 'w-5 h-5'
                 )}
               >
@@ -123,7 +123,7 @@ export function ChecklistDisplay({
                       : isLarge
                         ? 'p-3 min-h-[52px]'
                         : 'p-2.5 min-h-[44px]',
-                    isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-surface-hover'
+                    isChecked ? 'bg-success-light hover:bg-success-light' : 'hover:bg-surface-hover'
                   )}
                   aria-pressed={isChecked}
                 >
@@ -135,8 +135,8 @@ export function ChecklistDisplay({
                       // Size: 24px minimum (w-6 h-6)
                       isPresentation ? 'w-8 h-8' : 'w-6 h-6',
                       isChecked
-                        ? 'bg-green-500 text-white scale-110'
-                        : 'border-2 border-border text-transparent group-hover:border-green-400'
+                        ? 'bg-success text-white scale-110'
+                        : 'border-2 border-border text-transparent group-hover:border-success'
                     )}
                   >
                     <Check

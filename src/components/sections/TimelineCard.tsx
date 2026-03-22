@@ -51,7 +51,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
               {/* Time Badge - Pill shape, blue */}
               <span
                 className={cn(
-                  'inline-flex items-center gap-1.5 bg-blue-600 text-white rounded-full font-mono font-semibold',
+                  'inline-flex items-center gap-1.5 bg-info text-white rounded-full font-mono font-semibold',
                   isPresentation
                     ? 'px-4 py-2 text-lg'
                     : isLarge

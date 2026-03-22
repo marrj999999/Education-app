@@ -68,11 +68,11 @@ interface CohortData {
 }
 
 const statusConfig: Record<Session['status'], { bg: string; text: string; label: string; icon: typeof CheckCircle }> = {
-  SCHEDULED: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Scheduled', icon: Calendar },
-  IN_PROGRESS: { bg: 'bg-green-100', text: 'text-green-700', label: 'In Progress', icon: Play },
-  COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Completed', icon: CheckCircle },
-  CANCELLED: { bg: 'bg-red-100', text: 'text-red-700', label: 'Cancelled', icon: AlertCircle },
-  RESCHEDULED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Rescheduled', icon: Calendar },
+  SCHEDULED: { bg: 'bg-info-light', text: 'text-info-dark', label: 'Scheduled', icon: Calendar },
+  IN_PROGRESS: { bg: 'bg-success-light', text: 'text-success-dark', label: 'In Progress', icon: Play },
+  COMPLETED: { bg: 'bg-assess-light', text: 'text-assess-dark', label: 'Completed', icon: CheckCircle },
+  CANCELLED: { bg: 'bg-danger-light', text: 'text-danger-dark', label: 'Cancelled', icon: AlertCircle },
+  RESCHEDULED: { bg: 'bg-warning-light', text: 'text-warning-dark', label: 'Rescheduled', icon: Calendar },
 };
 
 export default function SessionsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -149,7 +149,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-muted-foreground">Loading sessions...</p>
         </div>
       </div>
@@ -160,7 +160,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="w-12 h-12 mx-auto text-red-400 mb-4" />
+          <AlertCircle className="w-12 h-12 mx-auto text-danger mb-4" />
           <p className="text-muted-foreground">{error || 'Failed to load'}</p>
           <Link href={`/cohorts/${id}`}>
             <Button variant="outline" className="mt-4">
@@ -230,7 +230,7 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
       </header>
 
       {/* Hero Section */}
-      <div className="bg-blue-700 text-white">
+      <div className="bg-info-dark text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Breadcrumb className="mb-4">
             <BreadcrumbList>
@@ -255,22 +255,22 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold">Sessions</h1>
-              <p className="text-blue-100 mt-2">
+              <p className="text-info-light mt-2">
                 Schedule and manage your course sessions
               </p>
             </div>
             <div className="flex gap-6 text-center">
               <div>
                 <p className="text-2xl font-bold">{sessions.length}</p>
-                <p className="text-blue-100 text-sm">Total</p>
+                <p className="text-info-light text-sm">Total</p>
               </div>
               <div>
                 <p className="text-2xl font-bold">{completedCount}</p>
-                <p className="text-blue-100 text-sm">Completed</p>
+                <p className="text-info-light text-sm">Completed</p>
               </div>
               <div>
                 <p className="text-2xl font-bold">{upcomingCount}</p>
-                <p className="text-blue-100 text-sm">Upcoming</p>
+                <p className="text-info-light text-sm">Upcoming</p>
               </div>
             </div>
           </div>
@@ -310,11 +310,11 @@ export default function SessionsPage({ params }: { params: Promise<{ id: string 
             {sortedDates.map((dateKey) => (
               <div key={dateKey}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-blue-100 flex flex-col items-center justify-center">
-                    <span className="text-xs text-blue-600 font-medium">
+                  <div className="w-12 h-12 rounded-lg bg-info-light flex flex-col items-center justify-center">
+                    <span className="text-xs text-info font-medium">
                       {new Date(dateKey + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short' })}
                     </span>
-                    <span className="text-lg font-bold text-blue-700">
+                    <span className="text-lg font-bold text-info-dark">
                       {new Date(dateKey + 'T00:00:00').getDate()}
                     </span>
                   </div>

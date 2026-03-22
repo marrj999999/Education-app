@@ -39,7 +39,7 @@ export function OfflineIndicator() {
     <div
       className={cn(
         'fixed top-0 left-0 right-0 z-[100]',
-        'bg-amber-500 text-amber-950',
+        'bg-warning text-warning-darker',
         'px-4 py-3',
         'flex items-center justify-center gap-3',
         'shadow-lg',
@@ -56,7 +56,7 @@ export function OfflineIndicator() {
         onClick={() => setDismissed(true)}
         className={cn(
           'ml-2 p-1 rounded-full',
-          'hover:bg-amber-600 transition-colors',
+          'hover:bg-warning transition-colors',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700'
         )}
         aria-label="Dismiss offline notification"

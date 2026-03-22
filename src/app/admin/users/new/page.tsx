@@ -149,7 +149,7 @@ export default function NewUserPage() {
       {/* Form */}
       <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+          <div className="mb-6 p-4 bg-danger-light border border-danger-medium rounded-lg text-danger-dark text-sm">
             {error}
           </div>
         )}
@@ -170,7 +170,7 @@ export default function NewUserPage() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
               placeholder="John Doe"
             />
           </div>
@@ -190,7 +190,7 @@ export default function NewUserPage() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
               placeholder="john@example.com"
             />
           </div>
@@ -208,7 +208,7 @@ export default function NewUserPage() {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
             >
               {availableRoles.map((role) => (
                 <option key={role.value} value={role.value}>
@@ -236,7 +236,7 @@ export default function NewUserPage() {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
               placeholder="Create a strong password"
             />
             <p className="mt-1.5 text-xs text-text-tertiary">
@@ -259,7 +259,7 @@ export default function NewUserPage() {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
               placeholder="Confirm the password"
             />
           </div>
@@ -275,7 +275,7 @@ export default function NewUserPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="px-6 py-2.5 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-6 py-2.5 bg-success text-white font-medium rounded-lg hover:bg-success-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? 'Creating...' : 'Create User'}
             </button>

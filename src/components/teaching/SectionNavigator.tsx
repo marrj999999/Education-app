@@ -35,7 +35,7 @@ export function SectionNavigator({
               flex-1 flex items-center justify-center gap-2
               min-h-[56px] rounded-xl font-medium text-lg
               transition-all duration-200
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-info
               ${hasPrevious
                 ? 'bg-surface-hover text-text-secondary hover:bg-surface-active active:bg-surface-active'
                 : 'bg-surface-hover text-text-tertiary cursor-not-allowed'
@@ -58,9 +58,9 @@ export function SectionNavigator({
               flex-1 flex items-center justify-center gap-2
               min-h-[56px] rounded-xl font-medium text-lg
               transition-all duration-200
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-info
               ${hasNext
-                ? 'bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700'
+                ? 'bg-info text-white hover:bg-info active:bg-info-dark'
                 : 'bg-surface-hover text-text-tertiary cursor-not-allowed'
               }
             `}
@@ -68,7 +68,7 @@ export function SectionNavigator({
           >
             <span className="hidden sm:inline">Next</span>
             <ChevronRight size={24} />
-            <kbd className="hidden lg:inline-block ml-2 px-2 py-0.5 text-xs bg-blue-400 rounded border border-blue-300 text-white">
+            <kbd className="hidden lg:inline-block ml-2 px-2 py-0.5 text-xs bg-info rounded border border-info-medium text-white">
               →
             </kbd>
           </button>

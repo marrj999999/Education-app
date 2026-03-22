@@ -36,11 +36,11 @@ interface CohortData {
 
 const statusConfig = {
   NOT_STARTED: { bg: 'bg-surface-hover', text: 'text-text-tertiary', label: 'Not Started' },
-  IN_PROGRESS: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'In Progress' },
-  SUBMITTED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Submitted' },
-  SIGNED_OFF: { bg: 'bg-green-100', text: 'text-green-700', label: 'Signed Off' },
-  REQUIRES_REVISION: { bg: 'bg-red-100', text: 'text-red-700', label: 'Needs Revision' },
-  VERIFIED: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Verified' },
+  IN_PROGRESS: { bg: 'bg-info-light', text: 'text-info-dark', label: 'In Progress' },
+  SUBMITTED: { bg: 'bg-warning-light', text: 'text-warning-dark', label: 'Submitted' },
+  SIGNED_OFF: { bg: 'bg-success-light', text: 'text-success-dark', label: 'Signed Off' },
+  REQUIRES_REVISION: { bg: 'bg-danger-light', text: 'text-danger-dark', label: 'Needs Revision' },
+  VERIFIED: { bg: 'bg-assess-light', text: 'text-assess-dark', label: 'Verified' },
 };
 
 export default function AssessmentsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -191,7 +191,7 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-assess border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-text-tertiary">Loading assessments...</p>
         </div>
       </div>
@@ -202,7 +202,7 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <svg className="w-12 h-12 mx-auto text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-12 h-12 mx-auto text-danger mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <p className="text-text-tertiary">{error || 'Failed to load'}</p>
@@ -373,7 +373,7 @@ export default function AssessmentsPage({ params }: { params: Promise<{ id: stri
                   <button
                     onClick={handleSaveAssessment}
                     disabled={isSaving}
-                    className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+                    className="px-4 py-2 text-sm font-medium text-white bg-assess rounded-lg hover:bg-assess-dark transition-colors disabled:opacity-50"
                   >
                     {isSaving ? 'Saving...' : 'Save'}
                   </button>

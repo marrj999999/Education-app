@@ -13,9 +13,9 @@ interface StatsCardProps {
 
 const colorStyles = {
   green: 'bg-bamboo-100 text-teal',
-  blue: 'bg-blue-100 text-blue-600',
-  purple: 'bg-purple-100 text-purple-600',
-  amber: 'bg-amber-100 text-amber-600',
+  blue: 'bg-info-light text-info',
+  purple: 'bg-assess-light text-assess',
+  amber: 'bg-warning-light text-warning',
   gray: 'bg-surface-hover text-text-secondary',
 };
 
@@ -39,7 +39,7 @@ export default function StatsCard({
           {trend && (
             <p
               className={`text-sm mt-2 ${
-                trend.positive ? 'text-teal' : 'text-red-600'
+                trend.positive ? 'text-teal' : 'text-danger'
               }`}
             >
               <span className="font-medium">

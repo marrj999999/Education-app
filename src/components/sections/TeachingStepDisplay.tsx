@@ -37,7 +37,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
           {/* Step Number Circle - Green for sections */}
           <div
             className={cn(
-              'flex-shrink-0 bg-green-600 text-white rounded-full',
+              'flex-shrink-0 bg-success text-white rounded-full',
               'flex items-center justify-center font-bold',
               isPresentation
                 ? 'w-24 h-24 text-present-step'
@@ -74,7 +74,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               {section.duration && (
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1.5 bg-green-100 text-green-800 rounded-full font-medium',
+                    'inline-flex items-center gap-1.5 bg-success-light text-success-darker rounded-full font-medium',
                     isPresentation
                       ? 'px-4 py-2 text-lg'
                       : isLarge
@@ -153,13 +153,13 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
         {hasTeachingApproach && (
           <div
             className={cn(
-              'mt-6 rounded-lg bg-blue-50 border-l-4 border-blue-500',
+              'mt-6 rounded-lg bg-info-light border-l-4 border-info',
               isPresentation ? 'p-5' : 'p-4'
             )}
           >
             <div
               className={cn(
-                'flex items-center gap-2 text-blue-800 font-semibold mb-2',
+                'flex items-center gap-2 text-info-darker font-semibold mb-2',
                 isPresentation ? 'text-lg' : 'text-sm'
               )}
             >
@@ -168,7 +168,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
             </div>
             <p
               className={cn(
-                'text-blue-900',
+                'text-info-darker',
                 isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
               )}
             >
@@ -181,13 +181,13 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
         {hasDifferentiation && (
           <div
             className={cn(
-              'mt-4 rounded-lg bg-purple-50 border-l-4 border-purple-500',
+              'mt-4 rounded-lg bg-assess-light border-l-4 border-assess',
               isPresentation ? 'p-5' : 'p-4'
             )}
           >
             <div
               className={cn(
-                'flex items-center gap-2 text-purple-800 font-semibold mb-2',
+                'flex items-center gap-2 text-assess-darker font-semibold mb-2',
                 isPresentation ? 'text-lg' : 'text-sm'
               )}
             >
@@ -196,7 +196,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
             </div>
             <p
               className={cn(
-                'text-purple-900',
+                'text-assess-darker',
                 isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
               )}
             >
@@ -231,13 +231,13 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               <blockquote
                 key={index}
                 className={cn(
-                  'border-l-4 border-amber-400 bg-amber-50 rounded-r-lg',
+                  'border-l-4 border-warning bg-warning-light rounded-r-lg',
                   isPresentation ? 'p-5 pl-6' : 'p-4 pl-5'
                 )}
               >
                 <div
                   className={cn(
-                    'flex items-start gap-2 text-amber-800',
+                    'flex items-start gap-2 text-warning-darker',
                     isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                   )}
                 >
@@ -352,7 +352,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                         isPresentation ? 'text-lg' : 'text-base'
                       )}
                     >
-                      <FileText size={isPresentation ? 24 : 20} className="text-blue-600 flex-shrink-0" />
+                      <FileText size={isPresentation ? 24 : 20} className="text-info flex-shrink-0" />
                       <span className="text-text-primary font-medium">
                         {resource.title || 'Download File'}
                       </span>
@@ -427,7 +427,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                   >
                     <div
                       className={cn(
-                        'flex items-center gap-2 text-blue-800 font-semibold mb-2',
+                        'flex items-center gap-2 text-info-darker font-semibold mb-2',
                         isPresentation ? 'text-lg' : 'text-sm'
                       )}
                     >
@@ -439,7 +439,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                         <li
                           key={index}
                           className={cn(
-                            'text-blue-900',
+                            'text-info-darker',
                             isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                           )}
                         >

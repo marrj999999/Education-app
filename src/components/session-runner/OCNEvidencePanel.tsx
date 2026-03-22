@@ -32,11 +32,11 @@ interface OCNEvidencePanelProps {
 
 const statusConfig = {
   NOT_STARTED: { label: 'Not Started', bg: 'bg-surface-hover', text: 'text-text-secondary', icon: '○' },
-  IN_PROGRESS: { label: 'In Progress', bg: 'bg-blue-100', text: 'text-blue-700', icon: '◐' },
-  SUBMITTED: { label: 'Submitted', bg: 'bg-amber-100', text: 'text-amber-700', icon: '◑' },
-  SIGNED_OFF: { label: 'Signed Off', bg: 'bg-green-100', text: 'text-green-700', icon: '●' },
-  REQUIRES_REVISION: { label: 'Revision', bg: 'bg-red-100', text: 'text-red-700', icon: '◌' },
-  VERIFIED: { label: 'Verified', bg: 'bg-purple-100', text: 'text-purple-700', icon: '✓' },
+  IN_PROGRESS: { label: 'In Progress', bg: 'bg-info-light', text: 'text-info-dark', icon: '◐' },
+  SUBMITTED: { label: 'Submitted', bg: 'bg-warning-light', text: 'text-warning-dark', icon: '◑' },
+  SIGNED_OFF: { label: 'Signed Off', bg: 'bg-success-light', text: 'text-success-dark', icon: '●' },
+  REQUIRES_REVISION: { label: 'Revision', bg: 'bg-danger-light', text: 'text-danger-dark', icon: '◌' },
+  VERIFIED: { label: 'Verified', bg: 'bg-assess-light', text: 'text-assess-dark', icon: '✓' },
 };
 
 export function OCNEvidencePanel({
@@ -124,7 +124,7 @@ export function OCNEvidencePanel({
   return (
     <div className="bg-surface rounded-xl shadow-sm border border-border overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-border bg-purple-50">
+      <div className="p-4 border-b border-border bg-assess-light">
         <h3 className="font-semibold text-text-primary mb-3">OCN Evidence Sign-off</h3>
 
         {/* Learner Selector */}
@@ -145,7 +145,7 @@ export function OCNEvidencePanel({
           <div className="flex items-center gap-2">
             <div className="w-16 h-2 bg-surface-active rounded-full overflow-hidden">
               <div
-                className="h-full bg-purple-500 transition-all"
+                className="h-full bg-assess transition-all"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -166,7 +166,7 @@ export function OCNEvidencePanel({
               <div key={criterion.code} className="p-4">
                 <div className="flex items-start gap-3">
                   {/* Criterion Code */}
-                  <span className="text-xs font-mono bg-purple-100 text-purple-700 px-2 py-1 rounded shrink-0">
+                  <span className="text-xs font-mono bg-assess-light text-assess-dark px-2 py-1 rounded shrink-0">
                     {criterion.code}
                   </span>
 
@@ -219,7 +219,7 @@ export function OCNEvidencePanel({
                           </button>
                           <button
                             onClick={() => handleStatusChange(criterion.code, criterion.text, currentStatus)}
-                            className="px-3 py-1 text-xs text-white bg-purple-600 rounded hover:bg-purple-700 transition-colors"
+                            className="px-3 py-1 text-xs text-white bg-assess rounded hover:bg-assess-dark transition-colors"
                           >
                             Save Note
                           </button>
@@ -231,7 +231,7 @@ export function OCNEvidencePanel({
                           setShowNotes(criterion.code);
                           setNoteText(currentSignoff?.evidenceNotes || '');
                         }}
-                        className="mt-2 text-xs text-purple-600 hover:text-purple-700"
+                        className="mt-2 text-xs text-assess hover:text-assess-dark"
                       >
                         {currentSignoff?.evidenceNotes ? 'Edit notes' : '+ Add notes'}
                       </button>

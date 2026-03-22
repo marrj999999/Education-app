@@ -20,7 +20,7 @@ export function SafetyBar({ criticalSafety }: SafetyBarProps) {
       className={`
         fixed top-0 left-0 right-0 z-50
         transition-all duration-300 ease-in-out
-        ${isExpanded ? 'bg-red-600' : 'bg-red-500'}
+        ${isExpanded ? 'bg-danger' : 'bg-danger'}
       `}
     >
       {/* Collapsed State */}
@@ -43,7 +43,7 @@ export function SafetyBar({ criticalSafety }: SafetyBarProps) {
 
       {/* Expanded Content */}
       {isExpanded && (
-        <div className="bg-red-700 border-t border-red-600">
+        <div className="bg-danger-dark border-t border-danger">
           <div className="max-w-4xl mx-auto px-4 py-4">
             {/* Close button */}
             <div className="flex justify-end mb-3">
@@ -61,7 +61,7 @@ export function SafetyBar({ criticalSafety }: SafetyBarProps) {
               {criticalSafety.map((section, index) => (
                 <div
                   key={index}
-                  className="flex gap-4 bg-red-800/50 rounded-lg p-4"
+                  className="flex gap-4 bg-danger-darker/50 rounded-lg p-4"
                 >
                   {/* Number */}
                   <span className="flex-shrink-0 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white font-bold">

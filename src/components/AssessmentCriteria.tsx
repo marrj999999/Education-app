@@ -32,9 +32,9 @@ export default function AssessmentCriteria({
   };
 
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6 print:break-inside-avoid">
-      <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
-        <CheckIcon size={18} className="text-amber-700" /> Assessment Criteria
+    <div className="bg-warning-light border border-warning-medium rounded-xl p-5 mb-6 print:break-inside-avoid">
+      <h3 className="font-semibold text-warning-darker mb-3 flex items-center gap-2">
+        <CheckIcon size={18} className="text-warning-dark" /> Assessment Criteria
       </h3>
       <div className="space-y-2">
         {criteria.map((criterion) => (
@@ -43,8 +43,8 @@ export default function AssessmentCriteria({
             className={`flex items-start gap-3 p-3 rounded-lg border transition-colors ${
               checked[criterion.id]
                 ? 'bg-bamboo-50 border-bamboo-200'
-                : 'bg-white border-amber-100'
-            } ${editable ? 'cursor-pointer hover:border-amber-300' : ''}`}
+                : 'bg-white border-warning-medium'
+            } ${editable ? 'cursor-pointer hover:border-warning-medium' : ''}`}
             onClick={() => handleToggle(criterion.id)}
           >
             <div
@@ -67,14 +67,14 @@ export default function AssessmentCriteria({
             <span className={`text-text-secondary ${checked[criterion.id] ? 'line-through opacity-60' : ''}`}>
               {criterion.text}
               {criterion.required && (
-                <span className="text-red-500 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               )}
             </span>
           </div>
         ))}
       </div>
       {criteria.some(c => c.required) && (
-        <p className="text-xs text-amber-700 mt-3">
+        <p className="text-xs text-warning-dark mt-3">
           * Required criteria must be met to pass
         </p>
       )}

@@ -103,7 +103,7 @@ export function KeyboardShortcutsHelp({ open, onOpenChange }: KeyboardShortcutsH
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <HelpCircle size={20} className="text-blue-500" />
+            <HelpCircle size={20} className="text-info" />
             Keyboard Shortcuts
           </DialogTitle>
           <DialogDescription>

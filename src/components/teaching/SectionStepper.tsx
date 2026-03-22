@@ -51,9 +51,9 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
                 relative flex items-center justify-center
                 w-10 h-10 lg:w-12 lg:h-12 rounded-full
                 transition-all duration-200
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-info
                 ${isActive
-                  ? 'bg-blue-500 text-white scale-110 shadow-lg'
+                  ? 'bg-info text-white scale-110 shadow-lg'
                   : isPast
                     ? 'bg-bamboo-100 text-teal hover:bg-bamboo-100'
                     : 'bg-surface-hover text-text-tertiary hover:bg-surface-active hover:text-text-secondary'
@@ -68,7 +68,7 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
               <span
                 className={`
                   absolute -bottom-5 text-xs font-medium
-                  ${isActive ? 'text-blue-600' : 'text-text-tertiary'}
+                  ${isActive ? 'text-info' : 'text-text-tertiary'}
                 `}
               >
                 {index + 1}
@@ -82,7 +82,7 @@ export function SectionStepper({ sections, currentIndex, onNavigate }: SectionSt
       <div className="mt-6 mb-1">
         <div className="h-1 bg-surface-active rounded-full overflow-hidden">
           <div
-            className="h-full bg-blue-500 transition-all duration-300"
+            className="h-full bg-info transition-all duration-300"
             style={{
               width: `${sections.length > 1 ? (currentIndex / (sections.length - 1)) * 100 : 100}%`,
             }}

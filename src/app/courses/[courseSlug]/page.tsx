@@ -144,8 +144,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
           <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <BookIcon size={20} className="text-blue-600" />
+              <div className="w-10 h-10 rounded-lg bg-info-light flex items-center justify-center">
+                <BookIcon size={20} className="text-info" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{totalLessons}</p>
@@ -156,8 +156,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
           <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                <CertificateIcon size={20} className="text-amber-600" />
+              <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center">
+                <CertificateIcon size={20} className="text-warning" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{course.accreditation || 'N/A'}</p>
@@ -168,8 +168,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
           <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                <LevelIcon size={20} className="text-purple-600" />
+              <div className="w-10 h-10 rounded-lg bg-assess-light flex items-center justify-center">
+                <LevelIcon size={20} className="text-assess" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{course.level}</p>
@@ -192,14 +192,14 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </div>
 
           {!courseData || courseData.modules.length === 0 ? (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
+            <div className="bg-warning-light border border-warning-medium rounded-xl p-6">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
-                  <WarningIcon size={20} className="text-amber-600" />
+                <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center flex-shrink-0">
+                  <WarningIcon size={20} className="text-warning" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-amber-800">Unable to load course content</h3>
-                  <p className="text-amber-700 text-sm mt-1">
+                  <h3 className="font-semibold text-warning-darker">Unable to load course content</h3>
+                  <p className="text-warning-dark text-sm mt-1">
                     Please check that the CMS has content for this course.
                   </p>
                 </div>

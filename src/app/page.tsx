@@ -125,8 +125,8 @@ export default async function Home() {
 
           <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <ModuleIcon size={20} className="text-blue-600" />
+              <div className="w-10 h-10 rounded-lg bg-info-light flex items-center justify-center">
+                <ModuleIcon size={20} className="text-info" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{upcomingCourses.length}</p>
@@ -137,8 +137,8 @@ export default async function Home() {
 
           <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                <CertificateIcon size={20} className="text-amber-600" />
+              <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center">
+                <CertificateIcon size={20} className="text-warning" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">OCN</p>
@@ -149,8 +149,8 @@ export default async function Home() {
 
           <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                <LevelIcon size={20} className="text-purple-600" />
+              <div className="w-10 h-10 rounded-lg bg-assess-light flex items-center justify-center">
+                <LevelIcon size={20} className="text-assess" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">Level 1-3</p>
@@ -173,8 +173,8 @@ export default async function Home() {
           </div>
 
           {enabledCourses.length === 0 ? (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
-              <p className="text-amber-800">No courses are currently enabled. Check back soon!</p>
+            <div className="bg-warning-light border border-warning-medium rounded-xl p-6">
+              <p className="text-warning-darker">No courses are currently enabled. Check back soon!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

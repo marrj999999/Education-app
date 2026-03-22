@@ -26,10 +26,10 @@ import type { ContentSection } from '@/lib/types/content';
 // Section type icons for visual identification
 const sectionTypeLabels: Record<string, { label: string; color: string }> = {
   'teaching-step': { label: 'Teaching Step', color: 'bg-bamboo-100 text-forest' },
-  'safety': { label: 'Safety', color: 'bg-red-100 text-red-800' },
-  'checklist': { label: 'Checklist', color: 'bg-blue-100 text-blue-800' },
-  'timeline': { label: 'Timeline', color: 'bg-purple-100 text-purple-800' },
-  'checkpoint': { label: 'Checkpoint', color: 'bg-amber-100 text-amber-800' },
+  'safety': { label: 'Safety', color: 'bg-danger-light text-danger-darker' },
+  'checklist': { label: 'Checklist', color: 'bg-info-light text-info-darker' },
+  'timeline': { label: 'Timeline', color: 'bg-assess-light text-assess-darker' },
+  'checkpoint': { label: 'Checkpoint', color: 'bg-warning-light text-warning-darker' },
   'outcomes': { label: 'Outcomes', color: 'bg-teal-100 text-teal-800' },
   'vocabulary': { label: 'Vocabulary', color: 'bg-indigo-100 text-indigo-800' },
   'resource': { label: 'Resource', color: 'bg-pink-100 text-pink-800' },
@@ -251,11 +251,11 @@ export default function SectionOrderPage() {
 
   if (error && !lessonData) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-        <p className="text-red-700">Error: {error}</p>
+      <div className="bg-danger-light border border-danger-medium rounded-lg p-6">
+        <p className="text-danger-dark">Error: {error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-4 text-sm text-red-600 hover:underline"
+          className="mt-4 text-sm text-danger hover:underline"
         >
           Retry
         </button>
@@ -297,7 +297,7 @@ export default function SectionOrderPage() {
           </span>
         )}
         {hasChanges && (
-          <span className="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded">
+          <span className="px-2 py-1 text-xs font-medium bg-warning-light text-warning-darker rounded">
             Unsaved Changes
           </span>
         )}
@@ -305,8 +305,8 @@ export default function SectionOrderPage() {
 
       {/* Error message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-700 text-sm">{error}</p>
+        <div className="bg-danger-light border border-danger-medium rounded-lg p-4">
+          <p className="text-danger-dark text-sm">{error}</p>
         </div>
       )}
 

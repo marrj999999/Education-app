@@ -198,7 +198,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </Link>
           <Link
             href={`/lessons/${lessonId}/teach`}
-            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-info hover:bg-info-light transition-colors"
           >
             <span className="block font-semibold text-slate-900">Teaching Mode</span>
             <span className="text-sm text-slate-500">Step-by-step delivery</span>

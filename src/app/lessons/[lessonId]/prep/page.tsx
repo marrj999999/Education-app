@@ -58,7 +58,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
             {/* Back link */}
             <Link
               href={`/lessons/${lessonId}`}
-              className="flex items-center gap-2 text-text-secondary hover:text-green-600 transition-colors"
+              className="flex items-center gap-2 text-text-secondary hover:text-success transition-colors"
             >
               <ChevronLeft size={20} />
               <span className="text-sm font-medium hidden sm:inline">Back to Lesson</span>
@@ -70,7 +70,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
               <h1 className="text-lg font-semibold text-text-primary truncate max-w-[200px] sm:max-w-none">
                 {page.title}
               </h1>
-              <span className="px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-medium rounded-full">
+              <span className="px-2 py-0.5 bg-warning-light text-warning-darker text-xs font-medium rounded-full">
                 Prep Mode
               </span>
             </div>
@@ -80,7 +80,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
               <PrintButton />
               <Link
                 href={`/lessons/${lessonId}/teach`}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors print:hidden"
+                className="flex items-center gap-2 px-4 py-2 bg-success text-white text-sm font-medium rounded-lg hover:bg-success-dark transition-colors print:hidden"
               >
                 <PlayCircle size={18} />
                 <span className="hidden sm:inline">Start Teaching</span>
@@ -130,7 +130,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
               <p className="text-text-tertiary">No structured content found for this lesson.</p>
               <Link
                 href={`/lessons/${lessonId}`}
-                className="text-green-600 hover:underline mt-2 inline-block"
+                className="text-success hover:underline mt-2 inline-block"
               >
                 View original lesson
               </Link>

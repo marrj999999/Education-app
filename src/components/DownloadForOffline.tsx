@@ -93,7 +93,7 @@ export function DownloadForOffline({ lessonId, lessonTitle }: DownloadForOffline
         state === 'success'
           ? 'bg-bamboo-100 text-forest'
           : state === 'error'
-            ? 'bg-red-100 text-red-800'
+            ? 'bg-danger-light text-danger-darker'
             : state === 'downloading'
               ? 'bg-surface-hover text-text-tertiary cursor-wait'
               : cached

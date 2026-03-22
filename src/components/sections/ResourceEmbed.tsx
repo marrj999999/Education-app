@@ -22,8 +22,8 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
         `}
       >
         <div className="flex items-center gap-4">
-          <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-            <FileText className="text-red-600" size={24} />
+          <div className="flex-shrink-0 w-12 h-12 bg-danger-light rounded-lg flex items-center justify-center">
+            <FileText className="text-danger" size={24} />
           </div>
           <div className="flex-1 min-w-0">
             <h4 className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}>

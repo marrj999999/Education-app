@@ -2,7 +2,7 @@ export default function CourseLoading() {
   return (
     <div className="min-h-screen bg-surface-hover animate-pulse">
       {/* Hero Section Skeleton */}
-      <div className="bg-green-700">
+      <div className="bg-success-dark">
         <div className="max-w-6xl mx-auto px-6 py-12 lg:py-16">
           {/* Breadcrumb */}
           <div className="mb-6">

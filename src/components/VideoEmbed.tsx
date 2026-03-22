@@ -117,8 +117,8 @@ const VideoEmbed = memo(function VideoEmbed({
           rel="noopener noreferrer"
           className="flex items-center gap-3 p-4 bg-surface-hover rounded-xl border border-border hover:bg-surface-hover hover:border-border transition-all group"
         >
-          <div className="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
-            <PlayIcon size={24} className="text-red-600" />
+          <div className="w-12 h-12 rounded-lg bg-danger-light flex items-center justify-center group-hover:bg-danger-medium transition-colors">
+            <PlayIcon size={24} className="text-danger" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-medium text-text-primary truncate">{title}</p>
@@ -161,7 +161,7 @@ const VideoEmbed = memo(function VideoEmbed({
             {/* Play button */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-white transition-all duration-300">
-                <PlayIcon size={40} className="text-red-600 ml-1" />
+                <PlayIcon size={40} className="text-danger ml-1" />
               </div>
             </div>
 

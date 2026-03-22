@@ -107,9 +107,9 @@ export function LessonContentSkeleton() {
       </div>
 
       {/* Callout skeleton */}
-      <div className="p-4 bg-blue-50 rounded-lg mb-6">
-        <div className="h-4 bg-blue-100 rounded w-full mb-2 skeleton-shimmer" />
-        <div className="h-4 bg-blue-100 rounded w-2/3 skeleton-shimmer" />
+      <div className="p-4 bg-info-light rounded-lg mb-6">
+        <div className="h-4 bg-info-light rounded w-full mb-2 skeleton-shimmer" />
+        <div className="h-4 bg-info-light rounded w-2/3 skeleton-shimmer" />
       </div>
 
       {/* List skeleton */}

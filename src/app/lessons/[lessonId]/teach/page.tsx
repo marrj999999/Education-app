@@ -163,7 +163,7 @@ export default function TeachModePage() {
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 mb-4">{error || 'Lesson not found'}</p>
+          <p className="text-danger mb-4">{error || 'Lesson not found'}</p>
           <Link
             href={`/lessons/${lessonId}`}
             className="text-teal hover:underline"

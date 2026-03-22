@@ -128,9 +128,9 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                     absolute left-4 w-5 h-5 rounded-full border-2
                     flex items-center justify-center
                     ${isPast
-                      ? 'bg-green-500 border-green-500 text-white'
+                      ? 'bg-success border-success text-white'
                       : isCurrent
-                        ? 'bg-blue-500 border-blue-500 text-white animate-pulse'
+                        ? 'bg-info border-info text-white animate-pulse'
                         : 'bg-surface border-border'
                     }
                   `}
@@ -144,7 +144,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                   className={`
                     flex-1 bg-white border rounded-lg overflow-hidden
                     ${isCurrent
-                      ? 'border-blue-300 ring-2 ring-blue-100'
+                      ? 'border-info-medium ring-2 ring-blue-100'
                       : 'border-border'
                     }
                   `}
@@ -157,7 +157,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                           className={`
                             font-mono font-semibold px-2 py-1 rounded
                             ${isCurrent
-                              ? 'bg-blue-100 text-blue-800'
+                              ? 'bg-info-light text-info-darker'
                               : 'bg-surface-hover text-text-secondary'
                             }
                           `}
@@ -179,7 +179,7 @@ export function TimelineOverview({ sections }: TimelineOverviewProps) {
                         className={`
                           flex-shrink-0 text-sm px-2 py-0.5 rounded-full
                           ${isCurrent
-                            ? 'bg-blue-100 text-blue-700'
+                            ? 'bg-info-light text-info-dark'
                             : 'bg-surface-hover text-text-secondary'
                           }
                         `}

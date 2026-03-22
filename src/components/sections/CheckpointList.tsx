@@ -51,12 +51,12 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
   const totalCount = section.items.length;
 
   return (
-    <div className="bg-surface border border-border rounded-lg overflow-hidden border-l-4 border-l-purple-500">
+    <div className="bg-surface border border-border rounded-lg overflow-hidden border-l-4 border-l-assess">
       {/* Header */}
       <div className={`border-b border-border ${isLarge ? 'p-5' : 'p-4'}`}>
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-3">
-            <ClipboardCheck className="text-purple-600" size={isLarge ? 24 : 20} />
+            <ClipboardCheck className="text-assess" size={isLarge ? 24 : 20} />
             <h3 className={`font-semibold text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}>
               {section.title}
             </h3>
@@ -64,7 +64,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
           <span
             className={`
               text-sm font-medium
-              ${completedCount === totalCount ? 'text-green-600' : 'text-text-tertiary'}
+              ${completedCount === totalCount ? 'text-success' : 'text-text-tertiary'}
             `}
           >
             {completedCount} of {totalCount} verified
@@ -86,7 +86,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                     w-full flex items-start gap-3 text-left rounded-lg
                     transition-all duration-150
                     ${isLarge ? 'p-3 min-h-[52px]' : 'p-2 min-h-[44px]'}
-                    ${isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-surface-hover'}
+                    ${isChecked ? 'bg-success-light hover:bg-success-light' : 'hover:bg-surface-hover'}
                   `}
                   aria-pressed={isChecked}
                 >
@@ -97,7 +97,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                       transition-all duration-200
                       ${isLarge ? 'w-6 h-6' : 'w-5 h-5'}
                       ${isChecked
-                        ? 'bg-green-500 text-white scale-110'
+                        ? 'bg-success text-white scale-110'
                         : 'border-2 border-border text-transparent'
                       }
                     `}

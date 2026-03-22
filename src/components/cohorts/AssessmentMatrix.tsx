@@ -36,11 +36,11 @@ interface AssessmentMatrixProps {
 
 const statusConfig: Record<Assessment['status'], { bg: string; text: string; label: string; icon: string }> = {
   NOT_STARTED: { bg: 'bg-surface-hover', text: 'text-text-tertiary', label: 'Not Started', icon: '○' },
-  IN_PROGRESS: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'In Progress', icon: '◐' },
-  SUBMITTED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Submitted', icon: '◑' },
-  SIGNED_OFF: { bg: 'bg-green-100', text: 'text-green-700', label: 'Signed Off', icon: '●' },
-  REQUIRES_REVISION: { bg: 'bg-red-100', text: 'text-red-700', label: 'Revision', icon: '◌' },
-  VERIFIED: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Verified', icon: '✓' },
+  IN_PROGRESS: { bg: 'bg-info-light', text: 'text-info-dark', label: 'In Progress', icon: '◐' },
+  SUBMITTED: { bg: 'bg-warning-light', text: 'text-warning-dark', label: 'Submitted', icon: '◑' },
+  SIGNED_OFF: { bg: 'bg-success-light', text: 'text-success-dark', label: 'Signed Off', icon: '●' },
+  REQUIRES_REVISION: { bg: 'bg-danger-light', text: 'text-danger-dark', label: 'Revision', icon: '◌' },
+  VERIFIED: { bg: 'bg-assess-light', text: 'text-assess-dark', label: 'Verified', icon: '✓' },
 };
 
 export function AssessmentMatrix({ learners, criteria, assessments, onCellClick }: AssessmentMatrixProps) {
@@ -181,7 +181,7 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
                 <tr key={learner.id} className="hover:bg-surface-hover">
                   <td className="py-3 px-4 sticky left-0 bg-surface z-10">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-info flex items-center justify-center text-white text-xs font-medium shrink-0">
                         {learner.firstName[0]}
                         {learner.lastName[0]}
                       </div>
@@ -216,7 +216,7 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
                     <div className="flex items-center justify-center gap-2">
                       <div className="w-12 h-2 bg-surface-active rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-purple-500 transition-all"
+                          className="h-full bg-assess transition-all"
                           style={{ width: `${progress}%` }}
                         />
                       </div>

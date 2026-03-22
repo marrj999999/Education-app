@@ -14,10 +14,10 @@ interface AttendanceQuickBarProps {
 }
 
 const statusConfig = {
-  PRESENT: { label: 'P', bg: 'bg-green-500', hoverBg: 'hover:bg-green-600', title: 'Present' },
-  LATE: { label: 'L', bg: 'bg-amber-500', hoverBg: 'hover:bg-amber-600', title: 'Late' },
-  ABSENT: { label: 'A', bg: 'bg-red-500', hoverBg: 'hover:bg-red-600', title: 'Absent' },
-  EXCUSED: { label: 'E', bg: 'bg-blue-500', hoverBg: 'hover:bg-blue-600', title: 'Excused' },
+  PRESENT: { label: 'P', bg: 'bg-success', hoverBg: 'hover:bg-success', title: 'Present' },
+  LATE: { label: 'L', bg: 'bg-warning', hoverBg: 'hover:bg-warning', title: 'Late' },
+  ABSENT: { label: 'A', bg: 'bg-danger', hoverBg: 'hover:bg-danger', title: 'Absent' },
+  EXCUSED: { label: 'E', bg: 'bg-info', hoverBg: 'hover:bg-info', title: 'Excused' },
 };
 
 export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuickBarProps) {
@@ -43,10 +43,10 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
         <div className="flex items-center justify-between mb-3">
           <h4 className="text-sm font-medium text-text-secondary">Quick Attendance</h4>
           <div className="flex items-center gap-4 text-sm">
-            <span className="text-green-600">{summary.PRESENT} present</span>
-            <span className="text-amber-600">{summary.LATE} late</span>
-            <span className="text-red-600">{summary.ABSENT} absent</span>
-            {summary.EXCUSED > 0 && <span className="text-blue-600">{summary.EXCUSED} excused</span>}
+            <span className="text-success">{summary.PRESENT} present</span>
+            <span className="text-warning">{summary.LATE} late</span>
+            <span className="text-danger">{summary.ABSENT} absent</span>
+            {summary.EXCUSED > 0 && <span className="text-info">{summary.EXCUSED} excused</span>}
             {summary.unmarked > 0 && <span className="text-text-tertiary">{summary.unmarked} unmarked</span>}
           </div>
         </div>
@@ -63,7 +63,7 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
                 className="flex items-center gap-2 bg-surface-hover rounded-lg p-2 min-w-[180px]"
               >
                 {/* Avatar */}
-                <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium shrink-0">
+                <div className="w-8 h-8 rounded-full bg-info flex items-center justify-center text-white text-xs font-medium shrink-0">
                   {learner.firstName[0]}
                   {learner.lastName[0]}
                 </div>

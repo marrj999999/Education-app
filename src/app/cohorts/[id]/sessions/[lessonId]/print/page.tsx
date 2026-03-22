@@ -126,7 +126,7 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-text-tertiary">Loading print pack...</p>
         </div>
       </div>
@@ -137,10 +137,10 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-500 mb-4">{error || 'Failed to load'}</p>
+          <p className="text-danger mb-4">{error || 'Failed to load'}</p>
           <Link
             href={`/cohorts/${id}/sessions/${lessonId}`}
-            className="text-blue-600 hover:underline"
+            className="text-info hover:underline"
           >
             Back to Session
           </Link>
@@ -191,7 +191,7 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
           </Link>
           <button
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-success text-white font-medium rounded-lg hover:bg-success-dark transition-colors"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />

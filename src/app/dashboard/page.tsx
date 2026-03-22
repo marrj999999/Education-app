@@ -212,7 +212,7 @@ export default async function DashboardPage() {
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${
                                 cohort.status === 'IN_PROGRESS'
                                   ? 'bg-bamboo-100 text-forest'
-                                  : 'bg-blue-50 text-blue-700'
+                                  : 'bg-info-light text-info-dark'
                               }`}>
                                 {cohort.status === 'IN_PROGRESS' ? 'Active' : 'Scheduled'}
                               </span>
@@ -287,7 +287,7 @@ export default async function DashboardPage() {
                                 {sess.cohort?.name}
                               </p>
                             </div>
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium flex-shrink-0 ml-2">
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-warning-light text-warning-dark font-medium flex-shrink-0 ml-2">
                               {formatRelativeDate(new Date(sess.scheduledDate))}
                             </span>
                           </div>
@@ -333,11 +333,11 @@ export default async function DashboardPage() {
               </Link>
 
               <Link href={courses[0] ? `/courses/${courses[0].slug}` : '#'} className="block">
-                <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-blue-100 hover:border-blue-200">
+                <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-info-light hover:border-info-medium">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="w-5 h-5 text-blue-600" />
+                      <div className="w-10 h-10 rounded-lg bg-info-light flex items-center justify-center flex-shrink-0">
+                        <BookOpen className="w-5 h-5 text-info" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-medium text-text-primary mb-1">Browse Courses</h3>
@@ -353,11 +353,11 @@ export default async function DashboardPage() {
 
               {isAdmin && (
                 <Link href="/admin" className="block">
-                  <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-purple-100 hover:border-purple-200">
+                  <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-assess-light hover:border-assess-medium">
                     <CardContent className="pt-6">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
-                          <Settings className="w-5 h-5 text-purple-600" />
+                        <div className="w-10 h-10 rounded-lg bg-assess-light flex items-center justify-center flex-shrink-0">
+                          <Settings className="w-5 h-5 text-assess" />
                         </div>
                         <div className="flex-1">
                           <h3 className="font-medium text-text-primary mb-1">Admin Panel</h3>
@@ -419,7 +419,7 @@ export default async function DashboardPage() {
                             {course.level}
                           </span>
                           {course.accreditation && (
-                            <span className="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">
+                            <span className="text-xs px-2 py-1 rounded-full bg-warning-light text-warning-dark">
                               {course.accreditation}
                             </span>
                           )}

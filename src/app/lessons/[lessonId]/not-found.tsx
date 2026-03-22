@@ -16,7 +16,7 @@ export default function LessonNotFound() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-warning text-white rounded-lg hover:bg-warning transition-colors"
         >
           <HomeIcon size={20} />
           Back to Dashboard

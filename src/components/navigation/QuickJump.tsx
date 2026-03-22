@@ -311,14 +311,14 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
               className={cn(
                 'w-full flex items-center gap-3 px-4 py-3 text-left transition-colors',
                 'min-h-[52px]',
-                index === selectedIndex ? 'bg-blue-50' : 'hover:bg-surface-hover'
+                index === selectedIndex ? 'bg-info-light' : 'hover:bg-surface-hover'
               )}
             >
               {/* Icon */}
               <div
                 className={cn(
                   'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0',
-                  index === selectedIndex ? 'bg-blue-100 text-blue-600' : 'bg-surface-hover text-text-tertiary'
+                  index === selectedIndex ? 'bg-info-light text-info' : 'bg-surface-hover text-text-tertiary'
                 )}
               >
                 {lesson.icon ? (
@@ -333,7 +333,7 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
                 <p
                   className={cn(
                     'font-medium truncate',
-                    index === selectedIndex ? 'text-blue-900' : 'text-text-primary'
+                    index === selectedIndex ? 'text-info-darker' : 'text-text-primary'
                   )}
                 >
                   {lesson.title}
@@ -348,7 +348,7 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
                 size={16}
                 className={cn(
                   'flex-shrink-0 transition-transform',
-                  index === selectedIndex ? 'text-blue-500 translate-x-1' : 'text-text-tertiary'
+                  index === selectedIndex ? 'text-info translate-x-1' : 'text-text-tertiary'
                 )}
               />
             </button>

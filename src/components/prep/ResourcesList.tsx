@@ -72,9 +72,9 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
   };
 
   const resourceColors: Record<string, string> = {
-    pdf: 'bg-red-50 text-red-600 border-red-200',
-    video: 'bg-purple-50 text-purple-600 border-purple-200',
-    image: 'bg-blue-50 text-blue-600 border-blue-200',
+    pdf: 'bg-danger-light text-danger border-danger-medium',
+    video: 'bg-assess-light text-assess border-assess-medium',
+    image: 'bg-info-light text-info border-info-medium',
     file: 'bg-surface-hover text-text-secondary border-border',
   };
 
@@ -107,7 +107,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                 className={`
                   text-sm font-medium px-3 py-1 rounded-full
                   ${printedCount === printableResources.length
-                    ? 'bg-green-100 text-green-800'
+                    ? 'bg-success-light text-success-darker'
                     : 'bg-surface-hover text-text-secondary'
                   }
                 `}
@@ -128,7 +128,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                   key={resource.id}
                   className={`
                     p-4 flex items-center gap-4
-                    ${isPrinted ? 'bg-green-50' : ''}
+                    ${isPrinted ? 'bg-success-light' : ''}
                   `}
                 >
                   {/* Icon */}
@@ -175,7 +175,7 @@ export function ResourcesList({ sections, lessonId }: ResourcesListProps) {
                         inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-lg
                         transition-colors min-h-[36px]
                         ${isPrinted
-                          ? 'bg-green-500 text-white hover:bg-green-600'
+                          ? 'bg-success text-white hover:bg-success'
                           : 'bg-surface border border-border text-text-secondary hover:bg-surface-hover'
                         }
                       `}

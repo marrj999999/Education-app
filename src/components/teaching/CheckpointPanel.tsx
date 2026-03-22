@@ -74,8 +74,8 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
           onClick={() => setIsExpanded(true)}
           className="
             flex items-center gap-2 px-4 py-3
-            bg-purple-600 text-white rounded-full shadow-lg
-            hover:bg-purple-700 transition-colors
+            bg-assess text-white rounded-full shadow-lg
+            hover:bg-assess-dark transition-colors
             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
           "
         >
@@ -91,18 +91,18 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
       {isExpanded && (
         <div className="bg-surface rounded-xl shadow-2xl border border-border overflow-hidden">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-purple-600 text-white">
+          <div className="flex items-center justify-between px-4 py-3 bg-assess text-white">
             <div className="flex items-center gap-2">
               <ClipboardCheck size={20} />
               <span className="font-semibold">Checkpoints</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-purple-200">
+              <span className="text-sm text-assess-medium">
                 {completedItems}/{totalItems}
               </span>
               <button
                 onClick={() => setIsExpanded(false)}
-                className="p-1 hover:bg-purple-500 rounded transition-colors"
+                className="p-1 hover:bg-assess rounded transition-colors"
                 aria-label="Collapse checkpoints"
               >
                 <ChevronDown size={18} />
@@ -150,7 +150,7 @@ export function CheckpointPanel({ checkpoints, lessonId }: CheckpointPanelProps)
           <div className="px-3 pb-3">
             <div className="h-2 bg-surface-active rounded-full overflow-hidden">
               <div
-                className="h-full bg-purple-500 transition-all duration-300"
+                className="h-full bg-assess transition-all duration-300"
                 style={{ width: `${totalItems > 0 ? (completedItems / totalItems) * 100 : 0}%` }}
               />
             </div>

@@ -53,8 +53,8 @@ function AuthErrorContent() {
 
         {/* Error Card */}
         <div className="bg-surface rounded-2xl shadow-xl border border-border p-8">
-          <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 flex items-center justify-center">
-            <WarningIcon size={32} className="text-red-600" />
+          <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-danger-light flex items-center justify-center">
+            <WarningIcon size={32} className="text-danger" />
           </div>
 
           <h1 className="text-2xl font-bold text-text-primary mb-3">

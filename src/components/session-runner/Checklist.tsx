@@ -42,7 +42,7 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
             </span>
             <div className="w-20 h-2 bg-surface-active rounded-full overflow-hidden">
               <div
-                className="h-full bg-green-500 transition-all duration-300"
+                className="h-full bg-success transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -67,8 +67,8 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
               <div
                 className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${
                   item.completed
-                    ? 'bg-green-500 border-green-500'
-                    : 'border-border hover:border-green-400'
+                    ? 'bg-success border-success'
+                    : 'border-border hover:border-success'
                 }`}
               >
                 {item.completed && (
@@ -91,8 +91,8 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
 
       {/* Completion indicator */}
       {progress === 100 && (
-        <div className="p-4 bg-green-50 border-t border-green-100">
-          <div className="flex items-center gap-2 text-green-700">
+        <div className="p-4 bg-success-light border-t border-success-light">
+          <div className="flex items-center gap-2 text-success-dark">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

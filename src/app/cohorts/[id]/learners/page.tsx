@@ -224,7 +224,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-muted-foreground">Loading learners...</p>
         </div>
       </div>
@@ -235,7 +235,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="w-12 h-12 mx-auto text-red-400 mb-4" />
+          <AlertCircle className="w-12 h-12 mx-auto text-danger mb-4" />
           <p className="text-muted-foreground">{error || 'Failed to load'}</p>
           <Link href={`/cohorts/${id}`}>
             <Button variant="outline" className="mt-4">
@@ -275,7 +275,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
       </header>
 
       {/* Hero Section */}
-      <div className="bg-green-700 text-white">
+      <div className="bg-success-dark text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Breadcrumb className="mb-4">
             <BreadcrumbList>
@@ -300,22 +300,22 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold">Learners</h1>
-              <p className="text-green-100 mt-2">
+              <p className="text-success-light mt-2">
                 Manage your cohort learners
               </p>
             </div>
             <div className="flex gap-6 text-center">
               <div>
                 <p className="text-2xl font-bold">{activeCount}</p>
-                <p className="text-green-100 text-sm">Active</p>
+                <p className="text-success-light text-sm">Active</p>
               </div>
               <div>
                 <p className="text-2xl font-bold">{completedCount}</p>
-                <p className="text-green-100 text-sm">Completed</p>
+                <p className="text-success-light text-sm">Completed</p>
               </div>
               <div>
                 <p className="text-2xl font-bold">{withdrawnCount}</p>
-                <p className="text-green-100 text-sm">Withdrawn</p>
+                <p className="text-success-light text-sm">Withdrawn</p>
               </div>
             </div>
           </div>

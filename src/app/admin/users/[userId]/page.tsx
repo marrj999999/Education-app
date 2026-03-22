@@ -243,7 +243,7 @@ export default function EditUserPage({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+        <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -254,7 +254,7 @@ export default function EditUserPage({
         <h2 className="text-xl font-semibold text-text-primary">User not found</h2>
         <Link
           href="/admin/users"
-          className="mt-4 inline-block text-green-600 hover:text-green-700"
+          className="mt-4 inline-block text-success hover:text-success-dark"
         >
           Back to Users
         </Link>
@@ -283,7 +283,7 @@ export default function EditUserPage({
               className="w-16 h-16 rounded-full object-cover"
             />
           ) : (
-            <div className="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-white text-2xl font-medium">
+            <div className="w-16 h-16 rounded-full bg-success flex items-center justify-center text-white text-2xl font-medium">
               {(user.name || user.email)[0].toUpperCase()}
             </div>
           )}
@@ -306,13 +306,13 @@ export default function EditUserPage({
             </h2>
 
             {error && (
-              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              <div className="mb-4 p-4 bg-danger-light border border-danger-medium rounded-lg text-danger-dark text-sm">
                 {error}
               </div>
             )}
 
             {success && (
-              <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+              <div className="mb-4 p-4 bg-success-light border border-success-medium rounded-lg text-success-dark text-sm">
                 {success}
               </div>
             )}
@@ -328,7 +328,7 @@ export default function EditUserPage({
                   type="text"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
                 />
               </div>
 
@@ -342,7 +342,7 @@ export default function EditUserPage({
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
                 />
               </div>
 
@@ -356,7 +356,7 @@ export default function EditUserPage({
                   value={formData.role}
                   onChange={handleChange}
                   disabled={isSelf}
-                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none disabled:bg-surface-hover disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none disabled:bg-surface-hover disabled:cursor-not-allowed"
                 >
                   {availableRoles.map((role) => (
                     <option key={role.value} value={role.value}>
@@ -365,7 +365,7 @@ export default function EditUserPage({
                   ))}
                 </select>
                 {isSelf && (
-                  <p className="mt-1 text-sm text-amber-600">
+                  <p className="mt-1 text-sm text-warning">
                     You cannot change your own role
                   </p>
                 )}
@@ -382,7 +382,7 @@ export default function EditUserPage({
                     disabled={isSelf}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-surface-active peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed" />
+                  <div className="w-11 h-6 bg-surface-active peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success peer-disabled:opacity-50 peer-disabled:cursor-not-allowed" />
                 </label>
                 <span className="text-sm font-medium text-text-secondary">
                   Account Active
@@ -395,7 +395,7 @@ export default function EditUserPage({
                   <button
                     type="button"
                     onClick={() => setShowPasswordFields(true)}
-                    className="text-sm text-green-600 hover:text-green-700 font-medium"
+                    className="text-sm text-success hover:text-success-dark font-medium"
                   >
                     Reset Password
                   </button>
@@ -410,7 +410,7 @@ export default function EditUserPage({
                         type="password"
                         value={formData.newPassword}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
                         placeholder="Enter new password"
                       />
                     </div>
@@ -423,7 +423,7 @@ export default function EditUserPage({
                         type="password"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-success focus:border-transparent outline-none"
                         placeholder="Confirm new password"
                       />
                     </div>
@@ -451,14 +451,14 @@ export default function EditUserPage({
                   type="button"
                   onClick={handleDelete}
                   disabled={isSelf}
-                  className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-danger hover:bg-danger-light rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Delete User
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-6 py-2.5 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-6 py-2.5 bg-success text-white font-medium rounded-lg hover:bg-success-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -501,8 +501,8 @@ export default function EditUserPage({
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                       user.isActive
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
+                        ? 'bg-success-light text-success-darker'
+                        : 'bg-danger-light text-danger-darker'
                     }`}
                   >
                     {user.isActive ? 'Active' : 'Suspended'}
@@ -528,7 +528,7 @@ export default function EditUserPage({
                       {assignment.course.title}
                     </span>
                     {assignment.isPrimary && (
-                      <span className="text-xs text-green-600 font-medium">
+                      <span className="text-xs text-success font-medium">
                         Primary
                       </span>
                     )}
@@ -556,9 +556,9 @@ export default function EditUserPage({
                     <span
                       className={`text-xs font-medium ${
                         enrollment.status === 'ACTIVE'
-                          ? 'text-green-600'
+                          ? 'text-success'
                           : enrollment.status === 'COMPLETED'
-                          ? 'text-blue-600'
+                          ? 'text-info'
                           : 'text-text-tertiary'
                       }`}
                     >

@@ -36,11 +36,11 @@ interface LearnerTableProps {
 }
 
 const statusConfig: Record<EnrichedLearner['status'], { bg: string; text: string; label: string }> = {
-  ENROLLED: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Enrolled' },
-  ACTIVE: { bg: 'bg-green-100', text: 'text-green-700', label: 'Active' },
-  DEFERRED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Deferred' },
-  WITHDRAWN: { bg: 'bg-red-100', text: 'text-red-700', label: 'Withdrawn' },
-  COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Completed' },
+  ENROLLED: { bg: 'bg-info-light', text: 'text-info-dark', label: 'Enrolled' },
+  ACTIVE: { bg: 'bg-success-light', text: 'text-success-dark', label: 'Active' },
+  DEFERRED: { bg: 'bg-warning-light', text: 'text-warning-dark', label: 'Deferred' },
+  WITHDRAWN: { bg: 'bg-danger-light', text: 'text-danger-dark', label: 'Withdrawn' },
+  COMPLETED: { bg: 'bg-assess-light', text: 'text-assess-dark', label: 'Completed' },
   FAILED: { bg: 'bg-surface-hover', text: 'text-text-secondary', label: 'Failed' },
 };
 
@@ -227,7 +227,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                 <tr key={learner.id} className="hover:bg-surface-hover">
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-info flex items-center justify-center text-white font-medium shrink-0">
                         {learner.firstName[0]}
                         {learner.lastName[0]}
                       </div>
@@ -262,10 +262,10 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                           <div
                             className={`h-full transition-all ${
                               learner.attendanceRate >= 80
-                                ? 'bg-green-500'
+                                ? 'bg-success'
                                 : learner.attendanceRate >= 60
-                                ? 'bg-amber-500'
-                                : 'bg-red-500'
+                                ? 'bg-warning'
+                                : 'bg-danger'
                             }`}
                             style={{ width: `${learner.attendanceRate}%` }}
                           />
@@ -285,7 +285,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                       <div className="flex items-center gap-2">
                         <div className="w-16 h-2 bg-surface-active rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-purple-500 transition-all"
+                            className="h-full bg-assess transition-all"
                             style={{ width: `${learner.assessmentProgress}%` }}
                           />
                         </div>
@@ -302,7 +302,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                     <div className="flex justify-end gap-1">
                       <button
                         onClick={() => onEdit(learner)}
-                        className="p-2 text-text-tertiary hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-text-tertiary hover:text-info hover:bg-info-light rounded-lg transition-colors"
                         title="Edit learner"
                       >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -316,7 +316,7 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                       </button>
                       <button
                         onClick={() => onDelete(learner)}
-                        className="p-2 text-text-tertiary hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-text-tertiary hover:text-danger hover:bg-danger-light rounded-lg transition-colors"
                         title="Delete learner"
                       >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

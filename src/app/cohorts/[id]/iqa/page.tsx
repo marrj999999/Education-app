@@ -46,10 +46,10 @@ interface CohortData {
 }
 
 const statusConfig: Record<IqaSample['status'], { bg: string; text: string; label: string }> = {
-  PLANNED: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Planned' },
-  IN_PROGRESS: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'In Progress' },
-  COMPLETED: { bg: 'bg-green-100', text: 'text-green-700', label: 'Completed' },
-  ACTION_REQUIRED: { bg: 'bg-red-100', text: 'text-red-700', label: 'Action Required' },
+  PLANNED: { bg: 'bg-info-light', text: 'text-info-dark', label: 'Planned' },
+  IN_PROGRESS: { bg: 'bg-warning-light', text: 'text-warning-dark', label: 'In Progress' },
+  COMPLETED: { bg: 'bg-success-light', text: 'text-success-dark', label: 'Completed' },
+  ACTION_REQUIRED: { bg: 'bg-danger-light', text: 'text-danger-dark', label: 'Action Required' },
 };
 
 export default function IqaPage({ params }: { params: Promise<{ id: string }> }) {
@@ -158,7 +158,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-assess border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-text-tertiary">Loading IQA samples...</p>
         </div>
       </div>
@@ -169,7 +169,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <svg className="w-12 h-12 mx-auto text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-12 h-12 mx-auto text-danger mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <p className="text-text-tertiary">{error || 'Failed to load'}</p>
@@ -216,7 +216,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
 
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-assess text-white text-sm font-medium rounded-lg hover:bg-assess-dark transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -250,7 +250,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
         </Breadcrumb>
 
         {/* Info Card */}
-        <div className="bg-purple-50 rounded-xl p-6 mb-8 border border-purple-100">
+        <div className="bg-assess-light rounded-xl p-6 mb-8 border border-assess-light">
           <h2 className="font-semibold text-text-primary mb-2">About IQA Sampling</h2>
           <p className="text-sm text-text-secondary">
             Internal Quality Assurance involves sampling learner work to verify assessment decisions.
@@ -268,7 +268,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
             <p className="text-text-tertiary mb-4">No IQA samples yet.</p>
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-assess text-white text-sm font-medium rounded-lg hover:bg-assess-dark transition-colors"
             >
               Create First Sample
             </button>
@@ -423,7 +423,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
                 <button
                   onClick={handleSaveSample}
                   disabled={isSaving}
-                  className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+                  className="px-4 py-2 text-sm font-medium text-white bg-assess rounded-lg hover:bg-assess-dark transition-colors disabled:opacity-50"
                 >
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>

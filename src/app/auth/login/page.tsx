@@ -77,7 +77,7 @@ function LoginForm() {
 
       <div className="bg-surface rounded-2xl shadow-xl border border-border p-8 bamboo-stripe overflow-hidden">
         {errorMessage && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+          <div className="mb-6 p-4 bg-danger-light border border-danger-medium rounded-lg text-danger-dark text-sm">
             {errorMessage}
           </div>
         )}

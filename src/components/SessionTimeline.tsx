@@ -26,10 +26,10 @@ interface SessionTimelineProps {
 }
 
 const typeColors: Record<Activity['type'], string> = {
-  intro: 'bg-blue-100 text-blue-700 border-blue-300',
-  demo: 'bg-purple-100 text-purple-700 border-purple-300',
+  intro: 'bg-info-light text-info-dark border-info-medium',
+  demo: 'bg-assess-light text-assess-dark border-assess-medium',
   practice: 'bg-bamboo-100 text-teal border-bamboo-200',
-  assessment: 'bg-amber-100 text-amber-700 border-amber-300',
+  assessment: 'bg-warning-light text-warning-dark border-warning-medium',
   break: 'bg-surface-hover text-text-secondary border-border',
   discussion: 'bg-cyan-100 text-cyan-700 border-cyan-300',
 };

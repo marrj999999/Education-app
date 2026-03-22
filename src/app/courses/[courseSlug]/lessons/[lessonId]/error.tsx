@@ -21,9 +21,9 @@ export default function LessonError({ error, reset }: ErrorProps) {
   return (
     <div className="min-h-screen bg-surface-hover flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-surface rounded-2xl shadow-lg p-8 text-center">
-        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-100 flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-warning-light flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-amber-600"
+            className="w-8 h-8 text-warning"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

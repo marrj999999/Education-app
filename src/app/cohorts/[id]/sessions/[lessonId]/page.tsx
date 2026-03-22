@@ -69,10 +69,10 @@ interface SessionData {
 }
 
 const statusColors: Record<string, { bg: string; text: string }> = {
-  SCHEDULED: { bg: 'bg-blue-100', text: 'text-blue-700' },
-  IN_PROGRESS: { bg: 'bg-green-100', text: 'text-green-700' },
-  COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700' },
-  CANCELLED: { bg: 'bg-red-100', text: 'text-red-700' },
+  SCHEDULED: { bg: 'bg-info-light', text: 'text-info-dark' },
+  IN_PROGRESS: { bg: 'bg-success-light', text: 'text-success-dark' },
+  COMPLETED: { bg: 'bg-assess-light', text: 'text-assess-dark' },
+  CANCELLED: { bg: 'bg-danger-light', text: 'text-danger-dark' },
 };
 
 export default function SessionRunnerPage({ params }: { params: Promise<{ id: string; lessonId: string }> }) {
@@ -264,7 +264,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
           <p className="mt-2 text-text-tertiary">Loading session...</p>
         </div>
       </div>
@@ -275,7 +275,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <svg className="w-12 h-12 mx-auto text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-12 h-12 mx-auto text-danger mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <p className="text-text-tertiary">{error || 'Session not found'}</p>
@@ -313,7 +313,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                 onClick={() => setShowAttendance(!showAttendance)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                   showAttendance
-                    ? 'bg-green-100 text-green-700'
+                    ? 'bg-success-light text-success-dark'
                     : 'bg-surface-hover text-text-secondary hover:bg-surface-active'
                 }`}
               >
@@ -326,7 +326,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
               {session.status === 'SCHEDULED' && (
                 <button
                   onClick={() => handleSessionStatusChange('IN_PROGRESS')}
-                  className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                  className="px-4 py-2 bg-success text-white text-sm font-medium rounded-lg hover:bg-success-dark transition-colors"
                 >
                   Start Session
                 </button>
@@ -335,7 +335,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
               {session.status === 'IN_PROGRESS' && (
                 <button
                   onClick={() => handleSessionStatusChange('COMPLETED')}
-                  className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors"
+                  className="px-4 py-2 bg-assess text-white text-sm font-medium rounded-lg hover:bg-assess-dark transition-colors"
                 >
                   End Session
                 </button>
@@ -359,7 +359,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                   key={learner.id}
                   className="flex items-center gap-2 bg-surface-hover rounded-lg p-2"
                 >
-                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium">
+                  <div className="w-8 h-8 rounded-full bg-info flex items-center justify-center text-white text-xs font-medium">
                     {learner.firstName[0]}{learner.lastName[0]}
                   </div>
                   <span className="text-sm font-medium text-text-primary">
@@ -373,10 +373,10 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                         className={`w-6 h-6 rounded flex items-center justify-center text-xs transition-colors ${
                           attendance?.status === status
                             ? status === 'PRESENT'
-                              ? 'bg-green-500 text-white'
+                              ? 'bg-success text-white'
                               : status === 'LATE'
-                              ? 'bg-amber-500 text-white'
-                              : 'bg-red-500 text-white'
+                              ? 'bg-warning text-white'
+                              : 'bg-danger text-white'
                             : 'bg-surface-active text-text-secondary hover:bg-surface-active'
                         }`}
                         title={status}
@@ -416,8 +416,8 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                           <div
                             className={`h-full transition-all ${
                               (timerStates[block.id]?.elapsed || 0) > block.durationMins * 60
-                                ? 'bg-red-500'
-                                : 'bg-green-500'
+                                ? 'bg-danger'
+                                : 'bg-success'
                             }`}
                             style={{
                               width: `${Math.min(100, ((timerStates[block.id]?.elapsed || 0) / (block.durationMins * 60)) * 100)}%`,
@@ -430,7 +430,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                       {!timerStates[block.id]?.running ? (
                         <button
                           onClick={() => handleTimerAction(block.id, timerStates[block.id]?.elapsed ? 'RESUME' : 'START')}
-                          className="p-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+                          className="p-2 bg-success-light text-success-dark rounded-lg hover:bg-success-medium transition-colors"
                         >
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
@@ -439,7 +439,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                       ) : (
                         <button
                           onClick={() => handleTimerAction(block.id, 'PAUSE')}
-                          className="p-2 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-colors"
+                          className="p-2 bg-warning-light text-warning-dark rounded-lg hover:bg-warning-medium transition-colors"
                         >
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
@@ -475,7 +475,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => handleChecklistToggle(block.id, index)}
-                            className="w-5 h-5 rounded border-border text-green-600 focus:ring-green-500"
+                            className="w-5 h-5 rounded border-border text-success focus:ring-success"
                           />
                           <span className={isChecked ? 'text-text-tertiary line-through' : 'text-text-primary'}>
                             {item}
@@ -520,9 +520,9 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
 
               {/* Key Point */}
               {block.blockType === 'KEY_POINT' && (
-                <div className="p-6 bg-amber-50 border-l-4 border-amber-400">
+                <div className="p-6 bg-warning-light border-l-4 border-warning">
                   <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-amber-500 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-warning mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
                     <p className="text-text-primary">{block.content.text}</p>
@@ -532,13 +532,13 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
 
               {/* Activity */}
               {block.blockType === 'ACTIVITY' && (
-                <div className="p-6 bg-green-50 border-l-4 border-green-400">
+                <div className="p-6 bg-success-light border-l-4 border-success">
                   <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 text-success mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div>
-                      <p className="font-medium text-green-800 mb-1">Activity</p>
+                      <p className="font-medium text-success-darker mb-1">Activity</p>
                       <p className="text-text-secondary">{block.content.text}</p>
                     </div>
                   </div>
@@ -547,13 +547,13 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
 
               {/* Discussion */}
               {block.blockType === 'DISCUSSION' && (
-                <div className="p-6 bg-blue-50 border-l-4 border-blue-400">
+                <div className="p-6 bg-info-light border-l-4 border-info">
                   <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-blue-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 text-info mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                     <div>
-                      <p className="font-medium text-blue-800 mb-1">Discussion</p>
+                      <p className="font-medium text-info-darker mb-1">Discussion</p>
                       <p className="text-text-secondary">{block.content.text}</p>
                     </div>
                   </div>
@@ -567,7 +567,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
                   <div className="space-y-2">
                     {(block.content.criteria || []).map((criterion, i) => (
                       <div key={i} className="flex items-start gap-3 p-3 bg-surface-hover rounded-lg">
-                        <span className="text-xs font-mono bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                        <span className="text-xs font-mono bg-assess-light text-assess-dark px-2 py-1 rounded">
                           {criterion.code}
                         </span>
                         <p className="text-sm text-text-secondary">{criterion.description}</p>
@@ -649,7 +649,7 @@ export default function SessionRunnerPage({ params }: { params: Promise<{ id: st
             <h3 className="font-semibold text-text-primary mb-4">OCN Criteria Covered</h3>
             <div className="flex flex-wrap gap-2">
               {session.lesson.ocnCriteria.map((code) => (
-                <span key={code} className="text-xs font-mono bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
+                <span key={code} className="text-xs font-mono bg-assess-light text-assess-dark px-3 py-1 rounded-full">
                   {code}
                 </span>
               ))}

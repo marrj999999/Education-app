@@ -84,10 +84,10 @@ interface CohortDetails {
 
 const statusColors: Record<string, { bg: string; text: string; solid: string }> = {
   DRAFT: { bg: 'bg-surface-hover', text: 'text-text-secondary', solid: 'bg-text-secondary' },
-  SCHEDULED: { bg: 'bg-blue-100', text: 'text-blue-700', solid: 'bg-blue-600' },
-  IN_PROGRESS: { bg: 'bg-green-100', text: 'text-green-700', solid: 'bg-green-600' },
-  COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700', solid: 'bg-purple-600' },
-  CANCELLED: { bg: 'bg-red-100', text: 'text-red-700', solid: 'bg-red-600' },
+  SCHEDULED: { bg: 'bg-info-light', text: 'text-info-dark', solid: 'bg-info' },
+  IN_PROGRESS: { bg: 'bg-success-light', text: 'text-success-dark', solid: 'bg-success' },
+  COMPLETED: { bg: 'bg-assess-light', text: 'text-assess-dark', solid: 'bg-assess' },
+  CANCELLED: { bg: 'bg-danger-light', text: 'text-danger-dark', solid: 'bg-danger' },
 };
 
 const statusLabels: Record<string, string> = {
@@ -160,7 +160,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="w-12 h-12 mx-auto text-red-400 mb-4" />
+          <AlertCircle className="w-12 h-12 mx-auto text-danger mb-4" />
           <p className="text-text-tertiary">{error || 'Cohort not found'}</p>
           <Link href="/cohorts">
             <Button variant="outline" className="mt-4">Back to Cohorts</Button>
@@ -263,11 +263,11 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
             <h2 className="text-lg font-semibold text-text-primary mb-4">What to do next</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {needsLearners && (
-                <Card className="border-amber-200 bg-amber-50/50">
+                <Card className="border-warning-medium bg-warning-light/50">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
-                        <UserPlus className="w-5 h-5 text-amber-600" />
+                      <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center flex-shrink-0">
+                        <UserPlus className="w-5 h-5 text-warning" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-medium text-text-primary mb-1">Add your learners</h3>
@@ -287,11 +287,11 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
               )}
 
               {needsSessions && !needsLearners && (
-                <Card className="border-blue-200 bg-blue-50/50">
+                <Card className="border-info-medium bg-info-light/50">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                        <CalendarPlus className="w-5 h-5 text-blue-600" />
+                      <div className="w-10 h-10 rounded-lg bg-info-light flex items-center justify-center flex-shrink-0">
+                        <CalendarPlus className="w-5 h-5 text-info" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-medium text-text-primary mb-1">Schedule your sessions</h3>
@@ -311,11 +311,11 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
               )}
 
               {nextSession && (
-                <Card className="border-green-200 bg-green-50/50">
+                <Card className="border-success-medium bg-success-light/50">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                        <Play className="w-5 h-5 text-green-600" />
+                      <div className="w-10 h-10 rounded-lg bg-success-light flex items-center justify-center flex-shrink-0">
+                        <Play className="w-5 h-5 text-success" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-medium text-text-primary mb-1">Next session</h3>
@@ -343,7 +343,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  <TrendingUp className="w-5 h-5 text-success" />
                   Course Progress
                 </CardTitle>
                 <CardDescription>
@@ -392,7 +392,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-blue-600" />
+                    <Clock className="w-5 h-5 text-info" />
                     Coming Up
                   </CardTitle>
                   <CardDescription>
@@ -408,11 +408,11 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                         className="flex items-center justify-between p-4 rounded-lg border hover:bg-surface-hover transition-colors group"
                       >
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-lg bg-blue-100 flex flex-col items-center justify-center">
-                            <span className="text-xs text-blue-600 font-medium">
+                          <div className="w-12 h-12 rounded-lg bg-info-light flex flex-col items-center justify-center">
+                            <span className="text-xs text-info font-medium">
                               {new Date(session.scheduledDate).toLocaleDateString('en-GB', { weekday: 'short' })}
                             </span>
-                            <span className="text-lg font-bold text-blue-700">
+                            <span className="text-lg font-bold text-info-dark">
                               {new Date(session.scheduledDate).getDate()}
                             </span>
                           </div>

@@ -61,10 +61,10 @@ interface Cohort {
 
 const statusColors: Record<string, { bg: string; text: string; solid: string }> = {
   DRAFT: { bg: 'bg-surface-hover', text: 'text-text-secondary', solid: 'bg-text-secondary' },
-  SCHEDULED: { bg: 'bg-blue-100', text: 'text-blue-700', solid: 'bg-blue-600' },
-  IN_PROGRESS: { bg: 'bg-green-100', text: 'text-green-700', solid: 'bg-green-600' },
-  COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700', solid: 'bg-purple-600' },
-  CANCELLED: { bg: 'bg-red-100', text: 'text-red-700', solid: 'bg-red-600' },
+  SCHEDULED: { bg: 'bg-info-light', text: 'text-info-dark', solid: 'bg-info' },
+  IN_PROGRESS: { bg: 'bg-success-light', text: 'text-success-dark', solid: 'bg-success' },
+  COMPLETED: { bg: 'bg-assess-light', text: 'text-assess-dark', solid: 'bg-assess' },
+  CANCELLED: { bg: 'bg-danger-light', text: 'text-danger-dark', solid: 'bg-danger' },
 };
 
 const statusLabels: Record<string, string> = {

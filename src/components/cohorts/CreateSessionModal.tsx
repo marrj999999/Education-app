@@ -139,7 +139,7 @@ export function CreateSessionModal({
               ))}
             </select>
             {availableLessons.length === 0 && (
-              <p className="text-xs text-amber-600">
+              <p className="text-xs text-warning">
                 All lessons already have scheduled sessions.
               </p>
             )}

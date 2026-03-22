@@ -55,13 +55,13 @@ export function SectionTimer({
         <div className="flex flex-col items-center">
           <div
             className={`text-4xl font-mono font-bold transition-colors ${
-              isOvertime ? 'text-red-600' : 'text-text-primary'
+              isOvertime ? 'text-danger' : 'text-text-primary'
             }`}
           >
             {formatTime(elapsed)}
           </div>
           {isOvertime && (
-            <div className="text-sm text-red-500 mt-1">
+            <div className="text-sm text-danger mt-1">
               +{formatTime(overtimeSeconds)} overtime
             </div>
           )}
@@ -74,10 +74,10 @@ export function SectionTimer({
               <div
                 className={`h-full transition-all duration-300 ${
                   isOvertime
-                    ? 'bg-red-500'
+                    ? 'bg-danger'
                     : progress > 75
-                    ? 'bg-amber-500'
-                    : 'bg-green-500'
+                    ? 'bg-warning'
+                    : 'bg-success'
                 }`}
                 style={{ width: `${Math.min(100, progress)}%` }}
               />
@@ -94,7 +94,7 @@ export function SectionTimer({
           {!running ? (
             <button
               onClick={() => startTimer(blockId)}
-              className="p-3 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+              className="p-3 bg-success-light text-success-dark rounded-lg hover:bg-success-medium transition-colors"
               title="Start"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ export function SectionTimer({
           ) : (
             <button
               onClick={() => pauseTimer(blockId)}
-              className="p-3 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-colors"
+              className="p-3 bg-warning-light text-warning-dark rounded-lg hover:bg-warning-medium transition-colors"
               title="Pause"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -134,9 +134,9 @@ export function SectionTimer({
         <div
           className={`w-2 h-2 rounded-full ${
             running
-              ? 'bg-green-500 animate-pulse'
+              ? 'bg-success animate-pulse'
               : elapsed > 0
-              ? 'bg-amber-500'
+              ? 'bg-warning'
               : 'bg-text-tertiary'
           }`}
         />

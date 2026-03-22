@@ -238,6 +238,52 @@
   --color-surface-active: var(--surface-active);
 
   /* ============================================
+     SEMANTIC STATUS COLORS
+     Replaces ALL hardcoded green/blue/red/amber/purple/yellow
+     ============================================ */
+
+  /* Success/Complete/Valid (replaces green-*) */
+  --color-success: #16a34a;
+  --color-success-light: #dcfce7;
+  --color-success-medium: #bbf7d0;
+  --color-success-dark: #15803d;
+  --color-success-darker: #166534;
+
+  /* Info/Theory (replaces blue-*) */
+  --color-info: #2563eb;
+  --color-info-light: #dbeafe;
+  --color-info-medium: #93c5fd;
+  --color-info-dark: #1d4ed8;
+  --color-info-darker: #1e3a8a;
+
+  /* Danger/Error (replaces red-*) */
+  --color-danger: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-danger-medium: #fca5a5;
+  --color-danger-dark: #b91c1c;
+  --color-danger-darker: #7f1d1d;
+
+  /* Warning (replaces amber-*) */
+  --color-warning: #d97706;
+  --color-warning-light: #fef3c7;
+  --color-warning-medium: #fde68a;
+  --color-warning-dark: #b45309;
+  --color-warning-darker: #78350f;
+
+  /* Assessment/Checkpoint (replaces purple-*) */
+  --color-assess: #7c3aed;
+  --color-assess-light: #f3e8ff;
+  --color-assess-medium: #c4b5fd;
+  --color-assess-dark: #6d28d9;
+  --color-assess-darker: #581c87;
+
+  /* Caution (replaces yellow-*) */
+  --color-caution: #ca8a04;
+  --color-caution-light: #fef9c3;
+  --color-caution-dark: #a16207;
+  --color-caution-darker: #713f12;
+
+  /* ============================================
      CONTENT TYPE COLORS - Semantic Design Tokens
      For safety callouts, activities, theory, assessments
      ============================================ */

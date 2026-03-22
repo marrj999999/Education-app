@@ -22,16 +22,16 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
 
   // Get icon color based on level
   const iconColors = {
-    critical: 'text-red-600',
-    warning: 'text-amber-600',
-    caution: 'text-yellow-600',
+    critical: 'text-danger',
+    warning: 'text-warning',
+    caution: 'text-caution',
   };
 
   // Get badge styles based on level
   const badgeStyles = {
-    critical: 'bg-red-200 text-red-900',
-    warning: 'bg-amber-200 text-amber-900',
-    caution: 'bg-yellow-200 text-yellow-900',
+    critical: 'bg-danger-medium text-danger-darker',
+    warning: 'bg-warning-medium text-warning-darker',
+    caution: 'bg-caution-light text-caution-darker',
   };
 
   return (

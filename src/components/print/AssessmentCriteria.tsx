@@ -31,7 +31,7 @@ export function AssessmentCriteria({ lessonTitle, criteria }: AssessmentCriteria
         <tbody>
           {criteria.map((criterion) => (
             <tr key={criterion.code}>
-              <td className="border border-border px-3 py-2 font-mono text-purple-700">
+              <td className="border border-border px-3 py-2 font-mono text-assess-dark">
                 {criterion.code}
               </td>
               <td className="border border-border px-3 py-2">{criterion.text}</td>
