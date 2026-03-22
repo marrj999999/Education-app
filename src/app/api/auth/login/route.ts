@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/db';
 import { setSessionCookie } from '@/lib/auth-cookie';
 
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   let step = 'init';
   try {
