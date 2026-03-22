@@ -19,8 +19,8 @@ export default function LessonError({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-[var(--surface)] rounded-2xl shadow-lg p-8 text-center">
+    <div className="min-h-screen bg-surface-hover flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-surface rounded-2xl shadow-lg p-8 text-center">
         <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-100 flex items-center justify-center">
           <svg
             className="w-8 h-8 text-amber-600"
@@ -37,10 +37,10 @@ export default function LessonError({ error, reset }: ErrorProps) {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">
+        <h1 className="text-2xl font-bold text-text-primary mb-2">
           Unable to Load Lesson
         </h1>
-        <p className="text-[var(--text-secondary)] mb-6">
+        <p className="text-text-secondary mb-6">
           We had trouble loading this lesson content. This might be a temporary
           issue with our content system. Please try again.
         </p>
@@ -48,21 +48,21 @@ export default function LessonError({ error, reset }: ErrorProps) {
         <div className="space-y-3">
           <button
             onClick={reset}
-            className="w-full px-6 py-3 bg-[var(--gold)] text-[var(--forest)] font-medium rounded-lg hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--steel)] focus:ring-offset-2"
+            className="w-full px-6 py-3 bg-gold text-forest font-medium rounded-lg hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-steel focus:ring-offset-2"
           >
             Try Again
           </button>
 
           <Link
             href={`/courses/${courseSlug}`}
-            className="block w-full px-6 py-3 bg-[var(--surface-hover)] text-[var(--text-secondary)] font-medium rounded-lg hover:bg-[var(--surface-active)] transition-colors"
+            className="block w-full px-6 py-3 bg-surface-hover text-text-secondary font-medium rounded-lg hover:bg-surface-active transition-colors"
           >
             Back to Course
           </Link>
 
           <Link
             href="/dashboard"
-            className="block w-full px-6 py-3 text-[var(--text-tertiary)] font-medium hover:text-[var(--text-secondary)] transition-colors"
+            className="block w-full px-6 py-3 text-text-tertiary font-medium hover:text-text-secondary transition-colors"
           >
             Return to Dashboard
           </Link>
@@ -70,10 +70,10 @@ export default function LessonError({ error, reset }: ErrorProps) {
 
         {process.env.NODE_ENV === 'development' && error.message && (
           <details className="mt-6 text-left">
-            <summary className="text-sm text-[var(--text-tertiary)] cursor-pointer hover:text-[var(--text-secondary)]">
+            <summary className="text-sm text-text-tertiary cursor-pointer hover:text-text-secondary">
               Technical Details
             </summary>
-            <pre className="mt-2 p-3 bg-[var(--surface-hover)] rounded text-xs text-[var(--text-secondary)] overflow-auto max-h-40">
+            <pre className="mt-2 p-3 bg-surface-hover rounded text-xs text-text-secondary overflow-auto max-h-40">
               {error.message}
               {error.stack && `\n\n${error.stack}`}
             </pre>

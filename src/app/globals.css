@@ -196,6 +196,48 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   /* ============================================
+     BBC BRAND COLORS
+     Exposed as Tailwind utilities: bg-forest, text-teal, etc.
+     ============================================ */
+  --color-forest: var(--forest);
+  --color-teal: var(--teal);
+  --color-steel: var(--steel);
+  --color-gold: var(--gold);
+  --color-lime: var(--lime);
+  --color-sky: var(--sky);
+
+  /* Bamboo palette: bg-bamboo-50 through bg-bamboo-900 */
+  --color-bamboo-50: var(--bamboo-50);
+  --color-bamboo-100: var(--bamboo-100);
+  --color-bamboo-200: var(--bamboo-200);
+  --color-bamboo-300: var(--bamboo-300);
+  --color-bamboo-400: var(--bamboo-400);
+  --color-bamboo-500: var(--bamboo-500);
+  --color-bamboo-600: var(--bamboo-600);
+  --color-bamboo-700: var(--bamboo-700);
+  --color-bamboo-800: var(--bamboo-800);
+  --color-bamboo-900: var(--bamboo-900);
+
+  /* Amber/Gold palette: bg-amber-gold-50 etc */
+  --color-amber-gold-50: var(--amber-50);
+  --color-amber-gold-100: var(--amber-100);
+  --color-amber-gold-200: var(--amber-200);
+  --color-amber-gold-300: var(--amber-300);
+  --color-amber-gold-400: var(--amber-400);
+  --color-amber-gold-500: var(--amber-500);
+  --color-amber-gold-600: var(--amber-600);
+
+  /* Semantic text: text-text-primary, text-text-secondary, text-text-tertiary */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+
+  /* Semantic surfaces: bg-surface, bg-surface-hover, bg-surface-active */
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+
+  /* ============================================
      CONTENT TYPE COLORS - Semantic Design Tokens
      For safety callouts, activities, theory, assessments
      ============================================ */

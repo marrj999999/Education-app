@@ -37,17 +37,17 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
   );
 
   return (
-    <div className={`bg-[var(--surface)] border-b border-[var(--border)] ${className}`}>
+    <div className={`bg-surface border-b border-border ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         {/* Summary Bar */}
         <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-medium text-[var(--text-secondary)]">Quick Attendance</h4>
+          <h4 className="text-sm font-medium text-text-secondary">Quick Attendance</h4>
           <div className="flex items-center gap-4 text-sm">
             <span className="text-green-600">{summary.PRESENT} present</span>
             <span className="text-amber-600">{summary.LATE} late</span>
             <span className="text-red-600">{summary.ABSENT} absent</span>
             {summary.EXCUSED > 0 && <span className="text-blue-600">{summary.EXCUSED} excused</span>}
-            {summary.unmarked > 0 && <span className="text-[var(--text-tertiary)]">{summary.unmarked} unmarked</span>}
+            {summary.unmarked > 0 && <span className="text-text-tertiary">{summary.unmarked} unmarked</span>}
           </div>
         </div>
 
@@ -60,7 +60,7 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
             return (
               <div
                 key={learner.id}
-                className="flex items-center gap-2 bg-[var(--surface-hover)] rounded-lg p-2 min-w-[180px]"
+                className="flex items-center gap-2 bg-surface-hover rounded-lg p-2 min-w-[180px]"
               >
                 {/* Avatar */}
                 <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium shrink-0">
@@ -69,7 +69,7 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
                 </div>
 
                 {/* Name */}
-                <span className="text-sm font-medium text-[var(--text-primary)] truncate flex-1">
+                <span className="text-sm font-medium text-text-primary truncate flex-1">
                   {learner.firstName}
                 </span>
 
@@ -83,7 +83,7 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
                         className={`w-6 h-6 rounded flex items-center justify-center text-xs font-medium transition-all ${
                           currentStatus === status
                             ? `${config.bg} text-white`
-                            : `bg-[var(--surface-active)] text-[var(--text-tertiary)] ${config.hoverBg.replace('hover:', '')} hover:text-white`
+                            : `bg-surface-active text-text-tertiary ${config.hoverBg.replace('hover:', '')} hover:text-white`
                         }`}
                         title={config.title}
                       >
@@ -98,8 +98,8 @@ export function AttendanceQuickBar({ learners, className = '' }: AttendanceQuick
         </div>
 
         {/* Mark All Actions */}
-        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[var(--border)]">
-          <span className="text-xs text-[var(--text-tertiary)]">Mark all:</span>
+        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
+          <span className="text-xs text-text-tertiary">Mark all:</span>
           {(Object.entries(statusConfig) as [keyof typeof statusConfig, typeof statusConfig.PRESENT][]).map(
             ([status, config]) => (
               <button

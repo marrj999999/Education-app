@@ -121,14 +121,14 @@ export default function UsersPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[var(--text-primary)]">Users</h1>
-          <p className="text-[var(--text-tertiary)] mt-1">
+          <h1 className="text-2xl font-bold text-text-primary">Users</h1>
+          <p className="text-text-tertiary mt-1">
             Manage user accounts and permissions
           </p>
         </div>
         <Link
           href="/admin/users/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--teal)] text-white font-medium rounded-lg hover:bg-[var(--forest)] transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-teal text-white font-medium rounded-lg hover:bg-forest transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -138,13 +138,13 @@ export default function UsersPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-[var(--surface)] rounded-xl p-4 shadow-sm border border-[var(--border)]">
+      <div className="bg-surface rounded-xl p-4 shadow-sm border border-border">
         <form onSubmit={handleSearch} className="flex flex-wrap gap-4">
           {/* Search */}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-tertiary)]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-tertiary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -156,7 +156,7 @@ export default function UsersPage() {
                 placeholder="Search by name or email..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-teal focus:border-transparent outline-none"
               />
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function UsersPage() {
               setRoleFilter(e.target.value);
               setPagination((prev) => ({ ...prev, page: 1 }));
             }}
-            className="px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
+            className="px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-teal focus:border-transparent outline-none"
           >
             <option value="">All Roles</option>
             <option value="SUPER_ADMIN">Super Admin</option>
@@ -184,7 +184,7 @@ export default function UsersPage() {
               setStatusFilter(e.target.value);
               setPagination((prev) => ({ ...prev, page: 1 }));
             }}
-            className="px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent outline-none"
+            className="px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-teal focus:border-transparent outline-none"
           >
             <option value="">All Status</option>
             <option value="active">Active</option>
@@ -193,7 +193,7 @@ export default function UsersPage() {
 
           <button
             type="submit"
-            className="px-4 py-2 bg-[var(--surface-hover)] text-[var(--text-secondary)] font-medium rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
+            className="px-4 py-2 bg-surface-hover text-text-secondary font-medium rounded-lg hover:bg-surface-hover transition-colors"
           >
             Search
           </button>
@@ -201,47 +201,47 @@ export default function UsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] overflow-hidden">
+      <div className="bg-surface rounded-xl shadow-sm border border-border overflow-hidden">
         {isLoading ? (
           <div className="p-8 text-center">
-            <div className="inline-block w-8 h-8 border-4 border-[var(--teal)] border-t-transparent rounded-full animate-spin" />
-            <p className="mt-2 text-[var(--text-tertiary)]">Loading users...</p>
+            <div className="inline-block w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin" />
+            <p className="mt-2 text-text-tertiary">Loading users...</p>
           </div>
         ) : users.length === 0 ? (
           <div className="p-8 text-center">
-            <svg className="w-12 h-12 mx-auto text-[var(--text-tertiary)] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-12 h-12 mx-auto text-text-tertiary mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
-            <p className="text-[var(--text-tertiary)]">No users found</p>
+            <p className="text-text-tertiary">No users found</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-[var(--surface-hover)]">
+              <thead className="bg-surface-hover">
                 <tr>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-text-tertiary uppercase">
                     User
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-text-tertiary uppercase">
                     Role
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-text-tertiary uppercase">
                     Status
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-text-tertiary uppercase">
                     Last Login
                   </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
+                  <th className="text-left py-3 px-4 text-xs font-medium text-text-tertiary uppercase">
                     Joined
                   </th>
-                  <th className="text-right py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase">
+                  <th className="text-right py-3 px-4 text-xs font-medium text-text-tertiary uppercase">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--border)]">
+              <tbody className="divide-y divide-border">
                 {users.map((user) => (
-                  <tr key={user.id} className="hover:bg-[var(--surface-hover)]">
+                  <tr key={user.id} className="hover:bg-surface-hover">
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-3">
                         {user.image ? (
@@ -251,15 +251,15 @@ export default function UsersPage() {
                             className="w-10 h-10 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-[var(--teal)] flex items-center justify-center text-white font-medium">
+                          <div className="w-10 h-10 rounded-full bg-teal flex items-center justify-center text-white font-medium">
                             {(user.name || user.email)[0].toUpperCase()}
                           </div>
                         )}
                         <div>
-                          <p className="font-medium text-[var(--text-primary)]">
+                          <p className="font-medium text-text-primary">
                             {user.name || 'No name'}
                           </p>
-                          <p className="text-sm text-[var(--text-tertiary)]">{user.email}</p>
+                          <p className="text-sm text-text-tertiary">{user.email}</p>
                         </div>
                       </div>
                     </td>
@@ -270,26 +270,26 @@ export default function UsersPage() {
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           user.isActive
-                            ? 'bg-[var(--bamboo-100)] text-[var(--forest)]'
+                            ? 'bg-bamboo-100 text-forest'
                             : 'bg-red-100 text-red-800'
                         }`}
                       >
                         {user.isActive ? 'Active' : 'Suspended'}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-sm text-[var(--text-tertiary)]">
+                    <td className="py-4 px-4 text-sm text-text-tertiary">
                       {user.lastLoginAt
                         ? new Date(user.lastLoginAt).toLocaleDateString()
                         : 'Never'}
                     </td>
-                    <td className="py-4 px-4 text-sm text-[var(--text-tertiary)]">
+                    <td className="py-4 px-4 text-sm text-text-tertiary">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           href={`/admin/users/${user.id}`}
-                          className="p-2 text-[var(--text-tertiary)] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-text-tertiary hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           title="Edit"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -300,8 +300,8 @@ export default function UsersPage() {
                           onClick={() => handleSuspendToggle(user.id, user.isActive)}
                           className={`p-2 rounded-lg transition-colors ${
                             user.isActive
-                              ? 'text-[var(--text-tertiary)] hover:text-amber-600 hover:bg-amber-50'
-                              : 'text-[var(--text-tertiary)] hover:text-[var(--teal)] hover:bg-[var(--bamboo-50)]'
+                              ? 'text-text-tertiary hover:text-amber-600 hover:bg-amber-50'
+                              : 'text-text-tertiary hover:text-teal hover:bg-bamboo-50'
                           }`}
                           title={user.isActive ? 'Suspend' : 'Activate'}
                         >
@@ -317,7 +317,7 @@ export default function UsersPage() {
                         </button>
                         <button
                           onClick={() => handleDelete(user.id, user.email)}
-                          className="p-2 text-[var(--text-tertiary)] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-text-tertiary hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -335,8 +335,8 @@ export default function UsersPage() {
 
         {/* Pagination */}
         {pagination.totalPages > 1 && (
-          <div className="px-4 py-3 border-t border-[var(--border)] flex items-center justify-between">
-            <p className="text-sm text-[var(--text-tertiary)]">
+          <div className="px-4 py-3 border-t border-border flex items-center justify-between">
+            <p className="text-sm text-text-tertiary">
               Showing {(pagination.page - 1) * pagination.limit + 1} to{' '}
               {Math.min(pagination.page * pagination.limit, pagination.total)} of{' '}
               {pagination.total} users
@@ -345,17 +345,17 @@ export default function UsersPage() {
               <button
                 onClick={() => setPagination((prev) => ({ ...prev, page: prev.page - 1 }))}
                 disabled={pagination.page === 1}
-                className="px-3 py-1 border border-[var(--border)] rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--surface-hover)]"
+                className="px-3 py-1 border border-border rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-hover"
               >
                 Previous
               </button>
-              <span className="text-sm text-[var(--text-tertiary)]">
+              <span className="text-sm text-text-tertiary">
                 Page {pagination.page} of {pagination.totalPages}
               </span>
               <button
                 onClick={() => setPagination((prev) => ({ ...prev, page: prev.page + 1 }))}
                 disabled={pagination.page === pagination.totalPages}
-                className="px-3 py-1 border border-[var(--border)] rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--surface-hover)]"
+                className="px-3 py-1 border border-border rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-hover"
               >
                 Next
               </button>

@@ -15,11 +15,11 @@ export function PrintHeader({ title, icon }: PrintHeaderProps) {
 
   return (
     <div className="hidden print:block print-header">
-      <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+      <h1 className="text-2xl font-bold text-text-primary">
         {icon && <span className="mr-2">{icon}</span>}
         {title}
       </h1>
-      <p className="date text-[var(--text-secondary)] text-sm mt-1">
+      <p className="date text-text-secondary text-sm mt-1">
         Preparation Checklist - {currentDate}
       </p>
     </div>

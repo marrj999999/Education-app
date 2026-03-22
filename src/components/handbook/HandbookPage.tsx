@@ -41,34 +41,34 @@ export function HandbookPage({ course, sections, chapters: serverChapters }: Han
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--surface)]">
+    <div className="min-h-screen bg-surface">
       {/* Sticky header — minimal */}
-      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
+      <header className="bg-surface border-b border-border sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <div className="h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Link
                 href="/"
-                className="p-2 -ml-2 hover:bg-[var(--surface-hover)] transition-colors text-[var(--text-tertiary)]"
+                className="p-2 -ml-2 hover:bg-surface-hover transition-colors text-text-tertiary"
                 aria-label="Back to courses"
               >
                 <ChevronLeft size={20} />
               </Link>
-              <h1 className="font-semibold text-sm text-[var(--text-primary)] hidden sm:block">{course.title}</h1>
+              <h1 className="font-semibold text-sm text-text-primary hidden sm:block">{course.title}</h1>
             </div>
 
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-tertiary hover:text-text-secondary hover:bg-surface-hover rounded-lg transition-colors"
                 aria-label="Search"
               >
                 <Search size={16} />
-                <kbd className="hidden md:inline text-xs text-[var(--text-tertiary)] px-1.5 py-0.5">⌘K</kbd>
+                <kbd className="hidden md:inline text-xs text-text-tertiary px-1.5 py-0.5">⌘K</kbd>
               </button>
               <button
                 onClick={() => window.print()}
-                className="p-2 hover:bg-[var(--surface-hover)] transition-colors text-[var(--text-tertiary)]"
+                className="p-2 hover:bg-surface-hover transition-colors text-text-tertiary"
                 aria-label="Print"
               >
                 <Printer size={16} />
@@ -90,11 +90,11 @@ export function HandbookPage({ course, sections, chapters: serverChapters }: Han
         <main className="flex-1 min-w-0">
           {/* Hero — just title and description */}
           <div className="px-8 lg:px-16 pt-12 pb-8 max-w-4xl">
-            <h1 className="text-3xl lg:text-4xl font-bold text-[var(--text-primary)] mb-4">
+            <h1 className="text-3xl lg:text-4xl font-bold text-text-primary mb-4">
               {course.title}
             </h1>
             {course.description && (
-              <p className="text-lg text-[var(--text-tertiary)] leading-relaxed">
+              <p className="text-lg text-text-tertiary leading-relaxed">
                 {course.description}
               </p>
             )}
@@ -104,9 +104,9 @@ export function HandbookPage({ course, sections, chapters: serverChapters }: Han
           <div className="px-8 lg:px-16 pb-16 max-w-4xl">
             {sections.length === 0 ? (
               <div className="text-center py-16">
-                <BookOpen size={32} className="mx-auto mb-4 text-[var(--text-tertiary)]" />
-                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-2">No sections found</h2>
-                <p className="text-[var(--text-tertiary)] text-sm">
+                <BookOpen size={32} className="mx-auto mb-4 text-text-tertiary" />
+                <h2 className="text-lg font-semibold text-text-primary mb-2">No sections found</h2>
+                <p className="text-text-tertiary text-sm">
                   Unable to load handbook content.
                 </p>
               </div>
@@ -124,9 +124,9 @@ export function HandbookPage({ course, sections, chapters: serverChapters }: Han
           </div>
 
           {/* Footer */}
-          <footer className="border-t border-[var(--border)] print:hidden">
+          <footer className="border-t border-border print:hidden">
             <div className="max-w-4xl px-8 lg:px-16 py-6">
-              <p className="text-xs text-[var(--text-tertiary)]">
+              <p className="text-xs text-text-tertiary">
                 &copy; {new Date().getFullYear()} Bamboo Bicycle Club
               </p>
             </div>

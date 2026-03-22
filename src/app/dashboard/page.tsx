@@ -62,18 +62,18 @@ export default async function DashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)]">
+    <div className="min-h-screen bg-surface-hover">
       {/* Header */}
-      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
+      <header className="bg-surface border-b border-border sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/dashboard" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--forest)] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center">
                 <BambooIcon size={24} className="text-white" />
               </div>
               <div className="hidden sm:block">
-                <p className="font-bold text-[var(--text-primary)]">Bamboo Bicycle Club</p>
-                <p className="text-xs text-[var(--text-tertiary)]">Instructor Dashboard</p>
+                <p className="font-bold text-text-primary">Bamboo Bicycle Club</p>
+                <p className="text-xs text-text-tertiary">Instructor Dashboard</p>
               </div>
             </Link>
 
@@ -93,7 +93,7 @@ export default async function DashboardPage() {
       </header>
 
       {/* Hero Section */}
-      <div className="bg-[var(--forest)] text-white">
+      <div className="bg-forest text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
@@ -126,11 +126,11 @@ export default async function DashboardPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-[var(--teal)]" />
+                <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-teal" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-[var(--text-primary)]">{courses.length}</p>
+                  <p className="text-2xl font-bold text-text-primary">{courses.length}</p>
                   <p className="text-sm text-muted-foreground">
                     {isInstructor ? 'Available Courses' : 'Enrolled Courses'}
                   </p>
@@ -144,11 +144,11 @@ export default async function DashboardPage() {
               <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
-                      <Users className="w-5 h-5 text-[var(--teal)]" />
+                    <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
+                      <Users className="w-5 h-5 text-teal" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[var(--text-primary)]">{activeCohorts.length}</p>
+                      <p className="text-2xl font-bold text-text-primary">{activeCohorts.length}</p>
                       <p className="text-sm text-muted-foreground">Active Cohorts</p>
                     </div>
                   </div>
@@ -158,11 +158,11 @@ export default async function DashboardPage() {
               <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
-                      <GraduationCap className="w-5 h-5 text-[var(--teal)]" />
+                    <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
+                      <GraduationCap className="w-5 h-5 text-teal" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[var(--text-primary)]">{totalLearners}</p>
+                      <p className="text-2xl font-bold text-text-primary">{totalLearners}</p>
                       <p className="text-sm text-muted-foreground">Total Learners</p>
                     </div>
                   </div>
@@ -172,11 +172,11 @@ export default async function DashboardPage() {
               <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
-                      <Calendar className="w-5 h-5 text-[var(--teal)]" />
+                    <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-teal" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[var(--text-primary)]">{upcomingSessions.length}</p>
+                      <p className="text-2xl font-bold text-text-primary">{upcomingSessions.length}</p>
                       <p className="text-sm text-muted-foreground">Upcoming Sessions</p>
                     </div>
                   </div>
@@ -192,10 +192,10 @@ export default async function DashboardPage() {
             {/* Your Cohorts */}
             <section>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-[var(--text-primary)]">Your Cohorts</h2>
+                <h2 className="text-lg font-semibold text-text-primary">Your Cohorts</h2>
                 <Link
                   href="/cohorts"
-                  className="text-sm text-[var(--teal)] hover:underline font-medium"
+                  className="text-sm text-teal hover:underline font-medium"
                 >
                   View all
                 </Link>
@@ -203,15 +203,15 @@ export default async function DashboardPage() {
               <div className="space-y-3">
                 {activeCohorts.slice(0, 4).map((cohort) => (
                   <Link key={cohort.id} href={`/cohorts/${cohort.id}`} className="block group">
-                    <Card className="hover:shadow-md hover:border-[var(--teal)] transition-all">
+                    <Card className="hover:shadow-md hover:border-teal transition-all">
                       <CardContent className="py-4 px-5">
                         <div className="flex items-center justify-between">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-medium text-[var(--text-primary)] truncate">{cohort.name}</h3>
+                              <h3 className="font-medium text-text-primary truncate">{cohort.name}</h3>
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${
                                 cohort.status === 'IN_PROGRESS'
-                                  ? 'bg-[var(--bamboo-100)] text-[var(--forest)]'
+                                  ? 'bg-bamboo-100 text-forest'
                                   : 'bg-blue-50 text-blue-700'
                               }`}>
                                 {cohort.status === 'IN_PROGRESS' ? 'Active' : 'Scheduled'}
@@ -237,7 +237,7 @@ export default async function DashboardPage() {
                           </div>
                           <ChevronRightIcon
                             size={18}
-                            className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)] group-hover:translate-x-0.5 transition-all flex-shrink-0 ml-2"
+                            className="text-text-tertiary group-hover:text-teal group-hover:translate-x-0.5 transition-all flex-shrink-0 ml-2"
                           />
                         </div>
                       </CardContent>
@@ -250,7 +250,7 @@ export default async function DashboardPage() {
             {/* Upcoming Sessions */}
             <section>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-[var(--text-primary)]">Upcoming Sessions</h2>
+                <h2 className="text-lg font-semibold text-text-primary">Upcoming Sessions</h2>
               </div>
               {upcomingSessions.length > 0 ? (
                 <div className="space-y-3">
@@ -260,11 +260,11 @@ export default async function DashboardPage() {
                       href={`/cohorts/${sess.cohortId}`}
                       className="block group"
                     >
-                      <Card className="hover:shadow-md hover:border-[var(--teal)] transition-all">
+                      <Card className="hover:shadow-md hover:border-teal transition-all">
                         <CardContent className="py-4 px-5">
                           <div className="flex items-start justify-between">
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-[var(--text-primary)] truncate mb-1">
+                              <h3 className="font-medium text-text-primary truncate mb-1">
                                 {sess.lesson?.title || 'Session'}
                               </h3>
                               <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -299,7 +299,7 @@ export default async function DashboardPage() {
               ) : (
                 <Card className="text-center py-8">
                   <CardContent>
-                    <Calendar className="w-8 h-8 text-[var(--text-tertiary)] mx-auto mb-2" />
+                    <Calendar className="w-8 h-8 text-text-tertiary mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground">No upcoming sessions scheduled</p>
                   </CardContent>
                 </Card>
@@ -311,22 +311,22 @@ export default async function DashboardPage() {
         {/* Quick Actions for Instructors */}
         {isInstructor && (
           <section className="mb-8">
-            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Quick Actions</h2>
+            <h2 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link href="/cohorts" className="block">
-                <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-[var(--bamboo-100)] hover:border-[var(--teal)]">
+                <Card className="h-full hover:shadow-md transition-shadow cursor-pointer border-bamboo-100 hover:border-teal">
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center flex-shrink-0">
-                        <Users className="w-5 h-5 text-[var(--teal)]" />
+                      <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center flex-shrink-0">
+                        <Users className="w-5 h-5 text-teal" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-[var(--text-primary)] mb-1">Manage Cohorts</h3>
+                        <h3 className="font-medium text-text-primary mb-1">Manage Cohorts</h3>
                         <p className="text-sm text-muted-foreground">
                           View and manage your course cohorts, learners, and sessions.
                         </p>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-[var(--text-tertiary)]" />
+                      <ArrowRight className="w-5 h-5 text-text-tertiary" />
                     </div>
                   </CardContent>
                 </Card>
@@ -340,12 +340,12 @@ export default async function DashboardPage() {
                         <BookOpen className="w-5 h-5 text-blue-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-[var(--text-primary)] mb-1">Browse Courses</h3>
+                        <h3 className="font-medium text-text-primary mb-1">Browse Courses</h3>
                         <p className="text-sm text-muted-foreground">
                           Explore course content and prepare for your sessions.
                         </p>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-[var(--text-tertiary)]" />
+                      <ArrowRight className="w-5 h-5 text-text-tertiary" />
                     </div>
                   </CardContent>
                 </Card>
@@ -360,12 +360,12 @@ export default async function DashboardPage() {
                           <Settings className="w-5 h-5 text-purple-600" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-medium text-[var(--text-primary)] mb-1">Admin Panel</h3>
+                          <h3 className="font-medium text-text-primary mb-1">Admin Panel</h3>
                           <p className="text-sm text-muted-foreground">
                             Manage users, settings, and system configuration.
                           </p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-[var(--text-tertiary)]" />
+                        <ArrowRight className="w-5 h-5 text-text-tertiary" />
                       </div>
                     </CardContent>
                   </Card>
@@ -378,7 +378,7 @@ export default async function DashboardPage() {
         {/* Courses Section */}
         <section>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+            <h2 className="text-lg font-semibold text-text-primary">
               {isInstructor ? 'Your Courses' : 'Enrolled Courses'}
             </h2>
           </div>
@@ -393,7 +393,7 @@ export default async function DashboardPage() {
                   href={`/courses/${course.slug}`}
                   className="group"
                 >
-                  <Card className="h-full overflow-hidden hover:shadow-lg hover:border-[var(--teal)] transition-all">
+                  <Card className="h-full overflow-hidden hover:shadow-lg hover:border-teal transition-all">
                     {/* Course Header */}
                     <div className={`h-24 ${colorTheme.bgGradient} p-5 flex items-end`}>
                       <div className="flex items-center gap-3">
@@ -426,7 +426,7 @@ export default async function DashboardPage() {
                         </div>
                         <ChevronRightIcon
                           size={20}
-                          className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)] group-hover:translate-x-1 transition-all"
+                          className="text-text-tertiary group-hover:text-teal group-hover:translate-x-1 transition-all"
                         />
                       </div>
 
@@ -440,10 +440,10 @@ export default async function DashboardPage() {
           {courses.length === 0 && (
             <Card className="text-center py-12">
               <CardContent>
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--surface-hover)] flex items-center justify-center">
-                  <BookIcon size={32} className="text-[var(--text-tertiary)]" />
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-surface-hover flex items-center justify-center">
+                  <BookIcon size={32} className="text-text-tertiary" />
                 </div>
-                <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">
+                <h3 className="text-lg font-medium text-text-primary mb-2">
                   No courses available
                 </h3>
                 <p className="text-muted-foreground">

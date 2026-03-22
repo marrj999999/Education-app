@@ -12,13 +12,13 @@ const roleStyles: Record<Role, { bg: string; text: string; label: string }> = {
     label: 'Admin',
   },
   INSTRUCTOR: {
-    bg: 'bg-[var(--bamboo-100)]',
-    text: 'text-[var(--forest)]',
+    bg: 'bg-bamboo-100',
+    text: 'text-forest',
     label: 'Instructor',
   },
   STUDENT: {
-    bg: 'bg-[var(--surface-hover)]',
-    text: 'text-[var(--text-primary)]',
+    bg: 'bg-surface-hover',
+    text: 'text-text-primary',
     label: 'Student',
   },
 };

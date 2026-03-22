@@ -28,7 +28,7 @@ export function HandbookSection({
   return (
     <section
       id={`section-${section.id}`}
-      className="handbook-section py-10 scroll-mt-24 border-b border-[var(--border)] last:border-b-0 print:py-4 print:break-inside-avoid"
+      className="handbook-section py-10 scroll-mt-24 border-b border-border last:border-b-0 print:py-4 print:break-inside-avoid"
     >
       {/* Section Title — PDF manual style with phase badge */}
       <div className="flex items-start gap-4 mb-6">
@@ -36,7 +36,7 @@ export function HandbookSection({
         <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-mono text-sm font-bold">
           {String(index + 1).padStart(2, '0')}
         </div>
-        <h2 className="text-2xl font-mono font-semibold text-[var(--text-primary)] pt-1">
+        <h2 className="text-2xl font-mono font-semibold text-text-primary pt-1">
           {section.name}
           {!section.name.endsWith('.') && '.'}
         </h2>
@@ -71,7 +71,7 @@ export function HandbookSection({
                 )}
               </div>
               {image.caption && (
-                <figcaption className="mt-2 text-sm text-[var(--text-tertiary)]">
+                <figcaption className="mt-2 text-sm text-text-tertiary">
                   {image.caption}
                 </figcaption>
               )}
@@ -79,26 +79,26 @@ export function HandbookSection({
           ))}
         </div>
       ) : (
-        <div className="text-center py-8 text-[var(--text-tertiary)] text-sm italic">
+        <div className="text-center py-8 text-text-tertiary text-sm italic">
           No content for this section.
         </div>
       )}
 
       {/* Previous / Next Navigation (multi-page mode only) */}
       {hasPrevNext && (
-        <nav className="flex items-stretch justify-between mt-12 pt-8 border-t border-[var(--border)] gap-4">
+        <nav className="flex items-stretch justify-between mt-12 pt-8 border-t border-border gap-4">
           {prevSection ? (
             <Link
               href={`/courses/${courseSlug}/${prevSection.slug}`}
-              className="flex-1 group flex flex-col items-start p-4 rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
+              className="flex-1 group flex flex-col items-start p-4 rounded-lg hover:bg-surface-hover transition-colors"
             >
-              <span className="text-xs text-[var(--text-tertiary)] flex items-center gap-1 mb-1">
+              <span className="text-xs text-text-tertiary flex items-center gap-1 mb-1">
                 <ChevronLeft size={14} />
                 Previous
               </span>
-              <span className="font-medium text-[var(--text-primary)] group-hover:text-[var(--text-secondary)]">
+              <span className="font-medium text-text-primary group-hover:text-text-secondary">
                 {prevSection.section && (
-                  <span className="text-[var(--text-tertiary)] mr-1">{prevSection.section}</span>
+                  <span className="text-text-tertiary mr-1">{prevSection.section}</span>
                 )}
                 {prevSection.name}
               </span>
@@ -110,15 +110,15 @@ export function HandbookSection({
           {nextSection ? (
             <Link
               href={`/courses/${courseSlug}/${nextSection.slug}`}
-              className="flex-1 group flex flex-col items-end text-right p-4 rounded-lg hover:bg-[var(--surface-hover)] transition-colors"
+              className="flex-1 group flex flex-col items-end text-right p-4 rounded-lg hover:bg-surface-hover transition-colors"
             >
-              <span className="text-xs text-[var(--text-tertiary)] flex items-center gap-1 mb-1">
+              <span className="text-xs text-text-tertiary flex items-center gap-1 mb-1">
                 Next
                 <ChevronRight size={14} />
               </span>
-              <span className="font-medium text-[var(--text-primary)] group-hover:text-[var(--text-secondary)]">
+              <span className="font-medium text-text-primary group-hover:text-text-secondary">
                 {nextSection.section && (
-                  <span className="text-[var(--text-tertiary)] mr-1">{nextSection.section}</span>
+                  <span className="text-text-tertiary mr-1">{nextSection.section}</span>
                 )}
                 {nextSection.name}
               </span>

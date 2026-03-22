@@ -18,10 +18,10 @@ export function SectionNavigator({
   currentLabel,
 }: SectionNavigatorProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[var(--surface)] border-t border-[var(--border)] shadow-lg z-40">
+    <div className="fixed bottom-0 left-0 right-0 bg-surface border-t border-border shadow-lg z-40">
       <div className="max-w-4xl mx-auto px-4 py-3">
         {/* Current section label */}
-        <div className="text-center text-sm text-[var(--text-tertiary)] mb-2 truncate">
+        <div className="text-center text-sm text-text-tertiary mb-2 truncate">
           {currentLabel}
         </div>
 
@@ -37,15 +37,15 @@ export function SectionNavigator({
               transition-all duration-200
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               ${hasPrevious
-                ? 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--surface-active)] active:bg-[var(--surface-active)]'
-                : 'bg-[var(--surface-hover)] text-[var(--text-tertiary)] cursor-not-allowed'
+                ? 'bg-surface-hover text-text-secondary hover:bg-surface-active active:bg-surface-active'
+                : 'bg-surface-hover text-text-tertiary cursor-not-allowed'
               }
             `}
             aria-label="Previous section"
           >
             <ChevronLeft size={24} />
             <span className="hidden sm:inline">Previous</span>
-            <kbd className="hidden lg:inline-block ml-2 px-2 py-0.5 text-xs bg-[var(--surface)] rounded border border-[var(--border)] text-[var(--text-tertiary)]">
+            <kbd className="hidden lg:inline-block ml-2 px-2 py-0.5 text-xs bg-surface rounded border border-border text-text-tertiary">
               ←
             </kbd>
           </button>
@@ -61,7 +61,7 @@ export function SectionNavigator({
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
               ${hasNext
                 ? 'bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700'
-                : 'bg-[var(--surface-hover)] text-[var(--text-tertiary)] cursor-not-allowed'
+                : 'bg-surface-hover text-text-tertiary cursor-not-allowed'
               }
             `}
             aria-label="Next section"

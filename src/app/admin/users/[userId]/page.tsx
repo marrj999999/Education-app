@@ -251,7 +251,7 @@ export default function EditUserPage({
   if (!user) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-[var(--text-primary)]">User not found</h2>
+        <h2 className="text-xl font-semibold text-text-primary">User not found</h2>
         <Link
           href="/admin/users"
           className="mt-4 inline-block text-green-600 hover:text-green-700"
@@ -268,7 +268,7 @@ export default function EditUserPage({
       <div className="mb-6">
         <Link
           href="/admin/users"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] mb-4"
+          className="inline-flex items-center gap-2 text-sm text-text-tertiary hover:text-text-secondary mb-4"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -288,10 +288,10 @@ export default function EditUserPage({
             </div>
           )}
           <div>
-            <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+            <h1 className="text-2xl font-bold text-text-primary">
               {user.name || 'No name'}
             </h1>
-            <p className="text-[var(--text-tertiary)]">{user.email}</p>
+            <p className="text-text-tertiary">{user.email}</p>
           </div>
           <RoleBadge role={user.role} size="md" />
         </div>
@@ -300,8 +300,8 @@ export default function EditUserPage({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Edit Form */}
         <div className="lg:col-span-2">
-          <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
-            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
+          <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
+            <h2 className="text-lg font-semibold text-text-primary mb-4">
               Edit User
             </h2>
 
@@ -320,7 +320,7 @@ export default function EditUserPage({
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+                <label className="block text-sm font-medium text-text-secondary mb-1.5">
                   Full Name
                 </label>
                 <input
@@ -328,13 +328,13 @@ export default function EditUserPage({
                   type="text"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+                <label className="block text-sm font-medium text-text-secondary mb-1.5">
                   Email Address
                 </label>
                 <input
@@ -342,13 +342,13 @@ export default function EditUserPage({
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                 />
               </div>
 
               {/* Role */}
               <div>
-                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+                <label className="block text-sm font-medium text-text-secondary mb-1.5">
                   Role
                 </label>
                 <select
@@ -356,7 +356,7 @@ export default function EditUserPage({
                   value={formData.role}
                   onChange={handleChange}
                   disabled={isSelf}
-                  className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none disabled:bg-[var(--surface-hover)] disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none disabled:bg-surface-hover disabled:cursor-not-allowed"
                 >
                   {availableRoles.map((role) => (
                     <option key={role.value} value={role.value}>
@@ -382,15 +382,15 @@ export default function EditUserPage({
                     disabled={isSelf}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-[var(--surface-active)] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[var(--border)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed" />
+                  <div className="w-11 h-6 bg-surface-active peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed" />
                 </label>
-                <span className="text-sm font-medium text-[var(--text-secondary)]">
+                <span className="text-sm font-medium text-text-secondary">
                   Account Active
                 </span>
               </div>
 
               {/* Password Reset */}
-              <div className="border-t border-[var(--border)] pt-5">
+              <div className="border-t border-border pt-5">
                 {!showPasswordFields ? (
                   <button
                     type="button"
@@ -402,7 +402,7 @@ export default function EditUserPage({
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+                      <label className="block text-sm font-medium text-text-secondary mb-1.5">
                         New Password
                       </label>
                       <input
@@ -410,12 +410,12 @@ export default function EditUserPage({
                         type="password"
                         value={formData.newPassword}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                         placeholder="Enter new password"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">
+                      <label className="block text-sm font-medium text-text-secondary mb-1.5">
                         Confirm Password
                       </label>
                       <input
@@ -423,7 +423,7 @@ export default function EditUserPage({
                         type="password"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
                         placeholder="Confirm new password"
                       />
                     </div>
@@ -437,7 +437,7 @@ export default function EditUserPage({
                           confirmPassword: '',
                         }));
                       }}
-                      className="text-sm text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
+                      className="text-sm text-text-tertiary hover:text-text-secondary"
                     >
                       Cancel password reset
                     </button>
@@ -446,7 +446,7 @@ export default function EditUserPage({
               </div>
 
               {/* Actions */}
-              <div className="flex items-center justify-between pt-4 border-t border-[var(--border)]">
+              <div className="flex items-center justify-between pt-4 border-t border-border">
                 <button
                   type="button"
                   onClick={handleDelete}
@@ -470,33 +470,33 @@ export default function EditUserPage({
         {/* User Info Sidebar */}
         <div className="space-y-6">
           {/* Account Info */}
-          <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
-            <h3 className="text-sm font-semibold text-[var(--text-primary)] uppercase mb-4">
+          <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
+            <h3 className="text-sm font-semibold text-text-primary uppercase mb-4">
               Account Info
             </h3>
             <dl className="space-y-3 text-sm">
               <div>
-                <dt className="text-[var(--text-tertiary)]">Created</dt>
-                <dd className="text-[var(--text-primary)] font-medium">
+                <dt className="text-text-tertiary">Created</dt>
+                <dd className="text-text-primary font-medium">
                   {new Date(user.createdAt).toLocaleDateString()}
                 </dd>
               </div>
               <div>
-                <dt className="text-[var(--text-tertiary)]">Last Login</dt>
-                <dd className="text-[var(--text-primary)] font-medium">
+                <dt className="text-text-tertiary">Last Login</dt>
+                <dd className="text-text-primary font-medium">
                   {user.lastLoginAt
                     ? new Date(user.lastLoginAt).toLocaleDateString()
                     : 'Never'}
                 </dd>
               </div>
               <div>
-                <dt className="text-[var(--text-tertiary)]">Email Verified</dt>
-                <dd className="text-[var(--text-primary)] font-medium">
+                <dt className="text-text-tertiary">Email Verified</dt>
+                <dd className="text-text-primary font-medium">
                   {user.emailVerified ? 'Yes' : 'No'}
                 </dd>
               </div>
               <div>
-                <dt className="text-[var(--text-tertiary)]">Status</dt>
+                <dt className="text-text-tertiary">Status</dt>
                 <dd>
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -514,8 +514,8 @@ export default function EditUserPage({
 
           {/* Course Assignments */}
           {user.instructorCourses.length > 0 && (
-            <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
-              <h3 className="text-sm font-semibold text-[var(--text-primary)] uppercase mb-4">
+            <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
+              <h3 className="text-sm font-semibold text-text-primary uppercase mb-4">
                 Assigned Courses
               </h3>
               <ul className="space-y-2">
@@ -524,7 +524,7 @@ export default function EditUserPage({
                     key={assignment.id}
                     className="flex items-center justify-between text-sm"
                   >
-                    <span className="text-[var(--text-primary)]">
+                    <span className="text-text-primary">
                       {assignment.course.title}
                     </span>
                     {assignment.isPrimary && (
@@ -540,8 +540,8 @@ export default function EditUserPage({
 
           {/* Enrollments */}
           {user.enrollments.length > 0 && (
-            <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
-              <h3 className="text-sm font-semibold text-[var(--text-primary)] uppercase mb-4">
+            <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
+              <h3 className="text-sm font-semibold text-text-primary uppercase mb-4">
                 Enrollments
               </h3>
               <ul className="space-y-2">
@@ -550,7 +550,7 @@ export default function EditUserPage({
                     key={enrollment.id}
                     className="flex items-center justify-between text-sm"
                   >
-                    <span className="text-[var(--text-primary)]">
+                    <span className="text-text-primary">
                       {enrollment.course.title}
                     </span>
                     <span
@@ -559,7 +559,7 @@ export default function EditUserPage({
                           ? 'text-green-600'
                           : enrollment.status === 'COMPLETED'
                           ? 'text-blue-600'
-                          : 'text-[var(--text-tertiary)]'
+                          : 'text-text-tertiary'
                       }`}
                     >
                       {enrollment.status}

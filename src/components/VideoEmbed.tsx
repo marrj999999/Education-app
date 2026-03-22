@@ -115,21 +115,21 @@ const VideoEmbed = memo(function VideoEmbed({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 p-4 bg-[var(--surface-hover)] rounded-xl border border-[var(--border)] hover:bg-[var(--surface-hover)] hover:border-[var(--border)] transition-all group"
+          className="flex items-center gap-3 p-4 bg-surface-hover rounded-xl border border-border hover:bg-surface-hover hover:border-border transition-all group"
         >
           <div className="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
             <PlayIcon size={24} className="text-red-600" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-[var(--text-primary)] truncate">{title}</p>
-            <p className="text-sm text-[var(--text-tertiary)] truncate">{url}</p>
+            <p className="font-medium text-text-primary truncate">{title}</p>
+            <p className="text-sm text-text-tertiary truncate">{url}</p>
           </div>
-          <svg className="w-5 h-5 text-[var(--text-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-text-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>
         {caption && (
-          <p className="text-sm text-[var(--text-tertiary)] mt-2 text-center italic">{caption}</p>
+          <p className="text-sm text-text-tertiary mt-2 text-center italic">{caption}</p>
         )}
       </div>
     );
@@ -204,7 +204,7 @@ const VideoEmbed = memo(function VideoEmbed({
       </div>
 
       {caption && (
-        <figcaption className="text-sm text-[var(--text-tertiary)] mt-3 text-center italic">
+        <figcaption className="text-sm text-text-tertiary mt-3 text-center italic">
           {caption}
         </figcaption>
       )}

@@ -38,12 +38,12 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-[var(--forest)] min-h-screen flex flex-col">
+    <aside className="w-64 bg-forest min-h-screen flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-white/10">
         <Link href="/admin" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[var(--gold)] flex items-center justify-center">
-            <BambooIcon size={24} className="text-[var(--forest)]" />
+          <div className="w-10 h-10 rounded-xl bg-gold flex items-center justify-center">
+            <BambooIcon size={24} className="text-forest" />
           </div>
           <div>
             <p className="font-bold text-white">Admin Panel</p>
@@ -65,7 +65,7 @@ export default function AdminSidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-[var(--teal)] text-white'
+                      ? 'bg-teal text-white'
                       : 'text-white/70 hover:bg-white/10 hover:text-white'
                   }`}
                 >

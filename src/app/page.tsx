@@ -26,18 +26,18 @@ export default async function Home() {
   const upcomingCourses = allCourses.filter(c => !c.enabled);
 
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)]">
+    <div className="min-h-screen bg-surface-hover">
       {/* Navigation Header */}
-      <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
+      <header className="bg-surface border-b border-border sticky top-0 z-30">
         <nav className="max-w-6xl mx-auto px-6" aria-label="Main navigation">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--forest)] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center">
                 <BambooIcon size={24} className="text-white" />
               </div>
               <div className="hidden sm:block">
-                <p className="font-bold text-[var(--text-primary)]">Bamboo Bicycle Club</p>
-                <p className="text-xs text-[var(--text-tertiary)]">Instructor Portal</p>
+                <p className="font-bold text-text-primary">Bamboo Bicycle Club</p>
+                <p className="text-xs text-text-tertiary">Instructor Portal</p>
               </div>
             </Link>
 
@@ -45,7 +45,7 @@ export default async function Home() {
               {isAdmin && (
                 <Link
                   href="/admin"
-                  className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
+                  className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-hover rounded-lg transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -58,7 +58,7 @@ export default async function Home() {
                 <>
                   <Link
                     href="/dashboard"
-                    className="hidden sm:block px-4 py-2 text-sm font-medium text-[var(--teal)] hover:bg-[var(--bamboo-50)] rounded-lg transition-colors"
+                    className="hidden sm:block px-4 py-2 text-sm font-medium text-teal hover:bg-bamboo-50 rounded-lg transition-colors"
                   >
                     Dashboard
                   </Link>
@@ -67,7 +67,7 @@ export default async function Home() {
               ) : (
                 <Link
                   href="/auth/login"
-                  className="px-4 py-2 text-sm font-medium text-white bg-[var(--teal)] hover:bg-[var(--forest)] rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white bg-teal hover:bg-forest rounded-lg transition-colors"
                 >
                   Sign in
                 </Link>
@@ -79,7 +79,7 @@ export default async function Home() {
 
       <main>
         {/* Hero Section */}
-        <div className="bg-[var(--forest)] text-white">
+        <div className="bg-forest text-white">
         <div className="max-w-6xl mx-auto px-6 py-12 lg:py-16">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
@@ -111,50 +111,50 @@ export default async function Home() {
       {/* Stats Section */}
       <div className="max-w-6xl mx-auto px-6 -mt-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
+          <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[var(--bamboo-100)] flex items-center justify-center">
-                <BookIcon size={20} className="text-[var(--teal)]" />
+              <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
+                <BookIcon size={20} className="text-teal" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-[var(--text-primary)]">{enabledCourses.length}</p>
-                <p className="text-sm text-[var(--text-tertiary)]">Active Courses</p>
+                <p className="text-2xl font-bold text-text-primary">{enabledCourses.length}</p>
+                <p className="text-sm text-text-tertiary">Active Courses</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
+          <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
                 <ModuleIcon size={20} className="text-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-[var(--text-primary)]">{upcomingCourses.length}</p>
-                <p className="text-sm text-[var(--text-tertiary)]">Coming Soon</p>
+                <p className="text-2xl font-bold text-text-primary">{upcomingCourses.length}</p>
+                <p className="text-sm text-text-tertiary">Coming Soon</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
+          <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
                 <CertificateIcon size={20} className="text-amber-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-[var(--text-primary)]">OCN</p>
-                <p className="text-sm text-[var(--text-tertiary)]">Accredited</p>
+                <p className="text-2xl font-bold text-text-primary">OCN</p>
+                <p className="text-sm text-text-tertiary">Accredited</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-[var(--surface)] rounded-xl p-5 shadow-sm border border-[var(--border)]">
+          <div className="bg-surface rounded-xl p-5 shadow-sm border border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
                 <LevelIcon size={20} className="text-purple-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-[var(--text-primary)]">Level 1-3</p>
-                <p className="text-sm text-[var(--text-tertiary)]">Qualifications</p>
+                <p className="text-2xl font-bold text-text-primary">Level 1-3</p>
+                <p className="text-sm text-text-tertiary">Qualifications</p>
               </div>
             </div>
           </div>
@@ -167,8 +167,8 @@ export default async function Home() {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-[var(--text-primary)]">Your Courses</h2>
-              <p className="text-[var(--text-tertiary)] mt-1">Select a course to view materials and track progress</p>
+              <h2 className="text-2xl font-bold text-text-primary">Your Courses</h2>
+              <p className="text-text-tertiary mt-1">Select a course to view materials and track progress</p>
             </div>
           </div>
 
@@ -185,7 +185,7 @@ export default async function Home() {
                   <Link
                     key={course.id}
                     href={`/courses/${course.slug}`}
-                    className="group bg-[var(--surface)] rounded-2xl border border-[var(--border)] overflow-hidden hover:border-[var(--teal)] hover:shadow-lg transition-all"
+                    className="group bg-surface rounded-2xl border border-border overflow-hidden hover:border-teal hover:shadow-lg transition-all"
                   >
                     {/* Course Header */}
                     <div className={`${colorTheme.bgGradient} p-6 text-white`}>
@@ -207,12 +207,12 @@ export default async function Home() {
 
                     {/* Course Body */}
                     <div className="p-6">
-                      <p className="text-[var(--text-secondary)] mb-4 line-clamp-2">
+                      <p className="text-text-secondary mb-4 line-clamp-2">
                         {course.description}
                       </p>
 
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-[var(--text-tertiary)]">
+                        <div className="flex items-center gap-4 text-sm text-text-tertiary">
                           {course.accreditation && (
                             <span className="flex items-center gap-1.5">
                               <CertificateIcon size={16} />
@@ -243,8 +243,8 @@ export default async function Home() {
           <section>
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-[var(--text-primary)]">Coming Soon</h2>
-                <p className="text-[var(--text-tertiary)] mt-1">New courses in development</p>
+                <h2 className="text-2xl font-bold text-text-primary">Coming Soon</h2>
+                <p className="text-text-tertiary mt-1">New courses in development</p>
               </div>
             </div>
 
@@ -255,16 +255,16 @@ export default async function Home() {
                 return (
                   <div
                     key={course.id}
-                    className="bg-[var(--surface)] rounded-xl border border-[var(--border)] p-5 opacity-75"
+                    className="bg-surface rounded-xl border border-border p-5 opacity-75"
                   >
                     <div className="flex items-start gap-4">
                       <div className={`w-12 h-12 rounded-xl ${colorTheme.light} flex items-center justify-center`}>
                         <DynamicIcon name={course.icon} size={24} className={colorTheme.text} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-[var(--text-primary)] mb-1">{course.shortTitle}</h3>
-                        <p className="text-sm text-[var(--text-tertiary)] mb-2">{course.duration}</p>
-                        <span className="inline-block text-xs bg-[var(--surface-hover)] text-[var(--text-secondary)] px-2.5 py-1 rounded-full">
+                        <h3 className="font-semibold text-text-primary mb-1">{course.shortTitle}</h3>
+                        <p className="text-sm text-text-tertiary mb-2">{course.duration}</p>
+                        <span className="inline-block text-xs bg-surface-hover text-text-secondary px-2.5 py-1 rounded-full">
                           Coming Soon
                         </span>
                       </div>
@@ -279,19 +279,19 @@ export default async function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border)] bg-[var(--surface)] mt-12">
+      <footer className="border-t border-border bg-surface mt-12">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[var(--teal)] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-teal flex items-center justify-center">
                 <BambooIcon size={16} className="text-white" />
               </div>
               <div>
-                <p className="font-semibold text-[var(--text-primary)]">Bamboo Bicycle Club</p>
-                <p className="text-sm text-[var(--text-tertiary)]">OCN Accredited Training Programs</p>
+                <p className="font-semibold text-text-primary">Bamboo Bicycle Club</p>
+                <p className="text-sm text-text-tertiary">OCN Accredited Training Programs</p>
               </div>
             </div>
-            <p className="text-sm text-[var(--text-tertiary)]">
+            <p className="text-sm text-text-tertiary">
               &copy; {new Date().getFullYear()} All rights reserved
             </p>
           </div>

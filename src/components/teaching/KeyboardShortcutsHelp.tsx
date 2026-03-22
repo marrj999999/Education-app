@@ -114,7 +114,7 @@ export function KeyboardShortcutsHelp({ open, onOpenChange }: KeyboardShortcutsH
         <div className="space-y-6 pt-4">
           {categories.map(({ key, label }) => (
             <div key={key}>
-              <h3 className="text-sm font-semibold text-[var(--text-tertiary)] uppercase tracking-wide mb-3">
+              <h3 className="text-sm font-semibold text-text-tertiary uppercase tracking-wide mb-3">
                 {label}
               </h3>
               <div className="space-y-2">
@@ -123,21 +123,21 @@ export function KeyboardShortcutsHelp({ open, onOpenChange }: KeyboardShortcutsH
                   .map((shortcut, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between py-2 px-3 rounded-lg bg-[var(--surface-hover)]"
+                      className="flex items-center justify-between py-2 px-3 rounded-lg bg-surface-hover"
                     >
-                      <span className="text-sm text-[var(--text-secondary)]">{shortcut.description}</span>
+                      <span className="text-sm text-text-secondary">{shortcut.description}</span>
                       <div className="flex items-center gap-1">
                         {shortcut.keys.map((key, keyIndex) => (
                           <React.Fragment key={keyIndex}>
                             {keyIndex > 0 && (
-                              <span className="text-xs text-[var(--text-tertiary)]">+</span>
+                              <span className="text-xs text-text-tertiary">+</span>
                             )}
                             <kbd
                               className={cn(
                                 'inline-flex items-center justify-center min-w-[28px] h-7',
                                 'px-2 text-xs font-medium',
-                                'bg-[var(--surface)] border border-[var(--border)] rounded shadow-sm',
-                                'text-[var(--text-secondary)]'
+                                'bg-surface border border-border rounded shadow-sm',
+                                'text-text-secondary'
                               )}
                             >
                               {key}
@@ -153,8 +153,8 @@ export function KeyboardShortcutsHelp({ open, onOpenChange }: KeyboardShortcutsH
         </div>
 
         <div className="pt-4 border-t mt-4">
-          <p className="text-xs text-[var(--text-tertiary)] text-center">
-            Press <kbd className="px-1.5 py-0.5 bg-[var(--surface-hover)] rounded text-xs">?</kbd> anytime to
+          <p className="text-xs text-text-tertiary text-center">
+            Press <kbd className="px-1.5 py-0.5 bg-surface-hover rounded text-xs">?</kbd> anytime to
             show this help
           </p>
         </div>

@@ -119,8 +119,8 @@ export function SectionRenderer({ section, variant = 'compact', lessonId }: Sect
 
   // Fallback for unknown section types
   return (
-    <div className="bg-[var(--surface-hover)] border border-[var(--border)] rounded-lg p-4">
-      <p className="text-sm text-[var(--text-tertiary)]">Unknown section type: {(section as ContentSection).type}</p>
+    <div className="bg-surface-hover border border-border rounded-lg p-4">
+      <p className="text-sm text-text-tertiary">Unknown section type: {(section as ContentSection).type}</p>
     </div>
   );
 }

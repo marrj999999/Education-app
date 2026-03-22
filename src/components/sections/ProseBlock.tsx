@@ -44,7 +44,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
           return (
             <blockquote
               key={index}
-              className={`border-l-4 border-[var(--border)] pl-4 italic text-[var(--text-secondary)] ${isLarge ? 'text-lg' : 'text-base'}`}
+              className={`border-l-4 border-border pl-4 italic text-text-secondary ${isLarge ? 'text-lg' : 'text-base'}`}
             >
               {trimmed.substring(2)}
             </blockquote>
@@ -55,8 +55,8 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
         if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
           return (
             <div key={index} className="flex items-start gap-2">
-              <span className="text-[var(--text-tertiary)] mt-1 flex-shrink-0">•</span>
-              <span className={`text-[var(--text-secondary)] ${isLarge ? 'text-lg' : 'text-base'}`}>
+              <span className="text-text-tertiary mt-1 flex-shrink-0">•</span>
+              <span className={`text-text-secondary ${isLarge ? 'text-lg' : 'text-base'}`}>
                 {trimmed.substring(2)}
               </span>
             </div>
@@ -68,10 +68,10 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
           const isChecked = trimmed.startsWith('☑');
           return (
             <div key={index} className="flex items-start gap-2">
-              <span className={`mt-1 flex-shrink-0 ${isChecked ? 'text-[var(--teal)]' : 'text-[var(--text-tertiary)]'}`}>
+              <span className={`mt-1 flex-shrink-0 ${isChecked ? 'text-teal' : 'text-text-tertiary'}`}>
                 {isChecked ? '☑' : '☐'}
               </span>
-              <span className={`${isLarge ? 'text-lg' : 'text-base'} ${isChecked ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-secondary)]'}`}>
+              <span className={`${isLarge ? 'text-lg' : 'text-base'} ${isChecked ? 'text-text-tertiary line-through' : 'text-text-secondary'}`}>
                 {trimmed.substring(2)}
               </span>
             </div>
@@ -87,7 +87,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
         return (
           <p
             key={index}
-            className={`text-[var(--text-secondary)] leading-relaxed ${isLarge ? 'text-lg lg:text-xl' : 'text-base'}`}
+            className={`text-text-secondary leading-relaxed ${isLarge ? 'text-lg lg:text-xl' : 'text-base'}`}
           >
             {trimmed}
           </p>

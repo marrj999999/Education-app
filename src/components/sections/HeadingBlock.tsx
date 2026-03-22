@@ -19,14 +19,14 @@ export function HeadingBlock({ section, variant = 'compact' }: HeadingBlockProps
 
   const headingClasses = {
     1: isLarge
-      ? 'text-3xl lg:text-4xl font-bold text-[var(--text-primary)] mb-6'
-      : 'text-2xl lg:text-3xl font-bold text-[var(--text-primary)] mb-4',
+      ? 'text-3xl lg:text-4xl font-bold text-text-primary mb-6'
+      : 'text-2xl lg:text-3xl font-bold text-text-primary mb-4',
     2: isLarge
-      ? 'text-2xl lg:text-3xl font-semibold text-[var(--text-primary)] mb-4'
-      : 'text-xl lg:text-2xl font-semibold text-[var(--text-primary)] mb-3',
+      ? 'text-2xl lg:text-3xl font-semibold text-text-primary mb-4'
+      : 'text-xl lg:text-2xl font-semibold text-text-primary mb-3',
     3: isLarge
-      ? 'text-xl lg:text-2xl font-semibold text-[var(--text-primary)] mb-3'
-      : 'text-lg lg:text-xl font-semibold text-[var(--text-primary)] mb-2',
+      ? 'text-xl lg:text-2xl font-semibold text-text-primary mb-3'
+      : 'text-lg lg:text-xl font-semibold text-text-primary mb-2',
   };
 
   const tag = `h${section.level}` as 'h1' | 'h2' | 'h3';

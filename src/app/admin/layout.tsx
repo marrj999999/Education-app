@@ -20,14 +20,14 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-[var(--surface-hover)]">
+    <div className="flex min-h-screen bg-surface-hover">
       <AdminSidebar />
 
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-30">
+        <header className="bg-surface border-b border-border sticky top-0 z-30">
           <div className="px-6 py-4 flex items-center justify-between">
-            <h1 className="text-lg font-semibold text-[var(--text-primary)]">
+            <h1 className="text-lg font-semibold text-text-primary">
               Admin Panel
             </h1>
             <UserMenu user={session.user} />

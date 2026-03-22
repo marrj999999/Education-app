@@ -31,7 +31,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
   const hasParagraphs = section.paragraphs && section.paragraphs.length > 0;
 
   return (
-    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden shadow-sm">
+    <div className="bg-surface border border-border rounded-xl overflow-hidden shadow-sm">
       <div className={cn(isPresentation ? 'p-8' : isLarge ? 'p-6' : 'p-4')}>
         <div className={cn('flex', isPresentation ? 'gap-6' : 'gap-4')}>
           {/* Step Number Circle - Green for sections */}
@@ -58,7 +58,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               {section.title && (
                 <h3
                   className={cn(
-                    'font-semibold text-[var(--text-primary)]',
+                    'font-semibold text-text-primary',
                     isPresentation
                       ? 'text-present-heading'
                       : isTeaching
@@ -92,7 +92,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
             {section.instruction && section.instruction !== section.title && (
               <p
                 className={cn(
-                  'text-[var(--text-primary)] leading-relaxed',
+                  'text-text-primary leading-relaxed',
                   isPresentation
                     ? 'text-present-body'
                     : isTeaching
@@ -113,7 +113,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
           <div className={cn('mt-6', isPresentation && 'mt-8')}>
             <h4
               className={cn(
-                'font-semibold text-[var(--text-secondary)] mb-3',
+                'font-semibold text-text-secondary mb-3',
                 isPresentation ? 'text-lg' : 'text-sm uppercase tracking-wide'
               )}
             >
@@ -124,13 +124,13 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                 <li
                   key={index}
                   className={cn(
-                    'flex items-start gap-3 text-[var(--text-primary)]',
+                    'flex items-start gap-3 text-text-primary',
                     isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                   )}
                 >
                   <span
                     className={cn(
-                      'flex-shrink-0 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded-full',
+                      'flex-shrink-0 bg-surface-hover text-text-secondary rounded-full',
                       'flex items-center justify-center font-medium',
                       isPresentation ? 'w-8 h-8 text-base' : 'w-6 h-6 text-xs'
                     )}
@@ -140,7 +140,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                   <span className="flex-1">
                     {activity.text}
                     {activity.duration && (
-                      <span className="ml-2 text-[var(--text-tertiary)]">({activity.duration})</span>
+                      <span className="ml-2 text-text-tertiary">({activity.duration})</span>
                     )}
                   </span>
                 </li>
@@ -214,7 +214,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               <p
                 key={index}
                 className={cn(
-                  'text-[var(--text-secondary)] leading-relaxed',
+                  'text-text-secondary leading-relaxed',
                   isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                 )}
               >
@@ -253,16 +253,16 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
         {hasTables && (
           <div className={cn('mt-4 space-y-4', isPresentation && 'mt-6 space-y-6')}>
             {section.tables!.map((table, tableIndex) => (
-              <div key={tableIndex} className="overflow-x-auto rounded-lg border border-[var(--border)]">
-                <table className="min-w-full divide-y divide-[var(--border)]">
+              <div key={tableIndex} className="overflow-x-auto rounded-lg border border-border">
+                <table className="min-w-full divide-y divide-border">
                   {table.headers.length > 0 && (
-                    <thead className="bg-[var(--surface-hover)]">
+                    <thead className="bg-surface-hover">
                       <tr>
                         {table.headers.map((header, i) => (
                           <th
                             key={i}
                             className={cn(
-                              'px-4 py-3 text-left font-semibold text-[var(--text-secondary)]',
+                              'px-4 py-3 text-left font-semibold text-text-secondary',
                               isPresentation ? 'text-base' : 'text-sm'
                             )}
                           >
@@ -272,14 +272,14 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                       </tr>
                     </thead>
                   )}
-                  <tbody className="bg-[var(--surface)] divide-y divide-[var(--border)]">
+                  <tbody className="bg-surface divide-y divide-border">
                     {table.rows.map((row, rowIndex) => (
-                      <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-hover)]'}>
+                      <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-surface' : 'bg-surface-hover'}>
                         {row.map((cell, cellIndex) => (
                           <td
                             key={cellIndex}
                             className={cn(
-                              'px-4 py-3 text-[var(--text-secondary)]',
+                              'px-4 py-3 text-text-secondary',
                               isPresentation ? 'text-base' : 'text-sm'
                             )}
                           >
@@ -300,7 +300,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
           <div className={cn('mt-4', isPresentation && 'mt-6')}>
             <h4
               className={cn(
-                'font-semibold text-[var(--text-secondary)] mb-3',
+                'font-semibold text-text-secondary mb-3',
                 isPresentation ? 'text-lg' : 'text-sm uppercase tracking-wide'
               )}
             >
@@ -310,8 +310,8 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               {section.resources!.map((resource, index) => (
                 <div key={index}>
                   {resource.type === 'image' && (
-                    <figure className="rounded-lg overflow-hidden border border-[var(--border)]">
-                      <div className="relative aspect-video bg-[var(--surface-hover)]">
+                    <figure className="rounded-lg overflow-hidden border border-border">
+                      <div className="relative aspect-video bg-surface-hover">
                         <Image
                           src={resource.url}
                           alt={resource.caption || resource.title || 'Section image'}
@@ -323,7 +323,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                       {resource.caption && (
                         <figcaption
                           className={cn(
-                            'px-4 py-2 bg-[var(--surface-hover)] text-[var(--text-secondary)] text-center',
+                            'px-4 py-2 bg-surface-hover text-text-secondary text-center',
                             isPresentation ? 'text-base' : 'text-sm'
                           )}
                         >
@@ -347,16 +347,16 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
-                        'flex items-center gap-3 p-4 rounded-lg border border-[var(--border)]',
-                        'bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] transition-colors',
+                        'flex items-center gap-3 p-4 rounded-lg border border-border',
+                        'bg-surface-hover hover:bg-surface-active transition-colors',
                         isPresentation ? 'text-lg' : 'text-base'
                       )}
                     >
                       <FileText size={isPresentation ? 24 : 20} className="text-blue-600 flex-shrink-0" />
-                      <span className="text-[var(--text-primary)] font-medium">
+                      <span className="text-text-primary font-medium">
                         {resource.title || 'Download File'}
                       </span>
-                      <ExternalLink size={16} className="text-[var(--text-tertiary)] ml-auto" />
+                      <ExternalLink size={16} className="text-text-tertiary ml-auto" />
                     </a>
                   )}
 
@@ -366,13 +366,13 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
-                        'flex items-center gap-3 p-4 rounded-lg border border-[var(--border)]',
-                        'bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] transition-colors',
+                        'flex items-center gap-3 p-4 rounded-lg border border-border',
+                        'bg-surface-hover hover:bg-surface-active transition-colors',
                         isPresentation ? 'text-lg' : 'text-base'
                       )}
                     >
-                      <ExternalLink size={isPresentation ? 24 : 20} className="text-[var(--text-secondary)] flex-shrink-0" />
-                      <span className="text-[var(--text-primary)] font-medium">
+                      <ExternalLink size={isPresentation ? 24 : 20} className="text-text-secondary flex-shrink-0" />
+                      <span className="text-text-primary font-medium">
                         {resource.title || 'View Embedded Content'}
                       </span>
                     </a>
@@ -390,8 +390,8 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               onClick={() => setTipsExpanded(!tipsExpanded)}
               className={cn(
                 'w-full flex items-center justify-between gap-2',
-                'text-left text-[var(--text-secondary)] hover:text-[var(--text-primary)]',
-                'rounded-lg transition-colors hover:bg-[var(--surface-hover)]',
+                'text-left text-text-secondary hover:text-text-primary',
+                'rounded-lg transition-colors hover:bg-surface-hover',
                 isPresentation ? 'p-4' : isLarge ? 'p-3' : 'p-2'
               )}
               aria-expanded={tipsExpanded}

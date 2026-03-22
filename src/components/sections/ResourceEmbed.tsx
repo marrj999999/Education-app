@@ -17,7 +17,7 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
     return (
       <div
         className={`
-          bg-[var(--surface)] border border-[var(--border)] rounded-lg overflow-hidden
+          bg-surface border border-border rounded-lg overflow-hidden
           ${isLarge ? 'p-6' : 'p-4'}
         `}
       >
@@ -26,11 +26,11 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
             <FileText className="text-red-600" size={24} />
           </div>
           <div className="flex-1 min-w-0">
-            <h4 className={`font-medium text-[var(--text-primary)] truncate ${isLarge ? 'text-lg' : 'text-base'}`}>
+            <h4 className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}>
               {section.title || 'PDF Document'}
             </h4>
             {section.caption && (
-              <p className="text-sm text-[var(--text-tertiary)] truncate">{section.caption}</p>
+              <p className="text-sm text-text-tertiary truncate">{section.caption}</p>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
     return (
       <div className="space-y-2">
         {section.title && (
-          <h4 className={`font-medium text-[var(--text-primary)] ${isLarge ? 'text-lg' : 'text-base'}`}>
+          <h4 className={`font-medium text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}>
             {section.title}
           </h4>
         )}
@@ -112,7 +112,7 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
             </div>
           )}
         </div>
-        {section.caption && <p className="text-sm text-[var(--text-tertiary)]">{section.caption}</p>}
+        {section.caption && <p className="text-sm text-text-tertiary">{section.caption}</p>}
       </div>
     );
   }
@@ -123,7 +123,7 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
       <figure className="space-y-2">
         <div
           className={`
-            relative bg-[var(--surface-hover)] rounded-lg overflow-hidden
+            relative bg-surface-hover rounded-lg overflow-hidden
             ${isLarge ? 'max-w-4xl' : 'max-w-2xl'}
           `}
         >
@@ -137,7 +137,7 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
           />
         </div>
         {section.caption && (
-          <figcaption className="text-sm text-[var(--text-tertiary)] italic">{section.caption}</figcaption>
+          <figcaption className="text-sm text-text-tertiary italic">{section.caption}</figcaption>
         )}
       </figure>
     );
@@ -147,28 +147,28 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
   return (
     <div
       className={`
-        bg-[var(--surface)] border border-[var(--border)] rounded-lg overflow-hidden
+        bg-surface border border-border rounded-lg overflow-hidden
         ${isLarge ? 'p-6' : 'p-4'}
       `}
     >
       <div className="flex items-center gap-4">
-        <div className="flex-shrink-0 w-12 h-12 bg-[var(--surface-hover)] rounded-lg flex items-center justify-center">
-          <File className="text-[var(--text-secondary)]" size={24} />
+        <div className="flex-shrink-0 w-12 h-12 bg-surface-hover rounded-lg flex items-center justify-center">
+          <File className="text-text-secondary" size={24} />
         </div>
         <div className="flex-1 min-w-0">
-          <h4 className={`font-medium text-[var(--text-primary)] truncate ${isLarge ? 'text-lg' : 'text-base'}`}>
+          <h4 className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}>
             {section.title || 'File'}
           </h4>
           {section.caption && (
-            <p className="text-sm text-[var(--text-tertiary)] truncate">{section.caption}</p>
+            <p className="text-sm text-text-tertiary truncate">{section.caption}</p>
           )}
         </div>
         <a
           href={section.url}
           download
           className={`
-            inline-flex items-center gap-2 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded-lg
-            hover:bg-[var(--surface-active)] transition-colors font-medium
+            inline-flex items-center gap-2 bg-surface-hover text-text-secondary rounded-lg
+            hover:bg-surface-active transition-colors font-medium
             ${isLarge ? 'px-4 py-2 text-base' : 'px-3 py-1.5 text-sm'}
           `}
         >

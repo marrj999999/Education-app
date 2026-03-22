@@ -59,15 +59,15 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const nextLesson = currentIndex < siblingLessons.length - 1 ? siblingLessons[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)]">
+    <div className="min-h-screen bg-surface-hover">
       {/* Top Navigation Bar - Teachable style */}
-      <div className="sticky top-0 z-30 bg-[var(--surface)] border-b border-[var(--border)] shadow-sm">
+      <div className="sticky top-0 z-30 bg-surface border-b border-border shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14">
             {/* Back link */}
             <Link
               href="/"
-              className="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--teal)] transition-colors"
+              className="flex items-center gap-2 text-text-secondary hover:text-teal transition-colors"
             >
               <ChevronLeftIcon size={20} />
               <span className="text-sm font-medium hidden sm:inline">Back to Course</span>
@@ -75,8 +75,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
             {/* Lesson progress indicator */}
             {siblingLessons.length > 1 && (
-              <div className="flex items-center gap-2 text-sm text-[var(--text-tertiary)]">
-                <span className="font-medium text-[var(--text-primary)]">
+              <div className="flex items-center gap-2 text-sm text-text-tertiary">
+                <span className="font-medium text-text-primary">
                   {currentIndex + 1}
                 </span>
                 <span>/</span>
@@ -95,7 +95,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
       {/* Cover Image - Full width hero */}
       {page.cover && (
-        <div className="relative h-48 md:h-64 lg:h-72 w-full overflow-hidden bg-[var(--forest)]">
+        <div className="relative h-48 md:h-64 lg:h-72 w-full overflow-hidden bg-forest">
           <Image
             src={page.cover}
             alt=""
@@ -111,20 +111,20 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Lesson Header - Overlapping card style */}
         <header className={`
-          bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8
+          bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8
           ${page.cover ? '-mt-16 relative z-10' : 'mt-8'}
         `}>
           <div className="flex items-start gap-4">
             {page.icon && (
-              <div className="w-14 h-14 rounded-xl bg-[var(--bamboo-100)] flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 rounded-xl bg-bamboo-100 flex items-center justify-center flex-shrink-0">
                 <span className="text-3xl">{page.icon}</span>
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
                 {page.title}
               </h1>
-              <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-tertiary)]">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-text-tertiary">
                 <span className="flex items-center gap-1.5">
                   <ClockIcon size={16} />
                   Updated {new Date(page.last_edited_time).toLocaleDateString('en-GB', {
@@ -145,7 +145,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </header>
 
         {/* Lesson Content */}
-        <article className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8 mt-6 mb-8">
+        <article className="bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8 mt-6 mb-8">
           <div className="space-y-6">
             {sections.map((section, index) => {
               const zoneLabel = getZoneLabel(sections, index, (layoutVersion || 'standard-v1') as LayoutVersion);
@@ -164,9 +164,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {/* Child Pages / Related Lessons */}
         {siblingLessons.length > 0 && (
-          <section className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8 mb-8">
-            <h2 className="text-lg font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-              <ListIcon size={20} className="text-[var(--teal)]" />
+          <section className="bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8 mb-8">
+            <h2 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
+              <ListIcon size={20} className="text-teal" />
               Lessons in This Section
             </h2>
             <div className="space-y-2">
@@ -177,28 +177,28 @@ export default async function LessonPage({ params }: LessonPageProps) {
                   className={`
                     flex items-center gap-4 p-4 rounded-lg border transition-all
                     ${lesson.id === lessonId
-                      ? 'bg-[var(--bamboo-50)] border-[var(--bamboo-200)]'
-                      : 'bg-[var(--surface-hover)] border-[var(--border)] hover:border-[var(--bamboo-200)] hover:bg-[var(--bamboo-50)]'
+                      ? 'bg-bamboo-50 border-bamboo-200'
+                      : 'bg-surface-hover border-border hover:border-bamboo-200 hover:bg-bamboo-50'
                     }
                   `}
                 >
                   <div className={`
                     w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold
                     ${lesson.id === lessonId
-                      ? 'bg-[var(--teal)] text-white'
-                      : 'bg-[var(--surface)] text-[var(--text-secondary)] border border-[var(--border)]'
+                      ? 'bg-teal text-white'
+                      : 'bg-surface text-text-secondary border border-border'
                     }
                   `}>
                     {index + 1}
                   </div>
                   <span className={`
                     flex-1 font-medium truncate
-                    ${lesson.id === lessonId ? 'text-[var(--forest)]' : 'text-[var(--text-secondary)]'}
+                    ${lesson.id === lessonId ? 'text-forest' : 'text-text-secondary'}
                   `}>
                     {lesson.title}
                   </span>
                   {lesson.id === lessonId && (
-                    <span className="text-xs bg-[var(--bamboo-200)] text-[var(--forest)] px-2.5 py-1 rounded-full font-medium">
+                    <span className="text-xs bg-bamboo-200 text-forest px-2.5 py-1 rounded-full font-medium">
                       Current
                     </span>
                   )}
@@ -213,14 +213,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
           {prevLesson ? (
             <Link
               href={`/lessons/${prevLesson.id}`}
-              className="flex-1 max-w-xs flex items-center gap-3 p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)] hover:border-[var(--teal)] hover:shadow-md transition-all group"
+              className="flex-1 max-w-xs flex items-center gap-3 p-4 bg-surface rounded-xl border border-border hover:border-teal hover:shadow-md transition-all group"
             >
-              <div className="w-10 h-10 rounded-lg bg-[var(--surface-hover)] group-hover:bg-[var(--bamboo-100)] flex items-center justify-center transition-colors">
-                <ChevronLeftIcon size={20} className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)]" />
+              <div className="w-10 h-10 rounded-lg bg-surface-hover group-hover:bg-bamboo-100 flex items-center justify-center transition-colors">
+                <ChevronLeftIcon size={20} className="text-text-tertiary group-hover:text-teal" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-[var(--text-tertiary)] mb-0.5">Previous</p>
-                <p className="text-sm font-medium text-[var(--text-primary)] truncate group-hover:text-[var(--teal)]">
+                <p className="text-xs text-text-tertiary mb-0.5">Previous</p>
+                <p className="text-sm font-medium text-text-primary truncate group-hover:text-teal">
                   {prevLesson.title}
                 </p>
               </div>
@@ -231,24 +231,24 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
           <Link
             href="/"
-            className="w-12 h-12 rounded-xl bg-[var(--surface-hover)] hover:bg-[var(--bamboo-100)] flex items-center justify-center transition-colors"
+            className="w-12 h-12 rounded-xl bg-surface-hover hover:bg-bamboo-100 flex items-center justify-center transition-colors"
           >
-            <HomeIcon size={20} className="text-[var(--text-secondary)]" />
+            <HomeIcon size={20} className="text-text-secondary" />
           </Link>
 
           {nextLesson ? (
             <Link
               href={`/lessons/${nextLesson.id}`}
-              className="flex-1 max-w-xs flex items-center justify-end gap-3 p-4 bg-[var(--surface)] rounded-xl border border-[var(--border)] hover:border-[var(--teal)] hover:shadow-md transition-all group"
+              className="flex-1 max-w-xs flex items-center justify-end gap-3 p-4 bg-surface rounded-xl border border-border hover:border-teal hover:shadow-md transition-all group"
             >
               <div className="flex-1 min-w-0 text-right">
-                <p className="text-xs text-[var(--text-tertiary)] mb-0.5">Next</p>
-                <p className="text-sm font-medium text-[var(--text-primary)] truncate group-hover:text-[var(--teal)]">
+                <p className="text-xs text-text-tertiary mb-0.5">Next</p>
+                <p className="text-sm font-medium text-text-primary truncate group-hover:text-teal">
                   {nextLesson.title}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-lg bg-[var(--surface-hover)] group-hover:bg-[var(--bamboo-100)] flex items-center justify-center transition-colors">
-                <ChevronRightIcon size={20} className="text-[var(--text-tertiary)] group-hover:text-[var(--teal)]" />
+              <div className="w-10 h-10 rounded-lg bg-surface-hover group-hover:bg-bamboo-100 flex items-center justify-center transition-colors">
+                <ChevronRightIcon size={20} className="text-text-tertiary group-hover:text-teal" />
               </div>
             </Link>
           ) : (
@@ -258,7 +258,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       </div>
 
       {/* Print only: show simplified footer */}
-      <div className="hidden print:block text-center text-sm text-[var(--text-tertiary)] py-8 border-t">
+      <div className="hidden print:block text-center text-sm text-text-tertiary py-8 border-t">
         <p>Bamboo Bicycle Club - Instructor Course Materials</p>
         <p>Printed from: {page.title}</p>
       </div>

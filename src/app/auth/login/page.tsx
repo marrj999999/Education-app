@@ -9,12 +9,12 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[var(--background)] flex items-center justify-center p-4">
+        <div className="min-h-screen bg-background flex items-center justify-center p-4">
           <div className="w-full max-w-md text-center">
-            <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg mx-auto mb-4">
+            <div className="w-12 h-12 rounded-xl bg-forest flex items-center justify-center shadow-lg mx-auto mb-4">
               <BambooIcon size={28} className="text-white" />
             </div>
-            <p className="text-[var(--text-tertiary)]">Loading...</p>
+            <p className="text-text-tertiary">Loading...</p>
           </div>
         </div>
       }
@@ -70,12 +70,12 @@ function LoginForm() {
 
   return (
     <LoginShell>
-      <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">Welcome back</h1>
-      <p className="text-[var(--text-tertiary)] mb-8">
+      <h1 className="text-2xl font-bold text-text-primary mb-2">Welcome back</h1>
+      <p className="text-text-tertiary mb-8">
         Sign in to access your instructor dashboard
       </p>
 
-      <div className="bg-[var(--surface)] rounded-2xl shadow-xl border border-[var(--border)] p-8 bamboo-stripe overflow-hidden">
+      <div className="bg-surface rounded-2xl shadow-xl border border-border p-8 bamboo-stripe overflow-hidden">
         {errorMessage && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
             {errorMessage}
@@ -86,7 +86,7 @@ function LoginForm() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Email address
             </label>
@@ -97,14 +97,14 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--steel)] focus:border-transparent transition-all outline-none"
+              className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-steel focus:border-transparent transition-all outline-none"
               placeholder="you@example.com"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Password
             </label>
@@ -116,13 +116,13 @@ function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl focus:ring-2 focus:ring-[var(--steel)] focus:border-transparent transition-all outline-none pr-12"
+                className="w-full px-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-steel focus:border-transparent transition-all outline-none pr-12"
                 placeholder="Enter your password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-secondary transition-colors"
                 tabIndex={-1}
               >
                 {showPassword ? (
@@ -167,13 +167,13 @@ function LoginForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 bg-[var(--gold)] text-[var(--forest)] font-semibold rounded-xl hover:brightness-110 focus:ring-2 focus:ring-[var(--steel)] focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 px-4 bg-gold text-forest font-semibold rounded-xl hover:brightness-110 focus:ring-2 focus:ring-steel focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? <LoadingSpinner text="Signing in..." /> : 'Sign in'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-[var(--text-tertiary)] text-xs">
+        <p className="mt-6 text-center text-text-tertiary text-xs">
           Need an account? Contact your administrator.
         </p>
       </div>
@@ -183,14 +183,14 @@ function LoginForm() {
 
 function LoginShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[var(--background)] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-[var(--forest)] flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-forest flex items-center justify-center shadow-lg">
               <BambooIcon size={28} className="text-white" />
             </div>
-            <span className="text-xl font-bold text-[var(--text-primary)]">
+            <span className="text-xl font-bold text-text-primary">
               Bamboo Bicycle Club
             </span>
           </Link>

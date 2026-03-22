@@ -12,11 +12,11 @@ interface StatsCardProps {
 }
 
 const colorStyles = {
-  green: 'bg-[var(--bamboo-100)] text-[var(--teal)]',
+  green: 'bg-bamboo-100 text-teal',
   blue: 'bg-blue-100 text-blue-600',
   purple: 'bg-purple-100 text-purple-600',
   amber: 'bg-amber-100 text-amber-600',
-  gray: 'bg-[var(--surface-hover)] text-[var(--text-secondary)]',
+  gray: 'bg-surface-hover text-text-secondary',
 };
 
 export default function StatsCard({
@@ -28,18 +28,18 @@ export default function StatsCard({
   color = 'green',
 }: StatsCardProps) {
   return (
-    <div className="bg-[var(--surface)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+    <div className="bg-surface rounded-xl p-6 shadow-sm border border-border">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-medium text-[var(--text-tertiary)]">{title}</p>
-          <p className="text-3xl font-bold text-[var(--text-primary)] mt-1">{value}</p>
+          <p className="text-sm font-medium text-text-tertiary">{title}</p>
+          <p className="text-3xl font-bold text-text-primary mt-1">{value}</p>
           {description && (
-            <p className="text-sm text-[var(--text-tertiary)] mt-1">{description}</p>
+            <p className="text-sm text-text-tertiary mt-1">{description}</p>
           )}
           {trend && (
             <p
               className={`text-sm mt-2 ${
-                trend.positive ? 'text-[var(--teal)]' : 'text-red-600'
+                trend.positive ? 'text-teal' : 'text-red-600'
               }`}
             >
               <span className="font-medium">

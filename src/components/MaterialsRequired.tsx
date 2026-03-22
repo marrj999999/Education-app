@@ -36,9 +36,9 @@ export default function MaterialsRequired({ materials }: MaterialsRequiredProps)
   if (!materials?.length) return null;
 
   return (
-    <div className="bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl p-5 mb-6 print:break-inside-avoid">
-      <h3 className="font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-        <ClipboardIcon size={20} className="text-[var(--text-secondary)]" /> Materials Required
+    <div className="bg-surface-hover border border-border rounded-xl p-5 mb-6 print:break-inside-avoid">
+      <h3 className="font-semibold text-text-primary mb-3 flex items-center gap-2">
+        <ClipboardIcon size={20} className="text-text-secondary" /> Materials Required
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {materials.map((material, i) => {
@@ -46,13 +46,13 @@ export default function MaterialsRequired({ materials }: MaterialsRequiredProps)
           return (
             <div
               key={i}
-              className="flex items-center gap-3 p-2 bg-[var(--surface)] rounded-lg border border-[var(--border)]"
+              className="flex items-center gap-3 p-2 bg-surface rounded-lg border border-border"
             >
-              <IconComponent size={20} className="text-[var(--text-tertiary)]" />
-              <span className="text-[var(--text-secondary)]">
+              <IconComponent size={20} className="text-text-tertiary" />
+              <span className="text-text-secondary">
                 {material.item}
                 {material.quantity && (
-                  <span className="text-[var(--text-tertiary)] text-sm ml-1">({material.quantity})</span>
+                  <span className="text-text-tertiary text-sm ml-1">({material.quantity})</span>
                 )}
               </span>
             </div>

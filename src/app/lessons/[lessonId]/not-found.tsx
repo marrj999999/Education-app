@@ -5,13 +5,13 @@ export default function LessonNotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <div className="text-center">
-        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-[var(--surface-hover)] flex items-center justify-center">
-          <DocumentIcon size={40} className="text-[var(--text-tertiary)]" />
+        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-surface-hover flex items-center justify-center">
+          <DocumentIcon size={40} className="text-text-tertiary" />
         </div>
-        <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">
+        <h1 className="text-2xl font-bold text-text-primary mb-2">
           Lesson Not Found
         </h1>
-        <p className="text-[var(--text-secondary)] mb-6 max-w-md">
+        <p className="text-text-secondary mb-6 max-w-md">
           We couldn&apos;t find the lesson you&apos;re looking for. It may have been moved or deleted.
         </p>
         <Link

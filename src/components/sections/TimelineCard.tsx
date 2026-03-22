@@ -18,7 +18,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
       {section.title && (
         <h3
           className={cn(
-            'font-semibold text-[var(--text-primary)]',
+            'font-semibold text-text-primary',
             isPresentation
               ? 'text-present-heading'
               : isLarge
@@ -41,8 +41,8 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
           <div
             key={index}
             className={cn(
-              'bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden',
-              'shadow-sm hover:shadow-md hover:border-[var(--border)] transition-all duration-200',
+              'bg-surface border border-border rounded-xl overflow-hidden',
+              'shadow-sm hover:shadow-md hover:border-border transition-all duration-200',
               isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4'
             )}
           >
@@ -84,7 +84,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
             {/* Activity Name - Bold */}
             <h4
               className={cn(
-                'font-bold text-[var(--text-primary)]',
+                'font-bold text-text-primary',
                 isPresentation
                   ? 'text-xl mb-2'
                   : isLarge
@@ -99,7 +99,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
             {row.notes && (
               <p
                 className={cn(
-                  'text-[var(--text-secondary)] leading-relaxed',
+                  'text-text-secondary leading-relaxed',
                   isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                 )}
               >
@@ -113,7 +113,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
       {/* Summary Footer */}
       <div
         className={cn(
-          'flex items-center gap-2 text-[var(--text-tertiary)] pt-2',
+          'flex items-center gap-2 text-text-tertiary pt-2',
           isPresentation ? 'text-lg' : 'text-sm'
         )}
       >

@@ -83,7 +83,7 @@ interface CohortDetails {
 }
 
 const statusColors: Record<string, { bg: string; text: string; solid: string }> = {
-  DRAFT: { bg: 'bg-[var(--surface-hover)]', text: 'text-[var(--text-secondary)]', solid: 'bg-[var(--text-secondary)]' },
+  DRAFT: { bg: 'bg-surface-hover', text: 'text-text-secondary', solid: 'bg-text-secondary' },
   SCHEDULED: { bg: 'bg-blue-100', text: 'text-blue-700', solid: 'bg-blue-600' },
   IN_PROGRESS: { bg: 'bg-green-100', text: 'text-green-700', solid: 'bg-green-600' },
   COMPLETED: { bg: 'bg-purple-100', text: 'text-purple-700', solid: 'bg-purple-600' },
@@ -147,10 +147,10 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
+      <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-[var(--teal)] border-t-transparent rounded-full animate-spin" />
-          <p className="mt-2 text-[var(--text-tertiary)]">Loading cohort...</p>
+          <div className="inline-block w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin" />
+          <p className="mt-2 text-text-tertiary">Loading cohort...</p>
         </div>
       </div>
     );
@@ -158,10 +158,10 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
 
   if (error || !cohort) {
     return (
-      <div className="min-h-screen bg-[var(--surface-hover)] flex items-center justify-center">
+      <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="w-12 h-12 mx-auto text-red-400 mb-4" />
-          <p className="text-[var(--text-tertiary)]">{error || 'Cohort not found'}</p>
+          <p className="text-text-tertiary">{error || 'Cohort not found'}</p>
           <Link href="/cohorts">
             <Button variant="outline" className="mt-4">Back to Cohorts</Button>
           </Link>
@@ -190,7 +190,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
   const hasUpcomingSession = upcomingSessions.length > 0;
 
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)]">
+    <div className="min-h-screen bg-surface-hover">
       {/* Hero Section */}
       <div className={`${statusColors[cohort.status].solid} text-white`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -260,7 +260,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
         {/* Quick Actions - Show what to do next */}
         {(needsLearners || needsSessions || hasUpcomingSession) && (
           <section className="mb-8">
-            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">What to do next</h2>
+            <h2 className="text-lg font-semibold text-text-primary mb-4">What to do next</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {needsLearners && (
                 <Card className="border-amber-200 bg-amber-50/50">
@@ -270,8 +270,8 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                         <UserPlus className="w-5 h-5 text-amber-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-[var(--text-primary)] mb-1">Add your learners</h3>
-                        <p className="text-sm text-[var(--text-secondary)] mb-3">
+                        <h3 className="font-medium text-text-primary mb-1">Add your learners</h3>
+                        <p className="text-sm text-text-secondary mb-3">
                           Start by enrolling learners in this cohort so you can track their progress.
                         </p>
                         <Link href={`/cohorts/${id}/learners`}>
@@ -294,8 +294,8 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                         <CalendarPlus className="w-5 h-5 text-blue-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-[var(--text-primary)] mb-1">Schedule your sessions</h3>
-                        <p className="text-sm text-[var(--text-secondary)] mb-3">
+                        <h3 className="font-medium text-text-primary mb-1">Schedule your sessions</h3>
+                        <p className="text-sm text-text-secondary mb-3">
                           Plan your course delivery by scheduling sessions for each lesson.
                         </p>
                         <Link href={`/cohorts/${id}/sessions`}>
@@ -318,9 +318,9 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                         <Play className="w-5 h-5 text-green-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-[var(--text-primary)] mb-1">Next session</h3>
-                        <p className="text-sm text-[var(--text-secondary)] mb-1">{nextSession.lesson.title}</p>
-                        <p className="text-xs text-[var(--text-tertiary)] mb-3">{formatDateShort(nextSession.scheduledDate)}</p>
+                        <h3 className="font-medium text-text-primary mb-1">Next session</h3>
+                        <p className="text-sm text-text-secondary mb-1">{nextSession.lesson.title}</p>
+                        <p className="text-xs text-text-tertiary mb-3">{formatDateShort(nextSession.scheduledDate)}</p>
                         <Link href={`/cohorts/${id}/sessions/${nextSession.lessonId}`}>
                           <Button size="sm">
                             <Play className="w-4 h-4 mr-1.5" />
@@ -353,7 +353,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
               <CardContent>
                 <div className="mb-4">
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-[var(--text-secondary)]">Overall completion</span>
+                    <span className="text-text-secondary">Overall completion</span>
                     <span className="font-medium">{progressPercentage}%</span>
                   </div>
                   <Progress value={progressPercentage} className="h-3" />
@@ -371,13 +371,13 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                       <div key={module.id} className="border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
-                            <BookOpen className="w-4 h-4 text-[var(--text-tertiary)]" />
-                            <span className="font-medium text-[var(--text-primary)]">{module.title}</span>
+                            <BookOpen className="w-4 h-4 text-text-tertiary" />
+                            <span className="font-medium text-text-primary">{module.title}</span>
                             {module.weekNumber && (
-                              <span className="text-xs text-[var(--text-tertiary)]">Week {module.weekNumber}</span>
+                              <span className="text-xs text-text-tertiary">Week {module.weekNumber}</span>
                             )}
                           </div>
-                          <span className="text-sm text-[var(--text-tertiary)]">{moduleCompleted}/{moduleLessons}</span>
+                          <span className="text-sm text-text-tertiary">{moduleCompleted}/{moduleLessons}</span>
                         </div>
                         <Progress value={moduleProgress} className="h-2" />
                       </div>
@@ -405,7 +405,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                       <Link
                         key={session.id}
                         href={`/cohorts/${id}/sessions/${session.lessonId}`}
-                        className="flex items-center justify-between p-4 rounded-lg border hover:bg-[var(--surface-hover)] transition-colors group"
+                        className="flex items-center justify-between p-4 rounded-lg border hover:bg-surface-hover transition-colors group"
                       >
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 rounded-lg bg-blue-100 flex flex-col items-center justify-center">
@@ -417,11 +417,11 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                             </span>
                           </div>
                           <div>
-                            <p className="font-medium text-[var(--text-primary)]">{session.lesson.title}</p>
-                            <p className="text-sm text-[var(--text-tertiary)]">{formatDateShort(session.scheduledDate)}</p>
+                            <p className="font-medium text-text-primary">{session.lesson.title}</p>
+                            <p className="text-sm text-text-tertiary">{formatDateShort(session.scheduledDate)}</p>
                           </div>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
+                        <ChevronRight className="w-5 h-5 text-text-tertiary group-hover:text-text-secondary" />
                       </Link>
                     ))}
                   </div>
@@ -443,48 +443,48 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                 <CardTitle>Manage</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Link href={`/cohorts/${id}/learners`} className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--surface-hover)] transition-colors group">
+                <Link href={`/cohorts/${id}/learners`} className="flex items-center justify-between p-3 rounded-lg hover:bg-surface-hover transition-colors group">
                   <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-[var(--text-tertiary)]" />
+                    <Users className="w-5 h-5 text-text-tertiary" />
                     <div>
-                      <p className="font-medium text-[var(--text-primary)]">Learners</p>
-                      <p className="text-sm text-[var(--text-tertiary)]">{cohort.learners.length} enrolled</p>
+                      <p className="font-medium text-text-primary">Learners</p>
+                      <p className="text-sm text-text-tertiary">{cohort.learners.length} enrolled</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
+                  <ChevronRight className="w-5 h-5 text-text-tertiary group-hover:text-text-secondary" />
                 </Link>
 
-                <Link href={`/cohorts/${id}/sessions`} className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--surface-hover)] transition-colors group">
+                <Link href={`/cohorts/${id}/sessions`} className="flex items-center justify-between p-3 rounded-lg hover:bg-surface-hover transition-colors group">
                   <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-[var(--text-tertiary)]" />
+                    <Calendar className="w-5 h-5 text-text-tertiary" />
                     <div>
-                      <p className="font-medium text-[var(--text-primary)]">Sessions</p>
-                      <p className="text-sm text-[var(--text-tertiary)]">{cohort.sessions.length} scheduled</p>
+                      <p className="font-medium text-text-primary">Sessions</p>
+                      <p className="text-sm text-text-tertiary">{cohort.sessions.length} scheduled</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
+                  <ChevronRight className="w-5 h-5 text-text-tertiary group-hover:text-text-secondary" />
                 </Link>
 
-                <Link href={`/cohorts/${id}/assessments`} className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--surface-hover)] transition-colors group">
+                <Link href={`/cohorts/${id}/assessments`} className="flex items-center justify-between p-3 rounded-lg hover:bg-surface-hover transition-colors group">
                   <div className="flex items-center gap-3">
-                    <ClipboardCheck className="w-5 h-5 text-[var(--text-tertiary)]" />
+                    <ClipboardCheck className="w-5 h-5 text-text-tertiary" />
                     <div>
-                      <p className="font-medium text-[var(--text-primary)]">Assessments</p>
-                      <p className="text-sm text-[var(--text-tertiary)]">Track criteria</p>
+                      <p className="font-medium text-text-primary">Assessments</p>
+                      <p className="text-sm text-text-tertiary">Track criteria</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
+                  <ChevronRight className="w-5 h-5 text-text-tertiary group-hover:text-text-secondary" />
                 </Link>
 
-                <Link href={`/cohorts/${id}/iqa`} className="flex items-center justify-between p-3 rounded-lg hover:bg-[var(--surface-hover)] transition-colors group">
+                <Link href={`/cohorts/${id}/iqa`} className="flex items-center justify-between p-3 rounded-lg hover:bg-surface-hover transition-colors group">
                   <div className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[var(--text-tertiary)]" />
+                    <CheckCircle2 className="w-5 h-5 text-text-tertiary" />
                     <div>
-                      <p className="font-medium text-[var(--text-primary)]">IQA</p>
-                      <p className="text-sm text-[var(--text-tertiary)]">Quality assurance</p>
+                      <p className="font-medium text-text-primary">IQA</p>
+                      <p className="text-sm text-text-tertiary">Quality assurance</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
+                  <ChevronRight className="w-5 h-5 text-text-tertiary group-hover:text-text-secondary" />
                 </Link>
               </CardContent>
             </Card>
@@ -498,19 +498,19 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                 <div className="space-y-3">
                   {cohort.instructors.map((instructor) => (
                     <div key={instructor.user.id} className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[var(--teal)] flex items-center justify-center text-white font-medium">
+                      <div className="w-10 h-10 rounded-full bg-teal flex items-center justify-center text-white font-medium">
                         {(instructor.user.name || instructor.user.email)[0].toUpperCase()}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-[var(--text-primary)] truncate">
+                        <p className="font-medium text-text-primary truncate">
                           {instructor.user.name || 'No name'}
                         </p>
-                        <p className="text-sm text-[var(--text-tertiary)] truncate">{instructor.role}</p>
+                        <p className="text-sm text-text-tertiary truncate">{instructor.role}</p>
                       </div>
                     </div>
                   ))}
                   {cohort.instructors.length === 0 && (
-                    <p className="text-sm text-[var(--text-tertiary)]">No instructors assigned</p>
+                    <p className="text-sm text-text-tertiary">No instructors assigned</p>
                   )}
                 </div>
               </CardContent>
@@ -532,7 +532,7 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                         stroke="currentColor"
                         strokeWidth="8"
                         fill="none"
-                        className="text-[var(--surface-active)]"
+                        className="text-surface-active"
                       />
                       <circle
                         cx="48"
@@ -542,19 +542,19 @@ export default function CohortDetailPage({ params }: { params: Promise<{ id: str
                         strokeWidth="8"
                         fill="none"
                         strokeDasharray={`${(cohort.learners.length / cohort.maxLearners) * 251.2} 251.2`}
-                        className="text-[var(--teal)]"
+                        className="text-teal"
                         strokeLinecap="round"
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
-                        <span className="text-2xl font-bold text-[var(--text-primary)]">{cohort.learners.length}</span>
-                        <span className="text-[var(--text-tertiary)]">/{cohort.maxLearners}</span>
+                        <span className="text-2xl font-bold text-text-primary">{cohort.learners.length}</span>
+                        <span className="text-text-tertiary">/{cohort.maxLearners}</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <p className="text-center text-sm text-[var(--text-secondary)]">
+                <p className="text-center text-sm text-text-secondary">
                   {cohort.maxLearners - cohort.learners.length} spots remaining
                 </p>
                 <Link href={`/cohorts/${id}/learners`}>

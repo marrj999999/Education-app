@@ -1,47 +1,47 @@
 export default function LessonLoading() {
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)] animate-pulse">
+    <div className="min-h-screen bg-surface-hover animate-pulse">
       {/* Top Nav Skeleton */}
-      <div className="sticky top-0 z-30 bg-[var(--surface)] border-b border-[var(--border)] shadow-sm">
+      <div className="sticky top-0 z-30 bg-surface border-b border-border shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14">
-            <div className="h-4 w-32 bg-[var(--surface-active)] rounded" />
-            <div className="h-4 w-20 bg-[var(--surface-active)] rounded" />
+            <div className="h-4 w-32 bg-surface-active rounded" />
+            <div className="h-4 w-20 bg-surface-active rounded" />
             <div className="flex gap-2">
-              <div className="h-8 w-16 bg-[var(--surface-active)] rounded" />
-              <div className="h-8 w-32 bg-[var(--surface-active)] rounded" />
+              <div className="h-8 w-16 bg-surface-active rounded" />
+              <div className="h-8 w-32 bg-surface-active rounded" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Cover Skeleton */}
-      <div className="h-48 md:h-64 lg:h-72 w-full bg-[var(--surface-active)]" />
+      <div className="h-48 md:h-64 lg:h-72 w-full bg-surface-active" />
 
       {/* Content Skeleton */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Card */}
-        <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8 -mt-16 relative z-10">
+        <div className="bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8 -mt-16 relative z-10">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-xl bg-[var(--surface-active)]" />
+            <div className="w-14 h-14 rounded-xl bg-surface-active" />
             <div className="flex-1">
-              <div className="h-8 w-3/4 bg-[var(--surface-active)] rounded mb-3" />
-              <div className="h-4 w-1/2 bg-[var(--surface-active)] rounded" />
+              <div className="h-8 w-3/4 bg-surface-active rounded mb-3" />
+              <div className="h-4 w-1/2 bg-surface-active rounded" />
             </div>
           </div>
         </div>
 
         {/* Content Card */}
-        <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6 md:p-8 mt-6 mb-8">
+        <div className="bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8 mt-6 mb-8">
           <div className="space-y-4">
-            <div className="h-4 w-full bg-[var(--surface-active)] rounded" />
-            <div className="h-4 w-5/6 bg-[var(--surface-active)] rounded" />
-            <div className="h-4 w-4/5 bg-[var(--surface-active)] rounded" />
-            <div className="h-4 w-full bg-[var(--surface-active)] rounded" />
-            <div className="h-4 w-3/4 bg-[var(--surface-active)] rounded" />
-            <div className="h-32 w-full bg-[var(--surface-active)] rounded mt-6" />
-            <div className="h-4 w-full bg-[var(--surface-active)] rounded" />
-            <div className="h-4 w-2/3 bg-[var(--surface-active)] rounded" />
+            <div className="h-4 w-full bg-surface-active rounded" />
+            <div className="h-4 w-5/6 bg-surface-active rounded" />
+            <div className="h-4 w-4/5 bg-surface-active rounded" />
+            <div className="h-4 w-full bg-surface-active rounded" />
+            <div className="h-4 w-3/4 bg-surface-active rounded" />
+            <div className="h-32 w-full bg-surface-active rounded mt-6" />
+            <div className="h-4 w-full bg-surface-active rounded" />
+            <div className="h-4 w-2/3 bg-surface-active rounded" />
           </div>
         </div>
       </div>

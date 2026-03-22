@@ -133,21 +133,21 @@ export default function NewUserPage() {
       <div className="mb-6">
         <Link
           href="/admin/users"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] mb-4"
+          className="inline-flex items-center gap-2 text-sm text-text-tertiary hover:text-text-secondary mb-4"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Back to Users
         </Link>
-        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Add New User</h1>
-        <p className="text-[var(--text-tertiary)] mt-1">
+        <h1 className="text-2xl font-bold text-text-primary">Add New User</h1>
+        <p className="text-text-tertiary mt-1">
           Create a new user account with specified role and permissions.
         </p>
       </div>
 
       {/* Form */}
-      <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
+      <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
         {error && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
             {error}
@@ -159,7 +159,7 @@ export default function NewUserPage() {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Full Name
             </label>
@@ -170,7 +170,7 @@ export default function NewUserPage() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
               placeholder="John Doe"
             />
           </div>
@@ -179,7 +179,7 @@ export default function NewUserPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Email Address
             </label>
@@ -190,7 +190,7 @@ export default function NewUserPage() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
               placeholder="john@example.com"
             />
           </div>
@@ -199,7 +199,7 @@ export default function NewUserPage() {
           <div>
             <label
               htmlFor="role"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Role
             </label>
@@ -208,7 +208,7 @@ export default function NewUserPage() {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
             >
               {availableRoles.map((role) => (
                 <option key={role.value} value={role.value}>
@@ -216,7 +216,7 @@ export default function NewUserPage() {
                 </option>
               ))}
             </select>
-            <p className="mt-1.5 text-sm text-[var(--text-tertiary)]">
+            <p className="mt-1.5 text-sm text-text-tertiary">
               {roles.find((r) => r.value === formData.role)?.description}
             </p>
           </div>
@@ -225,7 +225,7 @@ export default function NewUserPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Password
             </label>
@@ -236,10 +236,10 @@ export default function NewUserPage() {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
               placeholder="Create a strong password"
             />
-            <p className="mt-1.5 text-xs text-[var(--text-tertiary)]">
+            <p className="mt-1.5 text-xs text-text-tertiary">
               At least 8 characters with uppercase, lowercase, and number
             </p>
           </div>
@@ -248,7 +248,7 @@ export default function NewUserPage() {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5"
+              className="block text-sm font-medium text-text-secondary mb-1.5"
             >
               Confirm Password
             </label>
@@ -259,16 +259,16 @@ export default function NewUserPage() {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2.5 border border-border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
               placeholder="Confirm the password"
             />
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link
               href="/admin/users"
-              className="px-4 py-2.5 text-[var(--text-secondary)] font-medium hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
+              className="px-4 py-2.5 text-text-secondary font-medium hover:bg-surface-hover rounded-lg transition-colors"
             >
               Cancel
             </Link>

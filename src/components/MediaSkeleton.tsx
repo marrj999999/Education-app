@@ -15,11 +15,11 @@ export function MediaSkeleton({ type, className = '' }: MediaSkeletonProps) {
   if (type === 'image') {
     return (
       <div className={`mb-6 ${className}`}>
-        <div className="relative w-full bg-[var(--surface-hover)] rounded-xl overflow-hidden aspect-video animate-pulse">
-          <div className="absolute inset-0 bg-[var(--surface-active)] skeleton-shimmer" />
+        <div className="relative w-full bg-surface-hover rounded-xl overflow-hidden aspect-video animate-pulse">
+          <div className="absolute inset-0 bg-surface-active skeleton-shimmer" />
           <div className="absolute inset-0 flex items-center justify-center">
             <svg
-              className="w-12 h-12 text-[var(--text-tertiary)]"
+              className="w-12 h-12 text-text-tertiary"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -65,9 +65,9 @@ export function MediaSkeleton({ type, className = '' }: MediaSkeletonProps) {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="relative bg-[var(--surface-hover)] rounded-lg overflow-hidden aspect-square animate-pulse"
+              className="relative bg-surface-hover rounded-lg overflow-hidden aspect-square animate-pulse"
             >
-              <div className="absolute inset-0 bg-[var(--surface-active)] skeleton-shimmer" />
+              <div className="absolute inset-0 bg-surface-active skeleton-shimmer" />
             </div>
           ))}
         </div>
@@ -86,15 +86,15 @@ export function LessonContentSkeleton() {
     <div className="animate-fade-in">
       {/* Title skeleton */}
       <div className="mb-8">
-        <div className="h-10 bg-[var(--surface-active)] rounded-lg w-3/4 mb-4 skeleton-shimmer" />
-        <div className="h-4 bg-[var(--surface-hover)] rounded w-1/3 skeleton-shimmer" />
+        <div className="h-10 bg-surface-active rounded-lg w-3/4 mb-4 skeleton-shimmer" />
+        <div className="h-4 bg-surface-hover rounded w-1/3 skeleton-shimmer" />
       </div>
 
       {/* Paragraphs skeleton */}
       <div className="space-y-4 mb-8">
-        <div className="h-4 bg-[var(--surface-hover)] rounded w-full skeleton-shimmer" />
-        <div className="h-4 bg-[var(--surface-hover)] rounded w-5/6 skeleton-shimmer" />
-        <div className="h-4 bg-[var(--surface-hover)] rounded w-4/5 skeleton-shimmer" />
+        <div className="h-4 bg-surface-hover rounded w-full skeleton-shimmer" />
+        <div className="h-4 bg-surface-hover rounded w-5/6 skeleton-shimmer" />
+        <div className="h-4 bg-surface-hover rounded w-4/5 skeleton-shimmer" />
       </div>
 
       {/* Image skeleton */}
@@ -102,8 +102,8 @@ export function LessonContentSkeleton() {
 
       {/* More paragraphs */}
       <div className="space-y-4 mb-8">
-        <div className="h-4 bg-[var(--surface-hover)] rounded w-full skeleton-shimmer" />
-        <div className="h-4 bg-[var(--surface-hover)] rounded w-3/4 skeleton-shimmer" />
+        <div className="h-4 bg-surface-hover rounded w-full skeleton-shimmer" />
+        <div className="h-4 bg-surface-hover rounded w-3/4 skeleton-shimmer" />
       </div>
 
       {/* Callout skeleton */}
@@ -116,8 +116,8 @@ export function LessonContentSkeleton() {
       <div className="space-y-3 mb-8 ml-4">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-[var(--text-tertiary)] rounded-full" />
-            <div className={`h-4 bg-[var(--surface-hover)] rounded skeleton-shimmer`} style={{ width: `${60 + i * 10}%` }} />
+            <div className="w-2 h-2 bg-text-tertiary rounded-full" />
+            <div className={`h-4 bg-surface-hover rounded skeleton-shimmer`} style={{ width: `${60 + i * 10}%` }} />
           </div>
         ))}
       </div>
@@ -130,17 +130,17 @@ export function LessonContentSkeleton() {
  */
 export function ModuleCardSkeleton() {
   return (
-    <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6 animate-pulse">
+    <div className="bg-surface rounded-xl border border-border p-6 animate-pulse">
       <div className="flex items-start gap-4 mb-4">
-        <div className="w-12 h-12 bg-[var(--surface-active)] rounded-lg skeleton-shimmer" />
+        <div className="w-12 h-12 bg-surface-active rounded-lg skeleton-shimmer" />
         <div className="flex-1">
-          <div className="h-5 bg-[var(--surface-active)] rounded w-3/4 mb-2 skeleton-shimmer" />
-          <div className="h-3 bg-[var(--surface-hover)] rounded w-1/2 skeleton-shimmer" />
+          <div className="h-5 bg-surface-active rounded w-3/4 mb-2 skeleton-shimmer" />
+          <div className="h-3 bg-surface-hover rounded w-1/2 skeleton-shimmer" />
         </div>
       </div>
       <div className="space-y-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-3 bg-[var(--surface-hover)] rounded skeleton-shimmer" style={{ width: `${70 + i * 10}%` }} />
+          <div key={i} className="h-3 bg-surface-hover rounded skeleton-shimmer" style={{ width: `${70 + i * 10}%` }} />
         ))}
       </div>
     </div>

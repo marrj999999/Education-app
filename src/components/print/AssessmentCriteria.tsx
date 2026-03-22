@@ -18,32 +18,32 @@ export function AssessmentCriteria({ lessonTitle, criteria }: AssessmentCriteria
   return (
     <div className="print-section">
       <h2 className="text-xl font-bold mb-4">OCN Assessment Criteria</h2>
-      <p className="text-sm text-[var(--text-secondary)] mb-4">Covered in: {lessonTitle}</p>
+      <p className="text-sm text-text-secondary mb-4">Covered in: {lessonTitle}</p>
 
-      <table className="w-full border-collapse border border-[var(--border)] text-sm">
+      <table className="w-full border-collapse border border-border text-sm">
         <thead>
-          <tr className="bg-[var(--surface-hover)]">
-            <th className="border border-[var(--border)] px-3 py-2 text-left w-24">Code</th>
-            <th className="border border-[var(--border)] px-3 py-2 text-left">Criterion</th>
-            <th className="border border-[var(--border)] px-3 py-2 text-center w-20">Covered</th>
+          <tr className="bg-surface-hover">
+            <th className="border border-border px-3 py-2 text-left w-24">Code</th>
+            <th className="border border-border px-3 py-2 text-left">Criterion</th>
+            <th className="border border-border px-3 py-2 text-center w-20">Covered</th>
           </tr>
         </thead>
         <tbody>
           {criteria.map((criterion) => (
             <tr key={criterion.code}>
-              <td className="border border-[var(--border)] px-3 py-2 font-mono text-purple-700">
+              <td className="border border-border px-3 py-2 font-mono text-purple-700">
                 {criterion.code}
               </td>
-              <td className="border border-[var(--border)] px-3 py-2">{criterion.text}</td>
-              <td className="border border-[var(--border)] px-3 py-2 text-center">
-                <div className="w-5 h-5 border border-[var(--text-tertiary)] mx-auto" />
+              <td className="border border-border px-3 py-2">{criterion.text}</td>
+              <td className="border border-border px-3 py-2 text-center">
+                <div className="w-5 h-5 border border-text-tertiary mx-auto" />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div className="mt-4 text-xs text-[var(--text-tertiary)]">
+      <div className="mt-4 text-xs text-text-tertiary">
         Check box when criterion has been covered during the session
       </div>
     </div>

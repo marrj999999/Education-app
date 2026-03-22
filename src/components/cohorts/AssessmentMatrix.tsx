@@ -35,7 +35,7 @@ interface AssessmentMatrixProps {
 }
 
 const statusConfig: Record<Assessment['status'], { bg: string; text: string; label: string; icon: string }> = {
-  NOT_STARTED: { bg: 'bg-[var(--surface-hover)]', text: 'text-[var(--text-tertiary)]', label: 'Not Started', icon: '○' },
+  NOT_STARTED: { bg: 'bg-surface-hover', text: 'text-text-tertiary', label: 'Not Started', icon: '○' },
   IN_PROGRESS: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'In Progress', icon: '◐' },
   SUBMITTED: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Submitted', icon: '◑' },
   SIGNED_OFF: { bg: 'bg-green-100', text: 'text-green-700', label: 'Signed Off', icon: '●' },
@@ -89,11 +89,11 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
       {/* Filters */}
       <div className="flex flex-wrap gap-4">
         <div>
-          <label className="block text-xs font-medium text-[var(--text-tertiary)] mb-1">Filter by Lesson</label>
+          <label className="block text-xs font-medium text-text-tertiary mb-1">Filter by Lesson</label>
           <select
             value={filterLesson}
             onChange={(e) => setFilterLesson(e.target.value)}
-            className="px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
+            className="px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
           >
             <option value="all">All Lessons</option>
             {uniqueLessons.map((lesson) => (
@@ -105,11 +105,11 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-[var(--text-tertiary)] mb-1">Filter by Learner</label>
+          <label className="block text-xs font-medium text-text-tertiary mb-1">Filter by Learner</label>
           <select
             value={filterLearner}
             onChange={(e) => setFilterLearner(e.target.value)}
-            className="px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
+            className="px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
           >
             <option value="all">All Learners</option>
             {learners.map((learner) => (
@@ -121,11 +121,11 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-[var(--text-tertiary)] mb-1">Filter by Status</label>
+          <label className="block text-xs font-medium text-text-tertiary mb-1">Filter by Status</label>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
+            className="px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm"
           >
             <option value="all">All Statuses</option>
             {Object.entries(statusConfig).map(([status, config]) => (
@@ -144,48 +144,48 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
             <span className={`w-5 h-5 flex items-center justify-center rounded ${config.bg} ${config.text}`}>
               {config.icon}
             </span>
-            <span className="text-[var(--text-secondary)]">{config.label}</span>
+            <span className="text-text-secondary">{config.label}</span>
           </div>
         ))}
       </div>
 
       {/* Matrix */}
-      <div className="overflow-x-auto border border-[var(--border)] rounded-lg">
+      <div className="overflow-x-auto border border-border rounded-lg">
         <table className="w-full min-w-max">
           <thead>
-            <tr className="bg-[var(--surface-hover)]">
-              <th className="text-left py-3 px-4 text-xs font-medium text-[var(--text-tertiary)] uppercase sticky left-0 bg-[var(--surface-hover)] z-10 min-w-[200px]">
+            <tr className="bg-surface-hover">
+              <th className="text-left py-3 px-4 text-xs font-medium text-text-tertiary uppercase sticky left-0 bg-surface-hover z-10 min-w-[200px]">
                 Learner
               </th>
               {filteredCriteria.map((criterion) => (
                 <th
                   key={criterion.code}
-                  className="py-3 px-2 text-center text-xs font-medium text-[var(--text-tertiary)]"
+                  className="py-3 px-2 text-center text-xs font-medium text-text-tertiary"
                   title={`${criterion.text}\n\nLesson: ${criterion.lessonTitle}`}
                 >
                   <div className="w-16">
                     <span className="block truncate">{criterion.code}</span>
-                    <span className="block text-[10px] text-[var(--text-tertiary)] font-normal">{calculateCriterionProgress(criterion.code)}%</span>
+                    <span className="block text-[10px] text-text-tertiary font-normal">{calculateCriterionProgress(criterion.code)}%</span>
                   </div>
                 </th>
               ))}
-              <th className="py-3 px-4 text-center text-xs font-medium text-[var(--text-tertiary)] uppercase bg-[var(--surface-hover)]">
+              <th className="py-3 px-4 text-center text-xs font-medium text-text-tertiary uppercase bg-surface-hover">
                 Progress
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--border)] bg-[var(--surface)]">
+          <tbody className="divide-y divide-border bg-surface">
             {filteredLearners.map((learner) => {
               const progress = calculateLearnerProgress(learner.id);
               return (
-                <tr key={learner.id} className="hover:bg-[var(--surface-hover)]">
-                  <td className="py-3 px-4 sticky left-0 bg-[var(--surface)] z-10">
+                <tr key={learner.id} className="hover:bg-surface-hover">
+                  <td className="py-3 px-4 sticky left-0 bg-surface z-10">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium shrink-0">
                         {learner.firstName[0]}
                         {learner.lastName[0]}
                       </div>
-                      <span className="font-medium text-[var(--text-primary)] text-sm">
+                      <span className="font-medium text-text-primary text-sm">
                         {learner.firstName} {learner.lastName}
                       </span>
                     </div>
@@ -212,15 +212,15 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
                       </td>
                     );
                   })}
-                  <td className="py-3 px-4 text-center bg-[var(--surface-hover)]">
+                  <td className="py-3 px-4 text-center bg-surface-hover">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-12 h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
+                      <div className="w-12 h-2 bg-surface-active rounded-full overflow-hidden">
                         <div
                           className="h-full bg-purple-500 transition-all"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
-                      <span className="text-xs text-[var(--text-secondary)] w-8">{progress}%</span>
+                      <span className="text-xs text-text-secondary w-8">{progress}%</span>
                     </div>
                   </td>
                 </tr>
@@ -231,7 +231,7 @@ export function AssessmentMatrix({ learners, criteria, assessments, onCellClick 
       </div>
 
       {/* Summary */}
-      <div className="text-sm text-[var(--text-tertiary)]">
+      <div className="text-sm text-text-tertiary">
         {filteredLearners.length} learners × {filteredCriteria.length} criteria
       </div>
     </div>

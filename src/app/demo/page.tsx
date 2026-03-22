@@ -255,29 +255,29 @@ export default function DemoPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--surface-hover)]">
+    <div className="min-h-screen bg-surface-hover">
       {/* Mode Toggle Header */}
-      <header className="sticky top-0 z-50 bg-[var(--surface)] border-b border-[var(--border)] shadow-sm">
+      <header className="sticky top-0 z-50 bg-surface border-b border-border shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/"
-                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-sm"
+                className="text-text-secondary hover:text-text-primary text-sm"
               >
                 ← Back to Home
               </Link>
-              <h1 className="text-lg font-bold text-[var(--text-primary)]">Component Demo</h1>
+              <h1 className="text-lg font-bold text-text-primary">Component Demo</h1>
             </div>
 
             {/* Mode Toggle */}
-            <div className="flex items-center gap-2 bg-[var(--surface-hover)] rounded-lg p-1">
+            <div className="flex items-center gap-2 bg-surface-hover rounded-lg p-1">
               <button
                 onClick={() => setViewMode('prep')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   viewMode === 'prep'
-                    ? 'bg-[var(--surface)] text-[var(--text-primary)] shadow-sm'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    ? 'bg-surface text-text-primary shadow-sm'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 Prep Mode
@@ -286,8 +286,8 @@ export default function DemoPage() {
                 onClick={() => setViewMode('teach')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   viewMode === 'teach'
-                    ? 'bg-[var(--surface)] text-[var(--text-primary)] shadow-sm'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    ? 'bg-surface text-text-primary shadow-sm'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
                 Teach Mode
@@ -303,35 +303,35 @@ export default function DemoPage() {
           <div className="space-y-8">
             {/* Safety Summary */}
             <section>
-              <h2 className="text-lg font-semibold text-[var(--text-secondary)] mb-4">SafetySummary Component</h2>
+              <h2 className="text-lg font-semibold text-text-secondary mb-4">SafetySummary Component</h2>
               <SafetySummary sections={safety} />
             </section>
 
             {/* Timeline Overview */}
             <section>
-              <h2 className="text-lg font-semibold text-[var(--text-secondary)] mb-4">TimelineOverview Component</h2>
+              <h2 className="text-lg font-semibold text-text-secondary mb-4">TimelineOverview Component</h2>
               <TimelineOverview sections={timelines} />
             </section>
 
             {/* Prep Checklist */}
             <section>
-              <h2 className="text-lg font-semibold text-[var(--text-secondary)] mb-4">PrepChecklist Component</h2>
+              <h2 className="text-lg font-semibold text-text-secondary mb-4">PrepChecklist Component</h2>
               <PrepChecklist sections={checklists} lessonId={demoLessonId} />
             </section>
 
             {/* Resources List */}
             <section>
-              <h2 className="text-lg font-semibold text-[var(--text-secondary)] mb-4">ResourcesList Component</h2>
+              <h2 className="text-lg font-semibold text-text-secondary mb-4">ResourcesList Component</h2>
               <ResourcesList sections={resources} lessonId={demoLessonId} />
             </section>
 
             {/* Individual Section Renderers */}
             <section>
-              <h2 className="text-lg font-semibold text-[var(--text-secondary)] mb-4">Individual Section Renderers</h2>
+              <h2 className="text-lg font-semibold text-text-secondary mb-4">Individual Section Renderers</h2>
               <div className="space-y-6">
                 {mockSections.map((section) => (
-                  <div key={section.id} className="bg-[var(--surface)] rounded-lg shadow-sm p-6">
-                    <p className="text-xs text-[var(--text-tertiary)] mb-3 font-mono">
+                  <div key={section.id} className="bg-surface rounded-lg shadow-sm p-6">
+                    <p className="text-xs text-text-tertiary mb-3 font-mono">
                       type: {section.type}
                     </p>
                     <SectionRenderer
@@ -356,7 +356,7 @@ export default function DemoPage() {
           )}
 
           {/* Section Stepper */}
-          <div className="bg-[var(--surface)] border-b border-[var(--border)]">
+          <div className="bg-surface border-b border-border">
             <SectionStepper
               sections={mockSections}
               currentIndex={currentIndex}

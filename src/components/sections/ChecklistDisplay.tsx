@@ -41,15 +41,15 @@ export function ChecklistDisplay({
   return (
     <div
       className={cn(
-        'bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden shadow-sm',
+        'bg-surface border border-border rounded-xl overflow-hidden shadow-sm',
         'border-l-4',
-        categoryColors[section.category] || 'border-l-[var(--border)]'
+        categoryColors[section.category] || 'border-l-border'
       )}
     >
       {/* Header */}
       <div
         className={cn(
-          'border-b border-[var(--border)]',
+          'border-b border-border',
           isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4'
         )}
       >
@@ -57,7 +57,7 @@ export function ChecklistDisplay({
           <div className="flex items-center gap-3">
             <h3
               className={cn(
-                'font-bold text-[var(--text-primary)]',
+                'font-bold text-text-primary',
                 isPresentation
                   ? 'text-present-heading'
                   : isLarge
@@ -72,7 +72,7 @@ export function ChecklistDisplay({
               className={cn(
                 'px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider',
                 isPresentation ? 'text-sm' : 'text-xs',
-                categoryBadgeColors[section.category] || 'bg-[var(--surface-hover)] text-[var(--text-primary)]'
+                categoryBadgeColors[section.category] || 'bg-surface-hover text-text-primary'
               )}
             >
               {section.category}
@@ -85,7 +85,7 @@ export function ChecklistDisplay({
               className={cn(
                 'font-medium',
                 isPresentation ? 'text-lg' : 'text-sm',
-                allChecked ? 'text-green-600' : 'text-[var(--text-tertiary)]'
+                allChecked ? 'text-green-600' : 'text-text-tertiary'
               )}
             >
               {completedCount} of {totalCount} complete
@@ -123,7 +123,7 @@ export function ChecklistDisplay({
                       : isLarge
                         ? 'p-3 min-h-[52px]'
                         : 'p-2.5 min-h-[44px]',
-                    isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-[var(--surface-hover)]'
+                    isChecked ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-surface-hover'
                   )}
                   aria-pressed={isChecked}
                 >
@@ -136,7 +136,7 @@ export function ChecklistDisplay({
                       isPresentation ? 'w-8 h-8' : 'w-6 h-6',
                       isChecked
                         ? 'bg-green-500 text-white scale-110'
-                        : 'border-2 border-[var(--border)] text-transparent group-hover:border-green-400'
+                        : 'border-2 border-border text-transparent group-hover:border-green-400'
                     )}
                   >
                     <Check
@@ -155,7 +155,7 @@ export function ChecklistDisplay({
                         : isLarge
                           ? 'text-base'
                           : 'text-sm',
-                      isChecked ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-primary)]'
+                      isChecked ? 'text-text-tertiary line-through' : 'text-text-primary'
                     )}
                   >
                     {item.text}
@@ -165,7 +165,7 @@ export function ChecklistDisplay({
                   {item.quantity && (
                     <span
                       className={cn(
-                        'flex-shrink-0 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded-full font-medium',
+                        'flex-shrink-0 bg-surface-hover text-text-secondary rounded-full font-medium',
                         isPresentation
                           ? 'px-4 py-1.5 text-base'
                           : isLarge

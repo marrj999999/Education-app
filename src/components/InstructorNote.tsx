@@ -44,11 +44,11 @@ const noteStyles: Record<NoteType, { bg: string; border: string; Icon: React.FC<
     text: 'text-red-800',
   },
   info: {
-    bg: 'bg-[var(--surface-hover)]',
-    border: 'border-[var(--border)]',
+    bg: 'bg-surface-hover',
+    border: 'border-border',
     Icon: InfoIcon,
     title: 'Note',
-    text: 'text-[var(--text-secondary)]',
+    text: 'text-text-secondary',
   },
 };
 

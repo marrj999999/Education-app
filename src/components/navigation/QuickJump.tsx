@@ -260,7 +260,7 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
       >
         {/* Search input */}
         <div className="flex items-center gap-3 px-4 py-3 border-b">
-          <Search className="text-[var(--text-tertiary)] flex-shrink-0" size={20} />
+          <Search className="text-text-tertiary flex-shrink-0" size={20} />
           <input
             ref={inputRef}
             type="text"
@@ -268,9 +268,9 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent border-0 outline-none text-base placeholder:text-[var(--text-tertiary)]"
+            className="flex-1 bg-transparent border-0 outline-none text-base placeholder:text-text-tertiary"
           />
-          <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs text-[var(--text-tertiary)] bg-[var(--surface-hover)] rounded">
+          <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 text-xs text-text-tertiary bg-surface-hover rounded">
             esc
           </kbd>
         </div>
@@ -279,15 +279,15 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
         <div className="max-h-[60vh] overflow-y-auto">
           {/* Empty state */}
           {displayResults.length === 0 && (
-            <div className="p-8 text-center text-[var(--text-tertiary)]">
+            <div className="p-8 text-center text-text-tertiary">
               {query.trim() ? (
                 <>
-                  <Search className="mx-auto mb-2 text-[var(--text-tertiary)]" size={32} />
+                  <Search className="mx-auto mb-2 text-text-tertiary" size={32} />
                   <p>No lessons found for &quot;{query}&quot;</p>
                 </>
               ) : (
                 <>
-                  <Clock className="mx-auto mb-2 text-[var(--text-tertiary)]" size={32} />
+                  <Clock className="mx-auto mb-2 text-text-tertiary" size={32} />
                   <p>No recent lessons</p>
                   <p className="text-sm mt-1">Start typing to search</p>
                 </>
@@ -297,7 +297,7 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
 
           {/* Section header */}
           {displayResults.length > 0 && (
-            <div className="px-4 py-2 text-xs font-medium text-[var(--text-tertiary)] uppercase tracking-wide bg-[var(--surface-hover)] border-b">
+            <div className="px-4 py-2 text-xs font-medium text-text-tertiary uppercase tracking-wide bg-surface-hover border-b">
               {query.trim() ? 'Search Results' : 'Recent Lessons'}
             </div>
           )}
@@ -311,14 +311,14 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
               className={cn(
                 'w-full flex items-center gap-3 px-4 py-3 text-left transition-colors',
                 'min-h-[52px]',
-                index === selectedIndex ? 'bg-blue-50' : 'hover:bg-[var(--surface-hover)]'
+                index === selectedIndex ? 'bg-blue-50' : 'hover:bg-surface-hover'
               )}
             >
               {/* Icon */}
               <div
                 className={cn(
                   'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0',
-                  index === selectedIndex ? 'bg-blue-100 text-blue-600' : 'bg-[var(--surface-hover)] text-[var(--text-tertiary)]'
+                  index === selectedIndex ? 'bg-blue-100 text-blue-600' : 'bg-surface-hover text-text-tertiary'
                 )}
               >
                 {lesson.icon ? (
@@ -333,13 +333,13 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
                 <p
                   className={cn(
                     'font-medium truncate',
-                    index === selectedIndex ? 'text-blue-900' : 'text-[var(--text-primary)]'
+                    index === selectedIndex ? 'text-blue-900' : 'text-text-primary'
                   )}
                 >
                   {lesson.title}
                 </p>
                 {lesson.module && (
-                  <p className="text-sm text-[var(--text-tertiary)] truncate">{lesson.module}</p>
+                  <p className="text-sm text-text-tertiary truncate">{lesson.module}</p>
                 )}
               </div>
 
@@ -348,7 +348,7 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
                 size={16}
                 className={cn(
                   'flex-shrink-0 transition-transform',
-                  index === selectedIndex ? 'text-blue-500 translate-x-1' : 'text-[var(--text-tertiary)]'
+                  index === selectedIndex ? 'text-blue-500 translate-x-1' : 'text-text-tertiary'
                 )}
               />
             </button>
@@ -356,14 +356,14 @@ export function QuickJump({ open: controlledOpen, onOpenChange }: QuickJumpProps
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2 border-t bg-[var(--surface-hover)] flex items-center justify-between text-xs text-[var(--text-tertiary)]">
+        <div className="px-4 py-2 border-t bg-surface-hover flex items-center justify-between text-xs text-text-tertiary">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[var(--surface)] rounded border border-[var(--border)]">↑↓</kbd>
+              <kbd className="px-1.5 py-0.5 bg-surface rounded border border-border">↑↓</kbd>
               to navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-[var(--surface)] rounded border border-[var(--border)]">
+              <kbd className="px-1.5 py-0.5 bg-surface rounded border border-border">
                 <CornerDownLeft size={10} />
               </kbd>
               to select

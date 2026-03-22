@@ -31,16 +31,16 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
   const progress = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
-    <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] overflow-hidden">
+    <div className="bg-surface rounded-xl shadow-sm border border-border overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-[var(--border)] bg-[var(--surface-hover)]">
+      <div className="p-4 border-b border-border bg-surface-hover">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-[var(--text-primary)]">{title || 'Checklist'}</h3>
+          <h3 className="font-semibold text-text-primary">{title || 'Checklist'}</h3>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-[var(--text-tertiary)]">
+            <span className="text-sm text-text-tertiary">
               {completedCount} / {totalCount}
             </span>
-            <div className="w-20 h-2 bg-[var(--surface-active)] rounded-full overflow-hidden">
+            <div className="w-20 h-2 bg-surface-active rounded-full overflow-hidden">
               <div
                 className="h-full bg-green-500 transition-all duration-300"
                 style={{ width: `${progress}%` }}
@@ -51,11 +51,11 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
       </div>
 
       {/* Items */}
-      <div className="divide-y divide-[var(--border)]">
+      <div className="divide-y divide-border">
         {checklistItems.map((item) => (
           <label
             key={item.index}
-            className="flex items-center gap-3 p-4 cursor-pointer hover:bg-[var(--surface-hover)] transition-colors"
+            className="flex items-center gap-3 p-4 cursor-pointer hover:bg-surface-hover transition-colors"
           >
             <div className="relative flex items-center">
               <input
@@ -68,7 +68,7 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
                 className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${
                   item.completed
                     ? 'bg-green-500 border-green-500'
-                    : 'border-[var(--border)] hover:border-green-400'
+                    : 'border-border hover:border-green-400'
                 }`}
               >
                 {item.completed && (
@@ -80,7 +80,7 @@ export function Checklist({ blockId, title, items, initialState = [] }: Checklis
             </div>
             <span
               className={`flex-1 transition-all ${
-                item.completed ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-secondary)]'
+                item.completed ? 'text-text-tertiary line-through' : 'text-text-secondary'
               }`}
             >
               {item.text}

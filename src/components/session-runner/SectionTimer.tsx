@@ -42,11 +42,11 @@ export function SectionTimer({
   const overtimeSeconds = isOvertime ? elapsed - targetSeconds! : 0;
 
   return (
-    <div className="bg-[var(--surface)] rounded-xl shadow-sm border border-[var(--border)] p-6">
+    <div className="bg-surface rounded-xl shadow-sm border border-border p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-[var(--text-primary)]">{title}</h3>
+        <h3 className="font-semibold text-text-primary">{title}</h3>
         {targetDurationMins && (
-          <span className="text-sm text-[var(--text-tertiary)]">Target: {targetDurationMins} min</span>
+          <span className="text-sm text-text-tertiary">Target: {targetDurationMins} min</span>
         )}
       </div>
 
@@ -55,7 +55,7 @@ export function SectionTimer({
         <div className="flex flex-col items-center">
           <div
             className={`text-4xl font-mono font-bold transition-colors ${
-              isOvertime ? 'text-red-600' : 'text-[var(--text-primary)]'
+              isOvertime ? 'text-red-600' : 'text-text-primary'
             }`}
           >
             {formatTime(elapsed)}
@@ -70,7 +70,7 @@ export function SectionTimer({
         {/* Progress Bar */}
         {targetSeconds && (
           <div className="flex-1">
-            <div className="h-3 bg-[var(--surface-hover)] rounded-full overflow-hidden">
+            <div className="h-3 bg-surface-hover rounded-full overflow-hidden">
               <div
                 className={`h-full transition-all duration-300 ${
                   isOvertime
@@ -82,7 +82,7 @@ export function SectionTimer({
                 style={{ width: `${Math.min(100, progress)}%` }}
               />
             </div>
-            <div className="flex justify-between mt-1 text-xs text-[var(--text-tertiary)]">
+            <div className="flex justify-between mt-1 text-xs text-text-tertiary">
               <span>0:00</span>
               <span>{targetDurationMins}:00</span>
             </div>
@@ -114,7 +114,7 @@ export function SectionTimer({
           )}
           <button
             onClick={() => resetTimer(blockId)}
-            className="p-3 bg-[var(--surface-hover)] text-[var(--text-secondary)] rounded-lg hover:bg-[var(--surface-active)] transition-colors"
+            className="p-3 bg-surface-hover text-text-secondary rounded-lg hover:bg-surface-active transition-colors"
             title="Reset"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -137,10 +137,10 @@ export function SectionTimer({
               ? 'bg-green-500 animate-pulse'
               : elapsed > 0
               ? 'bg-amber-500'
-              : 'bg-[var(--text-tertiary)]'
+              : 'bg-text-tertiary'
           }`}
         />
-        <span className="text-sm text-[var(--text-tertiary)]">
+        <span className="text-sm text-text-tertiary">
           {running ? 'Running' : elapsed > 0 ? 'Paused' : 'Not started'}
         </span>
       </div>

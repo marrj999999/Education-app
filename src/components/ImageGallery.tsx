@@ -85,7 +85,7 @@ const ImageGallery = memo(function ImageGallery({
               <button
                 key={index}
                 onClick={() => openLightbox(index)}
-                className="relative aspect-square rounded-lg overflow-hidden bg-[var(--surface-hover)] group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--teal)] focus:ring-offset-2"
+                className="relative aspect-square rounded-lg overflow-hidden bg-surface-hover group cursor-pointer focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
               >
                 <img
                   src={image.src}
@@ -96,7 +96,7 @@ const ImageGallery = memo(function ImageGallery({
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                 <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="bg-white/90 rounded-full p-1.5 shadow-lg">
-                    <svg className="w-4 h-4 text-[var(--text-secondary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-4 h-4 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                     </svg>
                   </div>
@@ -104,7 +104,7 @@ const ImageGallery = memo(function ImageGallery({
               </button>
             ))}
           </div>
-          <p className="text-sm text-[var(--text-tertiary)] mt-2 text-center">
+          <p className="text-sm text-text-tertiary mt-2 text-center">
             Click to enlarge ({images.length} images)
           </p>
         </div>
@@ -195,7 +195,7 @@ const ImageGallery = memo(function ImageGallery({
       <div className="mb-6">
         <div className="relative">
           {/* Main carousel image */}
-          <div className="relative aspect-video rounded-xl overflow-hidden bg-[var(--surface-hover)]">
+          <div className="relative aspect-video rounded-xl overflow-hidden bg-surface-hover">
             <img
               src={images[activeIndex].src}
               alt={images[activeIndex].alt}
@@ -236,7 +236,7 @@ const ImageGallery = memo(function ImageGallery({
 
         {/* Caption */}
         {images[activeIndex].caption && (
-          <p className="text-sm text-[var(--text-tertiary)] mt-3 text-center italic">
+          <p className="text-sm text-text-tertiary mt-3 text-center italic">
             {images[activeIndex].caption}
           </p>
         )}
@@ -249,7 +249,7 @@ const ImageGallery = memo(function ImageGallery({
               onClick={() => setActiveIndex(index)}
               className={`w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
                 index === activeIndex
-                  ? 'border-[var(--teal)] ring-2 ring-[var(--bamboo-200)]'
+                  ? 'border-teal ring-2 ring-bamboo-200'
                   : 'border-transparent opacity-60 hover:opacity-100'
               }`}
             >
