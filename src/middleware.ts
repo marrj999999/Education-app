@@ -38,8 +38,19 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const clientIP = getClientIP(req);
 
-  // Let Payload CMS routes through (Payload handles its own auth)
+  // Payload CMS routes — auto-login super admins, let others through
   if (payloadRoutes.some((route) => pathname.startsWith(route))) {
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.next();
+    }
+
+    const session = getSessionFromRequest(req);
+    if (session?.role === 'SUPER_ADMIN' && !req.cookies.get('payload-token')) {
+      const autoLoginUrl = new URL('/api/auth/cms-auto-login', req.url);
+      autoLoginUrl.searchParams.set('redirect', pathname);
+      return NextResponse.redirect(autoLoginUrl);
+    }
+
     return NextResponse.next();
   }
 
