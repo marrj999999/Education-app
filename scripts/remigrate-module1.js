@@ -65,7 +65,7 @@ async function fetchBlocks(blockId, depth = 0) {
     cursor = response.has_more ? response.next_cursor : undefined;
   } while (cursor);
 
-  if (depth < 3) {
+  if (depth < 5) {
     for (const block of blocks) {
       if (block.has_children) {
         block._children = await fetchBlocks(block.id, depth + 1);
@@ -272,12 +272,24 @@ function convertBlocks(blocks) {
           }
           if (bt === 'divider') { i++; continue; }
 
-          // Callout with duration
+          // Callout — check for duration, otherwise capture content
           if (bt === 'callout') {
             const calloutText = getText(b.callout?.rich_text);
             const durationMatch = calloutText.match(/(\d+)\s*minutes?/i);
             if (durationMatch) {
               duration = `${durationMatch[1]} min`;
+            } else if (calloutText.trim() && calloutText !== 'TEACHING SEQUENCE') {
+              paragraphs.push(calloutText);
+            }
+            // Capture callout children
+            if (b._children) {
+              for (const child of b._children) {
+                const ct = child.type;
+                if (child[ct]?.rich_text) {
+                  const t = getText(child[ct].rich_text);
+                  if (t.trim()) paragraphs.push(t);
+                }
+              }
             }
             i++; continue;
           }
@@ -321,7 +333,58 @@ function convertBlocks(blocks) {
             i++; continue;
           }
 
-          i++; // Skip other block types
+          // Numbered list items inside teaching steps
+          if (bt === 'numbered_list_item') {
+            const nText = getText(b.numbered_list_item?.rich_text);
+            if (nText.trim()) activities.push({ text: nText, duration: null });
+            // Also capture children
+            if (b._children) {
+              for (const child of b._children) {
+                const ctype = child.type;
+                if (child[ctype]?.rich_text) {
+                  const t = getText(child[ctype].rich_text);
+                  if (t.trim()) paragraphs.push(t);
+                }
+              }
+            }
+            i++; continue;
+          }
+
+          // Toggle blocks inside teaching steps — extract all content
+          if (bt === 'toggle') {
+            const toggleTitle = getText(b.toggle?.rich_text);
+            if (toggleTitle.trim()) paragraphs.push(toggleTitle);
+            function extractToggleContent(children) {
+              for (const c of (children || [])) {
+                const ct = c.type;
+                if (c[ct]?.rich_text) {
+                  const t = getText(c[ct].rich_text);
+                  if (t.trim()) paragraphs.push(t);
+                }
+                if (c._children) extractToggleContent(c._children);
+              }
+            }
+            extractToggleContent(b._children);
+            i++; continue;
+          }
+
+          // Fallback: capture text from any unhandled block type inside section
+          {
+            let fallbackText = '';
+            if (b[bt]?.rich_text) fallbackText = getText(b[bt].rich_text);
+            if (fallbackText.trim()) paragraphs.push(fallbackText);
+            // Also capture children
+            if (b._children) {
+              for (const child of b._children) {
+                const ct = child.type;
+                if (child[ct]?.rich_text) {
+                  const t = getText(child[ct].rich_text);
+                  if (t.trim()) paragraphs.push(t);
+                }
+              }
+            }
+          }
+          i++;
         }
 
         sections.push({
@@ -531,7 +594,109 @@ function convertBlocks(blocks) {
       i++; continue;
     }
 
-    // Skip unknown types
+    // ── TOGGLE — extract heading + all children as prose ──
+    if (type === 'toggle') {
+      const toggleTitle = getText(block.toggle?.rich_text);
+      const childTexts = [];
+      function extractChildren(children) {
+        for (const c of (children || [])) {
+          const ct = c.type;
+          if (c[ct]?.rich_text) {
+            const t = getText(c[ct].rich_text);
+            if (t.trim()) childTexts.push(t.trim());
+          }
+          if (ct === 'table_row' && c.table_row?.cells) {
+            childTexts.push(c.table_row.cells.map(cell => getText(cell)).join(' | '));
+          }
+          if (c._children) extractChildren(c._children);
+        }
+      }
+      extractChildren(block._children);
+      const allText = [toggleTitle, ...childTexts].filter(Boolean).join('\n');
+      if (allText.trim()) {
+        sections.push({ blockType: 'prose', content: createLexical(allText) });
+      }
+      i++; continue;
+    }
+
+    // ── NUMBERED LIST — collect consecutive items ──
+    if (type === 'numbered_list_item') {
+      const items = [];
+      let num = 1;
+      while (i < blocks.length && blocks[i].type === 'numbered_list_item') {
+        const text = getText(blocks[i].numbered_list_item?.rich_text);
+        if (text.trim()) items.push(`${num}. ${text}`);
+        // Also capture children (nested lists)
+        if (blocks[i]._children) {
+          for (const child of blocks[i]._children) {
+            const ct = child.type;
+            if (child[ct]?.rich_text) {
+              const t = getText(child[ct].rich_text);
+              if (t.trim()) items.push(`   ${t}`);
+            }
+          }
+        }
+        num++;
+        i++;
+      }
+      if (items.length) {
+        sections.push({ blockType: 'prose', content: createLexical(items.join('\n')) });
+      }
+      continue;
+    }
+
+    // ── COLUMN LIST — extract text from all columns ──
+    if (type === 'column_list') {
+      const columnTexts = [];
+      for (const col of (block._children || [])) {
+        for (const c of (col._children || [])) {
+          const ct = c.type;
+          if (c[ct]?.rich_text) {
+            const t = getText(c[ct].rich_text);
+            if (t.trim()) columnTexts.push(t.trim());
+          }
+          if (c._children) {
+            for (const gc of c._children) {
+              const gct = gc.type;
+              if (gc[gct]?.rich_text) {
+                const t = getText(gc[gct].rich_text);
+                if (t.trim()) columnTexts.push(t.trim());
+              }
+            }
+          }
+        }
+      }
+      if (columnTexts.length) {
+        sections.push({ blockType: 'prose', content: createLexical(columnTexts.join('\n')) });
+      }
+      i++; continue;
+    }
+
+    // ── RAW FALLBACK — capture any unrecognized block type as prose ──
+    {
+      let text = '';
+      if (block[type]?.rich_text) {
+        text = getText(block[type].rich_text);
+      }
+      // Also capture child text
+      const childTexts = [];
+      function extractAll(children) {
+        for (const c of (children || [])) {
+          const ct = c.type;
+          if (c[ct]?.rich_text) {
+            const t = getText(c[ct].rich_text);
+            if (t.trim()) childTexts.push(t.trim());
+          }
+          if (c._children) extractAll(c._children);
+        }
+      }
+      extractAll(block._children);
+      const fullText = [text, ...childTexts].filter(Boolean).join('\n');
+      if (fullText.trim()) {
+        console.warn(`  ⚠ Fallback prose for block type "${type}": ${fullText.substring(0, 60)}...`);
+        sections.push({ blockType: 'prose', content: createLexical(fullText) });
+      }
+    }
     i++;
   }
 
