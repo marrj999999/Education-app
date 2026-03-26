@@ -9,7 +9,7 @@ const publicRoutes = ['/auth/login', '/auth/error'];
 const adminRoutes = ['/admin'];
 
 // API routes that handle their own auth
-const apiRoutes = ['/api/auth', '/api/progress', '/api/payload', '/api/setup-admin'];
+const apiRoutes = ['/api/auth', '/api/progress', '/api/payload'];
 
 // Payload CMS routes (handled by Payload's own auth)
 const payloadRoutes = ['/cms', '/api/payload'];
@@ -38,10 +38,6 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const clientIP = getClientIP(req);
 
-  // Setup admin endpoint — bypass all auth (temporary, remove after use)
-  if (pathname === '/api/setup-admin') {
-    return NextResponse.next();
-  }
 
   // Payload CMS routes — auto-login super admins, let others through
   if (payloadRoutes.some((route) => pathname.startsWith(route))) {
