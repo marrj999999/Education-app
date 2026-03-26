@@ -15,17 +15,19 @@ function derivePayloadPassword(email: string): string {
 
 export async function GET(request: NextRequest) {
   const session = getSessionFromRequest(request);
-  if (!session || session.role !== 'SUPER_ADMIN') {
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN')) {
+    console.log('[cms-auto-login] No valid session or insufficient role');
     return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 
   const redirect = request.nextUrl.searchParams.get('redirect') || '/cms';
 
   try {
+    console.log('[cms-auto-login] Starting for:', session.email);
     const payload = await getPayload({ config });
     const derivedPassword = derivePayloadPassword(session.email);
 
-    // Find existing Payload user
+    // Step 1: Find or create Payload user
     const existing = await payload.find({
       collection: 'payload-users',
       where: { email: { equals: session.email } },
@@ -33,7 +35,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (existing.docs.length === 0) {
-      // Create Payload user with derived password
+      console.log('[cms-auto-login] Creating new Payload user:', session.email);
       await payload.create({
         collection: 'payload-users',
         data: {
@@ -43,16 +45,19 @@ export async function GET(request: NextRequest) {
           role: 'admin',
         },
       });
+      console.log('[cms-auto-login] User created');
     } else {
-      // Update password to derived value (ensures it matches)
+      console.log('[cms-auto-login] Updating password for existing user:', existing.docs[0].id);
       await payload.update({
         collection: 'payload-users',
         id: existing.docs[0].id,
         data: { password: derivedPassword },
       });
+      console.log('[cms-auto-login] Password updated');
     }
 
-    // Login to Payload using the derived password
+    // Step 2: Login to Payload
+    console.log('[cms-auto-login] Calling payload.login()');
     const result = await payload.login({
       collection: 'payload-users',
       data: {
@@ -60,8 +65,9 @@ export async function GET(request: NextRequest) {
         password: derivedPassword,
       },
     });
+    console.log('[cms-auto-login] Login result - token:', result.token ? 'present' : 'MISSING', 'user:', result.user?.email);
 
-    // Set Payload auth cookie and redirect to CMS
+    // Step 3: Set cookie and redirect
     const response = NextResponse.redirect(new URL(redirect, request.url));
     if (result.token) {
       response.cookies.set('payload-token', result.token, {
@@ -71,12 +77,16 @@ export async function GET(request: NextRequest) {
         path: '/',
         maxAge: 604800, // 7 days
       });
+      console.log('[cms-auto-login] Cookie set, redirecting to:', redirect);
+    } else {
+      console.error('[cms-auto-login] No token returned from payload.login()');
     }
 
     return response;
   } catch (error) {
-    console.error('[cms-auto-login] Failed:', error);
-    // Fallback: redirect to CMS login page (manual login)
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('[cms-auto-login] Failed:', message);
+    // Fallback: redirect to CMS (Payload login page)
     return NextResponse.redirect(new URL(redirect, request.url));
   }
 }

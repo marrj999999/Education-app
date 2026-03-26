@@ -1,8 +1,31 @@
-@import "tailwindcss";
+/* Tailwind v4 — skip preflight to avoid breaking Payload CMS admin panel */
+/* See: https://github.com/payloadcms/payload/issues/8878 */
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
 @import "tw-animate-css";
 @import "../styles/print.css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Minimal reset for app routes (replaces Tailwind preflight which conflicts with Payload) */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
 
 :root {
   /* BBC Brand Colors - From Master Guidelines 01.26 */

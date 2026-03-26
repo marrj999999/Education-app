@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Pencil } from 'lucide-react';
 import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
@@ -10,6 +11,7 @@ import PrintButton from '@/components/PrintButton';
 import ReadingProgress from '@/components/ReadingProgress';
 import { LessonPresentationWrapper } from '@/components/LessonPresentationWrapper';
 import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
+import { auth, hasMinimumRole } from '@/lib/auth';
 import type { LayoutVersion } from '@/lib/lesson-layout';
 import type { ContentSection } from '@/lib/types/content';
 import {
@@ -110,9 +112,23 @@ export default async function LessonPage({ params }: LessonPageProps) {
     </div>
   ) : null;
 
-  // Build the action buttons (PrintButton + MarkCompleteButton)
+  // Check if user is admin (for edit button)
+  const session = await auth();
+  const isAdmin = session && hasMinimumRole(session.user.role, 'ADMIN');
+
+  // Build the action buttons
   const actionButtonsSlot = (
     <>
+      {isAdmin && (
+        <Link
+          href={`/cms/collections/lessons/${lessonId}`}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-secondary bg-surface border border-border rounded-lg hover:bg-surface-hover transition-colors"
+          target="_blank"
+        >
+          <Pencil size={14} />
+          Edit
+        </Link>
+      )}
       <PrintButton />
       <MarkCompleteButton lessonId={lessonId} />
     </>

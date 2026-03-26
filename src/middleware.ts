@@ -45,7 +45,7 @@ export default async function middleware(req: NextRequest) {
     }
 
     const session = getSessionFromRequest(req);
-    if (session?.role === 'SUPER_ADMIN' && !req.cookies.get('payload-token')) {
+    if ((session?.role === 'SUPER_ADMIN' || session?.role === 'ADMIN') && !req.cookies.get('payload-token')) {
       const autoLoginUrl = new URL('/api/auth/cms-auto-login', req.url);
       autoLoginUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(autoLoginUrl);

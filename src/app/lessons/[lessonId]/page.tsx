@@ -1,12 +1,14 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Pencil } from 'lucide-react';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
 import { SectionZoneHeader } from '@/components/sections/SectionZoneHeader';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
+import { auth, hasMinimumRole } from '@/lib/auth';
 import type { LayoutVersion } from '@/lib/lesson-layout';
 import {
   ChevronLeftIcon,
@@ -53,6 +55,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
     // Ignore - we just won't show sibling navigation
   }
 
+  // Check if user is admin (for edit button)
+  const session = await auth();
+  const isAdmin = session && hasMinimumRole(session.user.role, 'ADMIN');
+
   // Find current lesson index for prev/next navigation
   const currentIndex = siblingLessons.findIndex(l => l.id === lessonId);
   const prevLesson = currentIndex > 0 ? siblingLessons[currentIndex - 1] : null;
@@ -86,6 +92,16 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
             {/* Action buttons */}
             <div className="flex items-center gap-2">
+              {isAdmin && (
+                <Link
+                  href={`/cms/collections/lessons/${lessonId}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-secondary bg-surface border border-border rounded-lg hover:bg-surface-hover transition-colors"
+                  target="_blank"
+                >
+                  <Pencil size={14} />
+                  Edit
+                </Link>
+              )}
               <PrintButton />
               <MarkCompleteButton lessonId={lessonId} />
             </div>
