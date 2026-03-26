@@ -6,6 +6,7 @@ import { Timer, Lightbulb, AlertTriangle, ChevronDown, ChevronUp, BookOpen, User
 import type { TeachingStepSection } from '@/lib/types/content';
 import { cn } from '@/lib/utils';
 import VideoEmbed from '@/components/VideoEmbed';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface TeachingStepDisplayProps {
   section: TeachingStepSection;
@@ -56,7 +57,10 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
             {/* Title and Duration */}
             <div className="flex items-center gap-3 flex-wrap mb-3">
               {section.title && (
-                <h3
+                <InlineEditable
+                  sectionId={section.id}
+                  field="title"
+                  as="h3"
                   className={cn(
                     'font-semibold text-text-primary',
                     isPresentation
@@ -69,7 +73,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                   )}
                 >
                   {section.title}
-                </h3>
+                </InlineEditable>
               )}
               {section.duration && (
                 <span
@@ -83,14 +87,19 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                   )}
                 >
                   <Timer size={isPresentation ? 20 : isLarge ? 16 : 14} />
-                  {section.duration}
+                  <InlineEditable sectionId={section.id} field="duration" as="span">
+                    {section.duration}
+                  </InlineEditable>
                 </span>
               )}
             </div>
 
             {/* Main Instruction - only show if different from title */}
             {section.instruction && section.instruction !== section.title && (
-              <p
+              <InlineEditable
+                sectionId={section.id}
+                field="instruction"
+                as="p"
                 className={cn(
                   'text-text-primary leading-relaxed',
                   isPresentation
@@ -101,9 +110,10 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                         ? 'text-xl'
                         : 'text-base'
                 )}
+                multiline
               >
                 {section.instruction}
-              </p>
+              </InlineEditable>
             )}
           </div>
         </div>
@@ -138,9 +148,15 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                     {index + 1}
                   </span>
                   <span className="flex-1">
-                    {activity.text}
+                    <InlineEditable
+                      sectionId={section.id}
+                      field={`activities[${index}].text`}
+                      as="span"
+                    >
+                      {activity.text}
+                    </InlineEditable>
                     {activity.duration && (
-                      <span className="ml-2 text-text-tertiary">({activity.duration})</span>
+                      <span className="ml-2 text-text-tertiary">(<InlineEditable sectionId={section.id} field={`activities[${index}].duration`} as="span">{activity.duration}</InlineEditable>)</span>
                     )}
                   </span>
                 </li>
@@ -166,14 +182,18 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               <BookOpen size={isPresentation ? 20 : 16} />
               Teaching Approach
             </div>
-            <p
+            <InlineEditable
+              sectionId={section.id}
+              field="teachingApproach"
+              as="p"
               className={cn(
                 'text-info-darker',
                 isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
               )}
+              multiline
             >
               {section.teachingApproach}
-            </p>
+            </InlineEditable>
           </div>
         )}
 
@@ -194,14 +214,18 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               <Users size={isPresentation ? 20 : 16} />
               Differentiation
             </div>
-            <p
+            <InlineEditable
+              sectionId={section.id}
+              field="differentiation"
+              as="p"
               className={cn(
                 'text-assess-darker',
                 isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
               )}
+              multiline
             >
               {section.differentiation}
-            </p>
+            </InlineEditable>
           </div>
         )}
 
@@ -211,15 +235,19 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
             {section.paragraphs!
               .filter((p, i) => !(i === 0 && p === section.instruction))
               .map((paragraph, index) => (
-              <p
+              <InlineEditable
                 key={index}
+                sectionId={section.id}
+                field={`paragraphs[${index}]`}
+                as="p"
                 className={cn(
                   'text-text-secondary leading-relaxed',
                   isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                 )}
+                multiline
               >
                 {paragraph}
-              </p>
+              </InlineEditable>
             ))}
           </div>
         )}
@@ -242,7 +270,15 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                   )}
                 >
                   <Quote size={isPresentation ? 20 : 16} className="flex-shrink-0 mt-0.5" />
-                  <span className="italic">{quote}</span>
+                  <InlineEditable
+                    sectionId={section.id}
+                    field={`quotes[${index}]`}
+                    as="span"
+                    className="italic"
+                    multiline
+                  >
+                    {quote}
+                  </InlineEditable>
                 </div>
               </blockquote>
             ))}
@@ -266,7 +302,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                               isPresentation ? 'text-base' : 'text-sm'
                             )}
                           >
-                            {header}
+                            <InlineEditable sectionId={section.id} field={`tables[${tableIndex}].headers[${i}]`} as="span">{header}</InlineEditable>
                           </th>
                         ))}
                       </tr>
@@ -283,7 +319,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                               isPresentation ? 'text-base' : 'text-sm'
                             )}
                           >
-                            {cell}
+                            <InlineEditable sectionId={section.id} field={`tables[${tableIndex}].rows[${rowIndex}][${cellIndex}]`} as="span">{cell}</InlineEditable>
                           </td>
                         ))}
                       </tr>
@@ -327,7 +363,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                             isPresentation ? 'text-base' : 'text-sm'
                           )}
                         >
-                          {resource.caption}
+                          <InlineEditable sectionId={section.id} field={`resources[${index}].caption`} as="span">{resource.caption}</InlineEditable>
                         </figcaption>
                       )}
                     </figure>
@@ -443,7 +479,14 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                             isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                           )}
                         >
-                          • {tip}
+                          •{' '}
+                          <InlineEditable
+                            sectionId={section.id}
+                            field={`tips[${index}]`}
+                            as="span"
+                          >
+                            {tip}
+                          </InlineEditable>
                         </li>
                       ))}
                     </ul>
@@ -473,7 +516,14 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                           key={index}
                           className={cn(isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm')}
                         >
-                          • {warning}
+                          •{' '}
+                          <InlineEditable
+                            sectionId={section.id}
+                            field={`warnings[${index}]`}
+                            as="span"
+                          >
+                            {warning}
+                          </InlineEditable>
                         </li>
                       ))}
                     </ul>

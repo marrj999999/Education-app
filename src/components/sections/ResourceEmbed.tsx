@@ -3,6 +3,7 @@
 import { FileText, Play, Image as ImageIcon, File, ExternalLink, Download } from 'lucide-react';
 import Image from 'next/image';
 import type { ResourceSection } from '@/lib/types/content';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface ResourceEmbedProps {
   section: ResourceSection;
@@ -26,11 +27,23 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
             <FileText className="text-danger" size={24} />
           </div>
           <div className="flex-1 min-w-0">
-            <h4 className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}>
+            <InlineEditable
+              sectionId={section.id}
+              field="title"
+              as="h4"
+              className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}
+            >
               {section.title || 'PDF Document'}
-            </h4>
+            </InlineEditable>
             {section.caption && (
-              <p className="text-sm text-text-tertiary truncate">{section.caption}</p>
+              <InlineEditable
+                sectionId={section.id}
+                field="caption"
+                as="p"
+                className="text-sm text-text-tertiary truncate"
+              >
+                {section.caption}
+              </InlineEditable>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -80,9 +93,14 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
     return (
       <div className="space-y-2">
         {section.title && (
-          <h4 className={`font-medium text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}>
+          <InlineEditable
+            sectionId={section.id}
+            field="title"
+            as="h4"
+            className={`font-medium text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}
+          >
             {section.title}
-          </h4>
+          </InlineEditable>
         )}
         <div
           className={`
@@ -112,7 +130,16 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
             </div>
           )}
         </div>
-        {section.caption && <p className="text-sm text-text-tertiary">{section.caption}</p>}
+        {section.caption && (
+          <InlineEditable
+            sectionId={section.id}
+            field="caption"
+            as="p"
+            className="text-sm text-text-tertiary"
+          >
+            {section.caption}
+          </InlineEditable>
+        )}
       </div>
     );
   }
@@ -137,7 +164,14 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
           />
         </div>
         {section.caption && (
-          <figcaption className="text-sm text-text-tertiary italic">{section.caption}</figcaption>
+          <InlineEditable
+            sectionId={section.id}
+            field="caption"
+            as="span"
+            className="text-sm text-text-tertiary italic"
+          >
+            {section.caption}
+          </InlineEditable>
         )}
       </figure>
     );
@@ -156,11 +190,23 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
           <File className="text-text-secondary" size={24} />
         </div>
         <div className="flex-1 min-w-0">
-          <h4 className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}>
+          <InlineEditable
+            sectionId={section.id}
+            field="title"
+            as="h4"
+            className={`font-medium text-text-primary truncate ${isLarge ? 'text-lg' : 'text-base'}`}
+          >
             {section.title || 'File'}
-          </h4>
+          </InlineEditable>
           {section.caption && (
-            <p className="text-sm text-text-tertiary truncate">{section.caption}</p>
+            <InlineEditable
+              sectionId={section.id}
+              field="caption"
+              as="p"
+              className="text-sm text-text-tertiary truncate"
+            >
+              {section.caption}
+            </InlineEditable>
           )}
         </div>
         <a

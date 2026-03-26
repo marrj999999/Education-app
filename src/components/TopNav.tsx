@@ -2,9 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { Pencil } from 'lucide-react';
 import { BambooIcon, MenuIcon } from '@/components/Icons';
 import ThemeToggle from '@/components/ThemeToggle';
 import UserMenu from '@/components/auth/UserMenu';
+import { useGlobalEditMode } from '@/context/GlobalEditModeContext';
+import { cn } from '@/lib/utils';
 import type { Role } from '@prisma/client';
 
 interface TopNavProps {
@@ -17,6 +20,28 @@ interface TopNavProps {
     image?: string | null;
     role: Role;
   } | null;
+}
+
+/** Edit mode toggle button for the TopNav — wired to GlobalEditModeContext */
+function EditModeToggle() {
+  const { isEditModeEnabled, toggleEditMode } = useGlobalEditMode();
+
+  return (
+    <button
+      onClick={toggleEditMode}
+      className={cn(
+        'p-2 rounded-lg transition-all',
+        isEditModeEnabled
+          ? 'bg-blue-500 text-white shadow-sm ring-2 ring-blue-300'
+          : 'text-text-secondary hover:bg-surface-hover hover:text-text-primary',
+      )}
+      aria-label={isEditModeEnabled ? 'Exit edit mode' : 'Enter edit mode'}
+      aria-pressed={isEditModeEnabled}
+      title={isEditModeEnabled ? 'Edit Mode ON — click to exit' : 'Edit Mode — click to enable'}
+    >
+      <Pencil size={18} />
+    </button>
+  );
 }
 
 export default function TopNav({ onMenuToggle, showMenuButton = false, user }: TopNavProps) {
@@ -46,8 +71,10 @@ export default function TopNav({ onMenuToggle, showMenuButton = false, user }: T
           </Link>
         </div>
 
-        {/* Right: Theme toggle + User menu */}
+        {/* Right: Edit toggle + Theme toggle + User menu */}
         <div className="flex items-center gap-2">
+          {/* Edit Mode Toggle — SUPER_ADMIN only */}
+          {user?.role === 'SUPER_ADMIN' && <EditModeToggle />}
           <ThemeToggle />
           {user ? (
             <UserMenu user={user} />

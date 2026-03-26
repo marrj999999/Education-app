@@ -1,6 +1,7 @@
 'use client';
 
 import type { ProseSection } from '@/lib/types/content';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface ProseBlockProps {
   section: ProseSection;
@@ -35,7 +36,13 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
   const lines = content.split('\n').filter(Boolean);
 
   return (
-    <div className="space-y-3">
+    <InlineEditable
+      sectionId={section.id}
+      field="content"
+      as="div"
+      className="space-y-3"
+      multiline
+    >
       {lines.map((line, index) => {
         const trimmed = line.trim();
 
@@ -93,6 +100,6 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
           </p>
         );
       })}
-    </div>
+    </InlineEditable>
   );
 }

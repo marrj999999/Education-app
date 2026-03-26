@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Check, ClipboardCheck } from 'lucide-react';
 import type { CheckpointSection } from '@/lib/types/content';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface CheckpointListProps {
   section: CheckpointSection;
@@ -57,9 +58,14 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-3">
             <ClipboardCheck className="text-assess" size={isLarge ? 24 : 20} />
-            <h3 className={`font-semibold text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}>
+            <InlineEditable
+              sectionId={section.id}
+              field="title"
+              as="h3"
+              className={`font-semibold text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}
+            >
               {section.title}
-            </h3>
+            </InlineEditable>
           </div>
           <span
             className={`
@@ -107,7 +113,10 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
 
                   {/* Content */}
                   <div className="flex-1">
-                    <span
+                    <InlineEditable
+                      sectionId={section.id}
+                      field={`items[${index}].criterion`}
+                      as="span"
                       className={`
                         block font-medium
                         ${isLarge ? 'text-base' : 'text-sm'}
@@ -115,9 +124,12 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                       `}
                     >
                       {item.criterion}
-                    </span>
+                    </InlineEditable>
                     {item.description && (
-                      <span
+                      <InlineEditable
+                        sectionId={section.id}
+                        field={`items[${index}].description`}
+                        as="span"
                         className={`
                           block text-text-tertiary mt-0.5
                           ${isLarge ? 'text-sm' : 'text-xs'}
@@ -125,7 +137,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
                         `}
                       >
                         {item.description}
-                      </span>
+                      </InlineEditable>
                     )}
                   </div>
                 </button>

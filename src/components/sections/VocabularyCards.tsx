@@ -2,6 +2,7 @@
 
 import { BookOpen } from 'lucide-react';
 import type { VocabularySection } from '@/lib/types/content';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface VocabularyCardsProps {
   section: VocabularySection;
@@ -38,16 +39,27 @@ export function VocabularyCards({ section, variant = 'compact' }: VocabularyCard
                 ${isLarge ? 'px-4 py-3' : 'px-3 py-2'}
               `}
             >
-              <dt className={`font-semibold text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}>
+              <InlineEditable
+                sectionId={section.id}
+                field={`terms[${index}].term`}
+                as="span"
+                className={`font-semibold text-text-primary ${isLarge ? 'text-lg' : 'text-base'}`}
+              >
                 {item.term}
-              </dt>
+              </InlineEditable>
             </div>
 
             {/* Definition */}
             <div className={isLarge ? 'px-4 py-3' : 'px-3 py-2'}>
-              <dd className={`text-text-secondary ${isLarge ? 'text-base' : 'text-sm'}`}>
+              <InlineEditable
+                sectionId={section.id}
+                field={`terms[${index}].definition`}
+                as="span"
+                className={`text-text-secondary ${isLarge ? 'text-base' : 'text-sm'}`}
+                multiline
+              >
                 {item.definition}
-              </dd>
+              </InlineEditable>
             </div>
           </div>
         ))}

@@ -3,6 +3,7 @@
 import { Clock, Timer } from 'lucide-react';
 import type { TimelineSection } from '@/lib/types/content';
 import { cn } from '@/lib/utils';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface TimelineCardProps {
   section: TimelineSection;
@@ -16,7 +17,10 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
   return (
     <div className="space-y-4">
       {section.title && (
-        <h3
+        <InlineEditable
+          sectionId={section.id}
+          field="title"
+          as="h3"
           className={cn(
             'font-semibold text-text-primary',
             isPresentation
@@ -27,7 +31,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
           )}
         >
           {section.title}
-        </h3>
+        </InlineEditable>
       )}
 
       {/* Card Grid Layout */}
@@ -60,7 +64,9 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
                 )}
               >
                 <Clock size={isPresentation ? 18 : isLarge ? 14 : 12} />
-                {row.time}
+                <InlineEditable sectionId={section.id} field={`rows[${index}].time`} as="span">
+                  {row.time}
+                </InlineEditable>
               </span>
 
               {/* Duration Badge - Pill shape, slate */}
@@ -76,13 +82,18 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
                   )}
                 >
                   <Timer size={isPresentation ? 16 : isLarge ? 14 : 12} />
-                  {row.duration}
+                  <InlineEditable sectionId={section.id} field={`rows[${index}].duration`} as="span">
+                    {row.duration}
+                  </InlineEditable>
                 </span>
               )}
             </div>
 
             {/* Activity Name - Bold */}
-            <h4
+            <InlineEditable
+              sectionId={section.id}
+              field={`rows[${index}].activity`}
+              as="h4"
               className={cn(
                 'font-bold text-text-primary',
                 isPresentation
@@ -93,18 +104,22 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
               )}
             >
               {row.activity}
-            </h4>
+            </InlineEditable>
 
             {/* Notes */}
             {row.notes && (
-              <p
+              <InlineEditable
+                sectionId={section.id}
+                field={`rows[${index}].notes`}
+                as="p"
                 className={cn(
                   'text-text-secondary leading-relaxed',
                   isPresentation ? 'text-lg' : isLarge ? 'text-base' : 'text-sm'
                 )}
+                multiline
               >
                 {row.notes}
-              </p>
+              </InlineEditable>
             )}
           </div>
         ))}

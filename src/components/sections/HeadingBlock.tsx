@@ -1,7 +1,7 @@
 'use client';
 
-import { createElement } from 'react';
 import type { HeadingSection } from '@/lib/types/content';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface HeadingBlockProps {
   section: HeadingSection;
@@ -31,12 +31,14 @@ export function HeadingBlock({ section, variant = 'compact' }: HeadingBlockProps
 
   const tag = `h${section.level}` as 'h1' | 'h2' | 'h3';
 
-  return createElement(
-    tag,
-    {
-      id: anchorId,
-      className: `${headingClasses[section.level]} scroll-mt-24`,
-    },
-    section.text
+  return (
+    <InlineEditable
+      sectionId={section.id}
+      field="text"
+      as={tag}
+      className={`${headingClasses[section.level]} scroll-mt-24`}
+    >
+      {section.text}
+    </InlineEditable>
   );
 }

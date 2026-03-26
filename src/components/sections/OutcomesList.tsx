@@ -2,6 +2,7 @@
 
 import { Target, CheckCircle2 } from 'lucide-react';
 import type { OutcomesSection } from '@/lib/types/content';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface OutcomesListProps {
   section: OutcomesSection;
@@ -17,9 +18,14 @@ export function OutcomesList({ section, variant = 'compact' }: OutcomesListProps
       <div className={`border-b border-success-medium ${isLarge ? 'p-5' : 'p-4'}`}>
         <div className="flex items-center gap-3">
           <Target className="text-success" size={isLarge ? 24 : 20} />
-          <h3 className={`font-semibold text-success-darker ${isLarge ? 'text-lg' : 'text-base'}`}>
+          <InlineEditable
+            sectionId={section.id}
+            field="title"
+            as="h3"
+            className={`font-semibold text-success-darker ${isLarge ? 'text-lg' : 'text-base'}`}
+          >
             {section.title}
-          </h3>
+          </InlineEditable>
         </div>
       </div>
 
@@ -32,7 +38,14 @@ export function OutcomesList({ section, variant = 'compact' }: OutcomesListProps
                 className="flex-shrink-0 text-success mt-0.5"
                 size={isLarge ? 20 : 18}
               />
-              <span className={`text-success-darker ${isLarge ? 'text-lg' : 'text-base'}`}>{item}</span>
+              <InlineEditable
+                sectionId={section.id}
+                field={`items[${index}]`}
+                as="span"
+                className={`text-success-darker ${isLarge ? 'text-lg' : 'text-base'}`}
+              >
+                {item}
+              </InlineEditable>
             </li>
           ))}
         </ul>

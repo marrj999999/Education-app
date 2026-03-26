@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ProgressProvider } from "@/context/ProgressContext";
 import SessionProvider from "@/components/auth/SessionProvider";
+import { GlobalEditModeProvider } from "@/context/GlobalEditModeContext";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
 import { Toaster } from "sonner";
 
@@ -64,9 +65,11 @@ export default function RootLayout({
       >
         <OfflineIndicator />
         <SessionProvider>
-          <ProgressProvider>
-            {children}
-          </ProgressProvider>
+          <GlobalEditModeProvider>
+            <ProgressProvider>
+              {children}
+            </ProgressProvider>
+          </GlobalEditModeProvider>
         </SessionProvider>
         <Toaster
           position="bottom-right"

@@ -6,6 +6,8 @@ import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
 import { SectionZoneHeader } from '@/components/sections/SectionZoneHeader';
+import { EditableLessonContent } from '@/components/editing/EditableLessonContent';
+import { EditableLessonTitle } from '@/components/editing/EditableLessonTitle';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import ReadingProgress from '@/components/ReadingProgress';
@@ -113,9 +115,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
     </div>
   ) : null;
 
-  // Check if user is admin (for edit button)
+  // Check if user is admin/super admin (for edit button + inline editing)
   const session = await auth();
   const isAdmin = session && hasMinimumRole(session.user.role, 'ADMIN');
+  const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
 
   // Build the action buttons
   const actionButtonsSlot = (
@@ -179,9 +182,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
-                {page.title}
-              </h1>
+              {isSuperAdmin ? (
+                <EditableLessonTitle
+                  lessonId={lessonId}
+                  title={page.title}
+                  className="text-2xl md:text-3xl font-bold text-text-primary mb-2"
+                />
+              ) : (
+                <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
+                  {page.title}
+                </h1>
+              )}
               <div className="flex flex-wrap items-center gap-4 text-sm text-text-secondary">
                 <span className="flex items-center gap-1.5">
                   <BookIcon size={16} />
@@ -226,20 +237,28 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {/* Lesson Content */}
         <article className="mt-6 mb-8 bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8">
-          <div className="space-y-6">
-            {sections.map((section, index) => {
-              const zoneLabel = getZoneLabel(sections, index, (layoutVersion || 'standard-v1') as LayoutVersion);
-              return (
-                <div key={section.id}>
-                  {zoneLabel && <SectionZoneHeader label={zoneLabel} />}
-                  <SectionRenderer
-                    section={section}
-                    lessonId={lessonId}
-                  />
-                </div>
-              );
-            })}
-          </div>
+          {isSuperAdmin ? (
+            <EditableLessonContent
+              lessonId={lessonId}
+              sections={sections}
+              layoutVersion={(layoutVersion || 'standard-v1') as LayoutVersion}
+            />
+          ) : (
+            <div className="space-y-6">
+              {sections.map((section, index) => {
+                const zoneLabel = getZoneLabel(sections, index, (layoutVersion || 'standard-v1') as LayoutVersion);
+                return (
+                  <div key={section.id}>
+                    {zoneLabel && <SectionZoneHeader label={zoneLabel} />}
+                    <SectionRenderer
+                      section={section}
+                      lessonId={lessonId}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </article>
 
         {/* Bottom Navigation - Prev/Next */}

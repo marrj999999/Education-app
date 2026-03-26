@@ -3,6 +3,7 @@
 import { Check } from 'lucide-react';
 import type { ChecklistSection } from '@/lib/types/content';
 import { cn } from '@/lib/utils';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface ChecklistDisplayProps {
   section: ChecklistSection;
@@ -55,7 +56,10 @@ export function ChecklistDisplay({
       >
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <h3
+            <InlineEditable
+              sectionId={section.id}
+              field="title"
+              as="h3"
               className={cn(
                 'font-bold text-text-primary',
                 isPresentation
@@ -66,7 +70,7 @@ export function ChecklistDisplay({
               )}
             >
               {section.title}
-            </h3>
+            </InlineEditable>
             {/* Category Badge - uppercase, smaller text */}
             <span
               className={cn(
@@ -147,7 +151,10 @@ export function ChecklistDisplay({
                   </span>
 
                   {/* Item Text - with strikethrough when checked */}
-                  <span
+                  <InlineEditable
+                    sectionId={section.id}
+                    field={`items[${index}].text`}
+                    as="span"
                     className={cn(
                       'flex-1 transition-all duration-200',
                       isPresentation
@@ -159,7 +166,7 @@ export function ChecklistDisplay({
                     )}
                   >
                     {item.text}
-                  </span>
+                  </InlineEditable>
 
                   {/* Quantity Badge */}
                   {item.quantity && (

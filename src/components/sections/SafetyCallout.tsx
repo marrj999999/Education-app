@@ -3,6 +3,7 @@
 import { AlertTriangle, AlertCircle, AlertOctagon } from 'lucide-react';
 import type { SafetySection } from '@/lib/types/content';
 import { cn } from '@/lib/utils';
+import { InlineEditable } from '@/components/editing/InlineEditable';
 
 interface SafetyCalloutProps {
   section: SafetySection;
@@ -61,7 +62,10 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
           {/* Header with level badge */}
           <div className="flex items-center gap-3 flex-wrap mb-2">
             {section.title && (
-              <h3
+              <InlineEditable
+                sectionId={section.id}
+                field="title"
+                as="h3"
                 className={cn(
                   'font-bold',
                   isPresentation
@@ -72,7 +76,7 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
                 )}
               >
                 {section.title}
-              </h3>
+              </InlineEditable>
             )}
             <span
               className={cn(
@@ -85,7 +89,10 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
           </div>
 
           {/* Main content */}
-          <p
+          <InlineEditable
+            sectionId={section.id}
+            field="content"
+            as="p"
             className={cn(
               'leading-relaxed',
               isPresentation
@@ -94,9 +101,10 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
                   ? 'text-teaching-body'
                   : 'text-base'
             )}
+            multiline
           >
             {section.content}
-          </p>
+          </InlineEditable>
 
           {/* Additional items */}
           {section.items && section.items.length > 0 && (
@@ -106,7 +114,10 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
                   <span className="flex-shrink-0 mt-1">
                     <AlertTriangle size={isPresentation ? 18 : 14} />
                   </span>
-                  <span
+                  <InlineEditable
+                    sectionId={section.id}
+                    field={`items[${index}]`}
+                    as="span"
                     className={cn(
                       isPresentation
                         ? 'text-lg'
@@ -116,7 +127,7 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
                     )}
                   >
                     {item}
-                  </span>
+                  </InlineEditable>
                 </li>
               ))}
             </ul>

@@ -5,6 +5,8 @@ import { Pencil } from 'lucide-react';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
 import { SectionZoneHeader } from '@/components/sections/SectionZoneHeader';
+import { EditableLessonContent } from '@/components/editing/EditableLessonContent';
+import { EditableLessonTitle } from '@/components/editing/EditableLessonTitle';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
@@ -56,9 +58,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
     // Ignore - we just won't show sibling navigation
   }
 
-  // Check if user is admin (for edit button)
+  // Check if user is admin/super admin (for edit button + inline editing)
   const session = await auth();
   const isAdmin = session && hasMinimumRole(session.user.role, 'ADMIN');
+  const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
 
   // Find current lesson index for prev/next navigation
   const currentIndex = siblingLessons.findIndex(l => l.id === lessonId);
@@ -140,9 +143,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
-                {page.title}
-              </h1>
+              {isSuperAdmin ? (
+                <EditableLessonTitle
+                  lessonId={lessonId}
+                  title={page.title}
+                  className="text-2xl md:text-3xl font-bold text-text-primary mb-2"
+                />
+              ) : (
+                <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
+                  {page.title}
+                </h1>
+              )}
               <div className="flex flex-wrap items-center gap-4 text-sm text-text-tertiary">
                 <span className="flex items-center gap-1.5">
                   <ClockIcon size={16} />
@@ -165,20 +176,28 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {/* Lesson Content */}
         <article className="bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8 mt-6 mb-8">
-          <div className="space-y-6">
-            {sections.map((section, index) => {
-              const zoneLabel = getZoneLabel(sections, index, (layoutVersion || 'standard-v1') as LayoutVersion);
-              return (
-                <div key={section.id}>
-                  {zoneLabel && <SectionZoneHeader label={zoneLabel} />}
-                  <SectionRenderer
-                    section={section}
-                    lessonId={lessonId}
-                  />
-                </div>
-              );
-            })}
-          </div>
+          {isSuperAdmin ? (
+            <EditableLessonContent
+              lessonId={lessonId}
+              sections={sections}
+              layoutVersion={(layoutVersion || 'standard-v1') as LayoutVersion}
+            />
+          ) : (
+            <div className="space-y-6">
+              {sections.map((section, index) => {
+                const zoneLabel = getZoneLabel(sections, index, (layoutVersion || 'standard-v1') as LayoutVersion);
+                return (
+                  <div key={section.id}>
+                    {zoneLabel && <SectionZoneHeader label={zoneLabel} />}
+                    <SectionRenderer
+                      section={section}
+                      lessonId={lessonId}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </article>
 
         {/* Child Pages / Related Lessons */}
