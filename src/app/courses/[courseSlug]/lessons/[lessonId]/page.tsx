@@ -12,6 +12,7 @@ import ReadingProgress from '@/components/ReadingProgress';
 import { LessonPresentationWrapper } from '@/components/LessonPresentationWrapper';
 import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
 import { auth, hasMinimumRole } from '@/lib/auth';
+import { LivePreviewListener } from '@/components/LivePreviewListener';
 import type { LayoutVersion } from '@/lib/lesson-layout';
 import type { ContentSection } from '@/lib/types/content';
 import {
@@ -140,6 +141,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
       actionButtons={actionButtonsSlot}
     >
       <div className="min-h-screen bg-surface-hover">
+        {/* Live Preview — refreshes page when admin saves in CMS */}
+        <LivePreviewListener />
         {/* Reading Progress Bar */}
         <ReadingProgress />
 

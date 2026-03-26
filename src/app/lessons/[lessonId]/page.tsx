@@ -9,6 +9,7 @@ import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
 import { auth, hasMinimumRole } from '@/lib/auth';
+import { LivePreviewListener } from '@/components/LivePreviewListener';
 import type { LayoutVersion } from '@/lib/lesson-layout';
 import {
   ChevronLeftIcon,
@@ -66,6 +67,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
   return (
     <div className="min-h-screen bg-surface-hover">
+      {/* Live Preview — refreshes page when admin saves in CMS */}
+      <LivePreviewListener />
       {/* Top Navigation Bar - Teachable style */}
       <div className="sticky top-0 z-30 bg-surface border-b border-border shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
