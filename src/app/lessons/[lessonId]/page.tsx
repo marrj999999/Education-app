@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Pencil } from 'lucide-react';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
 import { SectionZoneHeader } from '@/components/sections/SectionZoneHeader';

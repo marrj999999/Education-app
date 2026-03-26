@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Pencil } from 'lucide-react';
 import { getCourseBySlug, COURSE_COLOR_THEMES } from '@/lib/courses';
 import { getPayloadLessonContent, getPayloadSiblingLessons } from '@/lib/payload/queries';
 import { SectionRenderer } from '@/components/sections';
@@ -122,19 +121,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // Build the action buttons
   const actionButtonsSlot = (
     <>
-      {isAdmin && (
-        <Link
-          href={`/cms/collections/lessons/${lessonId}`}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-secondary bg-surface border border-border rounded-lg hover:bg-surface-hover transition-colors"
-          target="_blank"
-        >
-          <Pencil size={14} />
-          Edit
-        </Link>
-      )}
       <PrintButton />
       <MarkCompleteButton lessonId={lessonId} />
-    </>
+</>
   );
 
   return (
