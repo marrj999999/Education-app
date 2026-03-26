@@ -485,14 +485,19 @@ function convertBlocks(blocks) {
 
       // Safety callout (red/yellow)
       if (color.includes('red') || color.includes('yellow')) {
-        // Collect children text
-        const childTexts = (block._children || [])
-          .map(c => {
-            if (c.type === 'paragraph') return getText(c.paragraph?.rich_text);
-            if (c.type === 'bulleted_list_item') return getText(c.bulleted_list_item?.rich_text);
-            return '';
-          })
-          .filter(t => t.trim());
+        // Collect ALL children text recursively
+        const childTexts = [];
+        function extractSafetyChildren(children) {
+          for (const c of (children || [])) {
+            const ct = c.type;
+            if (c[ct]?.rich_text) {
+              const t = getText(c[ct].rich_text);
+              if (t.trim()) childTexts.push(t.trim());
+            }
+            if (c._children) extractSafetyChildren(c._children);
+          }
+        }
+        extractSafetyChildren(block._children);
 
         const level = color.includes('red') ? 'critical' : 'warning';
 
@@ -522,9 +527,28 @@ function convertBlocks(blocks) {
         i++; continue;
       }
 
-      // Other callouts → prose
-      if (text.trim()) {
-        sections.push({ blockType: 'prose', content: createLexical(text) });
+      // Other callouts → prose (including ALL children)
+      {
+        const allTexts = [text];
+        function extractCalloutChildren(children) {
+          for (const c of (children || [])) {
+            const ct = c.type;
+            if (c[ct]?.rich_text) {
+              const t = getText(c[ct].rich_text);
+              if (t.trim()) allTexts.push(t.trim());
+            }
+            if (ct === 'table_row' && c.table_row?.cells) {
+              const cellText = c.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+              if (cellText.trim()) allTexts.push(cellText);
+            }
+            if (c._children) extractCalloutChildren(c._children);
+          }
+        }
+        extractCalloutChildren(block._children);
+        const fullText = allTexts.filter(Boolean).join('\n');
+        if (fullText.trim()) {
+          sections.push({ blockType: 'prose', content: createLexical(fullText) });
+        }
       }
       i++; continue;
     }
