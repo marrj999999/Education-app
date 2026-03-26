@@ -7,6 +7,7 @@ import { SectionRenderer } from '@/components/sections';
 import { SectionZoneHeader } from '@/components/sections/SectionZoneHeader';
 import { EditableLessonContent } from '@/components/editing/EditableLessonContent';
 import { EditableLessonTitle } from '@/components/editing/EditableLessonTitle';
+import { EditToggleButton } from '@/components/editing/EditToggleButton';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
 import PrintButton from '@/components/PrintButton';
 import { orderSections, getZoneLabel } from '@/lib/lesson-layout';
@@ -61,7 +62,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // Check if user is admin/super admin (for edit button + inline editing)
   const session = await auth();
   const isAdmin = session && hasMinimumRole(session.user.role, 'ADMIN');
-  const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
 
   // Find current lesson index for prev/next navigation
   const currentIndex = siblingLessons.findIndex(l => l.id === lessonId);
@@ -98,16 +98,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
             {/* Action buttons */}
             <div className="flex items-center gap-2">
-              {isAdmin && (
-                <Link
-                  href={`/cms/collections/lessons/${lessonId}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-secondary bg-surface border border-border rounded-lg hover:bg-surface-hover transition-colors"
-                  target="_blank"
-                >
-                  <Pencil size={14} />
-                  Edit
-                </Link>
-              )}
+              <EditToggleButton />
               <PrintButton />
               <MarkCompleteButton lessonId={lessonId} />
             </div>
@@ -143,7 +134,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              {isSuperAdmin ? (
+              {isAdmin ? (
                 <EditableLessonTitle
                   lessonId={lessonId}
                   title={page.title}
@@ -176,7 +167,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {/* Lesson Content */}
         <article className="bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8 mt-6 mb-8">
-          {isSuperAdmin ? (
+          {isAdmin ? (
             <EditableLessonContent
               lessonId={lessonId}
               sections={sections}

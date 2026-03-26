@@ -73,8 +73,8 @@ export default function TopNav({ onMenuToggle, showMenuButton = false, user }: T
 
         {/* Right: Edit toggle + Theme toggle + User menu */}
         <div className="flex items-center gap-2">
-          {/* Edit Mode Toggle — SUPER_ADMIN only */}
-          {user?.role === 'SUPER_ADMIN' && <EditModeToggle />}
+          {/* Edit Mode Toggle — ADMIN and SUPER_ADMIN */}
+          {(user?.role === 'SUPER_ADMIN' || user?.role === 'ADMIN') && <EditModeToggle />}
           <ThemeToggle />
           {user ? (
             <UserMenu user={user} />

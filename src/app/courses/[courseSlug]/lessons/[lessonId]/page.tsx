@@ -118,7 +118,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // Check if user is admin/super admin (for edit button + inline editing)
   const session = await auth();
   const isAdmin = session && hasMinimumRole(session.user.role, 'ADMIN');
-  const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
 
   // Build the action buttons
   const actionButtonsSlot = (
@@ -182,7 +181,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              {isSuperAdmin ? (
+              {isAdmin ? (
                 <EditableLessonTitle
                   lessonId={lessonId}
                   title={page.title}
@@ -237,7 +236,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         {/* Lesson Content */}
         <article className="mt-6 mb-8 bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8">
-          {isSuperAdmin ? (
+          {isAdmin ? (
             <EditableLessonContent
               lessonId={lessonId}
               sections={sections}
