@@ -45,10 +45,27 @@ export default async function middleware(req: NextRequest) {
     }
 
     const session = getSessionFromRequest(req);
-    if ((session?.role === 'SUPER_ADMIN' || session?.role === 'ADMIN') && !req.cookies.get('payload-token')) {
-      const autoLoginUrl = new URL('/api/auth/cms-auto-login', req.url);
-      autoLoginUrl.searchParams.set('redirect', pathname);
-      return NextResponse.redirect(autoLoginUrl);
+    if (session?.role === 'SUPER_ADMIN' || session?.role === 'ADMIN') {
+      const payloadToken = req.cookies.get('payload-token')?.value;
+      let needsLogin = !payloadToken;
+
+      // Check if existing token is expired (JWT payload is base64 middle segment)
+      if (payloadToken && !needsLogin) {
+        try {
+          const payload = JSON.parse(Buffer.from(payloadToken.split('.')[1], 'base64').toString());
+          if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
+            needsLogin = true; // Token expired, need to refresh
+          }
+        } catch {
+          needsLogin = true; // Invalid token, re-login
+        }
+      }
+
+      if (needsLogin) {
+        const autoLoginUrl = new URL('/api/auth/cms-auto-login', req.url);
+        autoLoginUrl.searchParams.set('redirect', pathname);
+        return NextResponse.redirect(autoLoginUrl);
+      }
     }
 
     return NextResponse.next();
