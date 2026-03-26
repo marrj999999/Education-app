@@ -145,13 +145,14 @@ function convertBlocks(blocks) {
       if (headerLower.includes('item') || headerLower.includes('items') ||
           headerLower.some(h => h.includes('material')) ||
           headerLower.some(h => h.includes('quantity'))) {
+        // Include ALL columns in the text (not just first 2)
         sections.push({
           blockType: 'checklist',
           title: 'Materials & Equipment',
           category: 'materials',
           items: dataRows.map(row => ({
-            text: row[0] || '',
-            quantity: row[1] || null,
+            text: row.filter(Boolean).join(' — ') || '',
+            quantity: null,
           })).filter(item => item.text.trim()),
         });
         i++; continue;
@@ -294,9 +295,21 @@ function convertBlocks(blocks) {
             i++; continue;
           }
 
-          // Bullet items → activities
+          // Bullet items → activities (including nested children)
           if (bt === 'bulleted_list_item') {
             activities.push({ text: getText(b.bulleted_list_item.rich_text), duration: null });
+            // Capture nested bullet/numbered children recursively
+            function extractNestedItems(children) {
+              for (const child of (children || [])) {
+                const ct = child.type;
+                if (child[ct]?.rich_text) {
+                  const t = getText(child[ct].rich_text);
+                  if (t.trim()) activities.push({ text: t, duration: null });
+                }
+                if (child._children) extractNestedItems(child._children);
+              }
+            }
+            extractNestedItems(b._children);
             i++; continue;
           }
 
@@ -333,20 +346,22 @@ function convertBlocks(blocks) {
             i++; continue;
           }
 
-          // Numbered list items inside teaching steps
+          // Numbered list items inside teaching steps (with recursive children)
           if (bt === 'numbered_list_item') {
             const nText = getText(b.numbered_list_item?.rich_text);
             if (nText.trim()) activities.push({ text: nText, duration: null });
-            // Also capture children
-            if (b._children) {
-              for (const child of b._children) {
-                const ctype = child.type;
-                if (child[ctype]?.rich_text) {
-                  const t = getText(child[ctype].rich_text);
-                  if (t.trim()) paragraphs.push(t);
+            // Recursively capture all nested children
+            function extractNestedNumbered(children) {
+              for (const child of (children || [])) {
+                const ct = child.type;
+                if (child[ct]?.rich_text) {
+                  const t = getText(child[ct].rich_text);
+                  if (t.trim()) activities.push({ text: t, duration: null });
                 }
+                if (child._children) extractNestedNumbered(child._children);
               }
             }
+            extractNestedNumbered(b._children);
             i++; continue;
           }
 
@@ -361,6 +376,18 @@ function convertBlocks(blocks) {
                   const t = getText(c[ct].rich_text);
                   if (t.trim()) paragraphs.push(t);
                 }
+                if (ct === 'table_row' && c.table_row?.cells) {
+                  const cellText = c.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+                  if (cellText.trim()) paragraphs.push(cellText);
+                }
+                if (ct === 'table') {
+                  for (const row of (c._children || [])) {
+                    if (row.type === 'table_row' && row.table_row?.cells) {
+                      const cellText = row.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+                      if (cellText.trim()) paragraphs.push(cellText);
+                    }
+                  }
+                }
                 if (c._children) extractToggleContent(c._children);
               }
             }
@@ -368,20 +395,53 @@ function convertBlocks(blocks) {
             i++; continue;
           }
 
+          // Tables inside teaching steps — extract all cell content
+          if (bt === 'table') {
+            const tableRows = (b._children || []).filter(c => c.type === 'table_row');
+            for (const row of tableRows) {
+              if (row.table_row?.cells) {
+                const cellText = row.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+                if (cellText.trim()) paragraphs.push(cellText);
+              }
+            }
+            i++; continue;
+          }
+
+          // Table rows (standalone, outside table context)
+          if (bt === 'table_row') {
+            if (b.table_row?.cells) {
+              const cellText = b.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+              if (cellText.trim()) paragraphs.push(cellText);
+            }
+            i++; continue;
+          }
+
           // Fallback: capture text from any unhandled block type inside section
           {
             let fallbackText = '';
             if (b[bt]?.rich_text) fallbackText = getText(b[bt].rich_text);
+            // Also handle table cells in fallback
+            if (bt === 'table_row' && b.table_row?.cells) {
+              fallbackText = b.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+            }
             if (fallbackText.trim()) paragraphs.push(fallbackText);
-            // Also capture children
+            // Also capture children recursively
             if (b._children) {
-              for (const child of b._children) {
-                const ct = child.type;
-                if (child[ct]?.rich_text) {
-                  const t = getText(child[ct].rich_text);
-                  if (t.trim()) paragraphs.push(t);
+              function extractAllChildContent(children) {
+                for (const child of (children || [])) {
+                  const ct = child.type;
+                  if (child[ct]?.rich_text) {
+                    const t = getText(child[ct].rich_text);
+                    if (t.trim()) paragraphs.push(t);
+                  }
+                  if (ct === 'table_row' && child.table_row?.cells) {
+                    const cellText = child.table_row.cells.map(cell => getText(cell)).filter(t => t.trim()).join(' | ');
+                    if (cellText.trim()) paragraphs.push(cellText);
+                  }
+                  if (child._children) extractAllChildContent(child._children);
                 }
               }
+              extractAllChildContent(b._children);
             }
           }
           i++;
