@@ -72,10 +72,9 @@ export const Lessons: CollectionConfig = {
     // =========================================================================
     // Structured Content Sections
     // =========================================================================
-    // Each section type maps to a ContentSection type in src/lib/types/content.ts.
-    // Lessons are composed of an ordered array of these sections.
-    // The `sections` field is the primary content field — it replaces both the
-    // Lexical richText `content` field and the legacy block parser.
+    // NOTE: Sub-fields inside arrays are NOT required because migrated Notion
+    // data may have gaps. Payload validates on every update, so required fields
+    // with empty values would block ALL saves (even to unrelated blocks).
     // =========================================================================
 
     {
@@ -93,7 +92,6 @@ export const Lessons: CollectionConfig = {
             {
               name: 'level',
               type: 'select',
-              required: true,
               defaultValue: '2',
               options: [
                 { label: 'H1 — Page Title', value: '1' },
@@ -101,7 +99,7 @@ export const Lessons: CollectionConfig = {
                 { label: 'H3 — Subsection', value: '3' },
               ],
             },
-            { name: 'text', type: 'text', required: true },
+            { name: 'text', type: 'text' },
           ],
         },
 
@@ -113,7 +111,6 @@ export const Lessons: CollectionConfig = {
             {
               name: 'content',
               type: 'richText',
-              required: true,
               admin: {
                 description: 'Rich text content — paragraphs, lists, links, images, etc.',
               },
@@ -130,13 +127,11 @@ export const Lessons: CollectionConfig = {
             {
               name: 'rows',
               type: 'array',
-              required: true,
-              minRows: 1,
               admin: { description: 'Schedule rows — time, activity, duration, notes' },
               fields: [
-                { name: 'time', type: 'text', required: true, admin: { width: '20%' } },
-                { name: 'activity', type: 'text', required: true, admin: { width: '40%' } },
-                { name: 'duration', type: 'text', required: true, admin: { width: '20%' } },
+                { name: 'time', type: 'text', admin: { width: '20%' } },
+                { name: 'activity', type: 'text', admin: { width: '40%' } },
+                { name: 'duration', type: 'text', admin: { width: '20%' } },
                 { name: 'notes', type: 'text', admin: { width: '20%' } },
               ],
             },
@@ -148,11 +143,10 @@ export const Lessons: CollectionConfig = {
           slug: 'checklist',
           labels: { singular: 'Checklist', plural: 'Checklists' },
           fields: [
-            { name: 'title', type: 'text', required: true },
+            { name: 'title', type: 'text' },
             {
               name: 'category',
               type: 'select',
-              required: true,
               defaultValue: 'materials',
               options: [
                 { label: 'Materials', value: 'materials' },
@@ -164,10 +158,8 @@ export const Lessons: CollectionConfig = {
             {
               name: 'items',
               type: 'array',
-              required: true,
-              minRows: 1,
               fields: [
-                { name: 'text', type: 'text', required: true },
+                { name: 'text', type: 'text' },
                 { name: 'quantity', type: 'text', admin: { description: 'e.g. "2x", "500ml"' } },
               ],
             },
@@ -182,22 +174,21 @@ export const Lessons: CollectionConfig = {
             {
               name: 'level',
               type: 'select',
-              required: true,
               defaultValue: 'warning',
               options: [
-                { label: '🔴 Critical — Must not proceed without', value: 'critical' },
-                { label: '🟡 Warning — Important safety info', value: 'warning' },
-                { label: '🟢 Caution — Good practice reminder', value: 'caution' },
+                { label: 'Critical', value: 'critical' },
+                { label: 'Warning', value: 'warning' },
+                { label: 'Caution', value: 'caution' },
               ],
             },
             { name: 'title', type: 'text', admin: { description: 'Optional title for this safety note' } },
-            { name: 'content', type: 'textarea', required: true },
+            { name: 'content', type: 'textarea' },
             {
               name: 'items',
               type: 'array',
               admin: { description: 'Bullet points (optional)' },
               fields: [
-                { name: 'text', type: 'text', required: true },
+                { name: 'text', type: 'text' },
               ],
             },
           ],
@@ -208,9 +199,9 @@ export const Lessons: CollectionConfig = {
           slug: 'teachingStep',
           labels: { singular: 'Teaching Step', plural: 'Teaching Steps' },
           fields: [
-            { name: 'stepNumber', type: 'number', required: true, min: 1 },
+            { name: 'stepNumber', type: 'number', min: 1 },
             { name: 'title', type: 'text' },
-            { name: 'instruction', type: 'textarea', required: true },
+            { name: 'instruction', type: 'textarea' },
             { name: 'duration', type: 'text', admin: { description: 'e.g. "15 min"' } },
             { name: 'teachingApproach', type: 'textarea', admin: { description: 'Notes on how to deliver this step' } },
             { name: 'differentiation', type: 'textarea', admin: { description: 'Guidance for different learner levels' } },
@@ -219,7 +210,7 @@ export const Lessons: CollectionConfig = {
               type: 'array',
               admin: { description: 'Additional content paragraphs' },
               fields: [
-                { name: 'text', type: 'textarea', required: true },
+                { name: 'text', type: 'textarea' },
               ],
             },
             {
@@ -227,7 +218,7 @@ export const Lessons: CollectionConfig = {
               type: 'array',
               admin: { description: 'Instructor tips' },
               fields: [
-                { name: 'text', type: 'text', required: true },
+                { name: 'text', type: 'text' },
               ],
             },
             {
@@ -235,7 +226,7 @@ export const Lessons: CollectionConfig = {
               type: 'array',
               admin: { description: 'Warning notes for this step' },
               fields: [
-                { name: 'text', type: 'text', required: true },
+                { name: 'text', type: 'text' },
               ],
             },
             {
@@ -243,7 +234,7 @@ export const Lessons: CollectionConfig = {
               type: 'array',
               admin: { description: 'Structured activities within this step' },
               fields: [
-                { name: 'text', type: 'text', required: true },
+                { name: 'text', type: 'text' },
                 { name: 'duration', type: 'text' },
               ],
             },
@@ -255,7 +246,6 @@ export const Lessons: CollectionConfig = {
                 {
                   name: 'type',
                   type: 'select',
-                  required: true,
                   options: [
                     { label: 'Image', value: 'image' },
                     { label: 'Video', value: 'video' },
@@ -263,7 +253,7 @@ export const Lessons: CollectionConfig = {
                     { label: 'Embed', value: 'embed' },
                   ],
                 },
-                { name: 'url', type: 'text', required: true },
+                { name: 'url', type: 'text' },
                 { name: 'title', type: 'text' },
                 { name: 'caption', type: 'text' },
               ],
@@ -276,13 +266,11 @@ export const Lessons: CollectionConfig = {
                 {
                   name: 'headers',
                   type: 'json',
-                  required: true,
                   admin: { description: 'Array of header strings, e.g. ["Material", "Quantity", "Notes"]' },
                 },
                 {
                   name: 'rows',
                   type: 'json',
-                  required: true,
                   admin: { description: 'Array of row arrays, e.g. [["Bamboo", "2m", "Dried"]]' },
                 },
               ],
@@ -292,7 +280,7 @@ export const Lessons: CollectionConfig = {
               type: 'array',
               admin: { description: 'Key scripts or quote blocks' },
               fields: [
-                { name: 'text', type: 'textarea', required: true },
+                { name: 'text', type: 'textarea' },
               ],
             },
           ],
@@ -303,14 +291,12 @@ export const Lessons: CollectionConfig = {
           slug: 'checkpoint',
           labels: { singular: 'Checkpoint', plural: 'Checkpoints' },
           fields: [
-            { name: 'title', type: 'text', required: true },
+            { name: 'title', type: 'text' },
             {
               name: 'items',
               type: 'array',
-              required: true,
-              minRows: 1,
               fields: [
-                { name: 'criterion', type: 'text', required: true },
+                { name: 'criterion', type: 'text' },
                 { name: 'description', type: 'text' },
               ],
             },
@@ -322,14 +308,12 @@ export const Lessons: CollectionConfig = {
           slug: 'outcomes',
           labels: { singular: 'Learning Outcomes', plural: 'Learning Outcomes' },
           fields: [
-            { name: 'title', type: 'text', required: true, defaultValue: 'Learning Outcomes' },
+            { name: 'title', type: 'text', defaultValue: 'Learning Outcomes' },
             {
               name: 'items',
               type: 'array',
-              required: true,
-              minRows: 1,
               fields: [
-                { name: 'text', type: 'text', required: true },
+                { name: 'text', type: 'text' },
               ],
             },
           ],
@@ -343,11 +327,9 @@ export const Lessons: CollectionConfig = {
             {
               name: 'terms',
               type: 'array',
-              required: true,
-              minRows: 1,
               fields: [
-                { name: 'term', type: 'text', required: true },
-                { name: 'definition', type: 'textarea', required: true },
+                { name: 'term', type: 'text' },
+                { name: 'definition', type: 'textarea' },
               ],
             },
           ],
@@ -361,7 +343,6 @@ export const Lessons: CollectionConfig = {
             {
               name: 'resourceType',
               type: 'select',
-              required: true,
               options: [
                 { label: 'PDF', value: 'pdf' },
                 { label: 'Video', value: 'video' },
@@ -369,7 +350,7 @@ export const Lessons: CollectionConfig = {
                 { label: 'File', value: 'file' },
               ],
             },
-            { name: 'url', type: 'text', required: true },
+            { name: 'url', type: 'text' },
             { name: 'title', type: 'text' },
             { name: 'caption', type: 'text' },
           ],
