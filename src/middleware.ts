@@ -9,7 +9,7 @@ const publicRoutes = ['/auth/login', '/auth/error'];
 const adminRoutes = ['/admin'];
 
 // API routes that handle their own auth
-const apiRoutes = ['/api/auth', '/api/progress', '/api/payload', '/api/lessons', '/api/test-save'];
+const apiRoutes = ['/api/auth', '/api/progress', '/api/payload', '/api/lessons'];
 
 // Payload CMS routes (handled by Payload's own auth)
 const payloadRoutes = ['/cms', '/api/payload'];
