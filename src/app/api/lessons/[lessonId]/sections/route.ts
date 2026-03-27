@@ -111,10 +111,16 @@ export async function PATCH(
   try {
     const payload = await getPayload({ config });
 
+    // Convert string ID to number (Payload uses serial/integer IDs)
+    const numericId = Number(lessonId);
+    if (isNaN(numericId)) {
+      return NextResponse.json({ error: 'Invalid lesson ID' }, { status: 400 });
+    }
+
     // Fetch the current lesson with its sections
     const lesson = await payload.findByID({
       collection: 'lessons',
-      id: lessonId,
+      id: numericId,
       depth: 0,
     });
 
@@ -256,7 +262,7 @@ export async function PATCH(
     // Save to Payload CMS (overrideAccess bypasses Payload's own access control)
     await payload.update({
       collection: 'lessons',
-      id: lessonId,
+      id: numericId,
       data: updateData,
       overrideAccess: true,
     });

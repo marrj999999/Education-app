@@ -158,14 +158,18 @@ export function EditModeProvider({
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        redirect: 'error',
         body: JSON.stringify({
           changes: hasFieldChanges ? changes : undefined,
           order: hasOrderChanges ? sectionOrder : undefined,
         }),
       });
 
-      // Check for HTML response (redirect to login page)
+      // Check for redirect (session expired → login page)
+      if (response.redirected || response.type === 'opaqueredirect') {
+        throw new Error('Session expired — please log in again');
+      }
+
+      // Check for HTML response (shouldn't happen but defensive)
       const contentType = response.headers.get('content-type');
       if (contentType && !contentType.includes('application/json')) {
         throw new Error('Session expired — please log in again');
