@@ -173,7 +173,13 @@ export function EditModeProvider({
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || `Save failed (${response.status})`);
+        // Log full error details for debugging
+        console.error('[EditMode] Save error response:', JSON.stringify(data, null, 2));
+        const errorMsg = data.error || `Save failed (${response.status})`;
+        const details = data.validationErrors
+          ? `\n${JSON.stringify(data.validationErrors)}`
+          : '';
+        throw new Error(errorMsg + details);
       }
 
       // Success — clear pending changes and update baseline

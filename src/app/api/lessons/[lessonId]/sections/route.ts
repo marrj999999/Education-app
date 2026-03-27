@@ -274,15 +274,22 @@ export async function PATCH(
   } catch (error) {
     const message =
       error instanceof Error ? error.message : String(error);
-    // Log full error for debugging (visible in Vercel logs)
     console.error('[sections-api] Failed to update lesson', lessonId, ':', error);
-    if (error && typeof error === 'object' && 'data' in error) {
-      console.error('[sections-api] Payload validation errors:', JSON.stringify((error as any).data, null, 2));
+
+    // Return detailed error info for debugging
+    const errorResponse: Record<string, unknown> = {
+      error: `Failed to update lesson: ${message}`,
+    };
+
+    // Include Payload validation errors if present
+    if (error && typeof error === 'object') {
+      if ('data' in error) errorResponse.validationErrors = (error as any).data;
+      if ('isOperational' in error) errorResponse.isOperational = (error as any).isOperational;
+      if ('status' in error) errorResponse.payloadStatus = (error as any).status;
+      if (error instanceof Error) errorResponse.stack = error.stack?.split('\n').slice(0, 5);
     }
-    return NextResponse.json(
-      { error: `Failed to update lesson: ${message}` },
-      { status: 500 },
-    );
+
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 }
 
