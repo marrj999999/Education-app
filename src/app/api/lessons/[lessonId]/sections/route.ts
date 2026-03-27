@@ -115,7 +115,7 @@ export async function PATCH(
     const lesson = await payload.findByID({
       collection: 'lessons',
       id: lessonId,
-      depth: 1,
+      depth: 0,
     });
 
     if (!lesson) {
@@ -139,7 +139,7 @@ export async function PATCH(
     if (changes) {
       for (const [sectionId, fieldChanges] of Object.entries(changes)) {
         const sectionIndex = updatedSections.findIndex(
-          (s: any) => s.id === sectionId,
+          (s: any) => String(s.id) === String(sectionId),
         );
         if (sectionIndex === -1) {
           console.warn(
