@@ -157,11 +157,19 @@ export function EditModeProvider({
       const response = await fetch(`/api/lessons/${lessonId}/sections`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        redirect: 'error',
         body: JSON.stringify({
           changes: hasFieldChanges ? changes : undefined,
           order: hasOrderChanges ? sectionOrder : undefined,
         }),
       });
+
+      // Check for HTML response (redirect to login page)
+      const contentType = response.headers.get('content-type');
+      if (contentType && !contentType.includes('application/json')) {
+        throw new Error('Session expired — please log in again');
+      }
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));

@@ -253,11 +253,12 @@ export async function PATCH(
       }
     }
 
-    // Save to Payload CMS
+    // Save to Payload CMS (overrideAccess bypasses Payload's own access control)
     await payload.update({
       collection: 'lessons',
       id: lessonId,
       data: updateData,
+      overrideAccess: true,
     });
 
     // Revalidate lesson pages so ISR picks up the change
@@ -273,7 +274,11 @@ export async function PATCH(
   } catch (error) {
     const message =
       error instanceof Error ? error.message : String(error);
-    console.error('[sections-api] Failed to update:', message);
+    // Log full error for debugging (visible in Vercel logs)
+    console.error('[sections-api] Failed to update lesson', lessonId, ':', error);
+    if (error && typeof error === 'object' && 'data' in error) {
+      console.error('[sections-api] Payload validation errors:', JSON.stringify((error as any).data, null, 2));
+    }
     return NextResponse.json(
       { error: `Failed to update lesson: ${message}` },
       { status: 500 },
