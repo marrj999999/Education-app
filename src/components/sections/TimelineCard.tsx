@@ -45,8 +45,8 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
           <div
             key={index}
             className={cn(
-              'bg-surface border border-border border-t-[3px] border-t-teal rounded-xl',
-              'shadow-sm hover:shadow-md hover:border-border transition-all duration-200',
+              'bg-surface border border-border border-t-[3px] border-t-teal rounded-2xl',
+              'shadow-sm hover:shadow-md transition-shadow duration-200',
               isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4'
             )}
           >

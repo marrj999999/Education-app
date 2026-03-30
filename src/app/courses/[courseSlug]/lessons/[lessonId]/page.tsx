@@ -132,10 +132,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
       actionButtons={actionButtonsSlot}
     >
       <div className="min-h-screen bg-surface-hover">
-        {/* Deployment test banner — remove after confirming user sees it */}
-        <div className="bg-gold text-forest text-center py-3 font-bold text-lg tracking-wide">
-          DESIGN UPDATE v2 — Atkinson Hyperlegible Font Active
-        </div>
         {/* Live Preview — refreshes page when admin saves in CMS */}
         <LivePreviewListener />
         {/* Reading Progress Bar */}
@@ -160,7 +156,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Lesson Header - Overlapping card style */}
         <header className={`
-          bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8
+          bg-surface rounded-xl shadow-sm shadow-md border border-border p-8 md:p-10
           ${page.cover ? '-mt-16 relative z-10' : 'mt-8'}
         `}>
           <div className="flex items-start gap-4">
@@ -178,10 +174,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
                 <EditableLessonTitle
                   lessonId={lessonId}
                   title={page.title}
-                  className="text-2xl md:text-3xl font-bold text-text-primary mb-2"
+                  className="text-3xl md:text-4xl font-bold text-text-primary mb-2"
                 />
               ) : (
-                <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
+                <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
                   {page.title}
                 </h1>
               )}
@@ -210,25 +206,23 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </header>
 
         {/* Mode Toggle */}
-        <div className="flex gap-4 mt-6 p-4 bg-surface-hover rounded-lg">
+        <div className="flex bg-surface-active rounded-xl p-1.5 mt-6 gap-1">
           <Link
             href={`/lessons/${lessonId}/prep`}
-            className="flex-1 text-center py-3 px-4 bg-white border border-border rounded-lg hover:border-teal hover:bg-bamboo-50 transition-colors"
+            className="flex-1 text-center py-3.5 px-4 bg-surface shadow-sm rounded-lg transition-all"
           >
             <span className="block font-semibold text-text-primary">Prep Mode</span>
-            <span className="text-sm text-text-tertiary">Checklists & materials</span>
           </Link>
           <Link
             href={`/lessons/${lessonId}/teach`}
-            className="flex-1 text-center py-3 px-4 bg-white border border-border rounded-lg hover:border-info hover:bg-info-light transition-colors"
+            className="flex-1 text-center py-3.5 px-4 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface/50 transition-all"
           >
-            <span className="block font-semibold text-text-primary">Teaching Mode</span>
-            <span className="text-sm text-text-tertiary">Step-by-step delivery</span>
+            <span className="block font-semibold">Teaching Mode</span>
           </Link>
         </div>
 
         {/* Lesson Content */}
-        <article id="main-content" className="mt-6 mb-8 bg-surface rounded-xl shadow-sm border border-border p-6 md:p-8">
+        <article id="main-content" className="mt-6 mb-8 bg-surface rounded-2xl shadow-md border border-border/50 p-8 md:p-10">
           {isAdmin ? (
             <EditableLessonContent
               lessonId={lessonId}

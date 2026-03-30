@@ -32,7 +32,7 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
   const hasParagraphs = section.paragraphs && section.paragraphs.length > 0;
 
   return (
-    <div className="bg-surface border border-border border-l-4 border-l-teal rounded-xl overflow-hidden shadow-sm">
+    <div className="bg-surface border border-border border-l-4 border-l-teal rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
       <div className={cn(isPresentation ? 'p-8' : isLarge ? 'p-6' : 'p-4')}>
         <div className={cn('flex', isPresentation ? 'gap-6' : 'gap-4')}>
           {/* Step Number Circle - Green for sections */}

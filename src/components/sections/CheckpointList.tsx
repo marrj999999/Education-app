@@ -52,7 +52,7 @@ export function CheckpointList({ section, storageKey, variant = 'compact' }: Che
   const totalCount = section.items.length;
 
   return (
-    <div className="bg-surface border border-border rounded-lg overflow-hidden border-l-4 border-l-assess">
+    <div className="bg-surface border border-border rounded-xl overflow-hidden border-l-4 border-l-assess shadow-sm">
       {/* Header */}
       <div className={`border-b border-border ${isLarge ? 'p-5' : 'p-4'}`}>
         <div className="flex items-center justify-between flex-wrap gap-2">

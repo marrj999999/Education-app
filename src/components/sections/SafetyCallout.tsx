@@ -39,7 +39,7 @@ export function SafetyCallout({ section, variant = 'compact' }: SafetyCalloutPro
     <div
       className={cn(
         // Base styles with 4px left border
-        'rounded-lg border-l-4 overflow-hidden',
+        'rounded-xl border-l-4 overflow-hidden shadow-sm',
         // Use semantic safety classes from globals.css
         `safety-${section.level}`,
         // Padding based on variant

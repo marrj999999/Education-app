@@ -42,7 +42,7 @@ export function ChecklistDisplay({
   return (
     <div
       className={cn(
-        'bg-surface border border-border rounded-xl overflow-hidden shadow-sm',
+        'bg-surface border border-border rounded-2xl overflow-hidden shadow-sm',
         'border-l-4',
         categoryColors[section.category] || 'border-l-border'
       )}
@@ -120,7 +120,7 @@ export function ChecklistDisplay({
                   onClick={() => onToggle(item.text)}
                   className={cn(
                     'w-full flex items-center gap-4 text-left',
-                    'rounded-lg transition-all duration-200 group',
+                    'rounded-lg transition-all duration-200 group hover:shadow-sm hover:-translate-y-px',
                     // Minimum touch target size 44px
                     isPresentation
                       ? 'p-4 min-h-[56px]'
@@ -138,7 +138,7 @@ export function ChecklistDisplay({
                       'flex-shrink-0 flex items-center justify-center',
                       'rounded-full transition-all duration-200 ease-out',
                       // Size: 24px minimum (w-6 h-6)
-                      isPresentation ? 'w-8 h-8' : 'w-6 h-6',
+                      isPresentation ? 'w-8 h-8' : 'w-7 h-7',
                       isChecked
                         ? 'bg-success text-white scale-110'
                         : 'border-2 border-teal bg-teal/15 text-teal/20 rounded-full group-hover:border-forest group-hover:bg-teal/25'
