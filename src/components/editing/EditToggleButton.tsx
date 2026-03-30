@@ -27,7 +27,7 @@ export function EditToggleButton() {
       className={cn(
         'inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all',
         isEditModeEnabled
-          ? 'bg-blue-500 text-white shadow-sm ring-2 ring-blue-300'
+          ? 'bg-teal text-white shadow-sm ring-2 ring-teal/50'
           : 'text-text-secondary bg-surface border border-border hover:bg-surface-hover',
       )}
       aria-label={isEditModeEnabled ? 'Exit edit mode' : 'Enter edit mode'}

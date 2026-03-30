@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Atkinson_Hyperlegible_Next, Atkinson_Hyperlegible_Mono } from "next/font/google";
 import "./globals.css";
 import { ProgressProvider } from "@/context/ProgressContext";
 import SessionProvider from "@/components/auth/SessionProvider";
@@ -7,20 +7,13 @@ import { GlobalEditModeProvider } from "@/context/GlobalEditModeContext";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
 import { Toaster } from "sonner";
 
-// BBC Brand Font - Plus Jakarta Sans
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const atkinsonNext = Atkinson_Hyperlegible_Next({
+  variable: "--font-atkinson",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const atkinsonMono = Atkinson_Hyperlegible_Mono({
+  variable: "--font-atkinson-mono",
   subsets: ["latin"],
 });
 
@@ -61,7 +54,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192.svg" />
       </head>
       <body
-        className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${atkinsonNext.variable} ${atkinsonMono.variable} antialiased`}
       >
         <a
           href="#main-content"

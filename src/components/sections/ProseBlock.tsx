@@ -70,7 +70,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
         if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
           return (
             <div key={index} className="flex items-start gap-2">
-              <span className="text-text-tertiary mt-1 flex-shrink-0">•</span>
+              <span className="text-teal mt-1 flex-shrink-0 text-lg leading-none">●</span>
               <span className={`text-text-secondary ${isLarge ? 'text-lg' : 'text-base'}`}>
                 {renderInlineMarkdown(trimmed.substring(2))}
               </span>

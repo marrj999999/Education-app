@@ -95,9 +95,9 @@ export function InlineEditable({
       className={cn(
         className,
         // Edit mode styling
-        'outline-2 outline-dashed outline-blue-400/50',
-        'hover:outline-blue-500/70 focus:outline-blue-500',
-        'focus:bg-blue-50/30 rounded px-0.5 -mx-0.5',
+        'outline-2 outline-dashed outline-teal/50',
+        'hover:outline-teal/70 focus:outline-teal',
+        'focus:bg-teal/10 rounded px-0.5 -mx-0.5',
         'transition-all cursor-text',
       )}
       contentEditable

@@ -206,20 +206,20 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </header>
 
         {/* Mode Toggle */}
-        <div className="flex gap-4 mt-6 p-4 bg-slate-50 rounded-lg">
+        <div className="flex gap-4 mt-6 p-4 bg-surface-hover rounded-lg">
           <Link
             href={`/lessons/${lessonId}/prep`}
-            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-teal hover:bg-bamboo-50 transition-colors"
+            className="flex-1 text-center py-3 px-4 bg-white border border-border rounded-lg hover:border-teal hover:bg-bamboo-50 transition-colors"
           >
-            <span className="block font-semibold text-slate-900">Prep Mode</span>
-            <span className="text-sm text-slate-500">Checklists & materials</span>
+            <span className="block font-semibold text-text-primary">Prep Mode</span>
+            <span className="text-sm text-text-tertiary">Checklists & materials</span>
           </Link>
           <Link
             href={`/lessons/${lessonId}/teach`}
-            className="flex-1 text-center py-3 px-4 bg-white border border-slate-200 rounded-lg hover:border-info hover:bg-info-light transition-colors"
+            className="flex-1 text-center py-3 px-4 bg-white border border-border rounded-lg hover:border-info hover:bg-info-light transition-colors"
           >
-            <span className="block font-semibold text-slate-900">Teaching Mode</span>
-            <span className="text-sm text-slate-500">Step-by-step delivery</span>
+            <span className="block font-semibold text-text-primary">Teaching Mode</span>
+            <span className="text-sm text-text-tertiary">Step-by-step delivery</span>
           </Link>
         </div>
 

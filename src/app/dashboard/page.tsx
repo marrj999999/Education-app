@@ -123,7 +123,7 @@ export default async function DashboardPage() {
       <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card>
+          <Card className="border-l-4 border-l-teal">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
@@ -141,7 +141,7 @@ export default async function DashboardPage() {
 
           {isInstructor && (
             <>
-              <Card>
+              <Card className="border-l-4 border-l-teal">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border-l-4 border-l-teal">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">
@@ -169,7 +169,7 @@ export default async function DashboardPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border-l-4 border-l-teal">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-bamboo-100 flex items-center justify-center">

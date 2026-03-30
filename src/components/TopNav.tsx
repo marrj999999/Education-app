@@ -32,7 +32,7 @@ function EditModeToggle() {
       className={cn(
         'p-2 rounded-lg transition-all',
         isEditModeEnabled
-          ? 'bg-blue-500 text-white shadow-sm ring-2 ring-blue-300'
+          ? 'bg-teal text-white shadow-sm ring-2 ring-teal/50'
           : 'text-text-secondary hover:bg-surface-hover hover:text-text-primary',
       )}
       aria-label={isEditModeEnabled ? 'Exit edit mode' : 'Enter edit mode'}

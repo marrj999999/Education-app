@@ -127,7 +127,8 @@ export function ChecklistDisplay({
                       : isLarge
                         ? 'p-3 min-h-[52px]'
                         : 'p-2.5 min-h-[44px]',
-                    isChecked ? 'bg-success-light hover:bg-success-light' : 'hover:bg-surface-hover'
+                    isChecked ? 'bg-success-light hover:bg-success-light' : 'hover:bg-surface-hover',
+                    index % 2 === 0 ? 'bg-surface-hover/30' : ''
                   )}
                   aria-pressed={isChecked}
                 >
