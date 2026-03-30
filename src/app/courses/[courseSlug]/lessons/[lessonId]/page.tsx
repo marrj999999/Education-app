@@ -132,6 +132,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
       actionButtons={actionButtonsSlot}
     >
       <div className="min-h-screen bg-surface-hover">
+        {/* Deployment test banner — remove after confirming user sees it */}
+        <div className="bg-gold text-forest text-center py-3 font-bold text-lg tracking-wide">
+          DESIGN UPDATE v2 — Atkinson Hyperlegible Font Active
+        </div>
         {/* Live Preview — refreshes page when admin saves in CMS */}
         <LivePreviewListener />
         {/* Reading Progress Bar */}
