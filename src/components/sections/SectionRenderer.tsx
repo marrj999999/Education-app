@@ -25,6 +25,8 @@ import { VocabularyCards } from './VocabularyCards';
 import { ResourceEmbed } from './ResourceEmbed';
 import { ProseBlock } from './ProseBlock';
 import { HeadingBlock } from './HeadingBlock';
+import { InstructorNotesCard } from './InstructorNotesCard';
+import { INSTRUCTOR_NOTE_PATTERNS } from '@/lib/lesson-layout';
 
 interface SectionRendererProps {
   section: ContentSection;
@@ -114,6 +116,14 @@ export function SectionRenderer({ section, variant = 'compact', lessonId }: Sect
   }
 
   if (isHeadingSection(section)) {
+    const isInstructorNote = INSTRUCTOR_NOTE_PATTERNS.test(section.text);
+    if (isInstructorNote) {
+      return (
+        <InstructorNotesCard>
+          <HeadingBlock section={section} variant={basicVariant} />
+        </InstructorNotesCard>
+      );
+    }
     return <HeadingBlock section={section} variant={basicVariant} />;
   }
 

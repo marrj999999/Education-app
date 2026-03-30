@@ -19,7 +19,7 @@ import type { ContentSection, HeadingSection } from '@/lib/types/content';
 export type LayoutVersion = 'standard-v1' | 'multi-day-v1' | 'legacy';
 
 // Heading text patterns that indicate instructor notes (Zone 6)
-const INSTRUCTOR_NOTE_PATTERNS = /teaching tips|instructor notes|instructor reflection|reflection guide|for mixed ability|for prison education|engagement strateg|behavior management|contingency|preparation for next/i;
+export const INSTRUCTOR_NOTE_PATTERNS = /teaching tips|instructor notes|instructor reflection|reflection guide|for mixed ability|for prison education|engagement strateg|behavior management|contingency|preparation for next/i;
 
 // Heading text patterns that indicate a multi-day section header
 const DAY_HEADING_PATTERN = /^DAY \d|^Day \d/;
@@ -195,6 +195,10 @@ function getZoneType(section: ContentSection): string | null {
       return 'Assessment';
     case 'resource':
       return 'Resources';
+    case 'heading':
+      // Check if this is an instructor note heading (Zone 6)
+      if (INSTRUCTOR_NOTE_PATTERNS.test((section as HeadingSection).text || '')) return 'Instructor Notes';
+      return null;
     default:
       return null;
   }

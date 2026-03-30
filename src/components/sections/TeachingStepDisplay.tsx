@@ -94,8 +94,8 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
               )}
             </div>
 
-            {/* Main Instruction - only show if different from title */}
-            {section.instruction && section.instruction !== section.title && (
+            {/* Main Instruction - only show if different from title and no activities */}
+            {section.instruction && section.instruction !== section.title && !hasActivities && (
               <InlineEditable
                 sectionId={section.id}
                 field="instruction"

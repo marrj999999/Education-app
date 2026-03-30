@@ -36,12 +36,19 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
 
   const lines = content.split('\n').filter(Boolean);
 
+  // Detect key-value content (lines with **Bold:** Value pattern)
+  const hasKeyValueContent = lines.filter(l => l.trim().match(/^\*\*.*\*\*/)).length >= 3;
+
+  const wrapperClass = hasKeyValueContent
+    ? 'space-y-4 leading-relaxed bg-surface-hover/50 border-l-4 border-l-steel/30 rounded-r-lg p-5'
+    : 'space-y-4 leading-relaxed';
+
   return (
     <InlineEditable
       sectionId={section.id}
       field="content"
       as="div"
-      className="space-y-4 leading-relaxed"
+      className={wrapperClass}
       multiline
     >
       {lines.map((line, index) => {

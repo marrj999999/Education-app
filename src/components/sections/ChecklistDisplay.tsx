@@ -110,7 +110,7 @@ export function ChecklistDisplay({
 
       {/* Items */}
       <div className={cn(isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4')}>
-        <ul className={cn('space-y-2', isPresentation && 'space-y-3')}>
+        <ul className={cn('space-y-2 list-none', isPresentation && 'space-y-3')}>
           {section.items.map((item, index) => {
             const isChecked = checked.includes(item.text);
 
@@ -135,12 +135,12 @@ export function ChecklistDisplay({
                   <span
                     className={cn(
                       'flex-shrink-0 flex items-center justify-center',
-                      'rounded transition-all duration-200 ease-out',
+                      'rounded-full transition-all duration-200 ease-out',
                       // Size: 24px minimum (w-6 h-6)
                       isPresentation ? 'w-8 h-8' : 'w-6 h-6',
                       isChecked
                         ? 'bg-success text-white scale-110'
-                        : 'border-2 border-border text-transparent group-hover:border-success'
+                        : 'border-2 border-teal/30 bg-teal/5 text-transparent rounded-full group-hover:border-teal group-hover:bg-teal/10'
                     )}
                   >
                     <Check

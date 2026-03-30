@@ -6,6 +6,7 @@ const ZONE_CONFIG: Record<string, { icon: string; bgColor: string; textColor: st
   'Assessment': { icon: '\u2705', bgColor: 'bg-gold/10', textColor: 'text-gold-text', borderColor: 'border-gold/30' },
   'Resources': { icon: '\u{1F4DA}', bgColor: 'bg-info/10', textColor: 'text-info', borderColor: 'border-info/30' },
   'Next Session': { icon: '\u{1F504}', bgColor: 'bg-assess/10', textColor: 'text-assess', borderColor: 'border-assess/30' },
+  'Instructor Notes': { icon: '\u{1F4A1}', bgColor: 'bg-steel/10', textColor: 'text-steel', borderColor: 'border-steel/30' },
 };
 
 interface SectionZoneHeaderProps {
