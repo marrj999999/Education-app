@@ -70,7 +70,14 @@ export function SectionTimer({
         {/* Progress Bar */}
         {targetSeconds && (
           <div className="flex-1">
-            <div className="h-3 bg-surface-hover rounded-full overflow-hidden">
+            <div
+              className="h-3 bg-surface-hover rounded-full overflow-hidden"
+              role="progressbar"
+              aria-valuenow={Math.round(Math.min(100, progress))}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`Section time progress: ${Math.round(Math.min(100, progress))}%`}
+            >
               <div
                 className={`h-full transition-all duration-300 ${
                   isOvertime

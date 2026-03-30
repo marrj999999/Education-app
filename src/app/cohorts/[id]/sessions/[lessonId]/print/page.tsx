@@ -126,7 +126,7 @@ export default function PrintPage({ params }: { params: Promise<{ id: string; le
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" role="status" aria-label="Loading print pack" />
           <p className="mt-2 text-text-tertiary">Loading print pack...</p>
         </div>
       </div>

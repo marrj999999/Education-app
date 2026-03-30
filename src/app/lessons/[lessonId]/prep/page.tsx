@@ -94,7 +94,7 @@ export default async function PrepModePage({ params }: PrepPageProps) {
       <PrintHeader title={page.title} icon={page.icon} />
 
       {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+      <main id="main-content" className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="space-y-8">
           {/* Safety Summary - Always show first if present */}
           {safety.length > 0 && (

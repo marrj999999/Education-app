@@ -78,8 +78,8 @@ const statusLabels: Record<string, string> = {
 export default function CohortsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-surface-hover flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal" />
+      <div className="min-h-screen bg-surface-hover flex items-center justify-center" aria-live="polite">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal" role="status" aria-label="Loading cohorts" />
       </div>
     }>
       <CohortsContent />
@@ -200,7 +200,7 @@ function CohortsContent() {
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Actions & Filters */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
@@ -228,7 +228,7 @@ function CohortsContent() {
         {isLoading ? (
           <Card className="p-8 text-center">
             <CardContent className="pt-6">
-              <div className="inline-block w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin" />
+              <div className="inline-block w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin" role="status" aria-label="Loading cohorts" />
               <p className="mt-2 text-muted-foreground">Loading cohorts...</p>
             </CardContent>
           </Card>

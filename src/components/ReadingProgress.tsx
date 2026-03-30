@@ -22,7 +22,14 @@ export default function ReadingProgress() {
   }, []);
 
   return (
-    <div className="fixed top-14 left-0 right-0 h-1 bg-surface-active z-40 print:hidden">
+    <div
+      className="fixed top-14 left-0 right-0 h-1 bg-surface-active z-40 print:hidden"
+      role="progressbar"
+      aria-valuenow={Math.round(progress)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={`Reading progress: ${Math.round(progress)}%`}
+    >
       <div
         className="h-full bg-success transition-all duration-150"
         style={{ width: `${progress}%` }}

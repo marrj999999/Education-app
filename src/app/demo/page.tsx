@@ -299,7 +299,7 @@ export default function DemoPage() {
 
       {/* Prep Mode View */}
       {viewMode === 'prep' && (
-        <main className="max-w-5xl mx-auto px-4 py-8">
+        <main id="main-content" className="max-w-5xl mx-auto px-4 py-8">
           <div className="space-y-8">
             {/* Safety Summary */}
             <section>
@@ -365,7 +365,7 @@ export default function DemoPage() {
           </div>
 
           {/* Current Section */}
-          <main className="flex-1 pb-24">
+          <main id="main-content" className="flex-1 pb-24">
             <CurrentSection
               section={mockSections[currentIndex]}
               lessonId={demoLessonId}

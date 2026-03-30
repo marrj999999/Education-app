@@ -77,7 +77,7 @@ export default async function Home() {
         </nav>
       </header>
 
-      <main>
+      <main id="main-content">
         {/* Hero Section */}
         <div className="bg-forest text-white">
         <div className="max-w-6xl mx-auto px-6 py-12 lg:py-16">

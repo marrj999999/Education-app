@@ -316,7 +316,14 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
               <span className="text-sm font-medium text-text-secondary">Course Progress</span>
               <span className={cn('text-sm font-bold', colorTheme.text)}>{progress.percentage}%</span>
             </div>
-            <div className="h-2 bg-white rounded-full overflow-hidden shadow-inner">
+            <div
+              className="h-2 bg-white rounded-full overflow-hidden shadow-inner"
+              role="progressbar"
+              aria-valuenow={progress.percentage}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`Course progress: ${progress.percentage}%`}
+            >
               <div
                 className={cn('h-full rounded-full transition-all duration-500', colorTheme.bgGradient)}
                 style={{ width: `${progress.percentage}%` }}

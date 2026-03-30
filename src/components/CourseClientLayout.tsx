@@ -37,7 +37,7 @@ function CourseLayoutContent({
       {/* Content area with new sidebar */}
       <div className="flex flex-1">
         <Sidebar course={course} />
-        <main className="flex-1 lg:ml-0">
+        <main id="main-content" className="flex-1 lg:ml-0">
           {children}
         </main>
       </div>
@@ -117,7 +117,7 @@ export default function CourseClientLayout({
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
         />
-        <main className="flex-1 lg:ml-0">
+        <main id="main-content" className="flex-1 lg:ml-0">
           {children}
         </main>
       </div>

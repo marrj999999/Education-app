@@ -34,9 +34,11 @@ p, h1, h2, h3, h4, h5, h6 {
   --teal: #3f8b66;
   --steel: #8da4c1;
   --gold: #ffa900;
+  --gold-text: #946200;
 
   /* Highlight colors (for dark backgrounds) */
   --lime: #d4fd62;
+  --lime-text: #4d6600;
   --sky: #87ceeb;
 
   /* Legacy bamboo variables mapped to BBC colors for compatibility */
@@ -226,7 +228,9 @@ p, h1, h2, h3, h4, h5, h6 {
   --color-teal: var(--teal);
   --color-steel: var(--steel);
   --color-gold: var(--gold);
+  --color-gold-text: var(--gold-text);
   --color-lime: var(--lime);
+  --color-lime-text: var(--lime-text);
   --color-sky: var(--sky);
 
   /* Bamboo palette: bg-bamboo-50 through bg-bamboo-900 */
@@ -544,7 +548,7 @@ html {
 
 /* Progress indicator styling */
 .progress-bar {
-  background: #e5e7eb;
+  background: var(--border);
   border-radius: 100px;
   height: 6px;
   overflow: hidden;
@@ -579,8 +583,8 @@ html {
 }
 
 .badge-pending {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--surface-active);
+  color: var(--text-tertiary);
 }
 
 /* ============================================
@@ -735,7 +739,7 @@ html {
   gap: 8px;
   padding: 10px 20px;
   background: var(--bamboo-500);
-  color: white;
+  color: var(--surface);
   border-radius: 8px;
   font-weight: 500;
   font-size: 0.875rem;
@@ -754,7 +758,7 @@ html {
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: white;
+  background: var(--surface);
   color: var(--foreground);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -765,8 +769,8 @@ html {
 }
 
 .btn-secondary:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
+  background: var(--surface-hover);
+  border-color: var(--scrollbar-thumb);
 }
 
 /* ============================================
@@ -822,7 +826,7 @@ html {
   padding-top: 2rem;
   padding-left: 1rem;
   border-left: 3px solid var(--bamboo-500);
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
   scroll-margin-top: 5rem;
 }
 
@@ -942,17 +946,17 @@ html {
 }
 
 .notion-content th {
-  background: #f9fafb;
-  color: #374151;
+  background: var(--surface-hover);
+  color: var(--text-primary);
   font-weight: 600;
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--border);
 }
 
 .notion-content td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--surface-active);
   vertical-align: top;
 }
 
@@ -961,7 +965,7 @@ html {
 }
 
 .notion-content tr:hover td {
-  background: #f9fafb;
+  background: var(--surface-hover);
 }
 
 /* ============================================
@@ -1002,56 +1006,56 @@ html {
 
 /* Info callout (blue) - Tips, notes, additional context */
 .callout-blue {
-  background: #eff6ff;
-  border-color: #3b82f6;
+  background: var(--color-info-light);
+  border-color: var(--color-info);
 }
 .callout-blue .callout-icon {
-  color: #2563eb;
+  color: var(--color-info);
 }
 
 /* Success callout (green) - Best practices, completed steps */
 .callout-green {
-  background: #f0fdf4;
-  border-color: #22c55e;
+  background: var(--color-success-light);
+  border-color: var(--color-success);
 }
 .callout-green .callout-icon {
-  color: #16a34a;
+  color: var(--color-success);
 }
 
 /* Warning callout (amber) - Cautions, important notices */
 .callout-yellow {
-  background: #fffbeb;
-  border-color: #f59e0b;
+  background: var(--color-warning-light);
+  border-color: var(--color-warning);
 }
 .callout-yellow .callout-icon {
-  color: #d97706;
+  color: var(--color-warning);
 }
 
 /* Danger callout (red) - Errors, critical warnings */
 .callout-red {
-  background: #fef2f2;
-  border-color: #ef4444;
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
 }
 .callout-red .callout-icon {
-  color: #dc2626;
+  color: var(--color-danger);
 }
 
 /* Important callout (purple) - Key concepts, highlights */
 .callout-purple {
-  background: #faf5ff;
-  border-color: #a855f7;
+  background: var(--color-assess-light);
+  border-color: var(--color-assess);
 }
 .callout-purple .callout-icon {
-  color: #9333ea;
+  color: var(--color-assess);
 }
 
 /* Neutral callout (gray) - General notes */
 .callout-gray {
-  background: #f9fafb;
-  border-color: #9ca3af;
+  background: var(--surface-hover);
+  border-color: var(--scrollbar-thumb-hover);
 }
 .callout-gray .callout-icon {
-  color: #6b7280;
+  color: var(--text-tertiary);
 }
 
 /* ============================================
@@ -1062,10 +1066,10 @@ html {
   border-left: 4px solid var(--bamboo-300);
   padding: 1rem 1.5rem;
   margin: 1.5rem 0;
-  background: #f9fafb;
+  background: var(--surface-hover);
   border-radius: 0 8px 8px 0;
   font-style: italic;
-  color: #4b5563;
+  color: var(--text-secondary);
 }
 
 .notion-content blockquote p {
@@ -1080,7 +1084,7 @@ html {
   border: none;
   margin: 3rem 0;
   height: 1px;
-  background: #e5e7eb;
+  background: var(--border);
 }
 
 /* Images */
@@ -1097,15 +1101,15 @@ html {
    ============================================ */
 
 .notion-content pre {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 1.25rem;
   border-radius: 8px;
   overflow-x: auto;
   margin: 1.5rem 0;
   font-size: 0.875rem;
   line-height: 1.6;
-  border: 1px solid #334155;
+  border: 1px solid var(--surface-hover);
 }
 
 .notion-content code {
@@ -1114,8 +1118,8 @@ html {
 
 /* Inline code */
 .notion-content :not(pre) > code {
-  background: #f1f5f9;
-  color: #be185d;
+  background: var(--inline-code-bg);
+  color: var(--inline-code-text);
   padding: 0.15em 0.4em;
   border-radius: 4px;
   font-size: 0.9em;
@@ -1422,7 +1426,9 @@ details .toggle-content {
   transition: all 0.2s ease;
 }
 
-.dark {
+/* Shadcn dark mode defaults — scoped to [data-theme="dark"] to prevent
+   conflicts with the app's own dark-mode variables defined above. */
+[data-theme="dark"] {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -1522,5 +1528,20 @@ details .toggle-content {
   .handbook-section h2 {
     font-size: 1.25rem;
     margin-bottom: 1rem;
+  }
+}
+
+/* =========================================================================
+   Reduced Motion — WCAG 2.3.3 (Animation from Interactions)
+   Respects user preference for reduced motion.
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

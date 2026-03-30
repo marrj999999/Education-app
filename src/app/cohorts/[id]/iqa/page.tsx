@@ -158,7 +158,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-assess border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-assess border-t-transparent rounded-full animate-spin" role="status" aria-label="Loading IQA samples" />
           <p className="mt-2 text-text-tertiary">Loading IQA samples...</p>
         </div>
       </div>
@@ -227,7 +227,7 @@ export default function IqaPage({ params }: { params: Promise<{ id: string }> })
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb Navigation */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>

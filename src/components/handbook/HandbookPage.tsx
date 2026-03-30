@@ -87,7 +87,7 @@ export function HandbookPage({ course, sections, chapters: serverChapters }: Han
           onSearchClick={() => setIsSearchOpen(true)}
         />
 
-        <main className="flex-1 min-w-0">
+        <main id="main-content" className="flex-1 min-w-0">
           {/* Hero — just title and description */}
           <div className="px-8 lg:px-16 pt-12 pb-8 max-w-4xl">
             <h1 className="text-3xl lg:text-4xl font-bold text-text-primary mb-4">

@@ -243,8 +243,8 @@ export default function SectionOrderPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-teal" />
+      <div className="flex items-center justify-center min-h-[400px]" aria-live="polite">
+        <Loader2 className="w-8 h-8 animate-spin text-teal" role="status" aria-label="Loading sections" />
       </div>
     );
   }

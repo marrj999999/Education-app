@@ -224,7 +224,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" />
+          <div className="inline-block w-8 h-8 border-4 border-success border-t-transparent rounded-full animate-spin" role="status" aria-label="Loading learners" />
           <p className="mt-2 text-muted-foreground">Loading learners...</p>
         </div>
       </div>
@@ -322,7 +322,7 @@ export default function LearnersPage({ params }: { params: Promise<{ id: string 
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Actions Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-2">

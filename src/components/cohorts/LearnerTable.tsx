@@ -258,7 +258,14 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                   <td className="py-4 px-4">
                     {learner.attendanceRate !== null ? (
                       <div className="flex items-center gap-2">
-                        <div className="w-16 h-2 bg-surface-active rounded-full overflow-hidden">
+                        <div
+                          className="w-16 h-2 bg-surface-active rounded-full overflow-hidden"
+                          role="progressbar"
+                          aria-valuenow={learner.attendanceRate}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-label={`Attendance: ${learner.attendanceRate}%`}
+                        >
                           <div
                             className={`h-full transition-all ${
                               learner.attendanceRate >= 80
@@ -283,7 +290,14 @@ export function LearnerTable({ learners, onEdit, onDelete, onStatusChange }: Lea
                   <td className="py-4 px-4">
                     {learner.assessmentProgress !== null ? (
                       <div className="flex items-center gap-2">
-                        <div className="w-16 h-2 bg-surface-active rounded-full overflow-hidden">
+                        <div
+                          className="w-16 h-2 bg-surface-active rounded-full overflow-hidden"
+                          role="progressbar"
+                          aria-valuenow={learner.assessmentProgress}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-label={`Assessment progress: ${learner.assessmentProgress}%`}
+                        >
                           <div
                             className="h-full bg-assess transition-all"
                             style={{ width: `${learner.assessmentProgress}%` }}

@@ -262,7 +262,14 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
                   {/* Progress Bar */}
                   <div className="px-5 pb-4 pt-2">
-                    <div className="h-1.5 bg-surface-hover rounded-full overflow-hidden">
+                    <div
+                      className="h-1.5 bg-surface-hover rounded-full overflow-hidden"
+                      role="progressbar"
+                      aria-valuenow={0}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label="Module progress"
+                    >
                       <div className={`h-full ${colorTheme.bgGradient} rounded-full w-0 transition-all`} />
                     </div>
                   </div>

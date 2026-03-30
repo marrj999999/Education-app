@@ -152,7 +152,7 @@ export default function TeachModePage() {
     return (
       <div className="min-h-screen bg-surface-hover flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin mx-auto mb-4" role="status" aria-label="Loading lesson" />
           <p className="text-text-secondary">Loading lesson...</p>
         </div>
       </div>
@@ -262,7 +262,7 @@ export default function TeachModePage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 pb-24">
+      <main id="main-content" className="flex-1 pb-24">
         {currentSection && (
           <CurrentSection
             section={currentSection}

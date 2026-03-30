@@ -204,7 +204,7 @@ export default function UsersPage() {
       <div className="bg-surface rounded-xl shadow-sm border border-border overflow-hidden">
         {isLoading ? (
           <div className="p-8 text-center">
-            <div className="inline-block w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin" />
+            <div className="inline-block w-8 h-8 border-4 border-teal border-t-transparent rounded-full animate-spin" role="status" aria-label="Loading users" />
             <p className="mt-2 text-text-tertiary">Loading users...</p>
           </div>
         ) : users.length === 0 ? (

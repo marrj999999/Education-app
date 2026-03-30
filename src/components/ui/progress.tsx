@@ -13,6 +13,11 @@ function Progress({
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
+      role="progressbar"
+      aria-valuenow={value || 0}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={props["aria-label"] || `Progress: ${Math.round(value || 0)}%`}
       className={cn(
         "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
         className
