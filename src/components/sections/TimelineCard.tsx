@@ -46,8 +46,8 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
             key={index}
             className={cn(
               'bg-surface border border-border border-t-[3px] border-t-teal rounded-2xl',
-              'shadow-sm hover:shadow-md transition-shadow duration-200',
-              isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4'
+              'shadow-md hover:shadow-lg transition-shadow duration-200',
+              isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-5'
             )}
           >
             {/* Time and Duration Badges */}
@@ -55,12 +55,12 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
               {/* Time Badge - Pill shape, blue */}
               <span
                 className={cn(
-                  'inline-flex items-center gap-1.5 bg-info text-white rounded-full font-mono font-semibold',
+                  'inline-flex items-center gap-1.5 bg-forest text-white rounded-lg font-mono font-bold',
                   isPresentation
                     ? 'px-4 py-2 text-lg'
                     : isLarge
                       ? 'px-3 py-1.5 text-sm'
-                      : 'px-2.5 py-1 text-xs'
+                      : 'px-3 py-1.5 text-sm'
                 )}
               >
                 <Clock size={isPresentation ? 18 : isLarge ? 14 : 12} />
@@ -73,12 +73,12 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
               {row.duration && (
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1 bg-surface-active text-text-secondary rounded-full font-medium',
+                    'inline-flex items-center gap-1 bg-gold/20 text-gold-text rounded-lg font-medium',
                     isPresentation
                       ? 'px-4 py-2 text-base'
                       : isLarge
                         ? 'px-3 py-1 text-sm'
-                        : 'px-2 py-0.5 text-xs'
+                        : 'px-3 py-1 text-sm'
                   )}
                 >
                   <Timer size={isPresentation ? 16 : isLarge ? 14 : 12} />
@@ -95,12 +95,12 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
               field={`rows[${index}].activity`}
               as="h4"
               className={cn(
-                'font-bold text-text-primary',
+                'font-bold text-lg text-text-primary',
                 isPresentation
                   ? 'text-xl mb-2'
                   : isLarge
                     ? 'text-lg mb-1'
-                    : 'text-base mb-1'
+                    : 'text-lg mb-1'
               )}
             >
               {row.activity}

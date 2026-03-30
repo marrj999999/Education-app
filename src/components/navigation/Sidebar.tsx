@@ -85,13 +85,13 @@ const LessonItem = memo(function LessonItem({
     <Link
       href={lesson.url}
       className={cn(
-        'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm',
+        'flex items-center gap-3 px-3 py-2 rounded-lg text-sm',
         'transition-all duration-200 min-h-[44px]',
         isActive
-          ? `${colorTheme.light} ${colorTheme.text} font-medium`
+          ? 'bg-teal text-white rounded-lg px-3 py-2 font-semibold'
           : isComplete
-            ? 'text-text-tertiary hover:bg-surface-hover'
-            : 'text-text-secondary hover:bg-surface-hover'
+            ? 'text-text-tertiary hover:bg-bamboo-50 rounded-lg px-3 py-2 transition-colors'
+            : 'text-text-secondary hover:bg-bamboo-50 rounded-lg px-3 py-2 transition-colors'
       )}
     >
       {/* Completion indicator */}
@@ -237,7 +237,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
       <aside
         ref={sidebarRef}
         className={cn(
-          'fixed top-14 left-0 h-[calc(100vh-3.5rem)] bg-surface border-r border-border z-50',
+          'fixed top-14 left-0 h-[calc(100vh-3.5rem)] bg-gradient-to-b from-bamboo-50 to-surface border-r border-border z-50',
           'transform transition-all duration-300 ease-in-out',
           'flex flex-col shadow-lg lg:shadow-none',
           'bamboo-stripe',

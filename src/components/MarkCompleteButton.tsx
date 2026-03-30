@@ -16,7 +16,7 @@ export default function MarkCompleteButton({ lessonId }: MarkCompleteButtonProps
     <button
       onClick={() => toggleComplete(lessonId)}
       className={`
-        flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all
+        flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all shadow-sm
         ${completed
           ? 'bg-bamboo-100 text-forest hover:bg-bamboo-200'
           : 'bg-gold text-forest hover:brightness-110'

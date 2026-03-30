@@ -222,7 +222,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </div>
 
         {/* Lesson Content */}
-        <article id="main-content" className="mt-6 mb-8 bg-surface rounded-2xl shadow-md border border-border/50 p-8 md:p-10">
+        <article id="main-content" className="mt-6 mb-8 bg-white rounded-2xl shadow-lg border-2 border-border p-8 md:p-10">
           {isAdmin ? (
             <EditableLessonContent
               lessonId={lessonId}

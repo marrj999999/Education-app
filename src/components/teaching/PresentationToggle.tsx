@@ -22,12 +22,12 @@ export function PresentationToggle({
       <button
         onClick={onToggle}
         className={cn(
-          'flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm',
-          'transition-all duration-200',
+          'flex items-center gap-2 px-3 py-2 rounded-lg font-semibold text-sm',
+          'transition-all duration-200 shadow-sm',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal',
           isPresentation
             ? 'bg-teal text-white hover:bg-forest'
-            : 'bg-surface-hover text-text-secondary hover:bg-surface-active'
+            : 'bg-surface-hover text-text-secondary hover:bg-surface-active border-2 border-border'
         )}
         aria-pressed={isPresentation}
         title={isPresentation ? 'Exit presentation mode (Esc)' : 'Enter presentation mode'}
