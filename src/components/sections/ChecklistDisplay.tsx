@@ -39,6 +39,13 @@ export function ChecklistDisplay({
     preparation: 'bg-success-light text-success-darker',
   };
 
+  const categoryHeaderColors: Record<string, string> = {
+    materials: 'bg-info/10',
+    tools: 'bg-warning/10',
+    equipment: 'bg-teal/10',
+    preparation: 'bg-success/10',
+  };
+
   return (
     <div
       className={cn(
@@ -51,7 +58,8 @@ export function ChecklistDisplay({
       <div
         className={cn(
           'border-b border-border',
-          isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4'
+          isPresentation ? 'p-6' : isLarge ? 'p-5' : 'p-4',
+          categoryHeaderColors[section.category] || ''
         )}
       >
         <div className="flex items-center justify-between flex-wrap gap-3">

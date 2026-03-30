@@ -18,15 +18,14 @@ export function SectionZoneHeader({ label }: SectionZoneHeaderProps) {
   const config = ZONE_CONFIG[label] || { icon: '\u{1F4C4}', bgColor: 'bg-surface-hover', textColor: 'text-text-secondary', borderColor: 'border-border' };
 
   return (
-    <div className="flex items-center gap-3 my-10">
-      <div className="flex-1 h-px bg-border" />
-      <div className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border ${config.bgColor} ${config.borderColor}`}>
-        <span className="text-xl">{config.icon}</span>
+    <div className={`my-8 -mx-8 md:-mx-10 px-8 md:px-10 py-4 ${config.bgColor} border-y ${config.borderColor}`}>
+      <div className="flex items-center gap-3">
+        <span className="text-2xl">{config.icon}</span>
         <span className={`text-base font-bold uppercase tracking-wider ${config.textColor}`}>
           {label}
         </span>
+        <div className="flex-1 h-px bg-current opacity-20" />
       </div>
-      <div className="flex-1 h-px bg-border" />
     </div>
   );
 }

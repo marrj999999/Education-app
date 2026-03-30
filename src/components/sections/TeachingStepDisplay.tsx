@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Timer, Lightbulb, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Users, Quote, FileText, ExternalLink } from 'lucide-react';
+import { Lightbulb, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Users, Quote, FileText, ExternalLink } from 'lucide-react';
 import type { TeachingStepSection } from '@/lib/types/content';
 import { cn } from '@/lib/utils';
 import VideoEmbed from '@/components/VideoEmbed';
@@ -32,67 +32,19 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
   const hasParagraphs = section.paragraphs && section.paragraphs.length > 0;
 
   return (
-    <div className="bg-surface border border-border border-l-4 border-l-teal rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
-      <div className={cn(isPresentation ? 'p-8' : isLarge ? 'p-6' : 'p-4')}>
-        <div className={cn('flex', isPresentation ? 'gap-6' : 'gap-4')}>
-          {/* Step Number Circle - Green for sections */}
-          <div
-            className={cn(
-              'flex-shrink-0 bg-teal text-white rounded-full',
-              'flex items-center justify-center font-bold',
-              isPresentation
-                ? 'w-24 h-24 text-present-step'
-                : isTeaching
-                  ? 'w-20 h-20 text-teaching-step'
-                  : isLarge
-                    ? 'w-16 h-16 text-3xl'
-                    : 'w-12 h-12 text-xl'
-            )}
-          >
-            {section.stepNumber}
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 min-w-0">
-            {/* Title and Duration */}
-            <div className="flex items-center gap-3 flex-wrap mb-3">
-              {section.title && (
-                <InlineEditable
-                  sectionId={section.id}
-                  field="title"
-                  as="h3"
-                  className={cn(
-                    'font-semibold text-text-primary',
-                    isPresentation
-                      ? 'text-present-heading'
-                      : isTeaching
-                        ? 'text-teaching-heading'
-                        : isLarge
-                          ? 'text-xl'
-                          : 'text-lg'
-                  )}
-                >
-                  {section.title}
-                </InlineEditable>
-              )}
-              {section.duration && (
-                <span
-                  className={cn(
-                    'inline-flex items-center gap-1.5 bg-forest text-white rounded-full font-medium',
-                    isPresentation
-                      ? 'px-4 py-2 text-lg'
-                      : isLarge
-                        ? 'px-3 py-1.5 text-sm'
-                        : 'px-2.5 py-1 text-xs'
-                  )}
-                >
-                  <Timer size={isPresentation ? 20 : isLarge ? 16 : 14} />
-                  <InlineEditable sectionId={section.id} field="duration" as="span">
-                    {section.duration}
-                  </InlineEditable>
-                </span>
-              )}
-            </div>
+    <div className="bg-surface border border-border rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+      {/* Colored header bar */}
+      <div className={cn('bg-gradient-to-r from-teal to-teal/80 px-6 py-4 flex items-center gap-4', isPresentation ? 'px-8 py-6' : '')}>
+        <div className={cn('flex-shrink-0 bg-white/20 text-white rounded-full flex items-center justify-center font-bold', isPresentation ? 'w-16 h-16 text-3xl' : isLarge ? 'w-12 h-12 text-2xl' : 'w-10 h-10 text-lg')}>
+          {section.stepNumber}
+        </div>
+        <div className="flex-1 min-w-0">
+          {section.title && <h3 className={cn('font-semibold text-white', isPresentation ? 'text-2xl' : isLarge ? 'text-lg' : 'text-base')}>{section.title}</h3>}
+          {section.duration && <span className="text-white/70 text-sm">{section.duration}</span>}
+        </div>
+      </div>
+      {/* Content below header */}
+      <div className={cn(isPresentation ? 'p-8' : isLarge ? 'p-6' : 'p-5')}>
 
             {/* Main Instruction - only show if different from title and no activities */}
             {section.instruction && section.instruction !== section.title && !hasActivities && (
@@ -115,8 +67,6 @@ export function TeachingStepDisplay({ section, variant = 'compact' }: TeachingSt
                 {section.instruction}
               </InlineEditable>
             )}
-          </div>
-        </div>
 
         {/* Activities List */}
         {hasActivities && (

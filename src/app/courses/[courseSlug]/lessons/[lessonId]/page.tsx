@@ -156,16 +156,16 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Lesson Header - Overlapping card style */}
         <header className={`
-          bg-surface rounded-xl shadow-sm shadow-md border border-border p-8 md:p-10
+          bg-gradient-to-br from-forest via-forest/90 to-teal rounded-xl shadow-sm shadow-md p-8 md:p-10 text-white
           ${page.cover ? '-mt-16 relative z-10' : 'mt-8'}
         `}>
           <div className="flex items-start gap-4">
             {page.icon ? (
-              <div className={`w-14 h-14 rounded-xl ${colorTheme.light} flex items-center justify-center flex-shrink-0`}>
+              <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                 <span className="text-3xl">{page.icon}</span>
               </div>
             ) : (
-              <div className={`w-14 h-14 rounded-xl ${colorTheme.bgGradient} flex items-center justify-center flex-shrink-0`}>
+              <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                 <DynamicIcon name={course.icon} size={28} className="text-white" />
               </div>
             )}
@@ -174,14 +174,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
                 <EditableLessonTitle
                   lessonId={lessonId}
                   title={page.title}
-                  className="text-3xl md:text-4xl font-bold text-text-primary mb-2"
+                  className="text-3xl md:text-4xl font-bold text-white mb-2"
                 />
               ) : (
-                <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
                   {page.title}
                 </h1>
               )}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-text-secondary">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-white/70">
                 <span className="flex items-center gap-1.5">
                   <BookIcon size={16} />
                   {readingTime} min read
@@ -209,15 +209,15 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <div className="flex bg-surface-active rounded-xl p-1.5 mt-6 gap-1">
           <Link
             href={`/lessons/${lessonId}/prep`}
-            className="flex-1 text-center py-3.5 px-4 bg-surface shadow-sm rounded-lg transition-all"
+            className="flex-1 text-center py-3.5 px-4 bg-teal text-white shadow-sm rounded-lg transition-all"
           >
-            <span className="block font-semibold text-text-primary">Prep Mode</span>
+            <span className="block font-semibold">{'\u{1F4CB}'} Prep Mode</span>
           </Link>
           <Link
             href={`/lessons/${lessonId}/teach`}
-            className="flex-1 text-center py-3.5 px-4 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface/50 transition-all"
+            className="flex-1 text-center py-3.5 px-4 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-active transition-all"
           >
-            <span className="block font-semibold">Teaching Mode</span>
+            <span className="block font-semibold">{'\u{1F393}'} Teaching Mode</span>
           </Link>
         </div>
 
