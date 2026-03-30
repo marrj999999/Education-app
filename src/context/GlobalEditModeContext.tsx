@@ -33,16 +33,9 @@ export function GlobalEditModeProvider({ children }: { children: ReactNode }) {
   const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  // Load from localStorage on mount
+  // Don't auto-activate edit mode on page load
+  // User must explicitly click the pencil toggle each session
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === 'true') {
-        setIsEditModeEnabled(true);
-      }
-    } catch {
-      // localStorage not available
-    }
     setHydrated(true);
   }, []);
 

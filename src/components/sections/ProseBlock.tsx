@@ -2,6 +2,7 @@
 
 import type { ProseSection } from '@/lib/types/content';
 import { InlineEditable } from '@/components/editing/InlineEditable';
+import { renderInlineMarkdown } from '@/lib/markdown-inline';
 
 interface ProseBlockProps {
   section: ProseSection;
@@ -40,7 +41,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
       sectionId={section.id}
       field="content"
       as="div"
-      className="space-y-3"
+      className="space-y-4 leading-relaxed"
       multiline
     >
       {lines.map((line, index) => {
@@ -53,7 +54,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
               key={index}
               className={`border-l-4 border-border pl-4 italic text-text-secondary ${isLarge ? 'text-lg' : 'text-base'}`}
             >
-              {trimmed.substring(2)}
+              {renderInlineMarkdown(trimmed.substring(2))}
             </blockquote>
           );
         }
@@ -64,7 +65,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
             <div key={index} className="flex items-start gap-2">
               <span className="text-text-tertiary mt-1 flex-shrink-0">•</span>
               <span className={`text-text-secondary ${isLarge ? 'text-lg' : 'text-base'}`}>
-                {trimmed.substring(2)}
+                {renderInlineMarkdown(trimmed.substring(2))}
               </span>
             </div>
           );
@@ -79,7 +80,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
                 {isChecked ? '☑' : '☐'}
               </span>
               <span className={`${isLarge ? 'text-lg' : 'text-base'} ${isChecked ? 'text-text-tertiary line-through' : 'text-text-secondary'}`}>
-                {trimmed.substring(2)}
+                {renderInlineMarkdown(trimmed.substring(2))}
               </span>
             </div>
           );
@@ -96,7 +97,7 @@ export function ProseBlock({ section, variant = 'compact' }: ProseBlockProps) {
             key={index}
             className={`text-text-secondary leading-relaxed ${isLarge ? 'text-lg lg:text-xl' : 'text-base'}`}
           >
-            {trimmed}
+            {renderInlineMarkdown(trimmed)}
           </p>
         );
       })}
