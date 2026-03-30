@@ -36,17 +36,15 @@ export function LessonPresentationWrapper({
     )}>
       {/* Action bar with presentation toggle */}
       <div className={cn(
-        "sticky top-14 z-20 backdrop-blur-sm border-b",
+        "sticky top-16 z-20",
         isPresentation && isDarkMode
-          ? "bg-forest/95 border-slate-700"
-          : "bg-white/95 border-border"
+          ? "bg-forest/95"
+          : "bg-forest"
       )}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12">
             {/* Original action slot (lesson progress) */}
-            <div className={cn(
-              isPresentation && isDarkMode && "text-slate-300"
-            )}>
+            <div className="text-white/70">
               {actionSlot}
             </div>
 
