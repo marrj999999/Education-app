@@ -140,7 +140,7 @@ export function ChecklistDisplay({
                       isPresentation ? 'w-8 h-8' : 'w-6 h-6',
                       isChecked
                         ? 'bg-success text-white scale-110'
-                        : 'border-2 border-teal/30 bg-teal/5 text-transparent rounded-full group-hover:border-teal group-hover:bg-teal/10'
+                        : 'border-2 border-teal bg-teal/15 text-teal/20 rounded-full group-hover:border-forest group-hover:bg-teal/25'
                     )}
                   >
                     <Check

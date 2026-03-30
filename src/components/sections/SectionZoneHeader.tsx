@@ -1,12 +1,12 @@
 'use client';
 
 const ZONE_CONFIG: Record<string, { icon: string; bgColor: string; textColor: string; borderColor: string }> = {
-  'Preparation': { icon: '\u{1F4CB}', bgColor: 'bg-teal/10', textColor: 'text-teal', borderColor: 'border-teal/30' },
-  'Delivery': { icon: '\u{1F393}', bgColor: 'bg-forest/10', textColor: 'text-forest', borderColor: 'border-forest/30' },
-  'Assessment': { icon: '\u2705', bgColor: 'bg-gold/10', textColor: 'text-gold-text', borderColor: 'border-gold/30' },
-  'Resources': { icon: '\u{1F4DA}', bgColor: 'bg-info/10', textColor: 'text-info', borderColor: 'border-info/30' },
-  'Next Session': { icon: '\u{1F504}', bgColor: 'bg-assess/10', textColor: 'text-assess', borderColor: 'border-assess/30' },
-  'Instructor Notes': { icon: '\u{1F4A1}', bgColor: 'bg-steel/10', textColor: 'text-steel', borderColor: 'border-steel/30' },
+  'Preparation': { icon: '\u{1F4CB}', bgColor: 'bg-teal/20', textColor: 'text-forest', borderColor: 'border-teal' },
+  'Delivery': { icon: '\u{1F393}', bgColor: 'bg-forest/20', textColor: 'text-forest', borderColor: 'border-forest' },
+  'Assessment': { icon: '\u2705', bgColor: 'bg-gold/20', textColor: 'text-gold-text', borderColor: 'border-gold' },
+  'Resources': { icon: '\u{1F4DA}', bgColor: 'bg-info/20', textColor: 'text-info', borderColor: 'border-info' },
+  'Next Session': { icon: '\u{1F504}', bgColor: 'bg-assess/20', textColor: 'text-assess', borderColor: 'border-assess' },
+  'Instructor Notes': { icon: '\u{1F4A1}', bgColor: 'bg-steel/20', textColor: 'text-steel', borderColor: 'border-steel' },
 };
 
 interface SectionZoneHeaderProps {
