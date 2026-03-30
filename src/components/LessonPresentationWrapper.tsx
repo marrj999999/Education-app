@@ -32,13 +32,13 @@ export function LessonPresentationWrapper({
   return (
     <div className={cn(
       "min-h-screen transition-colors duration-300",
-      isPresentation && isDarkMode && "bg-slate-900"
+      isPresentation && isDarkMode && "bg-forest"
     )}>
       {/* Action bar with presentation toggle */}
       <div className={cn(
         "sticky top-14 z-20 backdrop-blur-sm border-b",
         isPresentation && isDarkMode
-          ? "bg-slate-800/95 border-slate-700"
+          ? "bg-forest/95 border-slate-700"
           : "bg-white/95 border-border"
       )}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

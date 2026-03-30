@@ -175,8 +175,8 @@ const VideoEmbed = memo(function VideoEmbed({
 
         {/* Loading placeholder */}
         {!isInView && (
-          <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center">
+          <div className="absolute inset-0 bg-forest flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-forest/80 flex items-center justify-center">
               <PlayIcon size={32} className="text-gray-500" />
             </div>
           </div>

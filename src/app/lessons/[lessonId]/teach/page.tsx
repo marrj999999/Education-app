@@ -198,7 +198,7 @@ export default function TeachModePage() {
     <div className={cn(
       "min-h-screen flex flex-col transition-colors duration-300",
       isPresentationMode && isDarkMode
-        ? "bg-slate-900 text-slate-100"
+        ? "bg-forest text-white"
         : "bg-surface-hover"
     )}>
       {/* Safety Bar - Fixed at top */}

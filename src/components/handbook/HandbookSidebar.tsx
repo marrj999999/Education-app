@@ -63,7 +63,7 @@ export function HandbookSidebar({
       {/* Mobile Toggle */}
       <button
         onClick={() => setIsOpen(true)}
-        className="lg:hidden fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gray-900 text-white shadow-lg flex items-center justify-center hover:bg-gray-800 transition-colors"
+        className="lg:hidden fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-forest text-white shadow-lg flex items-center justify-center hover:bg-gray-800 transition-colors"
         aria-label="Open table of contents"
       >
         <Menu size={24} />
@@ -92,7 +92,7 @@ export function HandbookSidebar({
         {/* Progress bar */}
         <div className="h-0.5 bg-surface-hover shrink-0">
           <div
-            className="h-full bg-gray-900 transition-all duration-150 ease-out"
+            className="h-full bg-forest transition-all duration-150 ease-out"
             style={{ width: `${readProgress}%` }}
           />
         </div>

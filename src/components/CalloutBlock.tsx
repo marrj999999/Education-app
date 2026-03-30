@@ -228,14 +228,14 @@ export default function CalloutBlock({ block }: CalloutBlockProps) {
       text: 'text-warning-darker',
     },
     orange: {
-      bg: 'bg-orange-50',
-      border: 'border-orange-200',
-      text: 'text-orange-900',
+      bg: 'bg-warning-light',
+      border: 'border-warning-medium',
+      text: 'text-warning-darker',
     },
     orange_background: {
-      bg: 'bg-orange-100',
-      border: 'border-orange-300',
-      text: 'text-orange-900',
+      bg: 'bg-warning-light',
+      border: 'border-warning-medium',
+      text: 'text-warning-darker',
     },
     yellow: {
       bg: 'bg-caution-light',
@@ -278,14 +278,14 @@ export default function CalloutBlock({ block }: CalloutBlockProps) {
       text: 'text-assess-darker',
     },
     pink: {
-      bg: 'bg-pink-50',
-      border: 'border-pink-200',
-      text: 'text-pink-900',
+      bg: 'bg-assess-light',
+      border: 'border-assess-medium',
+      text: 'text-assess-darker',
     },
     pink_background: {
-      bg: 'bg-pink-100',
-      border: 'border-pink-300',
-      text: 'text-pink-900',
+      bg: 'bg-assess-light',
+      border: 'border-assess-medium',
+      text: 'text-assess-darker',
     },
     red: {
       bg: 'bg-danger-light',

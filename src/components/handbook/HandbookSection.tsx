@@ -33,7 +33,7 @@ export function HandbookSection({
       {/* Section Title — PDF manual style with phase badge */}
       <div className="flex items-start gap-4 mb-6">
         {/* Phase number badge */}
-        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-mono text-sm font-bold">
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-forest text-white flex items-center justify-center font-mono text-sm font-bold">
           {String(index + 1).padStart(2, '0')}
         </div>
         <h2 className="text-2xl font-mono font-semibold text-text-primary pt-1">

@@ -52,8 +52,8 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
               target="_blank"
               rel="noopener noreferrer"
               className={`
-                inline-flex items-center gap-2 bg-gray-900 text-white rounded-lg
-                hover:bg-gray-800 transition-colors font-medium
+                inline-flex items-center gap-2 bg-forest text-white rounded-lg
+                hover:bg-forest/90 transition-colors font-medium
                 ${isLarge ? 'px-4 py-2 text-base' : 'px-3 py-1.5 text-sm'}
               `}
             >
@@ -104,7 +104,7 @@ export function ResourceEmbed({ section, variant = 'compact' }: ResourceEmbedPro
         )}
         <div
           className={`
-            relative bg-gray-900 rounded-lg overflow-hidden
+            relative bg-forest rounded-lg overflow-hidden
             ${isLarge ? 'aspect-video' : 'aspect-video max-w-2xl'}
           `}
         >

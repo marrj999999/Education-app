@@ -40,10 +40,10 @@ export function MediaSkeleton({ type, className = '' }: MediaSkeletonProps) {
   if (type === 'video') {
     return (
       <div className={`mb-6 ${className}`}>
-        <div className="relative w-full bg-gray-900 rounded-xl overflow-hidden aspect-video animate-pulse">
-          <div className="absolute inset-0 bg-gray-700 skeleton-shimmer" />
+        <div className="relative w-full bg-forest rounded-xl overflow-hidden aspect-video animate-pulse">
+          <div className="absolute inset-0 bg-forest/80 skeleton-shimmer" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-forest/80 flex items-center justify-center">
               <svg
                 className="w-8 h-8 text-gray-500 ml-1"
                 fill="currentColor"

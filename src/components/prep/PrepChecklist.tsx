@@ -110,7 +110,7 @@ export function PrepChecklist({ sections, lessonId }: PrepChecklistProps) {
 
   const categoryColors: Record<Category, string> = {
     materials: 'border-info bg-info-light',
-    tools: 'border-orange-500 bg-orange-50',
+    tools: 'border-warning bg-warning-light',
     equipment: 'border-assess bg-assess-light',
     preparation: 'border-success bg-success-light',
   };

@@ -116,7 +116,7 @@ function renderRichText(richText: RichText[]): React.ReactNode {
       content = (
         <code
           key={`code-${index}`}
-          className="bg-surface-hover text-pink-600 px-1.5 py-0.5 rounded text-sm font-mono"
+          className="bg-surface-hover text-assess px-1.5 py-0.5 rounded text-sm font-mono"
         >
           {content}
         </code>
@@ -146,12 +146,12 @@ function renderRichText(richText: RichText[]): React.ReactNode {
       const colorClasses: Record<string, string> = {
         gray: 'text-text-tertiary',
         brown: 'text-warning-dark',
-        orange: 'text-orange-500',
+        orange: 'text-warning',
         yellow: 'text-caution',
         green: 'text-teal',
         blue: 'text-info',
         purple: 'text-assess',
-        pink: 'text-pink-600',
+        pink: 'text-assess',
         red: 'text-danger',
       };
       const colorClass = colorClasses[text.annotations.color];

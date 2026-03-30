@@ -73,7 +73,7 @@ export function TimelineCard({ section, variant = 'compact' }: TimelineCardProps
               {row.duration && (
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1 bg-slate-200 text-slate-700 rounded-full font-medium',
+                    'inline-flex items-center gap-1 bg-surface-active text-text-secondary rounded-full font-medium',
                     isPresentation
                       ? 'px-4 py-2 text-base'
                       : isLarge

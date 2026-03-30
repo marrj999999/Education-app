@@ -26,15 +26,15 @@ export function ChecklistDisplay({
 
   // Category colors - using semantic borders
   const categoryColors: Record<string, string> = {
-    materials: 'border-l-blue-500',
-    tools: 'border-l-orange-500',
+    materials: 'border-l-info',
+    tools: 'border-l-warning',
     equipment: 'border-l-assess',
-    preparation: 'border-l-green-500',
+    preparation: 'border-l-success',
   };
 
   const categoryBadgeColors: Record<string, string> = {
     materials: 'bg-info-light text-info-darker',
-    tools: 'bg-orange-100 text-orange-800',
+    tools: 'bg-warning-light text-warning-darker',
     equipment: 'bg-assess-light text-assess-darker',
     preparation: 'bg-success-light text-success-darker',
   };
