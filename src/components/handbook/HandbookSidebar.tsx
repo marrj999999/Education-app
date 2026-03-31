@@ -80,7 +80,7 @@ export function HandbookSidebar({
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 lg:top-16 left-0 z-50 lg:z-auto
+          fixed lg:sticky top-0 lg:top-20 left-0 z-50 lg:z-auto
           w-72 h-screen lg:h-[calc(100vh-4rem)]
           bg-surface border-r border-border
           transform transition-transform duration-300 ease-in-out

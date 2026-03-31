@@ -13,9 +13,10 @@ interface UserMenuProps {
     image?: string | null;
     role: Role;
   };
+  variant?: 'light' | 'dark';
 }
 
-export default function UserMenu({ user }: UserMenuProps) {
+export default function UserMenu({ user, variant = 'light' }: UserMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +52,10 @@ export default function UserMenu({ user }: UserMenuProps) {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-hover transition-colors"
+        className={variant === 'dark'
+          ? "flex items-center gap-3 p-2 rounded-lg hover:bg-white/10 transition-colors"
+          : "flex items-center gap-3 p-2 rounded-lg hover:bg-surface-hover transition-colors"
+        }
       >
         {user.image ? (
           <img
@@ -65,15 +69,15 @@ export default function UserMenu({ user }: UserMenuProps) {
           </div>
         )}
         <div className="hidden sm:block text-left">
-          <p className="text-sm font-medium text-text-primary truncate max-w-[150px]">
+          <p className={`text-sm font-medium truncate max-w-[150px] ${variant === 'dark' ? 'text-white' : 'text-text-primary'}`}>
             {user.name || user.email}
           </p>
-          <p className="text-xs text-text-tertiary">
+          <p className={`text-xs ${variant === 'dark' ? 'text-white/60' : 'text-text-tertiary'}`}>
             {roleDisplayNames[user.role]}
           </p>
         </div>
         <svg
-          className={`w-4 h-4 text-text-tertiary transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transition-transform ${variant === 'dark' ? 'text-white/60' : 'text-text-tertiary'} ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
   const [theme, setTheme] = useState<Theme>('system');
   const [mounted, setMounted] = useState(false);
 
@@ -35,7 +35,10 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="p-2 rounded-lg bg-surface-hover text-text-secondary"
+        className={variant === 'dark'
+          ? "p-2 rounded-lg bg-white/10 text-white/60"
+          : "p-2 rounded-lg bg-surface-hover text-text-secondary"
+        }
         aria-label="Toggle theme"
         disabled
       >
@@ -118,7 +121,10 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={cycleTheme}
-      className="p-2 rounded-lg bg-surface-hover hover:bg-border text-text-secondary transition-colors"
+      className={variant === 'dark'
+        ? "p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-colors"
+        : "p-2 rounded-lg bg-surface-hover hover:bg-border text-text-secondary transition-colors"
+      }
       aria-label={getLabel()}
       title={getLabel()}
     >

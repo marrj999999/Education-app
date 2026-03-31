@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getEnabledCourses, COURSE_COLOR_THEMES } from '@/lib/courses';
 import {
-  BambooIcon,
   BookIcon,
   ChevronRightIcon,
   DynamicIcon,
@@ -64,29 +63,27 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-surface-hover">
       {/* Header */}
-      <header className="bg-surface border-b border-border sticky top-0 z-30">
+      <header className="bg-forest shadow-lg sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <Link href="/dashboard" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center">
-                <BambooIcon size={24} className="text-white" />
-              </div>
+              <img src="/logo-bbc.png" alt="Bamboo Bicycle Club" className="h-12 w-auto brightness-0 invert" />
               <div className="hidden sm:block">
-                <p className="font-bold text-text-primary">Bamboo Bicycle Club</p>
-                <p className="text-xs text-text-tertiary">Instructor Dashboard</p>
+                <p className="font-bold text-white text-sm">Bamboo Bicycle Club</p>
+                <p className="text-xs text-white/60">Instructor Dashboard</p>
               </div>
             </Link>
 
             <div className="flex items-center gap-4">
               {isAdmin && (
                 <Link href="/admin">
-                  <Button variant="ghost" size="sm" className="gap-2">
+                  <Button variant="ghost" size="sm" className="gap-2 bg-white/10 text-white border border-white/20 hover:bg-white/20">
                     <Settings className="w-4 h-4" />
                     <span className="hidden sm:inline">Admin</span>
                   </Button>
                 </Link>
               )}
-              <UserMenu user={user} />
+              <UserMenu user={user} variant="dark" />
             </div>
           </div>
         </div>

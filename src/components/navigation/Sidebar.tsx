@@ -227,7 +227,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 top-14 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 top-20 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
@@ -237,7 +237,7 @@ export const Sidebar = memo(function Sidebar({ course, className }: SidebarProps
       <aside
         ref={sidebarRef}
         className={cn(
-          'fixed top-14 left-0 h-[calc(100vh-3.5rem)] bg-gradient-to-b from-bamboo-50 to-surface border-r border-border z-50',
+          'fixed top-20 left-0 h-[calc(100vh-3.5rem)] bg-gradient-to-b from-bamboo-50 to-surface border-r border-border z-50',
           'transform transition-all duration-300 ease-in-out',
           'flex flex-col shadow-lg lg:shadow-none',
           'bamboo-stripe',

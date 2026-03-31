@@ -36,7 +36,7 @@ export function LessonPresentationWrapper({
     )}>
       {/* Action bar with presentation toggle */}
       <div className={cn(
-        "sticky top-16 z-20",
+        "sticky top-20 z-20",
         isPresentation && isDarkMode
           ? "bg-forest/95"
           : "bg-forest"

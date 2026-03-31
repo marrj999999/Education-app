@@ -116,7 +116,7 @@ export default memo(function CourseSidebar({ modules, course, isOpen, onToggle }
       {/* Mobile overlay - starts below TopNav */}
       {isOpen && (
         <div
-          className="fixed inset-0 top-14 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 top-20 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
           onClick={onToggle}
         />
       )}
@@ -124,7 +124,7 @@ export default memo(function CourseSidebar({ modules, course, isOpen, onToggle }
       {/* Sidebar - positioned below TopNav */}
       <aside
         className={`
-          fixed top-14 left-0 h-[calc(100vh-3.5rem)] w-72 bg-gradient-to-b from-bamboo-50 to-surface border-r border-border z-50
+          fixed top-20 left-0 h-[calc(100vh-3.5rem)] w-72 bg-gradient-to-b from-bamboo-50 to-surface border-r border-border z-50
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0 lg:static lg:h-auto

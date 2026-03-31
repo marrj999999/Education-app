@@ -26,8 +26,8 @@ export function PresentationToggle({
           'transition-all duration-200 shadow-sm',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal',
           isPresentation
-            ? 'bg-teal text-white hover:bg-forest'
-            : 'bg-surface-hover text-text-secondary hover:bg-surface-active border-2 border-border'
+            ? 'bg-gold text-forest hover:bg-gold/90'
+            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
         )}
         aria-pressed={isPresentation}
         title={isPresentation ? 'Exit presentation mode (Esc)' : 'Enter presentation mode'}
